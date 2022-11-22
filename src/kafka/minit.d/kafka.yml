@@ -1,0 +1,11 @@
+name: kafka-render-conf
+kind: render
+files:
+  - /opt/kafka/config/server.properties
+---
+name: kafka
+kind: daemon
+dir: /opt/kafka
+command:
+  - kafka-server-start.sh
+  - config/server.properties

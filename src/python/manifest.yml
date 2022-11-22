@@ -1,0 +1,60 @@
+name: python
+vars:
+  debian-11:
+    debian_version: 11
+    upstream: debian:11
+  python-3.11:
+    python_version: 3.11
+    python_download_url: 'https://www.python.org/ftp/python/3.11.0/Python-3.11.0.tgz'
+  python-3.10:
+    python_version: 3.10
+    python_download_url: 'https://www.python.org/ftp/python/3.10.8/Python-3.10.8.tgz'
+  python-3.9:
+    python_version: 3.9
+    python_download_url: 'https://www.python.org/ftp/python/3.9.15/Python-3.9.15.tgz'
+  python-3.8:
+    python_version: 3.8
+    python_download_url: 'https://www.python.org/ftp/python/3.8.15/Python-3.8.15.tgz'
+  python-3.7:
+    python_version: 3.7
+    python_download_url: 'https://www.python.org/ftp/python/3.7.15/Python-3.7.15.tgz'
+  python-3.6:
+    python_version: 3.6
+    python_download_url: 'https://www.python.org/ftp/python/3.6.15/Python-3.6.15.tgz'
+tags:
+  - name: 3.11-debian-11
+    also:
+      - 3.11
+    vars:
+      - debian-11
+      - python-3.11
+  - name: 3.10-debian-11
+    also:
+      - 3.10
+    vars:
+      - debian-11
+      - python-3.10
+  - name: 3.9-debian-11
+    also:
+      - 3.9
+    vars:
+      - debian-11
+      - python-3.9
+  - name: 3.8-debian-11
+    also:
+      - 3.8
+    vars:
+      - debian-11
+      - python-3.8
+  - name: 3.7-debian-11
+    also:
+      - 3.7
+    vars:
+      - debian-11
+      - python-3.7
+  - name: 3.6-debian-11
+    also:
+      - 3.6
+    vars:
+      - debian-11
+      - python-3.6

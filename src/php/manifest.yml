@@ -1,0 +1,33 @@
+name: php
+vars:
+  debian-11:
+    debian_version: 11
+    upstream: debian:11
+  enchant_1.x:
+    enchant_version: 1
+    enchant_download_url: 'https://github.com/abiword/enchant/releases/download/enchant-1-6-1/enchant-1.6.1.tar.gz'
+  php-7.4:
+    php_version: 7.4
+    php_download_url: 'https://www.php.net/distributions/php-7.4.23.tar.gz'
+  pagoda:
+    pagoda: true
+    oracle_instantclient_basic_download_url: 'https://github.com/guoyk93/acicn-assets/releases/download/v20221122/6daa0912-instantclient-basic-linux.x64-21.6.0.0.0dbru.zip'
+    oracle_instantclient_sdk_download_url: 'https://github.com/guoyk93/acicn-assets/releases/download/v20221122/6ab2ccfe-instantclient-sdk-linux.x64-21.6.0.0.0dbru.zip'
+    oracle_instantclient_dir: 'instantclient_21_6'
+    oci8_download_url: 'https://github.com/guoyk93/acicn-assets/releases/download/v20221122/b9e7c89e-oci8-2.2.0.tgz'
+tags:
+   - name: 7.4-pagoda-debian-11
+     also:
+       - 7.4-pagoda
+     vars:
+       - debian-11
+       - php-7.4
+       - enchant_1.x
+       - pagoda
+   - name: 7.4-debian-11
+     also:
+       - 7.4
+     vars:
+       - debian-11
+       - php-7.4
+       - enchant_1.x

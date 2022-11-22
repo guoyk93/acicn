@@ -1,0 +1,121 @@
+name: node
+vars:
+  debian-11-no-minit:
+    debian_version: 11
+    upstream: debian:11-no-minit
+  debian-11:
+    debian_version: 11
+    upstream: debian:11
+  node-18:
+    node_version: 18
+    node_download_url: 'https://nodejs.org/download/release/v18.12.1/node-v18.12.1-linux-x64.tar.gz'
+    cnpm_version: '8.4.0'
+  node-16:
+    node_version: 16
+    node_download_url: 'https://nodejs.org/download/release/v16.18.1/node-v16.18.1-linux-x64.tar.gz'
+    cnpm_version: '8.4.0'
+  node-14:
+    node_version: 14
+    node_download_url: 'https://nodejs.org/download/release/v14.21.1/node-v14.21.1-linux-x64.tar.gz'
+    cnpm_version: '8.4.0'
+  node-12:
+    node_version: 12
+    node_download_url: 'https://nodejs.org/download/release/v12.22.9/node-v12.22.9-linux-x64.tar.gz'
+    cnpm_version: '7.1.1'
+  node-10:
+    node_version: 10
+    node_download_url: 'https://nodejs.org/download/release/v10.24.1/node-v10.24.1-linux-x64.tar.gz'
+    cnpm_version: '7.1.1'
+  node-8:
+    node_version: 8
+    node_download_url: 'https://nodejs.org/download/release/v8.17.0/node-v8.17.0-linux-x64.tar.gz'
+    cnpm_version: '6.2.0'
+  builder:
+    builder: true
+  cnpm:
+    install_cnpm: true
+  devel:
+    install_devel: true
+  yarn:
+    install_yarn: true
+  python:
+    install_python: true
+tags:
+  - name: 18-debian-11
+    also:
+      - 18
+    vars:
+      - debian-11
+      - node-18
+  - name: 16-debian-11
+    also:
+      - 16
+    vars:
+      - debian-11
+      - node-16
+  - name: 14-debian-11
+    also:
+      - 14
+    vars:
+      - debian-11
+      - node-14
+  - name: 12-debian-11
+    also:
+      - 12
+    vars:
+      - debian-11
+      - node-12
+  - name: 10-debian-11
+    also:
+      - 10
+    vars:
+      - debian-11
+      - node-10
+  - name: 8-debian-11
+    also:
+      - 8
+    vars:
+      - debian-11
+      - node-8
+  - name: builder-18-debian-11
+    also:
+      - builder-18
+    vars:
+      - debian-11-no-minit
+      - node-18
+      - builder
+  - name: builder-16-debian-11
+    also:
+      - builder-16
+    vars:
+      - debian-11-no-minit
+      - node-16
+      - builder
+  - name: builder-14-debian-11
+    also:
+      - builder-14
+    vars:
+      - debian-11-no-minit
+      - node-14
+      - builder
+  - name: builder-12-debian-11
+    also:
+      - builder-12
+    vars:
+      - debian-11-no-minit
+      - node-12
+      - builder
+  - name: builder-10-debian-11
+    also:
+      - builder-10
+    vars:
+      - debian-11-no-minit
+      - node-10
+      - builder
+  - name: builder-8-debian-11
+    also:
+      - builder-8
+    vars:
+      - debian-11-no-minit
+      - node-8
+      - builder

@@ -1,0 +1,13 @@
+name: spring-boot-admin
+vars:
+  jdk-8:
+    upstream: jdk:8
+  spring-boot-admin-1.0:
+    spring_boot_admin_download_url: "https://github.com/guoyk93/acicn-assets/releases/download/v20221122/spring-boot-admin-1.0.0-RELEASE.jar"
+tags:
+  - name: 1.0
+    also:
+      - latest
+    vars:
+      - jdk-8
+      - spring-boot-admin-1.0

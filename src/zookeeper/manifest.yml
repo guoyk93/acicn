@@ -1,0 +1,16 @@
+name: zookeeper
+vars:
+  jdk-11:
+    upstream: jdk:11
+  zookeeper-3.6.2:
+    zookeeper_version: 3.6.2
+    zookeeper_download_url: "https://archive.apache.org/dist/zookeeper/zookeeper-3.6.2/apache-zookeeper-3.6.2-bin.tar.gz"
+tags:
+  - name: 3.6.2-jdk-11
+    also:
+      - latest
+      - 3.6
+      - 3.6.2
+    vars:
+      - jdk-11
+      - zookeeper-3.6.2

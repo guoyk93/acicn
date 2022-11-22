@@ -1,0 +1,29 @@
+registries:
+  - ghcr.io/guoyk93/acicn
+doc: https://github.com/guoyk93/acicn
+dirs:
+  - alpine
+  - debian
+  - mysql
+  - mongo
+  - postgres
+  - jdk
+  - nginx
+  - node
+  - python
+  - beanstalk
+  - filebeat
+  - prometheus
+  - redis
+  - tomcat
+  - php
+  - apollo
+  - activemq
+  - rocketmq
+  - kafka
+  - elasticsearch
+  - zookeeper
+  - spring-boot-admin
+vars:
+  utils_image_minit: ghcr.io/guoyk93/minit:1.8.0
+  utils_image_merge_env_to_ini: ghcr.io/guoyk93/merge-env-to-ini:1.0.0

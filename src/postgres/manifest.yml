@@ -1,0 +1,30 @@
+name: postgres
+vars:
+  postgres-9.6:
+    upstream_version: 9.6
+  postgres-10.15:
+    upstream_version: 10.15
+  postgres-11.10:
+    upstream_version: 11.10
+  postgres-12.5:
+    upstream_version: 12.5
+  pgagent:
+    pgagent: true
+
+tags:
+  - name: 9.6
+    vars:
+      - postgres-9.6
+  - name: 10.15
+    vars:
+      - postgres-10.15
+#  - name: 10.15-pgagent
+#    vars:
+#      - postgres-10.15
+#      - pgagent
+  - name: 11.10
+    vars:
+      - postgres-11.10
+  - name: 12.5
+    vars:
+      - postgres-12.5
