@@ -29,10 +29,18 @@ type ManifestRepo struct {
 }
 
 type ManifestTag struct {
-	Name       string   `yaml:"name"`
-	Also       []string `yaml:"also"`
-	Dockerfile string   `yaml:"dockerfile"`
-	Vars       []string `yaml:"vars"`
+	Name       string       `yaml:"name"`
+	Also       []string     `yaml:"also"`
+	Dockerfile string       `yaml:"dockerfile"`
+	Vars       []string     `yaml:"vars"`
+	Test       ManifestTest `yaml:"test"`
+}
+
+type ManifestTest struct {
+	Delay  int    `yaml:"delay"`
+	Run    string `yaml:"run"`
+	Exec   string `yaml:"exec"`
+	Output string `yaml:"output"`
 }
 
 type Repo struct {
@@ -44,6 +52,7 @@ type Repo struct {
 	Dockerfile string
 	Vars       gg.M
 	Known      map[string]string
+	Test       ManifestTest
 }
 
 func (b Repo) ShortName() string {
@@ -173,6 +182,7 @@ func Load(overrides gg.M) (repos []*Repo, err error) {
 				Dockerfile: mTag.Dockerfile,
 				Vars:       vars,
 				Known:      known,
+				Test:       mTag.Test,
 			}
 			repo.Name = path.Join(mGlobal.Registries[0], repo.ShortName())
 
