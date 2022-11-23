@@ -96,8 +96,8 @@ func updateWorkflow(repos []*acicn.Repo) (err error) {
 					"uses": "docker/metadata-action@v4",
 					"with": gg.M{
 						"images": strings.Join([]string{
-							"acicn/" + item.Repo,
 							"ghcr.io/guoyk93/acicn/" + item.Repo,
+							"acicn/" + item.Repo,
 						}, "\n"),
 						"tags": strings.Join(tags, "\n"),
 					},
