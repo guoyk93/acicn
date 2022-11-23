@@ -4,8 +4,7 @@
 
 ## 标签
 
-* `acicn/php:7.4`
-* `acicn/php:7.4-pagoda` (公司内部使用的镜像)
+查阅 [Github Package 页面](https://github.com/guoyk93/acicn/pkgs/container/acicn%2Fphp)
 
 ## 功能
 

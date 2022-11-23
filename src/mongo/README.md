@@ -6,10 +6,7 @@
 
 ## 标签
 
-* `acicn/mongo:3.6`
-* `acicn/mongo:4.0`
-* `acicn/mongo:4.2`
-* `acicn/mongo:4.4`
+查阅 [Github Package 页面](https://github.com/guoyk93/acicn/pkgs/container/acicn%2Fmongo)
 
 ## 默认配置
 

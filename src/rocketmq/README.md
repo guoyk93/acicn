@@ -2,12 +2,7 @@
 
 ## 标签
 
-* `acicn/rocketmq:4.6.1-broker`
-* `acicn/rocketmq:4.6.1-namesrv`
-* `acicn/rocketmq:4.8.0-broker`
-* `acicn/rocketmq:4.8.0-namesrv`
-* `acicn/rocketmq:4.9.1-broker`
-* `acicn/rocketmq:4.9.1-namesrv`
+查阅 [Github Package 页面](https://github.com/guoyk93/acicn/pkgs/container/acicn%2Frocketmq)
 
 ## 功能
 

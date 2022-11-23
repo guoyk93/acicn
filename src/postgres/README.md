@@ -6,10 +6,7 @@
 
 ## 标签
 
-* `acicn/postgres:9.6`
-* `acicn/postgres:10.15`
-* `acicn/postgres:11.10`
-* `acicn/postgres:12.5`
+查阅 [Github Package 页面](https://github.com/guoyk93/acicn/pkgs/container/acicn%2Fpostgres)
 
 ## 默认配置
 

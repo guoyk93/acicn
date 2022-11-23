@@ -4,7 +4,7 @@
 
 ## 标签
 
-* `acicn/apollo:1.3.0`
+查阅 [Github Package 页面](https://github.com/guoyk93/acicn/pkgs/container/acicn%2Fapollo)
 
 ## 环境变量
 

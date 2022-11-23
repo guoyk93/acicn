@@ -2,8 +2,7 @@
 
 ## 标签
 
-* `acicn/activemq:5.15-jdk-11`
-* `acicn/activemq:5.15-jdk-8`
+查阅 [Github Package 页面](https://github.com/guoyk93/acicn/pkgs/container/acicn%2Factivemq)
 
 ## 功能
 

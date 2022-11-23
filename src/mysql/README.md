@@ -6,8 +6,7 @@
 
 ## 标签
 
-* `acicn/mysql:5.7`
-* `acicn/mysql:5.6`
+查阅 [Github Package 页面](https://github.com/guoyk93/acicn/pkgs/container/acicn%2Fmysql)
 
 ## 默认配置
 

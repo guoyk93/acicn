@@ -2,10 +2,7 @@
 
 ## 标签
 
-* `acicn/python:3.9`
-* `acicn/python:3.8`
-* `acicn/python:3.7`
-* `acicn/python:3.6`
+查阅 [Github Package 页面](https://github.com/guoyk93/acicn/pkgs/container/acicn%2Fpython)
 
 ## 功能
 

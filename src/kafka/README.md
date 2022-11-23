@@ -2,9 +2,7 @@
 
 ## 标签
 
-* `acicn/kafka:2.1`
-* `acicn/kafka:2.4`
-* `acicn/kafka:2.8`
+查阅 [Github Package 页面](https://github.com/guoyk93/acicn/pkgs/container/acicn%2Fkafka)
 
 ## 功能
 

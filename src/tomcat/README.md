@@ -2,10 +2,7 @@
 
 ## 标签
 
-* `acicn/tomcat:8-jdk-11`
-* `acicn/tomcat:9-jdk-11`
-* `acicn/tomcat:8-jdk-8`
-* `acicn/tomcat:9-jdk-8`
+查阅 [Github Package 页面](https://github.com/guoyk93/acicn/pkgs/container/acicn%2Ftomcat)
 
 ## 功能
 

@@ -4,19 +4,7 @@
 
 ## 标签
 
-**运行环境**
-
-* `acicn/node:8`
-* `acicn/node:10`
-* `acicn/node:12`
-* `acicn/node:14`
-
-**构建环境**
-
-* `acicn/node:builder-8`
-* `acicn/node:builder-10`
-* `acicn/node:builder-12`
-* `acicn/node:builder-14`
+查阅 [Github Package 页面](https://github.com/guoyk93/acicn/pkgs/container/acicn%2Fnode)
 
 ## 运行环境
 

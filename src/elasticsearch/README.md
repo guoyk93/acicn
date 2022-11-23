@@ -2,8 +2,7 @@
 
 ## 标签
 
-* `acicn/elasticsearch:6.3.2`
-* `acicn/elasticsearch:6.8.18`
+查阅 [Github Package 页面](https://github.com/guoyk93/acicn/pkgs/container/acicn%2Felasticsearch)
 
 ## 功能
 

@@ -2,7 +2,7 @@
 
 ## 标签
 
-* `acicn/zookeeper:3.6.2`
+查阅 [Github Package 页面](https://github.com/guoyk93/acicn/pkgs/container/acicn%2Fzookeeper)
 
 ## 功能
 

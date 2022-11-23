@@ -2,15 +2,7 @@
 
 ## 标签
 
-**运行环境**
-
-* `acicn/jdk:8`
-* `acicn/jdk:11`
-
-**构建环境**
-
-* `acicn/jdk:builder-8`
-* `acicn/jdk:builder-11`
+查阅 [Github Package 页面](https://github.com/guoyk93/acicn/pkgs/container/acicn%2Fjdk)
 
 ## 运行环境
 
