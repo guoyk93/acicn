@@ -12,7 +12,7 @@
         <div class="row mt-4">
             <div class="col-md-12">
                 <h3>acicn/php 镜像启动成功</h3>
-                <p>详情查阅 <a href="https://gitee.com/acicn/library/tree/latest/php">https://gitee.com/acicn/library/tree/latest/php</a></p>
+                <p>详情查阅 <a href="https://github.com/guoyk93/acicn">https://github.com/guoyk93/acicn</a></p>
             </div>
         </div>
         <div class="row mt-4">

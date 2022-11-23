@@ -50,7 +50,7 @@
 
 * `nginx`
 
-    `nginx` 进程完全使用 `acicn/nginx` 的配置模式，详情参考 https://gitee.com/acicn/library/tree/latest/nginx
+    `nginx` 进程完全使用 `acicn/nginx` 的配置模式
 
     额外的修改
 
