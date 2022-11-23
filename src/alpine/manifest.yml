@@ -3,7 +3,7 @@ vars:
   no-minit:
     no_minit: true
   alpine-3.16:
-    upstream_version: 3.16
+    version: 3.16
 tags:
   - name: 3.16
     vars:

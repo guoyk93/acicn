@@ -1,7 +1,7 @@
 name: debian
 vars:
   debian-11:
-    upstream_version: 11
+    version: 11
   no-minit:
     no_minit: true
 tags:

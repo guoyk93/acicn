@@ -9,6 +9,7 @@ vars:
   php-7.4:
     php_version: 7.4
     php_download_url: 'https://www.php.net/distributions/php-7.4.23.tar.gz'
+    upstream_nginx: nginx:latest
   pagoda:
     pagoda: true
     oracle_instantclient_basic_download_url: 'https://github.com/guoyk93/acicn-assets/releases/download/v20221122/6daa0912-instantclient-basic-linux.x64-21.6.0.0.0dbru.zip'

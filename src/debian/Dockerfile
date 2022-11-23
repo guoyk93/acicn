@@ -3,7 +3,7 @@
 FROM {{.utils_image_minit}} AS minit
 {{end}}
 
-FROM debian:{{.upstream_version}}
+FROM debian:{{.version}}
 
 ENV LANG zh_CN.UTF-8
 ENV TZ Asia/Shanghai

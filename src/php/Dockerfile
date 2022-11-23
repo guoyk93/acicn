@@ -1,6 +1,6 @@
 FROM {{.utils_image_merge_env_to_ini}} AS utils-merge-env-to-ini
 
-FROM {{Known "nginx:latest"}} AS utils-nginx
+FROM {{Known .upstream_nginx}} AS utils-nginx
 
 FROM {{Known .upstream}}
 

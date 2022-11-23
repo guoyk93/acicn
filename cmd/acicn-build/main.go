@@ -34,16 +34,17 @@ func updateWorkflow(repos []*acicn.Repo) (err error) {
 			return fmt.Sprintf("type=raw,value=%s", tag)
 		})
 
-		upstream, _ := item.Vars["upstream"].(string)
-		upstream = strings.TrimSpace(upstream)
-
 		var pull any
+		{
+			upstream, _ := item.Vars["upstream"].(string)
+			upstream = strings.TrimSpace(upstream)
 
-		if upstream == "" {
-			pull = "${{ inputs.force_pull }}"
-			gg.Log("missing upstream for: " + item.Name)
-		} else {
-			pull = true
+			if upstream == "" {
+				pull = "${{ inputs.force_pull }}"
+				gg.Log("missing upstream for: " + item.Name)
+			} else {
+				pull = true
+			}
 		}
 
 		job := gg.M{
@@ -119,8 +120,18 @@ func updateWorkflow(repos []*acicn.Repo) (err error) {
 			},
 		}
 
-		if upstream != "" {
-			job["needs"] = []string{jobName(gg.Must(item.LookupKnown(upstream)))}
+		var needs []string
+
+		for k, v := range item.Vars {
+			if s, ok := v.(string); ok && s != "" {
+				if strings.HasPrefix(k, "upstream") {
+					needs = append(needs, jobName(gg.Must(item.LookupKnown(s))))
+				}
+			}
+		}
+
+		if len(needs) > 0 {
+			job["needs"] = needs
 		}
 
 		jobs[jobName(item.Name)] = job

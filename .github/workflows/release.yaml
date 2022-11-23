@@ -2447,6 +2447,7 @@ jobs:
     r_php_7_4_debian_11:
         needs:
             - r_debian_11
+            - r_nginx_alpine_3_16
         permissions:
             contents: read
             id-token: write
@@ -2498,6 +2499,7 @@ jobs:
     r_php_7_4_pagoda_debian_11:
         needs:
             - r_debian_11
+            - r_nginx_alpine_3_16
         permissions:
             contents: read
             id-token: write

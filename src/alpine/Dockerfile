@@ -3,7 +3,7 @@
 FROM {{.utils_image_minit}} AS minit
 {{end}}
 
-FROM alpine:{{.upstream_version}}
+FROM alpine:{{.version}}
 
 ENV LANG zh_CN.UTF-8
 ENV TZ Asia/Shanghai

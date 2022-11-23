@@ -1,13 +1,13 @@
 name: postgres
 vars:
   postgres-9.6:
-    upstream_version: 9.6
+    version: 9.6
   postgres-10.15:
-    upstream_version: 10.15
+    version: 10.15
   postgres-11.10:
-    upstream_version: 11.10
+    version: 11.10
   postgres-12.5:
-    upstream_version: 12.5
+    version: 12.5
   pgagent:
     pgagent: true
 
