@@ -1,0 +1,76 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: rocketmq-namesrv
+spec:
+  selector:
+    app: rocketmq-namesrv
+  ports:
+    - name: rmq-namesrv
+      port: 9876
+      targetPort: 9876
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: rocketmq-namesrv
+spec:
+  selector:
+    matchLabels:
+      app: rocketmq-namesrv
+  serviceName: rocketmq-namesrv
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: rocketmq-namesrv
+    spec:
+      containers:
+        - name: main
+          image: ghcr.io/guoyk93/acicn/rocketmq:4.9.1-namesrv
+          imagePullPolicy: Always
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: rocketmq-broker
+spec:
+  selector:
+    app: rocketmq-broker
+  ports:
+    - name: rmq-broker-10911
+      port: 10911
+      targetPort: 10911
+    - name: rmq-broker-10912
+      port: 10912
+      targetPort: 10912
+    - name: rmq-broker-10909
+      port: 10909
+      targetPort: 10909
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: rocketmq-broker
+spec:
+  selector:
+    matchLabels:
+      app: rocketmq-broker
+  serviceName: rocketmq-broker
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: rocketmq-broker
+    spec:
+      containers:
+        - name: main
+          image: ghcr.io/guoyk93/acicn/rocketmq:4.9.1-broker
+          imagePullPolicy: Always
+          env:
+            - name: RMQBROKERCFG_namesrvAddr
+              value: 'rocketmq-namesrv:9876'
+            - name: MINIT_ENV_RMQBROKERCFG_brokerIP1
+              value: '{{netResolveIP "rocketmq-broker"}}'
