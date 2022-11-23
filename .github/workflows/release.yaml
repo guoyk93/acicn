@@ -33,7 +33,9 @@ jobs:
               name: meta for activemq:5.15-jdk-8
               uses: docker/metadata-action@v4
               with:
-                images: ghcr.io/guoyk93/acicn/activemq
+                images: |-
+                    acicn/activemq
+                    ghcr.io/guoyk93/acicn/activemq
                 tags: type=raw,value=5.15-jdk-8
             - id: build
               name: build for activemq:5.15-jdk-8
@@ -80,7 +82,9 @@ jobs:
               name: meta for activemq:5.15-jdk-11
               uses: docker/metadata-action@v4
               with:
-                images: ghcr.io/guoyk93/acicn/activemq
+                images: |-
+                    acicn/activemq
+                    ghcr.io/guoyk93/acicn/activemq
                 tags: |-
                     type=raw,value=5.15-jdk-11
                     type=raw,value=5.15
@@ -127,7 +131,9 @@ jobs:
               name: meta for alpine:3.16
               uses: docker/metadata-action@v4
               with:
-                images: ghcr.io/guoyk93/acicn/alpine
+                images: |-
+                    acicn/alpine
+                    ghcr.io/guoyk93/acicn/alpine
                 tags: type=raw,value=3.16
             - id: build
               name: build for alpine:3.16
@@ -172,7 +178,9 @@ jobs:
               name: meta for alpine:3.16-no-minit
               uses: docker/metadata-action@v4
               with:
-                images: ghcr.io/guoyk93/acicn/alpine
+                images: |-
+                    acicn/alpine
+                    ghcr.io/guoyk93/acicn/alpine
                 tags: type=raw,value=3.16-no-minit
             - id: build
               name: build for alpine:3.16-no-minit
@@ -219,7 +227,9 @@ jobs:
               name: meta for apollo:1.3.0-jdk-11
               uses: docker/metadata-action@v4
               with:
-                images: ghcr.io/guoyk93/acicn/apollo
+                images: |-
+                    acicn/apollo
+                    ghcr.io/guoyk93/acicn/apollo
                 tags: |-
                     type=raw,value=1.3.0-jdk-11
                     type=raw,value=1.3.0
@@ -268,7 +278,9 @@ jobs:
               name: meta for beanstalk:1-alpine-3.16
               uses: docker/metadata-action@v4
               with:
-                images: ghcr.io/guoyk93/acicn/beanstalk
+                images: |-
+                    acicn/beanstalk
+                    ghcr.io/guoyk93/acicn/beanstalk
                 tags: |-
                     type=raw,value=1-alpine-3.16
                     type=raw,value=1
@@ -316,7 +328,9 @@ jobs:
               name: meta for debian:11
               uses: docker/metadata-action@v4
               with:
-                images: ghcr.io/guoyk93/acicn/debian
+                images: |-
+                    acicn/debian
+                    ghcr.io/guoyk93/acicn/debian
                 tags: type=raw,value=11
             - id: build
               name: build for debian:11
@@ -361,7 +375,9 @@ jobs:
               name: meta for debian:11-no-minit
               uses: docker/metadata-action@v4
               with:
-                images: ghcr.io/guoyk93/acicn/debian
+                images: |-
+                    acicn/debian
+                    ghcr.io/guoyk93/acicn/debian
                 tags: type=raw,value=11-no-minit
             - id: build
               name: build for debian:11-no-minit
@@ -408,7 +424,9 @@ jobs:
               name: meta for elasticsearch:6.3.2-jdk-11
               uses: docker/metadata-action@v4
               with:
-                images: ghcr.io/guoyk93/acicn/elasticsearch
+                images: |-
+                    acicn/elasticsearch
+                    ghcr.io/guoyk93/acicn/elasticsearch
                 tags: |-
                     type=raw,value=6.3.2-jdk-11
                     type=raw,value=6.3.2
@@ -457,7 +475,9 @@ jobs:
               name: meta for elasticsearch:6.8.18-jdk-11
               uses: docker/metadata-action@v4
               with:
-                images: ghcr.io/guoyk93/acicn/elasticsearch
+                images: |-
+                    acicn/elasticsearch
+                    ghcr.io/guoyk93/acicn/elasticsearch
                 tags: |-
                     type=raw,value=6.8.18-jdk-11
                     type=raw,value=6.8.18
@@ -506,7 +526,9 @@ jobs:
               name: meta for filebeat:6.3.2-debian-11
               uses: docker/metadata-action@v4
               with:
-                images: ghcr.io/guoyk93/acicn/filebeat
+                images: |-
+                    acicn/filebeat
+                    ghcr.io/guoyk93/acicn/filebeat
                 tags: |-
                     type=raw,value=6.3.2-debian-11
                     type=raw,value=6.3.2
@@ -555,7 +577,9 @@ jobs:
               name: meta for jdk:8-debian-11
               uses: docker/metadata-action@v4
               with:
-                images: ghcr.io/guoyk93/acicn/jdk
+                images: |-
+                    acicn/jdk
+                    ghcr.io/guoyk93/acicn/jdk
                 tags: |-
                     type=raw,value=8-debian-11
                     type=raw,value=8
@@ -604,7 +628,9 @@ jobs:
               name: meta for jdk:8-pagoda
               uses: docker/metadata-action@v4
               with:
-                images: ghcr.io/guoyk93/acicn/jdk
+                images: |-
+                    acicn/jdk
+                    ghcr.io/guoyk93/acicn/jdk
                 tags: type=raw,value=8-pagoda
             - id: build
               name: build for jdk:8-pagoda
@@ -651,7 +677,9 @@ jobs:
               name: meta for jdk:8-pagoda-cubic
               uses: docker/metadata-action@v4
               with:
-                images: ghcr.io/guoyk93/acicn/jdk
+                images: |-
+                    acicn/jdk
+                    ghcr.io/guoyk93/acicn/jdk
                 tags: type=raw,value=8-pagoda-cubic
             - id: build
               name: build for jdk:8-pagoda-cubic
@@ -698,7 +726,9 @@ jobs:
               name: meta for jdk:11-debian-11
               uses: docker/metadata-action@v4
               with:
-                images: ghcr.io/guoyk93/acicn/jdk
+                images: |-
+                    acicn/jdk
+                    ghcr.io/guoyk93/acicn/jdk
                 tags: |-
                     type=raw,value=11-debian-11
                     type=raw,value=11
@@ -747,7 +777,9 @@ jobs:
               name: meta for jdk:11-pagoda
               uses: docker/metadata-action@v4
               with:
-                images: ghcr.io/guoyk93/acicn/jdk
+                images: |-
+                    acicn/jdk
+                    ghcr.io/guoyk93/acicn/jdk
                 tags: type=raw,value=11-pagoda
             - id: build
               name: build for jdk:11-pagoda
@@ -794,7 +826,9 @@ jobs:
               name: meta for jdk:17-debian-11
               uses: docker/metadata-action@v4
               with:
-                images: ghcr.io/guoyk93/acicn/jdk
+                images: |-
+                    acicn/jdk
+                    ghcr.io/guoyk93/acicn/jdk
                 tags: |-
                     type=raw,value=17-debian-11
                     type=raw,value=17
@@ -843,7 +877,9 @@ jobs:
               name: meta for jdk:17-pagoda
               uses: docker/metadata-action@v4
               with:
-                images: ghcr.io/guoyk93/acicn/jdk
+                images: |-
+                    acicn/jdk
+                    ghcr.io/guoyk93/acicn/jdk
                 tags: type=raw,value=17-pagoda
             - id: build
               name: build for jdk:17-pagoda
@@ -890,7 +926,9 @@ jobs:
               name: meta for jdk:builder-8-maven-3.5-debian-11
               uses: docker/metadata-action@v4
               with:
-                images: ghcr.io/guoyk93/acicn/jdk
+                images: |-
+                    acicn/jdk
+                    ghcr.io/guoyk93/acicn/jdk
                 tags: |-
                     type=raw,value=builder-8-maven-3.5-debian-11
                     type=raw,value=builder-8-maven-3.5
@@ -939,7 +977,9 @@ jobs:
               name: meta for jdk:builder-8-maven-3.6-debian-11
               uses: docker/metadata-action@v4
               with:
-                images: ghcr.io/guoyk93/acicn/jdk
+                images: |-
+                    acicn/jdk
+                    ghcr.io/guoyk93/acicn/jdk
                 tags: |-
                     type=raw,value=builder-8-maven-3.6-debian-11
                     type=raw,value=builder-8-maven-3.6
@@ -988,7 +1028,9 @@ jobs:
               name: meta for jdk:builder-8-maven-3.8-debian-11
               uses: docker/metadata-action@v4
               with:
-                images: ghcr.io/guoyk93/acicn/jdk
+                images: |-
+                    acicn/jdk
+                    ghcr.io/guoyk93/acicn/jdk
                 tags: |-
                     type=raw,value=builder-8-maven-3.8-debian-11
                     type=raw,value=builder-8-maven-3.8
@@ -1038,7 +1080,9 @@ jobs:
               name: meta for jdk:builder-11-maven-3.5-debian-11
               uses: docker/metadata-action@v4
               with:
-                images: ghcr.io/guoyk93/acicn/jdk
+                images: |-
+                    acicn/jdk
+                    ghcr.io/guoyk93/acicn/jdk
                 tags: |-
                     type=raw,value=builder-11-maven-3.5-debian-11
                     type=raw,value=builder-11-maven-3.5
@@ -1087,7 +1131,9 @@ jobs:
               name: meta for jdk:builder-11-maven-3.6-debian-11
               uses: docker/metadata-action@v4
               with:
-                images: ghcr.io/guoyk93/acicn/jdk
+                images: |-
+                    acicn/jdk
+                    ghcr.io/guoyk93/acicn/jdk
                 tags: |-
                     type=raw,value=builder-11-maven-3.6-debian-11
                     type=raw,value=builder-11-maven-3.6
@@ -1136,7 +1182,9 @@ jobs:
               name: meta for jdk:builder-11-maven-3.8-debian-11
               uses: docker/metadata-action@v4
               with:
-                images: ghcr.io/guoyk93/acicn/jdk
+                images: |-
+                    acicn/jdk
+                    ghcr.io/guoyk93/acicn/jdk
                 tags: |-
                     type=raw,value=builder-11-maven-3.8-debian-11
                     type=raw,value=builder-11-maven-3.8
@@ -1186,7 +1234,9 @@ jobs:
               name: meta for jdk:builder-17-maven-3.6-debian-11
               uses: docker/metadata-action@v4
               with:
-                images: ghcr.io/guoyk93/acicn/jdk
+                images: |-
+                    acicn/jdk
+                    ghcr.io/guoyk93/acicn/jdk
                 tags: |-
                     type=raw,value=builder-17-maven-3.6-debian-11
                     type=raw,value=builder-17-maven-3.6
@@ -1235,7 +1285,9 @@ jobs:
               name: meta for jdk:builder-17-maven-3.8-debian-11
               uses: docker/metadata-action@v4
               with:
-                images: ghcr.io/guoyk93/acicn/jdk
+                images: |-
+                    acicn/jdk
+                    ghcr.io/guoyk93/acicn/jdk
                 tags: |-
                     type=raw,value=builder-17-maven-3.8-debian-11
                     type=raw,value=builder-17-maven-3.8
@@ -1285,7 +1337,9 @@ jobs:
               name: meta for kafka:2.1
               uses: docker/metadata-action@v4
               with:
-                images: ghcr.io/guoyk93/acicn/kafka
+                images: |-
+                    acicn/kafka
+                    ghcr.io/guoyk93/acicn/kafka
                 tags: type=raw,value=2.1
             - id: build
               name: build for kafka:2.1
@@ -1332,7 +1386,9 @@ jobs:
               name: meta for kafka:2.4
               uses: docker/metadata-action@v4
               with:
-                images: ghcr.io/guoyk93/acicn/kafka
+                images: |-
+                    acicn/kafka
+                    ghcr.io/guoyk93/acicn/kafka
                 tags: type=raw,value=2.4
             - id: build
               name: build for kafka:2.4
@@ -1379,7 +1435,9 @@ jobs:
               name: meta for kafka:2.8
               uses: docker/metadata-action@v4
               with:
-                images: ghcr.io/guoyk93/acicn/kafka
+                images: |-
+                    acicn/kafka
+                    ghcr.io/guoyk93/acicn/kafka
                 tags: |-
                     type=raw,value=2.8
                     type=raw,value=latest
@@ -1426,7 +1484,9 @@ jobs:
               name: meta for mongo:3.6
               uses: docker/metadata-action@v4
               with:
-                images: ghcr.io/guoyk93/acicn/mongo
+                images: |-
+                    acicn/mongo
+                    ghcr.io/guoyk93/acicn/mongo
                 tags: type=raw,value=3.6
             - id: build
               name: build for mongo:3.6
@@ -1471,7 +1531,9 @@ jobs:
               name: meta for mongo:4.0
               uses: docker/metadata-action@v4
               with:
-                images: ghcr.io/guoyk93/acicn/mongo
+                images: |-
+                    acicn/mongo
+                    ghcr.io/guoyk93/acicn/mongo
                 tags: type=raw,value=4.0
             - id: build
               name: build for mongo:4.0
@@ -1516,7 +1578,9 @@ jobs:
               name: meta for mongo:4.2
               uses: docker/metadata-action@v4
               with:
-                images: ghcr.io/guoyk93/acicn/mongo
+                images: |-
+                    acicn/mongo
+                    ghcr.io/guoyk93/acicn/mongo
                 tags: type=raw,value=4.2
             - id: build
               name: build for mongo:4.2
@@ -1561,7 +1625,9 @@ jobs:
               name: meta for mongo:4.4
               uses: docker/metadata-action@v4
               with:
-                images: ghcr.io/guoyk93/acicn/mongo
+                images: |-
+                    acicn/mongo
+                    ghcr.io/guoyk93/acicn/mongo
                 tags: type=raw,value=4.4
             - id: build
               name: build for mongo:4.4
@@ -1606,7 +1672,9 @@ jobs:
               name: meta for mysql:5.6
               uses: docker/metadata-action@v4
               with:
-                images: ghcr.io/guoyk93/acicn/mysql
+                images: |-
+                    acicn/mysql
+                    ghcr.io/guoyk93/acicn/mysql
                 tags: type=raw,value=5.6
             - id: build
               name: build for mysql:5.6
@@ -1651,7 +1719,9 @@ jobs:
               name: meta for mysql:5.7
               uses: docker/metadata-action@v4
               with:
-                images: ghcr.io/guoyk93/acicn/mysql
+                images: |-
+                    acicn/mysql
+                    ghcr.io/guoyk93/acicn/mysql
                 tags: type=raw,value=5.7
             - id: build
               name: build for mysql:5.7
@@ -1696,7 +1766,9 @@ jobs:
               name: meta for mysql:8.0
               uses: docker/metadata-action@v4
               with:
-                images: ghcr.io/guoyk93/acicn/mysql
+                images: |-
+                    acicn/mysql
+                    ghcr.io/guoyk93/acicn/mysql
                 tags: type=raw,value=8.0
             - id: build
               name: build for mysql:8.0
@@ -1743,7 +1815,9 @@ jobs:
               name: meta for nginx:alpine-3.16
               uses: docker/metadata-action@v4
               with:
-                images: ghcr.io/guoyk93/acicn/nginx
+                images: |-
+                    acicn/nginx
+                    ghcr.io/guoyk93/acicn/nginx
                 tags: |-
                     type=raw,value=alpine-3.16
                     type=raw,value=latest
@@ -1792,7 +1866,9 @@ jobs:
               name: meta for node:8-debian-11
               uses: docker/metadata-action@v4
               with:
-                images: ghcr.io/guoyk93/acicn/node
+                images: |-
+                    acicn/node
+                    ghcr.io/guoyk93/acicn/node
                 tags: |-
                     type=raw,value=8-debian-11
                     type=raw,value=8
@@ -1841,7 +1917,9 @@ jobs:
               name: meta for node:10-debian-11
               uses: docker/metadata-action@v4
               with:
-                images: ghcr.io/guoyk93/acicn/node
+                images: |-
+                    acicn/node
+                    ghcr.io/guoyk93/acicn/node
                 tags: |-
                     type=raw,value=10-debian-11
                     type=raw,value=10
@@ -1890,7 +1968,9 @@ jobs:
               name: meta for node:12-debian-11
               uses: docker/metadata-action@v4
               with:
-                images: ghcr.io/guoyk93/acicn/node
+                images: |-
+                    acicn/node
+                    ghcr.io/guoyk93/acicn/node
                 tags: |-
                     type=raw,value=12-debian-11
                     type=raw,value=12
@@ -1939,7 +2019,9 @@ jobs:
               name: meta for node:14-debian-11
               uses: docker/metadata-action@v4
               with:
-                images: ghcr.io/guoyk93/acicn/node
+                images: |-
+                    acicn/node
+                    ghcr.io/guoyk93/acicn/node
                 tags: |-
                     type=raw,value=14-debian-11
                     type=raw,value=14
@@ -1988,7 +2070,9 @@ jobs:
               name: meta for node:16-debian-11
               uses: docker/metadata-action@v4
               with:
-                images: ghcr.io/guoyk93/acicn/node
+                images: |-
+                    acicn/node
+                    ghcr.io/guoyk93/acicn/node
                 tags: |-
                     type=raw,value=16-debian-11
                     type=raw,value=16
@@ -2037,7 +2121,9 @@ jobs:
               name: meta for node:18-debian-11
               uses: docker/metadata-action@v4
               with:
-                images: ghcr.io/guoyk93/acicn/node
+                images: |-
+                    acicn/node
+                    ghcr.io/guoyk93/acicn/node
                 tags: |-
                     type=raw,value=18-debian-11
                     type=raw,value=18
@@ -2086,7 +2172,9 @@ jobs:
               name: meta for node:builder-8-debian-11
               uses: docker/metadata-action@v4
               with:
-                images: ghcr.io/guoyk93/acicn/node
+                images: |-
+                    acicn/node
+                    ghcr.io/guoyk93/acicn/node
                 tags: |-
                     type=raw,value=builder-8-debian-11
                     type=raw,value=builder-8
@@ -2135,7 +2223,9 @@ jobs:
               name: meta for node:builder-10-debian-11
               uses: docker/metadata-action@v4
               with:
-                images: ghcr.io/guoyk93/acicn/node
+                images: |-
+                    acicn/node
+                    ghcr.io/guoyk93/acicn/node
                 tags: |-
                     type=raw,value=builder-10-debian-11
                     type=raw,value=builder-10
@@ -2184,7 +2274,9 @@ jobs:
               name: meta for node:builder-12-debian-11
               uses: docker/metadata-action@v4
               with:
-                images: ghcr.io/guoyk93/acicn/node
+                images: |-
+                    acicn/node
+                    ghcr.io/guoyk93/acicn/node
                 tags: |-
                     type=raw,value=builder-12-debian-11
                     type=raw,value=builder-12
@@ -2233,7 +2325,9 @@ jobs:
               name: meta for node:builder-14-debian-11
               uses: docker/metadata-action@v4
               with:
-                images: ghcr.io/guoyk93/acicn/node
+                images: |-
+                    acicn/node
+                    ghcr.io/guoyk93/acicn/node
                 tags: |-
                     type=raw,value=builder-14-debian-11
                     type=raw,value=builder-14
@@ -2282,7 +2376,9 @@ jobs:
               name: meta for node:builder-16-debian-11
               uses: docker/metadata-action@v4
               with:
-                images: ghcr.io/guoyk93/acicn/node
+                images: |-
+                    acicn/node
+                    ghcr.io/guoyk93/acicn/node
                 tags: |-
                     type=raw,value=builder-16-debian-11
                     type=raw,value=builder-16
@@ -2331,7 +2427,9 @@ jobs:
               name: meta for node:builder-18-debian-11
               uses: docker/metadata-action@v4
               with:
-                images: ghcr.io/guoyk93/acicn/node
+                images: |-
+                    acicn/node
+                    ghcr.io/guoyk93/acicn/node
                 tags: |-
                     type=raw,value=builder-18-debian-11
                     type=raw,value=builder-18
@@ -2380,7 +2478,9 @@ jobs:
               name: meta for php:7.4-debian-11
               uses: docker/metadata-action@v4
               with:
-                images: ghcr.io/guoyk93/acicn/php
+                images: |-
+                    acicn/php
+                    ghcr.io/guoyk93/acicn/php
                 tags: |-
                     type=raw,value=7.4-debian-11
                     type=raw,value=7.4
@@ -2429,7 +2529,9 @@ jobs:
               name: meta for php:7.4-pagoda-debian-11
               uses: docker/metadata-action@v4
               with:
-                images: ghcr.io/guoyk93/acicn/php
+                images: |-
+                    acicn/php
+                    ghcr.io/guoyk93/acicn/php
                 tags: |-
                     type=raw,value=7.4-pagoda-debian-11
                     type=raw,value=7.4-pagoda
@@ -2476,7 +2578,9 @@ jobs:
               name: meta for postgres:9.6
               uses: docker/metadata-action@v4
               with:
-                images: ghcr.io/guoyk93/acicn/postgres
+                images: |-
+                    acicn/postgres
+                    ghcr.io/guoyk93/acicn/postgres
                 tags: type=raw,value=9.6
             - id: build
               name: build for postgres:9.6
@@ -2521,7 +2625,9 @@ jobs:
               name: meta for postgres:10.15
               uses: docker/metadata-action@v4
               with:
-                images: ghcr.io/guoyk93/acicn/postgres
+                images: |-
+                    acicn/postgres
+                    ghcr.io/guoyk93/acicn/postgres
                 tags: type=raw,value=10.15
             - id: build
               name: build for postgres:10.15
@@ -2566,7 +2672,9 @@ jobs:
               name: meta for postgres:11.10
               uses: docker/metadata-action@v4
               with:
-                images: ghcr.io/guoyk93/acicn/postgres
+                images: |-
+                    acicn/postgres
+                    ghcr.io/guoyk93/acicn/postgres
                 tags: type=raw,value=11.10
             - id: build
               name: build for postgres:11.10
@@ -2611,7 +2719,9 @@ jobs:
               name: meta for postgres:12.5
               uses: docker/metadata-action@v4
               with:
-                images: ghcr.io/guoyk93/acicn/postgres
+                images: |-
+                    acicn/postgres
+                    ghcr.io/guoyk93/acicn/postgres
                 tags: type=raw,value=12.5
             - id: build
               name: build for postgres:12.5
@@ -2658,7 +2768,9 @@ jobs:
               name: meta for prometheus:2.25
               uses: docker/metadata-action@v4
               with:
-                images: ghcr.io/guoyk93/acicn/prometheus
+                images: |-
+                    acicn/prometheus
+                    ghcr.io/guoyk93/acicn/prometheus
                 tags: type=raw,value=2.25
             - id: build
               name: build for prometheus:2.25
@@ -2705,7 +2817,9 @@ jobs:
               name: meta for python:3.6-debian-11
               uses: docker/metadata-action@v4
               with:
-                images: ghcr.io/guoyk93/acicn/python
+                images: |-
+                    acicn/python
+                    ghcr.io/guoyk93/acicn/python
                 tags: |-
                     type=raw,value=3.6-debian-11
                     type=raw,value=3.6
@@ -2754,7 +2868,9 @@ jobs:
               name: meta for python:3.7-debian-11
               uses: docker/metadata-action@v4
               with:
-                images: ghcr.io/guoyk93/acicn/python
+                images: |-
+                    acicn/python
+                    ghcr.io/guoyk93/acicn/python
                 tags: |-
                     type=raw,value=3.7-debian-11
                     type=raw,value=3.7
@@ -2803,7 +2919,9 @@ jobs:
               name: meta for python:3.8-debian-11
               uses: docker/metadata-action@v4
               with:
-                images: ghcr.io/guoyk93/acicn/python
+                images: |-
+                    acicn/python
+                    ghcr.io/guoyk93/acicn/python
                 tags: |-
                     type=raw,value=3.8-debian-11
                     type=raw,value=3.8
@@ -2852,7 +2970,9 @@ jobs:
               name: meta for python:3.9-debian-11
               uses: docker/metadata-action@v4
               with:
-                images: ghcr.io/guoyk93/acicn/python
+                images: |-
+                    acicn/python
+                    ghcr.io/guoyk93/acicn/python
                 tags: |-
                     type=raw,value=3.9-debian-11
                     type=raw,value=3.9
@@ -2901,7 +3021,9 @@ jobs:
               name: meta for python:3.10-debian-11
               uses: docker/metadata-action@v4
               with:
-                images: ghcr.io/guoyk93/acicn/python
+                images: |-
+                    acicn/python
+                    ghcr.io/guoyk93/acicn/python
                 tags: |-
                     type=raw,value=3.10-debian-11
                     type=raw,value=3.10
@@ -2950,7 +3072,9 @@ jobs:
               name: meta for python:3.11-debian-11
               uses: docker/metadata-action@v4
               with:
-                images: ghcr.io/guoyk93/acicn/python
+                images: |-
+                    acicn/python
+                    ghcr.io/guoyk93/acicn/python
                 tags: |-
                     type=raw,value=3.11-debian-11
                     type=raw,value=3.11
@@ -2999,7 +3123,9 @@ jobs:
               name: meta for redis:5-alpine-3.16
               uses: docker/metadata-action@v4
               with:
-                images: ghcr.io/guoyk93/acicn/redis
+                images: |-
+                    acicn/redis
+                    ghcr.io/guoyk93/acicn/redis
                 tags: |-
                     type=raw,value=5-alpine-3.16
                     type=raw,value=5
@@ -3048,7 +3174,9 @@ jobs:
               name: meta for redis:6.0-alpine-3.16
               uses: docker/metadata-action@v4
               with:
-                images: ghcr.io/guoyk93/acicn/redis
+                images: |-
+                    acicn/redis
+                    ghcr.io/guoyk93/acicn/redis
                 tags: |-
                     type=raw,value=6.0-alpine-3.16
                     type=raw,value=6.0
@@ -3097,7 +3225,9 @@ jobs:
               name: meta for redis:6.2-alpine-3.16
               uses: docker/metadata-action@v4
               with:
-                images: ghcr.io/guoyk93/acicn/redis
+                images: |-
+                    acicn/redis
+                    ghcr.io/guoyk93/acicn/redis
                 tags: |-
                     type=raw,value=6.2-alpine-3.16
                     type=raw,value=6-alpine-3.16
@@ -3148,7 +3278,9 @@ jobs:
               name: meta for rocketmq:4.6.1-broker-jdk-8
               uses: docker/metadata-action@v4
               with:
-                images: ghcr.io/guoyk93/acicn/rocketmq
+                images: |-
+                    acicn/rocketmq
+                    ghcr.io/guoyk93/acicn/rocketmq
                 tags: |-
                     type=raw,value=4.6.1-broker-jdk-8
                     type=raw,value=4.6.1-broker
@@ -3197,7 +3329,9 @@ jobs:
               name: meta for rocketmq:4.6.1-namesrv-jdk-8
               uses: docker/metadata-action@v4
               with:
-                images: ghcr.io/guoyk93/acicn/rocketmq
+                images: |-
+                    acicn/rocketmq
+                    ghcr.io/guoyk93/acicn/rocketmq
                 tags: |-
                     type=raw,value=4.6.1-namesrv-jdk-8
                     type=raw,value=4.6.1-namesrv
@@ -3246,7 +3380,9 @@ jobs:
               name: meta for rocketmq:4.8.0-broker-jdk-8
               uses: docker/metadata-action@v4
               with:
-                images: ghcr.io/guoyk93/acicn/rocketmq
+                images: |-
+                    acicn/rocketmq
+                    ghcr.io/guoyk93/acicn/rocketmq
                 tags: |-
                     type=raw,value=4.8.0-broker-jdk-8
                     type=raw,value=4.8.0-broker
@@ -3295,7 +3431,9 @@ jobs:
               name: meta for rocketmq:4.8.0-namesrv-jdk-8
               uses: docker/metadata-action@v4
               with:
-                images: ghcr.io/guoyk93/acicn/rocketmq
+                images: |-
+                    acicn/rocketmq
+                    ghcr.io/guoyk93/acicn/rocketmq
                 tags: |-
                     type=raw,value=4.8.0-namesrv-jdk-8
                     type=raw,value=4.8.0-namesrv
@@ -3344,7 +3482,9 @@ jobs:
               name: meta for rocketmq:4.9.1-broker-jdk-8
               uses: docker/metadata-action@v4
               with:
-                images: ghcr.io/guoyk93/acicn/rocketmq
+                images: |-
+                    acicn/rocketmq
+                    ghcr.io/guoyk93/acicn/rocketmq
                 tags: |-
                     type=raw,value=4.9.1-broker-jdk-8
                     type=raw,value=4.9.1-broker
@@ -3393,7 +3533,9 @@ jobs:
               name: meta for rocketmq:4.9.1-namesrv-jdk-8
               uses: docker/metadata-action@v4
               with:
-                images: ghcr.io/guoyk93/acicn/rocketmq
+                images: |-
+                    acicn/rocketmq
+                    ghcr.io/guoyk93/acicn/rocketmq
                 tags: |-
                     type=raw,value=4.9.1-namesrv-jdk-8
                     type=raw,value=4.9.1-namesrv
@@ -3442,7 +3584,9 @@ jobs:
               name: meta for rocketmq:console
               uses: docker/metadata-action@v4
               with:
-                images: ghcr.io/guoyk93/acicn/rocketmq
+                images: |-
+                    acicn/rocketmq
+                    ghcr.io/guoyk93/acicn/rocketmq
                 tags: type=raw,value=console
             - id: build
               name: build for rocketmq:console
@@ -3489,7 +3633,9 @@ jobs:
               name: meta for spring-boot-admin:1.0
               uses: docker/metadata-action@v4
               with:
-                images: ghcr.io/guoyk93/acicn/spring-boot-admin
+                images: |-
+                    acicn/spring-boot-admin
+                    ghcr.io/guoyk93/acicn/spring-boot-admin
                 tags: |-
                     type=raw,value=1.0
                     type=raw,value=latest
@@ -3538,7 +3684,9 @@ jobs:
               name: meta for tomcat:8-jdk-8-debian-11
               uses: docker/metadata-action@v4
               with:
-                images: ghcr.io/guoyk93/acicn/tomcat
+                images: |-
+                    acicn/tomcat
+                    ghcr.io/guoyk93/acicn/tomcat
                 tags: |-
                     type=raw,value=8-jdk-8-debian-11
                     type=raw,value=8-jdk-8
@@ -3587,7 +3735,9 @@ jobs:
               name: meta for tomcat:8-jdk-11-debian-11
               uses: docker/metadata-action@v4
               with:
-                images: ghcr.io/guoyk93/acicn/tomcat
+                images: |-
+                    acicn/tomcat
+                    ghcr.io/guoyk93/acicn/tomcat
                 tags: |-
                     type=raw,value=8-jdk-11-debian-11
                     type=raw,value=8-jdk-11
@@ -3637,7 +3787,9 @@ jobs:
               name: meta for tomcat:8-pagoda
               uses: docker/metadata-action@v4
               with:
-                images: ghcr.io/guoyk93/acicn/tomcat
+                images: |-
+                    acicn/tomcat
+                    ghcr.io/guoyk93/acicn/tomcat
                 tags: type=raw,value=8-pagoda
             - id: build
               name: build for tomcat:8-pagoda
@@ -3684,7 +3836,9 @@ jobs:
               name: meta for tomcat:9-jdk-8-debian-11
               uses: docker/metadata-action@v4
               with:
-                images: ghcr.io/guoyk93/acicn/tomcat
+                images: |-
+                    acicn/tomcat
+                    ghcr.io/guoyk93/acicn/tomcat
                 tags: |-
                     type=raw,value=9-jdk-8-debian-11
                     type=raw,value=9-jdk-8
@@ -3733,7 +3887,9 @@ jobs:
               name: meta for tomcat:9-jdk-11-debian-11
               uses: docker/metadata-action@v4
               with:
-                images: ghcr.io/guoyk93/acicn/tomcat
+                images: |-
+                    acicn/tomcat
+                    ghcr.io/guoyk93/acicn/tomcat
                 tags: |-
                     type=raw,value=9-jdk-11-debian-11
                     type=raw,value=9-jdk-11
@@ -3783,7 +3939,9 @@ jobs:
               name: meta for zookeeper:3.6.2-jdk-11
               uses: docker/metadata-action@v4
               with:
-                images: ghcr.io/guoyk93/acicn/zookeeper
+                images: |-
+                    acicn/zookeeper
+                    ghcr.io/guoyk93/acicn/zookeeper
                 tags: |-
                     type=raw,value=3.6.2-jdk-11
                     type=raw,value=latest
