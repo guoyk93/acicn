@@ -48,6 +48,7 @@ func updateWorkflow(repos []*acicn.Repo) (err error) {
 		}
 
 		job := gg.M{
+			"if":      "inputs.job_name == 'all' || contains(inputs.job_name,'" + jobName(item.Name) + ",')",
 			"runs-on": "ubuntu-latest",
 			"permissions": gg.M{
 				"contents": "read",
@@ -92,7 +93,7 @@ func updateWorkflow(repos []*acicn.Repo) (err error) {
 					},
 				},
 				{
-					"name": "meta for " + item.Repo + ":" + item.Tags[0],
+					"name": "meta for " + item.ShortName(),
 					"id":   "meta",
 					"uses": "docker/metadata-action@v4",
 					"with": gg.M{
@@ -104,11 +105,11 @@ func updateWorkflow(repos []*acicn.Repo) (err error) {
 					},
 				},
 				{
-					"name": "build for " + item.Repo + ":" + item.Tags[0],
+					"name": "build for " + item.ShortName(),
 					"uses": "docker/build-push-action@v3",
 					"id":   "build",
 					"with": gg.M{
-						"context":    "out/" + item.Repo + ":" + item.Tags[0],
+						"context":    "out/" + item.ShortName(),
 						"pull":       pull,
 						"push":       true,
 						"tags":       "${{steps.meta.outputs.tags}}",
@@ -130,6 +131,8 @@ func updateWorkflow(repos []*acicn.Repo) (err error) {
 			}
 		}
 
+		sort.Strings(needs)
+
 		if len(needs) > 0 {
 			job["needs"] = needs
 		}
@@ -146,6 +149,11 @@ func updateWorkflow(repos []*acicn.Repo) (err error) {
 						"description": "force pull upstream images",
 						"required":    true,
 						"type":        "boolean",
+					},
+					"job_name": gg.M{
+						"description": "names of jobs to execute, 'all' for all",
+						"required":    true,
+						"type":        "string",
 					},
 				},
 			},

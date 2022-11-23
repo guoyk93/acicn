@@ -75,7 +75,7 @@ func (b Repo) LookupKnown(upstream string) (string, error) {
 func (b Repo) Generate() (err error) {
 	defer gg.Guard(&err)
 
-	dir := filepath.Join("out", b.Repo+":"+b.Tags[0])
+	dir := filepath.Join("out", b.ShortName())
 	gg.Must0(os.RemoveAll(dir))
 
 	gg.Must0(cp.Copy(b.Dir, dir, cp.Options{
@@ -89,7 +89,7 @@ func (b Repo) Generate() (err error) {
 	gg.Must0(
 		os.WriteFile(
 			filepath.Join(dir, "banner.minit.txt"),
-			[]byte(fmt.Sprintf("本镜像基于 ACICN 镜像 %s:%s 制作，详细信息参阅 %s", b.Repo, b.Tags[0], b.Doc)),
+			[]byte(fmt.Sprintf("本镜像基于 ACICN 镜像 %s 制作，详细信息参阅 %s", b.ShortName(), b.Doc)),
 			0644,
 		),
 	)
