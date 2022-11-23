@@ -130,13 +130,11 @@ func updateWorkflow(repos []*acicn.Repo) (err error) {
 		"name": "release",
 		"on": gg.M{
 			"workflow_dispatch": gg.M{
-				"inputs": []gg.M{
-					{
-						"force_pull": gg.M{
-							"description": "force pull upstream images",
-							"required":    true,
-							"type":        "boolean",
-						},
+				"inputs": gg.M{
+					"force_pull": gg.M{
+						"description": "force pull upstream images",
+						"required":    true,
+						"type":        "boolean",
 					},
 				},
 			},
