@@ -37,8 +37,13 @@ func updateWorkflow(repos []*acicn.Repo) (err error) {
 		upstream, _ := item.Vars["upstream"].(string)
 		upstream = strings.TrimSpace(upstream)
 
+		var pull any
+
 		if upstream == "" {
+			pull = "${{ inputs.force_pull }}"
 			gg.Log("missing upstream for: " + item.Name)
+		} else {
+			pull = true
 		}
 
 		job := gg.M{
@@ -103,7 +108,7 @@ func updateWorkflow(repos []*acicn.Repo) (err error) {
 					"id":   "build",
 					"with": gg.M{
 						"context":    "out/" + item.Repo + ":" + item.Tags[0],
-						"pull":       upstream != "",
+						"pull":       pull,
 						"push":       true,
 						"tags":       "${{steps.meta.outputs.tags}}",
 						"labels":     "${{steps.meta.outputs.labels}}",
@@ -124,7 +129,17 @@ func updateWorkflow(repos []*acicn.Repo) (err error) {
 	doc := gg.M{
 		"name": "release",
 		"on": gg.M{
-			"workflow_dispatch": gg.M{},
+			"workflow_dispatch": gg.M{
+				"inputs": []gg.M{
+					{
+						"force_pull": gg.M{
+							"description": "force pull upstream images",
+							"required":    true,
+							"type":        "boolean",
+						},
+					},
+				},
+			},
 		},
 		"jobs": jobs,
 	}

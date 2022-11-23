@@ -137,7 +137,7 @@ jobs:
                 cache-to: type=gha,mode=max
                 context: out/alpine:3.16
                 labels: ${{steps.meta.outputs.labels}}
-                pull: false
+                pull: ${{ inputs.force_pull }}
                 push: true
                 tags: ${{steps.meta.outputs.tags}}
     r_alpine_3_16_no_minit:
@@ -182,7 +182,7 @@ jobs:
                 cache-to: type=gha,mode=max
                 context: out/alpine:3.16-no-minit
                 labels: ${{steps.meta.outputs.labels}}
-                pull: false
+                pull: ${{ inputs.force_pull }}
                 push: true
                 tags: ${{steps.meta.outputs.tags}}
     r_apollo_1_3_0_jdk_11:
@@ -326,7 +326,7 @@ jobs:
                 cache-to: type=gha,mode=max
                 context: out/debian:11
                 labels: ${{steps.meta.outputs.labels}}
-                pull: false
+                pull: ${{ inputs.force_pull }}
                 push: true
                 tags: ${{steps.meta.outputs.tags}}
     r_debian_11_no_minit:
@@ -371,7 +371,7 @@ jobs:
                 cache-to: type=gha,mode=max
                 context: out/debian:11-no-minit
                 labels: ${{steps.meta.outputs.labels}}
-                pull: false
+                pull: ${{ inputs.force_pull }}
                 push: true
                 tags: ${{steps.meta.outputs.tags}}
     r_elasticsearch_6_3_2_jdk_11:
@@ -1436,7 +1436,7 @@ jobs:
                 cache-to: type=gha,mode=max
                 context: out/mongo:3.6
                 labels: ${{steps.meta.outputs.labels}}
-                pull: false
+                pull: ${{ inputs.force_pull }}
                 push: true
                 tags: ${{steps.meta.outputs.tags}}
     r_mongo_4_0:
@@ -1481,7 +1481,7 @@ jobs:
                 cache-to: type=gha,mode=max
                 context: out/mongo:4.0
                 labels: ${{steps.meta.outputs.labels}}
-                pull: false
+                pull: ${{ inputs.force_pull }}
                 push: true
                 tags: ${{steps.meta.outputs.tags}}
     r_mongo_4_2:
@@ -1526,7 +1526,7 @@ jobs:
                 cache-to: type=gha,mode=max
                 context: out/mongo:4.2
                 labels: ${{steps.meta.outputs.labels}}
-                pull: false
+                pull: ${{ inputs.force_pull }}
                 push: true
                 tags: ${{steps.meta.outputs.tags}}
     r_mongo_4_4:
@@ -1571,7 +1571,7 @@ jobs:
                 cache-to: type=gha,mode=max
                 context: out/mongo:4.4
                 labels: ${{steps.meta.outputs.labels}}
-                pull: false
+                pull: ${{ inputs.force_pull }}
                 push: true
                 tags: ${{steps.meta.outputs.tags}}
     r_mysql_5_6:
@@ -1616,7 +1616,7 @@ jobs:
                 cache-to: type=gha,mode=max
                 context: out/mysql:5.6
                 labels: ${{steps.meta.outputs.labels}}
-                pull: false
+                pull: ${{ inputs.force_pull }}
                 push: true
                 tags: ${{steps.meta.outputs.tags}}
     r_mysql_5_7:
@@ -1661,7 +1661,7 @@ jobs:
                 cache-to: type=gha,mode=max
                 context: out/mysql:5.7
                 labels: ${{steps.meta.outputs.labels}}
-                pull: false
+                pull: ${{ inputs.force_pull }}
                 push: true
                 tags: ${{steps.meta.outputs.tags}}
     r_mysql_8_0:
@@ -1706,7 +1706,7 @@ jobs:
                 cache-to: type=gha,mode=max
                 context: out/mysql:8.0
                 labels: ${{steps.meta.outputs.labels}}
-                pull: false
+                pull: ${{ inputs.force_pull }}
                 push: true
                 tags: ${{steps.meta.outputs.tags}}
     r_nginx_alpine_3_16:
@@ -2486,7 +2486,7 @@ jobs:
                 cache-to: type=gha,mode=max
                 context: out/postgres:9.6
                 labels: ${{steps.meta.outputs.labels}}
-                pull: false
+                pull: ${{ inputs.force_pull }}
                 push: true
                 tags: ${{steps.meta.outputs.tags}}
     r_postgres_10_15:
@@ -2531,7 +2531,7 @@ jobs:
                 cache-to: type=gha,mode=max
                 context: out/postgres:10.15
                 labels: ${{steps.meta.outputs.labels}}
-                pull: false
+                pull: ${{ inputs.force_pull }}
                 push: true
                 tags: ${{steps.meta.outputs.tags}}
     r_postgres_11_10:
@@ -2576,7 +2576,7 @@ jobs:
                 cache-to: type=gha,mode=max
                 context: out/postgres:11.10
                 labels: ${{steps.meta.outputs.labels}}
-                pull: false
+                pull: ${{ inputs.force_pull }}
                 push: true
                 tags: ${{steps.meta.outputs.tags}}
     r_postgres_12_5:
@@ -2621,7 +2621,7 @@ jobs:
                 cache-to: type=gha,mode=max
                 context: out/postgres:12.5
                 labels: ${{steps.meta.outputs.labels}}
-                pull: false
+                pull: ${{ inputs.force_pull }}
                 push: true
                 tags: ${{steps.meta.outputs.tags}}
     r_prometheus_2_25:
@@ -3802,4 +3802,9 @@ jobs:
                 tags: ${{steps.meta.outputs.tags}}
 name: release
 "on":
-    workflow_dispatch: {}
+    workflow_dispatch:
+        inputs:
+            - force_pull:
+                description: force pull upstream images
+                required: true
+                type: boolean
