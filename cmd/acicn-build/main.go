@@ -159,6 +159,11 @@ func updateWorkflow(repos []*acicn.Repo) (err error) {
 	return
 }
 
+type Record struct {
+	Name string   `yaml:"name"`
+	Also []string `yaml:"also"`
+}
+
 func main() {
 	var err error
 	defer ggos.Exit(&err)
@@ -202,20 +207,37 @@ func main() {
 
 	// collect image names
 	if optUpdateImages {
-		var imageNames []string
+		// update IMAGES.txt
+		var names []string
 		{
-			imageNameMap := map[string]struct{}{}
-			for _, task := range repos {
-				for _, tag := range task.Tags {
-					imageNameMap[task.Repo+":"+tag] = struct{}{}
+			nameMap := map[string]struct{}{}
+			for _, item := range repos {
+				for _, tag := range item.Tags {
+					nameMap[item.Repo+":"+tag] = struct{}{}
 				}
 			}
-			imageNames = gg.Keys(imageNameMap)
-			sort.Strings(imageNames)
+			names = gg.Keys(nameMap)
+			sort.Strings(names)
 		}
+		gg.Must0(os.WriteFile("IMAGES.txt", []byte(strings.Join(names, "\n")), 0644))
 
-		// update IMAGES.txt
-		gg.Must0(os.WriteFile("IMAGES.txt", []byte(strings.Join(imageNames, "\n")), 0644))
+		// update IMAGES.yml
+		var records []*Record
+		{
+			for _, item := range repos {
+				records = append(records, &Record{
+					Name: item.ShortName(),
+					Also: item.ShortNames()[1:],
+				})
+			}
+			sort.Slice(records, func(i, j int) bool {
+				return records[i].Name < records[j].Name
+			})
+			for _, item := range records {
+				sort.Strings(item.Also)
+			}
+		}
+		gg.Must0(os.WriteFile("IMAGES.yml", gg.Must(yaml.Marshal(records)), 0644))
 	}
 
 	if optName != "" {
