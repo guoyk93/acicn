@@ -25,9 +25,9 @@ jobs:
             - name: docker login - target registry
               uses: docker/login-action@v2
               with:
-                password: ${{secrets[inputs.password_key]}}
+                password: ${{secrets.MIRROR_PASSWORD}}
                 registry: ${{inputs.registry}}
-                username: ${{secrets[inputs.username_key]}}
+                username: ${{secrets.MIRROR_USERNAME}}
             - id: meta
               name: meta for activemq:5.15-jdk-8
               uses: docker/metadata-action@v4
@@ -71,9 +71,9 @@ jobs:
             - name: docker login - target registry
               uses: docker/login-action@v2
               with:
-                password: ${{secrets[inputs.password_key]}}
+                password: ${{secrets.MIRROR_PASSWORD}}
                 registry: ${{inputs.registry}}
-                username: ${{secrets[inputs.username_key]}}
+                username: ${{secrets.MIRROR_USERNAME}}
             - id: meta
               name: meta for activemq:5.15-jdk-11
               uses: docker/metadata-action@v4
@@ -119,9 +119,9 @@ jobs:
             - name: docker login - target registry
               uses: docker/login-action@v2
               with:
-                password: ${{secrets[inputs.password_key]}}
+                password: ${{secrets.MIRROR_PASSWORD}}
                 registry: ${{inputs.registry}}
-                username: ${{secrets[inputs.username_key]}}
+                username: ${{secrets.MIRROR_USERNAME}}
             - id: meta
               name: meta for alpine:3.16
               uses: docker/metadata-action@v4
@@ -165,9 +165,9 @@ jobs:
             - name: docker login - target registry
               uses: docker/login-action@v2
               with:
-                password: ${{secrets[inputs.password_key]}}
+                password: ${{secrets.MIRROR_PASSWORD}}
                 registry: ${{inputs.registry}}
-                username: ${{secrets[inputs.username_key]}}
+                username: ${{secrets.MIRROR_USERNAME}}
             - id: meta
               name: meta for alpine:3.16-no-minit
               uses: docker/metadata-action@v4
@@ -211,9 +211,9 @@ jobs:
             - name: docker login - target registry
               uses: docker/login-action@v2
               with:
-                password: ${{secrets[inputs.password_key]}}
+                password: ${{secrets.MIRROR_PASSWORD}}
                 registry: ${{inputs.registry}}
-                username: ${{secrets[inputs.username_key]}}
+                username: ${{secrets.MIRROR_USERNAME}}
             - id: meta
               name: meta for apollo:1.3.0-jdk-11
               uses: docker/metadata-action@v4
@@ -259,9 +259,9 @@ jobs:
             - name: docker login - target registry
               uses: docker/login-action@v2
               with:
-                password: ${{secrets[inputs.password_key]}}
+                password: ${{secrets.MIRROR_PASSWORD}}
                 registry: ${{inputs.registry}}
-                username: ${{secrets[inputs.username_key]}}
+                username: ${{secrets.MIRROR_USERNAME}}
             - id: meta
               name: meta for beanstalk:1-alpine-3.16
               uses: docker/metadata-action@v4
@@ -308,9 +308,9 @@ jobs:
             - name: docker login - target registry
               uses: docker/login-action@v2
               with:
-                password: ${{secrets[inputs.password_key]}}
+                password: ${{secrets.MIRROR_PASSWORD}}
                 registry: ${{inputs.registry}}
-                username: ${{secrets[inputs.username_key]}}
+                username: ${{secrets.MIRROR_USERNAME}}
             - id: meta
               name: meta for debian:11
               uses: docker/metadata-action@v4
@@ -354,9 +354,9 @@ jobs:
             - name: docker login - target registry
               uses: docker/login-action@v2
               with:
-                password: ${{secrets[inputs.password_key]}}
+                password: ${{secrets.MIRROR_PASSWORD}}
                 registry: ${{inputs.registry}}
-                username: ${{secrets[inputs.username_key]}}
+                username: ${{secrets.MIRROR_USERNAME}}
             - id: meta
               name: meta for debian:11-no-minit
               uses: docker/metadata-action@v4
@@ -400,9 +400,9 @@ jobs:
             - name: docker login - target registry
               uses: docker/login-action@v2
               with:
-                password: ${{secrets[inputs.password_key]}}
+                password: ${{secrets.MIRROR_PASSWORD}}
                 registry: ${{inputs.registry}}
-                username: ${{secrets[inputs.username_key]}}
+                username: ${{secrets.MIRROR_USERNAME}}
             - id: meta
               name: meta for elasticsearch:6.3.2-jdk-11
               uses: docker/metadata-action@v4
@@ -448,9 +448,9 @@ jobs:
             - name: docker login - target registry
               uses: docker/login-action@v2
               with:
-                password: ${{secrets[inputs.password_key]}}
+                password: ${{secrets.MIRROR_PASSWORD}}
                 registry: ${{inputs.registry}}
-                username: ${{secrets[inputs.username_key]}}
+                username: ${{secrets.MIRROR_USERNAME}}
             - id: meta
               name: meta for elasticsearch:6.8.18-jdk-11
               uses: docker/metadata-action@v4
@@ -496,9 +496,9 @@ jobs:
             - name: docker login - target registry
               uses: docker/login-action@v2
               with:
-                password: ${{secrets[inputs.password_key]}}
+                password: ${{secrets.MIRROR_PASSWORD}}
                 registry: ${{inputs.registry}}
-                username: ${{secrets[inputs.username_key]}}
+                username: ${{secrets.MIRROR_USERNAME}}
             - id: meta
               name: meta for filebeat:6.3.2-debian-11
               uses: docker/metadata-action@v4
@@ -544,9 +544,9 @@ jobs:
             - name: docker login - target registry
               uses: docker/login-action@v2
               with:
-                password: ${{secrets[inputs.password_key]}}
+                password: ${{secrets.MIRROR_PASSWORD}}
                 registry: ${{inputs.registry}}
-                username: ${{secrets[inputs.username_key]}}
+                username: ${{secrets.MIRROR_USERNAME}}
             - id: meta
               name: meta for jdk:8-debian-11
               uses: docker/metadata-action@v4
@@ -592,9 +592,9 @@ jobs:
             - name: docker login - target registry
               uses: docker/login-action@v2
               with:
-                password: ${{secrets[inputs.password_key]}}
+                password: ${{secrets.MIRROR_PASSWORD}}
                 registry: ${{inputs.registry}}
-                username: ${{secrets[inputs.username_key]}}
+                username: ${{secrets.MIRROR_USERNAME}}
             - id: meta
               name: meta for jdk:8-pagoda
               uses: docker/metadata-action@v4
@@ -638,9 +638,9 @@ jobs:
             - name: docker login - target registry
               uses: docker/login-action@v2
               with:
-                password: ${{secrets[inputs.password_key]}}
+                password: ${{secrets.MIRROR_PASSWORD}}
                 registry: ${{inputs.registry}}
-                username: ${{secrets[inputs.username_key]}}
+                username: ${{secrets.MIRROR_USERNAME}}
             - id: meta
               name: meta for jdk:8-pagoda-cubic
               uses: docker/metadata-action@v4
@@ -684,9 +684,9 @@ jobs:
             - name: docker login - target registry
               uses: docker/login-action@v2
               with:
-                password: ${{secrets[inputs.password_key]}}
+                password: ${{secrets.MIRROR_PASSWORD}}
                 registry: ${{inputs.registry}}
-                username: ${{secrets[inputs.username_key]}}
+                username: ${{secrets.MIRROR_USERNAME}}
             - id: meta
               name: meta for jdk:11-debian-11
               uses: docker/metadata-action@v4
@@ -732,9 +732,9 @@ jobs:
             - name: docker login - target registry
               uses: docker/login-action@v2
               with:
-                password: ${{secrets[inputs.password_key]}}
+                password: ${{secrets.MIRROR_PASSWORD}}
                 registry: ${{inputs.registry}}
-                username: ${{secrets[inputs.username_key]}}
+                username: ${{secrets.MIRROR_USERNAME}}
             - id: meta
               name: meta for jdk:11-pagoda
               uses: docker/metadata-action@v4
@@ -778,9 +778,9 @@ jobs:
             - name: docker login - target registry
               uses: docker/login-action@v2
               with:
-                password: ${{secrets[inputs.password_key]}}
+                password: ${{secrets.MIRROR_PASSWORD}}
                 registry: ${{inputs.registry}}
-                username: ${{secrets[inputs.username_key]}}
+                username: ${{secrets.MIRROR_USERNAME}}
             - id: meta
               name: meta for jdk:17-debian-11
               uses: docker/metadata-action@v4
@@ -826,9 +826,9 @@ jobs:
             - name: docker login - target registry
               uses: docker/login-action@v2
               with:
-                password: ${{secrets[inputs.password_key]}}
+                password: ${{secrets.MIRROR_PASSWORD}}
                 registry: ${{inputs.registry}}
-                username: ${{secrets[inputs.username_key]}}
+                username: ${{secrets.MIRROR_USERNAME}}
             - id: meta
               name: meta for jdk:17-pagoda
               uses: docker/metadata-action@v4
@@ -872,9 +872,9 @@ jobs:
             - name: docker login - target registry
               uses: docker/login-action@v2
               with:
-                password: ${{secrets[inputs.password_key]}}
+                password: ${{secrets.MIRROR_PASSWORD}}
                 registry: ${{inputs.registry}}
-                username: ${{secrets[inputs.username_key]}}
+                username: ${{secrets.MIRROR_USERNAME}}
             - id: meta
               name: meta for jdk:builder-8-maven-3.5-debian-11
               uses: docker/metadata-action@v4
@@ -920,9 +920,9 @@ jobs:
             - name: docker login - target registry
               uses: docker/login-action@v2
               with:
-                password: ${{secrets[inputs.password_key]}}
+                password: ${{secrets.MIRROR_PASSWORD}}
                 registry: ${{inputs.registry}}
-                username: ${{secrets[inputs.username_key]}}
+                username: ${{secrets.MIRROR_USERNAME}}
             - id: meta
               name: meta for jdk:builder-8-maven-3.6-debian-11
               uses: docker/metadata-action@v4
@@ -968,9 +968,9 @@ jobs:
             - name: docker login - target registry
               uses: docker/login-action@v2
               with:
-                password: ${{secrets[inputs.password_key]}}
+                password: ${{secrets.MIRROR_PASSWORD}}
                 registry: ${{inputs.registry}}
-                username: ${{secrets[inputs.username_key]}}
+                username: ${{secrets.MIRROR_USERNAME}}
             - id: meta
               name: meta for jdk:builder-8-maven-3.8-debian-11
               uses: docker/metadata-action@v4
@@ -1017,9 +1017,9 @@ jobs:
             - name: docker login - target registry
               uses: docker/login-action@v2
               with:
-                password: ${{secrets[inputs.password_key]}}
+                password: ${{secrets.MIRROR_PASSWORD}}
                 registry: ${{inputs.registry}}
-                username: ${{secrets[inputs.username_key]}}
+                username: ${{secrets.MIRROR_USERNAME}}
             - id: meta
               name: meta for jdk:builder-11-maven-3.5-debian-11
               uses: docker/metadata-action@v4
@@ -1065,9 +1065,9 @@ jobs:
             - name: docker login - target registry
               uses: docker/login-action@v2
               with:
-                password: ${{secrets[inputs.password_key]}}
+                password: ${{secrets.MIRROR_PASSWORD}}
                 registry: ${{inputs.registry}}
-                username: ${{secrets[inputs.username_key]}}
+                username: ${{secrets.MIRROR_USERNAME}}
             - id: meta
               name: meta for jdk:builder-11-maven-3.6-debian-11
               uses: docker/metadata-action@v4
@@ -1113,9 +1113,9 @@ jobs:
             - name: docker login - target registry
               uses: docker/login-action@v2
               with:
-                password: ${{secrets[inputs.password_key]}}
+                password: ${{secrets.MIRROR_PASSWORD}}
                 registry: ${{inputs.registry}}
-                username: ${{secrets[inputs.username_key]}}
+                username: ${{secrets.MIRROR_USERNAME}}
             - id: meta
               name: meta for jdk:builder-11-maven-3.8-debian-11
               uses: docker/metadata-action@v4
@@ -1162,9 +1162,9 @@ jobs:
             - name: docker login - target registry
               uses: docker/login-action@v2
               with:
-                password: ${{secrets[inputs.password_key]}}
+                password: ${{secrets.MIRROR_PASSWORD}}
                 registry: ${{inputs.registry}}
-                username: ${{secrets[inputs.username_key]}}
+                username: ${{secrets.MIRROR_USERNAME}}
             - id: meta
               name: meta for jdk:builder-17-maven-3.6-debian-11
               uses: docker/metadata-action@v4
@@ -1210,9 +1210,9 @@ jobs:
             - name: docker login - target registry
               uses: docker/login-action@v2
               with:
-                password: ${{secrets[inputs.password_key]}}
+                password: ${{secrets.MIRROR_PASSWORD}}
                 registry: ${{inputs.registry}}
-                username: ${{secrets[inputs.username_key]}}
+                username: ${{secrets.MIRROR_USERNAME}}
             - id: meta
               name: meta for jdk:builder-17-maven-3.8-debian-11
               uses: docker/metadata-action@v4
@@ -1259,9 +1259,9 @@ jobs:
             - name: docker login - target registry
               uses: docker/login-action@v2
               with:
-                password: ${{secrets[inputs.password_key]}}
+                password: ${{secrets.MIRROR_PASSWORD}}
                 registry: ${{inputs.registry}}
-                username: ${{secrets[inputs.username_key]}}
+                username: ${{secrets.MIRROR_USERNAME}}
             - id: meta
               name: meta for kafka:2.1
               uses: docker/metadata-action@v4
@@ -1305,9 +1305,9 @@ jobs:
             - name: docker login - target registry
               uses: docker/login-action@v2
               with:
-                password: ${{secrets[inputs.password_key]}}
+                password: ${{secrets.MIRROR_PASSWORD}}
                 registry: ${{inputs.registry}}
-                username: ${{secrets[inputs.username_key]}}
+                username: ${{secrets.MIRROR_USERNAME}}
             - id: meta
               name: meta for kafka:2.4
               uses: docker/metadata-action@v4
@@ -1351,9 +1351,9 @@ jobs:
             - name: docker login - target registry
               uses: docker/login-action@v2
               with:
-                password: ${{secrets[inputs.password_key]}}
+                password: ${{secrets.MIRROR_PASSWORD}}
                 registry: ${{inputs.registry}}
-                username: ${{secrets[inputs.username_key]}}
+                username: ${{secrets.MIRROR_USERNAME}}
             - id: meta
               name: meta for kafka:2.8
               uses: docker/metadata-action@v4
@@ -1399,9 +1399,9 @@ jobs:
             - name: docker login - target registry
               uses: docker/login-action@v2
               with:
-                password: ${{secrets[inputs.password_key]}}
+                password: ${{secrets.MIRROR_PASSWORD}}
                 registry: ${{inputs.registry}}
-                username: ${{secrets[inputs.username_key]}}
+                username: ${{secrets.MIRROR_USERNAME}}
             - id: meta
               name: meta for mongo:3.6
               uses: docker/metadata-action@v4
@@ -1445,9 +1445,9 @@ jobs:
             - name: docker login - target registry
               uses: docker/login-action@v2
               with:
-                password: ${{secrets[inputs.password_key]}}
+                password: ${{secrets.MIRROR_PASSWORD}}
                 registry: ${{inputs.registry}}
-                username: ${{secrets[inputs.username_key]}}
+                username: ${{secrets.MIRROR_USERNAME}}
             - id: meta
               name: meta for mongo:4.0
               uses: docker/metadata-action@v4
@@ -1491,9 +1491,9 @@ jobs:
             - name: docker login - target registry
               uses: docker/login-action@v2
               with:
-                password: ${{secrets[inputs.password_key]}}
+                password: ${{secrets.MIRROR_PASSWORD}}
                 registry: ${{inputs.registry}}
-                username: ${{secrets[inputs.username_key]}}
+                username: ${{secrets.MIRROR_USERNAME}}
             - id: meta
               name: meta for mongo:4.2
               uses: docker/metadata-action@v4
@@ -1537,9 +1537,9 @@ jobs:
             - name: docker login - target registry
               uses: docker/login-action@v2
               with:
-                password: ${{secrets[inputs.password_key]}}
+                password: ${{secrets.MIRROR_PASSWORD}}
                 registry: ${{inputs.registry}}
-                username: ${{secrets[inputs.username_key]}}
+                username: ${{secrets.MIRROR_USERNAME}}
             - id: meta
               name: meta for mongo:4.4
               uses: docker/metadata-action@v4
@@ -1583,9 +1583,9 @@ jobs:
             - name: docker login - target registry
               uses: docker/login-action@v2
               with:
-                password: ${{secrets[inputs.password_key]}}
+                password: ${{secrets.MIRROR_PASSWORD}}
                 registry: ${{inputs.registry}}
-                username: ${{secrets[inputs.username_key]}}
+                username: ${{secrets.MIRROR_USERNAME}}
             - id: meta
               name: meta for mysql:5.6
               uses: docker/metadata-action@v4
@@ -1629,9 +1629,9 @@ jobs:
             - name: docker login - target registry
               uses: docker/login-action@v2
               with:
-                password: ${{secrets[inputs.password_key]}}
+                password: ${{secrets.MIRROR_PASSWORD}}
                 registry: ${{inputs.registry}}
-                username: ${{secrets[inputs.username_key]}}
+                username: ${{secrets.MIRROR_USERNAME}}
             - id: meta
               name: meta for mysql:5.7
               uses: docker/metadata-action@v4
@@ -1675,9 +1675,9 @@ jobs:
             - name: docker login - target registry
               uses: docker/login-action@v2
               with:
-                password: ${{secrets[inputs.password_key]}}
+                password: ${{secrets.MIRROR_PASSWORD}}
                 registry: ${{inputs.registry}}
-                username: ${{secrets[inputs.username_key]}}
+                username: ${{secrets.MIRROR_USERNAME}}
             - id: meta
               name: meta for mysql:8.0
               uses: docker/metadata-action@v4
@@ -1721,9 +1721,9 @@ jobs:
             - name: docker login - target registry
               uses: docker/login-action@v2
               with:
-                password: ${{secrets[inputs.password_key]}}
+                password: ${{secrets.MIRROR_PASSWORD}}
                 registry: ${{inputs.registry}}
-                username: ${{secrets[inputs.username_key]}}
+                username: ${{secrets.MIRROR_USERNAME}}
             - id: meta
               name: meta for nginx:alpine-3.16
               uses: docker/metadata-action@v4
@@ -1769,9 +1769,9 @@ jobs:
             - name: docker login - target registry
               uses: docker/login-action@v2
               with:
-                password: ${{secrets[inputs.password_key]}}
+                password: ${{secrets.MIRROR_PASSWORD}}
                 registry: ${{inputs.registry}}
-                username: ${{secrets[inputs.username_key]}}
+                username: ${{secrets.MIRROR_USERNAME}}
             - id: meta
               name: meta for node:8-debian-11
               uses: docker/metadata-action@v4
@@ -1817,9 +1817,9 @@ jobs:
             - name: docker login - target registry
               uses: docker/login-action@v2
               with:
-                password: ${{secrets[inputs.password_key]}}
+                password: ${{secrets.MIRROR_PASSWORD}}
                 registry: ${{inputs.registry}}
-                username: ${{secrets[inputs.username_key]}}
+                username: ${{secrets.MIRROR_USERNAME}}
             - id: meta
               name: meta for node:10-debian-11
               uses: docker/metadata-action@v4
@@ -1865,9 +1865,9 @@ jobs:
             - name: docker login - target registry
               uses: docker/login-action@v2
               with:
-                password: ${{secrets[inputs.password_key]}}
+                password: ${{secrets.MIRROR_PASSWORD}}
                 registry: ${{inputs.registry}}
-                username: ${{secrets[inputs.username_key]}}
+                username: ${{secrets.MIRROR_USERNAME}}
             - id: meta
               name: meta for node:12-debian-11
               uses: docker/metadata-action@v4
@@ -1913,9 +1913,9 @@ jobs:
             - name: docker login - target registry
               uses: docker/login-action@v2
               with:
-                password: ${{secrets[inputs.password_key]}}
+                password: ${{secrets.MIRROR_PASSWORD}}
                 registry: ${{inputs.registry}}
-                username: ${{secrets[inputs.username_key]}}
+                username: ${{secrets.MIRROR_USERNAME}}
             - id: meta
               name: meta for node:14-debian-11
               uses: docker/metadata-action@v4
@@ -1961,9 +1961,9 @@ jobs:
             - name: docker login - target registry
               uses: docker/login-action@v2
               with:
-                password: ${{secrets[inputs.password_key]}}
+                password: ${{secrets.MIRROR_PASSWORD}}
                 registry: ${{inputs.registry}}
-                username: ${{secrets[inputs.username_key]}}
+                username: ${{secrets.MIRROR_USERNAME}}
             - id: meta
               name: meta for node:16-debian-11
               uses: docker/metadata-action@v4
@@ -2009,9 +2009,9 @@ jobs:
             - name: docker login - target registry
               uses: docker/login-action@v2
               with:
-                password: ${{secrets[inputs.password_key]}}
+                password: ${{secrets.MIRROR_PASSWORD}}
                 registry: ${{inputs.registry}}
-                username: ${{secrets[inputs.username_key]}}
+                username: ${{secrets.MIRROR_USERNAME}}
             - id: meta
               name: meta for node:18-debian-11
               uses: docker/metadata-action@v4
@@ -2057,9 +2057,9 @@ jobs:
             - name: docker login - target registry
               uses: docker/login-action@v2
               with:
-                password: ${{secrets[inputs.password_key]}}
+                password: ${{secrets.MIRROR_PASSWORD}}
                 registry: ${{inputs.registry}}
-                username: ${{secrets[inputs.username_key]}}
+                username: ${{secrets.MIRROR_USERNAME}}
             - id: meta
               name: meta for node:builder-8-debian-11
               uses: docker/metadata-action@v4
@@ -2105,9 +2105,9 @@ jobs:
             - name: docker login - target registry
               uses: docker/login-action@v2
               with:
-                password: ${{secrets[inputs.password_key]}}
+                password: ${{secrets.MIRROR_PASSWORD}}
                 registry: ${{inputs.registry}}
-                username: ${{secrets[inputs.username_key]}}
+                username: ${{secrets.MIRROR_USERNAME}}
             - id: meta
               name: meta for node:builder-10-debian-11
               uses: docker/metadata-action@v4
@@ -2153,9 +2153,9 @@ jobs:
             - name: docker login - target registry
               uses: docker/login-action@v2
               with:
-                password: ${{secrets[inputs.password_key]}}
+                password: ${{secrets.MIRROR_PASSWORD}}
                 registry: ${{inputs.registry}}
-                username: ${{secrets[inputs.username_key]}}
+                username: ${{secrets.MIRROR_USERNAME}}
             - id: meta
               name: meta for node:builder-12-debian-11
               uses: docker/metadata-action@v4
@@ -2201,9 +2201,9 @@ jobs:
             - name: docker login - target registry
               uses: docker/login-action@v2
               with:
-                password: ${{secrets[inputs.password_key]}}
+                password: ${{secrets.MIRROR_PASSWORD}}
                 registry: ${{inputs.registry}}
-                username: ${{secrets[inputs.username_key]}}
+                username: ${{secrets.MIRROR_USERNAME}}
             - id: meta
               name: meta for node:builder-14-debian-11
               uses: docker/metadata-action@v4
@@ -2249,9 +2249,9 @@ jobs:
             - name: docker login - target registry
               uses: docker/login-action@v2
               with:
-                password: ${{secrets[inputs.password_key]}}
+                password: ${{secrets.MIRROR_PASSWORD}}
                 registry: ${{inputs.registry}}
-                username: ${{secrets[inputs.username_key]}}
+                username: ${{secrets.MIRROR_USERNAME}}
             - id: meta
               name: meta for node:builder-16-debian-11
               uses: docker/metadata-action@v4
@@ -2297,9 +2297,9 @@ jobs:
             - name: docker login - target registry
               uses: docker/login-action@v2
               with:
-                password: ${{secrets[inputs.password_key]}}
+                password: ${{secrets.MIRROR_PASSWORD}}
                 registry: ${{inputs.registry}}
-                username: ${{secrets[inputs.username_key]}}
+                username: ${{secrets.MIRROR_USERNAME}}
             - id: meta
               name: meta for node:builder-18-debian-11
               uses: docker/metadata-action@v4
@@ -2345,9 +2345,9 @@ jobs:
             - name: docker login - target registry
               uses: docker/login-action@v2
               with:
-                password: ${{secrets[inputs.password_key]}}
+                password: ${{secrets.MIRROR_PASSWORD}}
                 registry: ${{inputs.registry}}
-                username: ${{secrets[inputs.username_key]}}
+                username: ${{secrets.MIRROR_USERNAME}}
             - id: meta
               name: meta for php:7.4-debian-11
               uses: docker/metadata-action@v4
@@ -2393,9 +2393,9 @@ jobs:
             - name: docker login - target registry
               uses: docker/login-action@v2
               with:
-                password: ${{secrets[inputs.password_key]}}
+                password: ${{secrets.MIRROR_PASSWORD}}
                 registry: ${{inputs.registry}}
-                username: ${{secrets[inputs.username_key]}}
+                username: ${{secrets.MIRROR_USERNAME}}
             - id: meta
               name: meta for php:7.4-pagoda-debian-11
               uses: docker/metadata-action@v4
@@ -2441,9 +2441,9 @@ jobs:
             - name: docker login - target registry
               uses: docker/login-action@v2
               with:
-                password: ${{secrets[inputs.password_key]}}
+                password: ${{secrets.MIRROR_PASSWORD}}
                 registry: ${{inputs.registry}}
-                username: ${{secrets[inputs.username_key]}}
+                username: ${{secrets.MIRROR_USERNAME}}
             - id: meta
               name: meta for postgres:9.6
               uses: docker/metadata-action@v4
@@ -2487,9 +2487,9 @@ jobs:
             - name: docker login - target registry
               uses: docker/login-action@v2
               with:
-                password: ${{secrets[inputs.password_key]}}
+                password: ${{secrets.MIRROR_PASSWORD}}
                 registry: ${{inputs.registry}}
-                username: ${{secrets[inputs.username_key]}}
+                username: ${{secrets.MIRROR_USERNAME}}
             - id: meta
               name: meta for postgres:10.15
               uses: docker/metadata-action@v4
@@ -2533,9 +2533,9 @@ jobs:
             - name: docker login - target registry
               uses: docker/login-action@v2
               with:
-                password: ${{secrets[inputs.password_key]}}
+                password: ${{secrets.MIRROR_PASSWORD}}
                 registry: ${{inputs.registry}}
-                username: ${{secrets[inputs.username_key]}}
+                username: ${{secrets.MIRROR_USERNAME}}
             - id: meta
               name: meta for postgres:11.10
               uses: docker/metadata-action@v4
@@ -2579,9 +2579,9 @@ jobs:
             - name: docker login - target registry
               uses: docker/login-action@v2
               with:
-                password: ${{secrets[inputs.password_key]}}
+                password: ${{secrets.MIRROR_PASSWORD}}
                 registry: ${{inputs.registry}}
-                username: ${{secrets[inputs.username_key]}}
+                username: ${{secrets.MIRROR_USERNAME}}
             - id: meta
               name: meta for postgres:12.5
               uses: docker/metadata-action@v4
@@ -2625,9 +2625,9 @@ jobs:
             - name: docker login - target registry
               uses: docker/login-action@v2
               with:
-                password: ${{secrets[inputs.password_key]}}
+                password: ${{secrets.MIRROR_PASSWORD}}
                 registry: ${{inputs.registry}}
-                username: ${{secrets[inputs.username_key]}}
+                username: ${{secrets.MIRROR_USERNAME}}
             - id: meta
               name: meta for prometheus:2.25
               uses: docker/metadata-action@v4
@@ -2671,9 +2671,9 @@ jobs:
             - name: docker login - target registry
               uses: docker/login-action@v2
               with:
-                password: ${{secrets[inputs.password_key]}}
+                password: ${{secrets.MIRROR_PASSWORD}}
                 registry: ${{inputs.registry}}
-                username: ${{secrets[inputs.username_key]}}
+                username: ${{secrets.MIRROR_USERNAME}}
             - id: meta
               name: meta for python:3.6-debian-11
               uses: docker/metadata-action@v4
@@ -2719,9 +2719,9 @@ jobs:
             - name: docker login - target registry
               uses: docker/login-action@v2
               with:
-                password: ${{secrets[inputs.password_key]}}
+                password: ${{secrets.MIRROR_PASSWORD}}
                 registry: ${{inputs.registry}}
-                username: ${{secrets[inputs.username_key]}}
+                username: ${{secrets.MIRROR_USERNAME}}
             - id: meta
               name: meta for python:3.7-debian-11
               uses: docker/metadata-action@v4
@@ -2767,9 +2767,9 @@ jobs:
             - name: docker login - target registry
               uses: docker/login-action@v2
               with:
-                password: ${{secrets[inputs.password_key]}}
+                password: ${{secrets.MIRROR_PASSWORD}}
                 registry: ${{inputs.registry}}
-                username: ${{secrets[inputs.username_key]}}
+                username: ${{secrets.MIRROR_USERNAME}}
             - id: meta
               name: meta for python:3.8-debian-11
               uses: docker/metadata-action@v4
@@ -2815,9 +2815,9 @@ jobs:
             - name: docker login - target registry
               uses: docker/login-action@v2
               with:
-                password: ${{secrets[inputs.password_key]}}
+                password: ${{secrets.MIRROR_PASSWORD}}
                 registry: ${{inputs.registry}}
-                username: ${{secrets[inputs.username_key]}}
+                username: ${{secrets.MIRROR_USERNAME}}
             - id: meta
               name: meta for python:3.9-debian-11
               uses: docker/metadata-action@v4
@@ -2863,9 +2863,9 @@ jobs:
             - name: docker login - target registry
               uses: docker/login-action@v2
               with:
-                password: ${{secrets[inputs.password_key]}}
+                password: ${{secrets.MIRROR_PASSWORD}}
                 registry: ${{inputs.registry}}
-                username: ${{secrets[inputs.username_key]}}
+                username: ${{secrets.MIRROR_USERNAME}}
             - id: meta
               name: meta for python:3.10-debian-11
               uses: docker/metadata-action@v4
@@ -2911,9 +2911,9 @@ jobs:
             - name: docker login - target registry
               uses: docker/login-action@v2
               with:
-                password: ${{secrets[inputs.password_key]}}
+                password: ${{secrets.MIRROR_PASSWORD}}
                 registry: ${{inputs.registry}}
-                username: ${{secrets[inputs.username_key]}}
+                username: ${{secrets.MIRROR_USERNAME}}
             - id: meta
               name: meta for python:3.11-debian-11
               uses: docker/metadata-action@v4
@@ -2959,9 +2959,9 @@ jobs:
             - name: docker login - target registry
               uses: docker/login-action@v2
               with:
-                password: ${{secrets[inputs.password_key]}}
+                password: ${{secrets.MIRROR_PASSWORD}}
                 registry: ${{inputs.registry}}
-                username: ${{secrets[inputs.username_key]}}
+                username: ${{secrets.MIRROR_USERNAME}}
             - id: meta
               name: meta for redis:5-alpine-3.16
               uses: docker/metadata-action@v4
@@ -3007,9 +3007,9 @@ jobs:
             - name: docker login - target registry
               uses: docker/login-action@v2
               with:
-                password: ${{secrets[inputs.password_key]}}
+                password: ${{secrets.MIRROR_PASSWORD}}
                 registry: ${{inputs.registry}}
-                username: ${{secrets[inputs.username_key]}}
+                username: ${{secrets.MIRROR_USERNAME}}
             - id: meta
               name: meta for redis:6.0-alpine-3.16
               uses: docker/metadata-action@v4
@@ -3055,9 +3055,9 @@ jobs:
             - name: docker login - target registry
               uses: docker/login-action@v2
               with:
-                password: ${{secrets[inputs.password_key]}}
+                password: ${{secrets.MIRROR_PASSWORD}}
                 registry: ${{inputs.registry}}
-                username: ${{secrets[inputs.username_key]}}
+                username: ${{secrets.MIRROR_USERNAME}}
             - id: meta
               name: meta for redis:6.2-alpine-3.16
               uses: docker/metadata-action@v4
@@ -3105,9 +3105,9 @@ jobs:
             - name: docker login - target registry
               uses: docker/login-action@v2
               with:
-                password: ${{secrets[inputs.password_key]}}
+                password: ${{secrets.MIRROR_PASSWORD}}
                 registry: ${{inputs.registry}}
-                username: ${{secrets[inputs.username_key]}}
+                username: ${{secrets.MIRROR_USERNAME}}
             - id: meta
               name: meta for rocketmq:4.6.1-broker-jdk-8
               uses: docker/metadata-action@v4
@@ -3153,9 +3153,9 @@ jobs:
             - name: docker login - target registry
               uses: docker/login-action@v2
               with:
-                password: ${{secrets[inputs.password_key]}}
+                password: ${{secrets.MIRROR_PASSWORD}}
                 registry: ${{inputs.registry}}
-                username: ${{secrets[inputs.username_key]}}
+                username: ${{secrets.MIRROR_USERNAME}}
             - id: meta
               name: meta for rocketmq:4.6.1-namesrv-jdk-8
               uses: docker/metadata-action@v4
@@ -3201,9 +3201,9 @@ jobs:
             - name: docker login - target registry
               uses: docker/login-action@v2
               with:
-                password: ${{secrets[inputs.password_key]}}
+                password: ${{secrets.MIRROR_PASSWORD}}
                 registry: ${{inputs.registry}}
-                username: ${{secrets[inputs.username_key]}}
+                username: ${{secrets.MIRROR_USERNAME}}
             - id: meta
               name: meta for rocketmq:4.8.0-broker-jdk-8
               uses: docker/metadata-action@v4
@@ -3249,9 +3249,9 @@ jobs:
             - name: docker login - target registry
               uses: docker/login-action@v2
               with:
-                password: ${{secrets[inputs.password_key]}}
+                password: ${{secrets.MIRROR_PASSWORD}}
                 registry: ${{inputs.registry}}
-                username: ${{secrets[inputs.username_key]}}
+                username: ${{secrets.MIRROR_USERNAME}}
             - id: meta
               name: meta for rocketmq:4.8.0-namesrv-jdk-8
               uses: docker/metadata-action@v4
@@ -3297,9 +3297,9 @@ jobs:
             - name: docker login - target registry
               uses: docker/login-action@v2
               with:
-                password: ${{secrets[inputs.password_key]}}
+                password: ${{secrets.MIRROR_PASSWORD}}
                 registry: ${{inputs.registry}}
-                username: ${{secrets[inputs.username_key]}}
+                username: ${{secrets.MIRROR_USERNAME}}
             - id: meta
               name: meta for rocketmq:4.9.1-broker-jdk-8
               uses: docker/metadata-action@v4
@@ -3345,9 +3345,9 @@ jobs:
             - name: docker login - target registry
               uses: docker/login-action@v2
               with:
-                password: ${{secrets[inputs.password_key]}}
+                password: ${{secrets.MIRROR_PASSWORD}}
                 registry: ${{inputs.registry}}
-                username: ${{secrets[inputs.username_key]}}
+                username: ${{secrets.MIRROR_USERNAME}}
             - id: meta
               name: meta for rocketmq:4.9.1-namesrv-jdk-8
               uses: docker/metadata-action@v4
@@ -3393,9 +3393,9 @@ jobs:
             - name: docker login - target registry
               uses: docker/login-action@v2
               with:
-                password: ${{secrets[inputs.password_key]}}
+                password: ${{secrets.MIRROR_PASSWORD}}
                 registry: ${{inputs.registry}}
-                username: ${{secrets[inputs.username_key]}}
+                username: ${{secrets.MIRROR_USERNAME}}
             - id: meta
               name: meta for rocketmq:console
               uses: docker/metadata-action@v4
@@ -3439,9 +3439,9 @@ jobs:
             - name: docker login - target registry
               uses: docker/login-action@v2
               with:
-                password: ${{secrets[inputs.password_key]}}
+                password: ${{secrets.MIRROR_PASSWORD}}
                 registry: ${{inputs.registry}}
-                username: ${{secrets[inputs.username_key]}}
+                username: ${{secrets.MIRROR_USERNAME}}
             - id: meta
               name: meta for spring-boot-admin:1.0
               uses: docker/metadata-action@v4
@@ -3487,9 +3487,9 @@ jobs:
             - name: docker login - target registry
               uses: docker/login-action@v2
               with:
-                password: ${{secrets[inputs.password_key]}}
+                password: ${{secrets.MIRROR_PASSWORD}}
                 registry: ${{inputs.registry}}
-                username: ${{secrets[inputs.username_key]}}
+                username: ${{secrets.MIRROR_USERNAME}}
             - id: meta
               name: meta for tomcat:8-jdk-8-debian-11
               uses: docker/metadata-action@v4
@@ -3535,9 +3535,9 @@ jobs:
             - name: docker login - target registry
               uses: docker/login-action@v2
               with:
-                password: ${{secrets[inputs.password_key]}}
+                password: ${{secrets.MIRROR_PASSWORD}}
                 registry: ${{inputs.registry}}
-                username: ${{secrets[inputs.username_key]}}
+                username: ${{secrets.MIRROR_USERNAME}}
             - id: meta
               name: meta for tomcat:8-jdk-11-debian-11
               uses: docker/metadata-action@v4
@@ -3584,9 +3584,9 @@ jobs:
             - name: docker login - target registry
               uses: docker/login-action@v2
               with:
-                password: ${{secrets[inputs.password_key]}}
+                password: ${{secrets.MIRROR_PASSWORD}}
                 registry: ${{inputs.registry}}
-                username: ${{secrets[inputs.username_key]}}
+                username: ${{secrets.MIRROR_USERNAME}}
             - id: meta
               name: meta for tomcat:8-pagoda
               uses: docker/metadata-action@v4
@@ -3630,9 +3630,9 @@ jobs:
             - name: docker login - target registry
               uses: docker/login-action@v2
               with:
-                password: ${{secrets[inputs.password_key]}}
+                password: ${{secrets.MIRROR_PASSWORD}}
                 registry: ${{inputs.registry}}
-                username: ${{secrets[inputs.username_key]}}
+                username: ${{secrets.MIRROR_USERNAME}}
             - id: meta
               name: meta for tomcat:9-jdk-8-debian-11
               uses: docker/metadata-action@v4
@@ -3678,9 +3678,9 @@ jobs:
             - name: docker login - target registry
               uses: docker/login-action@v2
               with:
-                password: ${{secrets[inputs.password_key]}}
+                password: ${{secrets.MIRROR_PASSWORD}}
                 registry: ${{inputs.registry}}
-                username: ${{secrets[inputs.username_key]}}
+                username: ${{secrets.MIRROR_USERNAME}}
             - id: meta
               name: meta for tomcat:9-jdk-11-debian-11
               uses: docker/metadata-action@v4
@@ -3727,9 +3727,9 @@ jobs:
             - name: docker login - target registry
               uses: docker/login-action@v2
               with:
-                password: ${{secrets[inputs.password_key]}}
+                password: ${{secrets.MIRROR_PASSWORD}}
                 registry: ${{inputs.registry}}
-                username: ${{secrets[inputs.username_key]}}
+                username: ${{secrets.MIRROR_USERNAME}}
             - id: meta
               name: meta for zookeeper:3.6.2-jdk-11
               uses: docker/metadata-action@v4
@@ -3755,19 +3755,11 @@ name: mirror
 "on":
     workflow_dispatch:
         inputs:
-            password_key:
-                description: key in secrets of registry username
-                required: true
-                type: string
             prefix:
                 description: registry image prefix
                 required: true
                 type: string
             registry:
                 description: registry address
-                required: true
-                type: string
-            username_key:
-                description: key in secrets of registry username
                 required: true
                 type: string

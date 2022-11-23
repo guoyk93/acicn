@@ -79,8 +79,8 @@ func updateWorkflowMirror(repos []*acicn.Repo) (err error) {
 					"uses": "docker/login-action@v2",
 					"with": gg.M{
 						"registry": "${{inputs.registry}}",
-						"username": "${{secrets[inputs.username_key]}}",
-						"password": "${{secrets[inputs.password_key]}}",
+						"username": "${{secrets.MIRROR_USERNAME}}",
+						"password": "${{secrets.MIRROR_PASSWORD}}",
 					},
 				},
 				{
@@ -124,16 +124,6 @@ func updateWorkflowMirror(repos []*acicn.Repo) (err error) {
 					},
 					"prefix": gg.M{
 						"description": "registry image prefix",
-						"required":    true,
-						"type":        "string",
-					},
-					"username_key": gg.M{
-						"description": "key in secrets of registry username",
-						"required":    true,
-						"type":        "string",
-					},
-					"password_key": gg.M{
-						"description": "key in secrets of registry username",
 						"required":    true,
 						"type":        "string",
 					},
