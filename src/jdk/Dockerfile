@@ -29,6 +29,9 @@ ENV JRE_VERSION  {{.jdk_version}}
 ENV JDK_VERSION  {{.jdk_version}}
 ENV JAVA_VERSION {{.jdk_version}}
 ENV JAVA_HOME {{.java_home}}
+
+# ensure java home is ok
+RUN cd "{{.java_home}}" && echo "JAVA_HOME: OK"
 {{end}}
 
 # Arthas

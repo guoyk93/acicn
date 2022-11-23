@@ -34,6 +34,13 @@ func updateWorkflow(repos []*acicn.Repo) (err error) {
 			return fmt.Sprintf("type=raw,value=%s", tag)
 		})
 
+		upstream, _ := item.Vars["upstream"].(string)
+		upstream = strings.TrimSpace(upstream)
+
+		if upstream == "" {
+			gg.Log("missing upstream for: " + item.Name)
+		}
+
 		job := gg.M{
 			"runs-on": "ubuntu-latest",
 			"permissions": gg.M{
@@ -96,7 +103,7 @@ func updateWorkflow(repos []*acicn.Repo) (err error) {
 					"id":   "build",
 					"with": gg.M{
 						"context":    "out/" + item.Repo + ":" + item.Tags[0],
-						"pull":       true,
+						"pull":       upstream != "",
 						"push":       true,
 						"tags":       "${{steps.meta.outputs.tags}}",
 						"labels":     "${{steps.meta.outputs.labels}}",
@@ -107,11 +114,8 @@ func updateWorkflow(repos []*acicn.Repo) (err error) {
 			},
 		}
 
-		if upstream, ok := item.Vars["upstream"].(string); ok && upstream != "" {
-			upstreamName := gg.Must(item.LookupKnown(upstream))
-			job["needs"] = []string{jobName(upstreamName)}
-		} else {
-			gg.Log("missing upstream for: " + item.Name)
+		if upstream != "" {
+			job["needs"] = []string{jobName(gg.Must(item.LookupKnown(upstream)))}
 		}
 
 		jobs[jobName(item.Name)] = job

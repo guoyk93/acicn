@@ -1,0 +1,31 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: alpine-316
+spec:
+  selector:
+    app: alpine-316
+  ports:
+    - name: placeholder
+      port: 42
+      targetPort: 42
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: alpine-316
+spec:
+  selector:
+    matchLabels:
+      app: alpine-316
+  serviceName: alpine-316
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: alpine-316
+    spec:
+      containers:
+        - name: main
+          image: ghcr.io/guoyk93/acicn/alpine:3.16
+          imagePullPolicy: Always

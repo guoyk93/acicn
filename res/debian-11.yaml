@@ -1,0 +1,31 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: debian-11
+spec:
+  selector:
+    app: debian-11
+  ports:
+    - name: placeholder
+      port: 42
+      targetPort: 42
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: debian-11
+spec:
+  selector:
+    matchLabels:
+      app: debian-11
+  serviceName: debian-11
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: debian-11
+    spec:
+      containers:
+        - name: main
+          image: ghcr.io/guoyk93/acicn/debian:11
+          imagePullPolicy: Always

@@ -1,0 +1,31 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: beanstalk-1
+spec:
+  selector:
+    app: beanstalk-1
+  ports:
+    - name: beanstalk
+      port: 11300
+      targetPort: 11300
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: beanstalk-1
+spec:
+  selector:
+    matchLabels:
+      app: beanstalk-1
+  serviceName: beanstalk-1
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: beanstalk-1
+    spec:
+      containers:
+        - name: main
+          image: ghcr.io/guoyk93/acicn/beanstalk:1
+          imagePullPolicy: Always

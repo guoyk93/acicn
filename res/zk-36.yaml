@@ -1,0 +1,37 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: zk-36
+spec:
+  selector:
+    app: zk-36
+  ports:
+    - name: zk-2181
+      port: 2181
+      targetPort: 2181
+    - name: zk-2888
+      port: 2888
+      targetPort: 2888
+    - name: zk-3888
+      port: 3888
+      targetPort: 3888
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: zk-36
+spec:
+  selector:
+    matchLabels:
+      app: zk-36
+  serviceName: zk-36
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: zk-36
+    spec:
+      containers:
+        - name: main
+          image: ghcr.io/guoyk93/acicn/zookeeper:3.6.2-jdk-11
+          imagePullPolicy: Always

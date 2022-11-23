@@ -1,0 +1,40 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: elasticsearch-6818
+spec:
+  selector:
+    app: elasticsearch-6818
+  ports:
+    - name: http
+      port: 9200
+      targetPort: 9200
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: elasticsearch-6818
+spec:
+  selector:
+    matchLabels:
+      app: elasticsearch-6818
+  serviceName: elasticsearch-6818
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: elasticsearch-6818
+    spec:
+      containers:
+        - name: main
+          image: ghcr.io/guoyk93/acicn/elasticsearch:6.8.18
+          env:
+            - name: ESJVM_XMS
+              value: "512m"
+            - name: ESJVM_XMX
+              value: "512m"
+            - name: MINIT_SYSCTL
+              value: ""
+            - name: MINIT_RLIMIT_MEMLOCK
+              value: ""
+          imagePullPolicy: Always

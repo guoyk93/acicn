@@ -1,0 +1,31 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: filebeat-632
+spec:
+  selector:
+    app: filebeat-632
+  ports:
+    - name: placeholder
+      port: 42
+      targetPort: 42
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: filebeat-632
+spec:
+  selector:
+    matchLabels:
+      app: filebeat-632
+  serviceName: filebeat-632
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: filebeat-632
+    spec:
+      containers:
+        - name: main
+          image: ghcr.io/guoyk93/acicn/filebeat:6.3.2
+          imagePullPolicy: Always
