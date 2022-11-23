@@ -80,7 +80,7 @@ func updateWorkflowMirror(repos []*acicn.Repo) (err error) {
 					"with": gg.M{
 						"registry": "${{inputs.registry}}",
 						"username": "${{inputs.username}}",
-						"password": "${{inputs.password}}",
+						"password": "${{secrets[inputs.password_key]}}",
 					},
 				},
 				{
@@ -132,8 +132,8 @@ func updateWorkflowMirror(repos []*acicn.Repo) (err error) {
 						"required":    true,
 						"type":        "string",
 					},
-					"password": gg.M{
-						"description": "registry password",
+					"password_key": gg.M{
+						"description": "secret key for registry password",
 						"required":    true,
 						"type":        "string",
 					},
