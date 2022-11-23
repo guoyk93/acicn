@@ -19,11 +19,137 @@ var (
 	regexpNotSafe = regexp.MustCompile(`[^a-z0-9]`)
 )
 
-func jobName(name string) string {
+func releaseJobName(name string) string {
 	return "r_" + regexpNotSafe.ReplaceAllString(path.Base(strings.ToLower(name)), "_")
 }
 
-func updateWorkflow(repos []*acicn.Repo) (err error) {
+func mirrorJobName(name string) string {
+	return "m_" + regexpNotSafe.ReplaceAllString(path.Base(strings.ToLower(name)), "_")
+}
+
+func updateWorkflowMirror(repos []*acicn.Repo) (err error) {
+	defer gg.Guard(&err)
+
+	jobs := gg.M{}
+
+	for _, item := range repos {
+
+		tags := gg.Map(item.Tags, func(tag string) string {
+			return fmt.Sprintf("type=raw,value=%s", tag)
+		})
+
+		job := gg.M{
+			"runs-on": "ubuntu-latest",
+			"permissions": gg.M{
+				"contents": "read",
+				"packages": "read",
+				"id-token": "write",
+			},
+			"steps": []gg.M{
+				{
+					"name": "checkout",
+					"uses": "actions/checkout@v3",
+				},
+				{
+					"name": "setup go",
+					"uses": "actions/setup-go@v3",
+					"with": gg.M{
+						"go-version": "1.19",
+					},
+				},
+				{
+					"name": "generate out",
+					"run":  "go run -mod vendor ./cmd/acicn-build/main.go -mirror -generate '" + item.ShortName() + "'",
+				},
+				{
+					"name": "setup docker buildx",
+					"uses": "docker/setup-buildx-action@v2",
+				},
+				{
+					"name": "docker login - ghcr",
+					"uses": "docker/login-action@v2",
+					"with": gg.M{
+						"registry": "ghcr.io",
+						"username": "${{github.actor}}",
+						"password": "${{secrets.GITHUB_TOKEN}}",
+					},
+				},
+				{
+					"name": "docker login - target registry",
+					"uses": "docker/login-action@v2",
+					"with": gg.M{
+						"registry": "${{inputs.registry}}",
+						"username": "${{inputs.username}}",
+						"password": "${{inputs.password}}",
+					},
+				},
+				{
+					"name": "meta for " + item.ShortName(),
+					"id":   "meta",
+					"uses": "docker/metadata-action@v4",
+					"with": gg.M{
+						"images": "${{inputs.registry}}/${{inputs.prefix}}/" + item.Repo,
+						"tags":   strings.Join(tags, "\n"),
+					},
+				},
+				{
+					"name": "build for " + item.ShortName(),
+					"uses": "docker/build-push-action@v3",
+					"id":   "build",
+					"with": gg.M{
+						"context":    "out/" + item.ShortName(),
+						"pull":       true,
+						"push":       true,
+						"tags":       "${{steps.meta.outputs.tags}}",
+						"labels":     "${{steps.meta.outputs.labels}}",
+						"cache-from": "type=gha",
+						"cache-to":   "type=gha,mode=max",
+					},
+				},
+			},
+		}
+
+		jobs[mirrorJobName(item.Name)] = job
+	}
+
+	doc := gg.M{
+		"name": "mirror",
+		"on": gg.M{
+			"workflow_dispatch": gg.M{
+				"inputs": gg.M{
+					"registry": gg.M{
+						"description": "registry address",
+						"required":    true,
+						"type":        "string",
+					},
+					"prefix": gg.M{
+						"description": "registry image prefix",
+						"required":    true,
+						"type":        "string",
+					},
+					"username": gg.M{
+						"description": "registry username",
+						"required":    true,
+						"type":        "string",
+					},
+					"password": gg.M{
+						"description": "registry password",
+						"required":    true,
+						"type":        "string",
+					},
+				},
+			},
+		},
+		"jobs": jobs,
+	}
+
+	buf := gg.Must(yaml.Marshal(doc))
+	gg.Must0(os.MkdirAll(filepath.Join(".github", "workflows"), 0755))
+	gg.Must0(os.WriteFile(filepath.Join(".github", "workflows", "mirror.yaml"), buf, 0640))
+	return
+}
+
+func updateWorkflowRelease(repos []*acicn.Repo) (err error) {
 	defer gg.Guard(&err)
 
 	jobs := gg.M{}
@@ -48,7 +174,7 @@ func updateWorkflow(repos []*acicn.Repo) (err error) {
 		}
 
 		job := gg.M{
-			"if":      "inputs.job_name == 'all' || contains(inputs.job_name,'" + jobName(item.Name) + ",')",
+			"if":      "inputs.job_name == 'all' || contains(inputs.job_name,'" + releaseJobName(item.Name) + ",')",
 			"runs-on": "ubuntu-latest",
 			"permissions": gg.M{
 				"contents": "read",
@@ -69,7 +195,7 @@ func updateWorkflow(repos []*acicn.Repo) (err error) {
 				},
 				{
 					"name": "generate out",
-					"run":  "go run -mod vendor ./cmd/acicn-build/main.go -name '" + item.ShortName() + "'",
+					"run":  "go run -mod vendor ./cmd/acicn-build/main.go -generate '" + item.ShortName() + "'",
 				},
 				{
 					"name": "setup docker buildx",
@@ -126,7 +252,7 @@ func updateWorkflow(repos []*acicn.Repo) (err error) {
 		for k, v := range item.Vars {
 			if s, ok := v.(string); ok && s != "" {
 				if strings.HasPrefix(k, "upstream") {
-					needs = append(needs, jobName(gg.Must(item.LookupKnown(s))))
+					needs = append(needs, releaseJobName(gg.Must(item.LookupKnown(s))))
 				}
 			}
 		}
@@ -137,7 +263,7 @@ func updateWorkflow(repos []*acicn.Repo) (err error) {
 			job["needs"] = needs
 		}
 
-		jobs[jobName(item.Name)] = job
+		jobs[releaseJobName(item.Name)] = job
 	}
 
 	doc := gg.M{
@@ -181,14 +307,16 @@ func main() {
 		optUpdateWorkflow bool
 		optUpdateImages   bool
 
-		optName     string
+		optGenerate string
 		optOverride string
+		optMirror   bool
 	)
 
 	flag.BoolVar(&optUpdateWorkflow, "update-workflow", false, "update workflow")
 	flag.BoolVar(&optUpdateImages, "update-images", false, "update images list")
-	flag.StringVar(&optName, "name", "all", "name")
+	flag.StringVar(&optGenerate, "generate", "", "repo to generate")
 	flag.StringVar(&optOverride, "override", "", "override values")
+	flag.BoolVar(&optMirror, "mirror", false, "generate for mirror")
 	flag.Parse()
 
 	// update overrides
@@ -210,7 +338,8 @@ func main() {
 
 	// generate github workflow
 	if optUpdateWorkflow {
-		gg.Must0(updateWorkflow(repos))
+		gg.Must0(updateWorkflowRelease(repos))
+		gg.Must0(updateWorkflowMirror(repos))
 	}
 
 	// collect image names
@@ -248,15 +377,19 @@ func main() {
 		gg.Must0(os.WriteFile("IMAGES.yml", gg.Must(yaml.Marshal(records)), 0644))
 	}
 
-	if optName != "" {
+	if optGenerate != "" {
 		// remove output dir
 		gg.Must0(os.RemoveAll("out"))
 
 		// generate
 		for _, repo := range repos {
-			if optName == "all" || optName == repo.ShortName() {
+			if optGenerate == "all" || optGenerate == repo.ShortName() {
 				gg.Log("generate: " + repo.ShortName())
-				gg.Must0(repo.Generate())
+				if optMirror {
+					gg.Must0(repo.GenerateMirror())
+				} else {
+					gg.Must0(repo.Generate())
+				}
 			}
 		}
 	}

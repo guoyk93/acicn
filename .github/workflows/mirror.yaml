@@ -1,12 +1,9 @@
 jobs:
-    r_activemq_5_15_jdk_8:
-        if: inputs.job_name == 'all' || contains(inputs.job_name,'r_activemq_5_15_jdk_8,')
-        needs:
-            - r_jdk_8_debian_11
+    m_activemq_5_15_jdk_8:
         permissions:
             contents: read
             id-token: write
-            packages: write
+            packages: read
         runs-on: ubuntu-latest
         steps:
             - name: checkout
@@ -16,7 +13,7 @@ jobs:
               with:
                 go-version: "1.19"
             - name: generate out
-              run: go run -mod vendor ./cmd/acicn-build/main.go -generate 'activemq:5.15-jdk-8'
+              run: go run -mod vendor ./cmd/acicn-build/main.go -mirror -generate 'activemq:5.15-jdk-8'
             - name: setup docker buildx
               uses: docker/setup-buildx-action@v2
             - name: docker login - ghcr
@@ -25,18 +22,17 @@ jobs:
                 password: ${{secrets.GITHUB_TOKEN}}
                 registry: ghcr.io
                 username: ${{github.actor}}
-            - name: docker login - dockerhub
+            - name: docker login - target registry
               uses: docker/login-action@v2
               with:
-                password: ${{secrets.DOCKERHUB_TOKEN}}
-                username: guoyk
+                password: ${{inputs.password}}
+                registry: ${{inputs.registry}}
+                username: ${{inputs.username}}
             - id: meta
               name: meta for activemq:5.15-jdk-8
               uses: docker/metadata-action@v4
               with:
-                images: |-
-                    ghcr.io/guoyk93/acicn/activemq
-                    acicn/activemq
+                images: ${{inputs.registry}}/${{inputs.prefix}}/activemq
                 tags: type=raw,value=5.15-jdk-8
             - id: build
               name: build for activemq:5.15-jdk-8
@@ -49,14 +45,11 @@ jobs:
                 pull: true
                 push: true
                 tags: ${{steps.meta.outputs.tags}}
-    r_activemq_5_15_jdk_11:
-        if: inputs.job_name == 'all' || contains(inputs.job_name,'r_activemq_5_15_jdk_11,')
-        needs:
-            - r_jdk_11_debian_11
+    m_activemq_5_15_jdk_11:
         permissions:
             contents: read
             id-token: write
-            packages: write
+            packages: read
         runs-on: ubuntu-latest
         steps:
             - name: checkout
@@ -66,7 +59,7 @@ jobs:
               with:
                 go-version: "1.19"
             - name: generate out
-              run: go run -mod vendor ./cmd/acicn-build/main.go -generate 'activemq:5.15-jdk-11'
+              run: go run -mod vendor ./cmd/acicn-build/main.go -mirror -generate 'activemq:5.15-jdk-11'
             - name: setup docker buildx
               uses: docker/setup-buildx-action@v2
             - name: docker login - ghcr
@@ -75,18 +68,17 @@ jobs:
                 password: ${{secrets.GITHUB_TOKEN}}
                 registry: ghcr.io
                 username: ${{github.actor}}
-            - name: docker login - dockerhub
+            - name: docker login - target registry
               uses: docker/login-action@v2
               with:
-                password: ${{secrets.DOCKERHUB_TOKEN}}
-                username: guoyk
+                password: ${{inputs.password}}
+                registry: ${{inputs.registry}}
+                username: ${{inputs.username}}
             - id: meta
               name: meta for activemq:5.15-jdk-11
               uses: docker/metadata-action@v4
               with:
-                images: |-
-                    ghcr.io/guoyk93/acicn/activemq
-                    acicn/activemq
+                images: ${{inputs.registry}}/${{inputs.prefix}}/activemq
                 tags: |-
                     type=raw,value=5.15-jdk-11
                     type=raw,value=5.15
@@ -101,12 +93,11 @@ jobs:
                 pull: true
                 push: true
                 tags: ${{steps.meta.outputs.tags}}
-    r_alpine_3_16:
-        if: inputs.job_name == 'all' || contains(inputs.job_name,'r_alpine_3_16,')
+    m_alpine_3_16:
         permissions:
             contents: read
             id-token: write
-            packages: write
+            packages: read
         runs-on: ubuntu-latest
         steps:
             - name: checkout
@@ -116,7 +107,7 @@ jobs:
               with:
                 go-version: "1.19"
             - name: generate out
-              run: go run -mod vendor ./cmd/acicn-build/main.go -generate 'alpine:3.16'
+              run: go run -mod vendor ./cmd/acicn-build/main.go -mirror -generate 'alpine:3.16'
             - name: setup docker buildx
               uses: docker/setup-buildx-action@v2
             - name: docker login - ghcr
@@ -125,18 +116,17 @@ jobs:
                 password: ${{secrets.GITHUB_TOKEN}}
                 registry: ghcr.io
                 username: ${{github.actor}}
-            - name: docker login - dockerhub
+            - name: docker login - target registry
               uses: docker/login-action@v2
               with:
-                password: ${{secrets.DOCKERHUB_TOKEN}}
-                username: guoyk
+                password: ${{inputs.password}}
+                registry: ${{inputs.registry}}
+                username: ${{inputs.username}}
             - id: meta
               name: meta for alpine:3.16
               uses: docker/metadata-action@v4
               with:
-                images: |-
-                    ghcr.io/guoyk93/acicn/alpine
-                    acicn/alpine
+                images: ${{inputs.registry}}/${{inputs.prefix}}/alpine
                 tags: type=raw,value=3.16
             - id: build
               name: build for alpine:3.16
@@ -146,15 +136,14 @@ jobs:
                 cache-to: type=gha,mode=max
                 context: out/alpine:3.16
                 labels: ${{steps.meta.outputs.labels}}
-                pull: ${{ inputs.force_pull }}
+                pull: true
                 push: true
                 tags: ${{steps.meta.outputs.tags}}
-    r_alpine_3_16_no_minit:
-        if: inputs.job_name == 'all' || contains(inputs.job_name,'r_alpine_3_16_no_minit,')
+    m_alpine_3_16_no_minit:
         permissions:
             contents: read
             id-token: write
-            packages: write
+            packages: read
         runs-on: ubuntu-latest
         steps:
             - name: checkout
@@ -164,7 +153,7 @@ jobs:
               with:
                 go-version: "1.19"
             - name: generate out
-              run: go run -mod vendor ./cmd/acicn-build/main.go -generate 'alpine:3.16-no-minit'
+              run: go run -mod vendor ./cmd/acicn-build/main.go -mirror -generate 'alpine:3.16-no-minit'
             - name: setup docker buildx
               uses: docker/setup-buildx-action@v2
             - name: docker login - ghcr
@@ -173,18 +162,17 @@ jobs:
                 password: ${{secrets.GITHUB_TOKEN}}
                 registry: ghcr.io
                 username: ${{github.actor}}
-            - name: docker login - dockerhub
+            - name: docker login - target registry
               uses: docker/login-action@v2
               with:
-                password: ${{secrets.DOCKERHUB_TOKEN}}
-                username: guoyk
+                password: ${{inputs.password}}
+                registry: ${{inputs.registry}}
+                username: ${{inputs.username}}
             - id: meta
               name: meta for alpine:3.16-no-minit
               uses: docker/metadata-action@v4
               with:
-                images: |-
-                    ghcr.io/guoyk93/acicn/alpine
-                    acicn/alpine
+                images: ${{inputs.registry}}/${{inputs.prefix}}/alpine
                 tags: type=raw,value=3.16-no-minit
             - id: build
               name: build for alpine:3.16-no-minit
@@ -194,17 +182,14 @@ jobs:
                 cache-to: type=gha,mode=max
                 context: out/alpine:3.16-no-minit
                 labels: ${{steps.meta.outputs.labels}}
-                pull: ${{ inputs.force_pull }}
+                pull: true
                 push: true
                 tags: ${{steps.meta.outputs.tags}}
-    r_apollo_1_3_0_jdk_11:
-        if: inputs.job_name == 'all' || contains(inputs.job_name,'r_apollo_1_3_0_jdk_11,')
-        needs:
-            - r_jdk_8_debian_11
+    m_apollo_1_3_0_jdk_11:
         permissions:
             contents: read
             id-token: write
-            packages: write
+            packages: read
         runs-on: ubuntu-latest
         steps:
             - name: checkout
@@ -214,7 +199,7 @@ jobs:
               with:
                 go-version: "1.19"
             - name: generate out
-              run: go run -mod vendor ./cmd/acicn-build/main.go -generate 'apollo:1.3.0-jdk-11'
+              run: go run -mod vendor ./cmd/acicn-build/main.go -mirror -generate 'apollo:1.3.0-jdk-11'
             - name: setup docker buildx
               uses: docker/setup-buildx-action@v2
             - name: docker login - ghcr
@@ -223,18 +208,17 @@ jobs:
                 password: ${{secrets.GITHUB_TOKEN}}
                 registry: ghcr.io
                 username: ${{github.actor}}
-            - name: docker login - dockerhub
+            - name: docker login - target registry
               uses: docker/login-action@v2
               with:
-                password: ${{secrets.DOCKERHUB_TOKEN}}
-                username: guoyk
+                password: ${{inputs.password}}
+                registry: ${{inputs.registry}}
+                username: ${{inputs.username}}
             - id: meta
               name: meta for apollo:1.3.0-jdk-11
               uses: docker/metadata-action@v4
               with:
-                images: |-
-                    ghcr.io/guoyk93/acicn/apollo
-                    acicn/apollo
+                images: ${{inputs.registry}}/${{inputs.prefix}}/apollo
                 tags: |-
                     type=raw,value=1.3.0-jdk-11
                     type=raw,value=1.3.0
@@ -249,14 +233,11 @@ jobs:
                 pull: true
                 push: true
                 tags: ${{steps.meta.outputs.tags}}
-    r_beanstalk_1_alpine_3_16:
-        if: inputs.job_name == 'all' || contains(inputs.job_name,'r_beanstalk_1_alpine_3_16,')
-        needs:
-            - r_alpine_3_16
+    m_beanstalk_1_alpine_3_16:
         permissions:
             contents: read
             id-token: write
-            packages: write
+            packages: read
         runs-on: ubuntu-latest
         steps:
             - name: checkout
@@ -266,7 +247,7 @@ jobs:
               with:
                 go-version: "1.19"
             - name: generate out
-              run: go run -mod vendor ./cmd/acicn-build/main.go -generate 'beanstalk:1-alpine-3.16'
+              run: go run -mod vendor ./cmd/acicn-build/main.go -mirror -generate 'beanstalk:1-alpine-3.16'
             - name: setup docker buildx
               uses: docker/setup-buildx-action@v2
             - name: docker login - ghcr
@@ -275,18 +256,17 @@ jobs:
                 password: ${{secrets.GITHUB_TOKEN}}
                 registry: ghcr.io
                 username: ${{github.actor}}
-            - name: docker login - dockerhub
+            - name: docker login - target registry
               uses: docker/login-action@v2
               with:
-                password: ${{secrets.DOCKERHUB_TOKEN}}
-                username: guoyk
+                password: ${{inputs.password}}
+                registry: ${{inputs.registry}}
+                username: ${{inputs.username}}
             - id: meta
               name: meta for beanstalk:1-alpine-3.16
               uses: docker/metadata-action@v4
               with:
-                images: |-
-                    ghcr.io/guoyk93/acicn/beanstalk
-                    acicn/beanstalk
+                images: ${{inputs.registry}}/${{inputs.prefix}}/beanstalk
                 tags: |-
                     type=raw,value=1-alpine-3.16
                     type=raw,value=1
@@ -302,12 +282,11 @@ jobs:
                 pull: true
                 push: true
                 tags: ${{steps.meta.outputs.tags}}
-    r_debian_11:
-        if: inputs.job_name == 'all' || contains(inputs.job_name,'r_debian_11,')
+    m_debian_11:
         permissions:
             contents: read
             id-token: write
-            packages: write
+            packages: read
         runs-on: ubuntu-latest
         steps:
             - name: checkout
@@ -317,7 +296,7 @@ jobs:
               with:
                 go-version: "1.19"
             - name: generate out
-              run: go run -mod vendor ./cmd/acicn-build/main.go -generate 'debian:11'
+              run: go run -mod vendor ./cmd/acicn-build/main.go -mirror -generate 'debian:11'
             - name: setup docker buildx
               uses: docker/setup-buildx-action@v2
             - name: docker login - ghcr
@@ -326,18 +305,17 @@ jobs:
                 password: ${{secrets.GITHUB_TOKEN}}
                 registry: ghcr.io
                 username: ${{github.actor}}
-            - name: docker login - dockerhub
+            - name: docker login - target registry
               uses: docker/login-action@v2
               with:
-                password: ${{secrets.DOCKERHUB_TOKEN}}
-                username: guoyk
+                password: ${{inputs.password}}
+                registry: ${{inputs.registry}}
+                username: ${{inputs.username}}
             - id: meta
               name: meta for debian:11
               uses: docker/metadata-action@v4
               with:
-                images: |-
-                    ghcr.io/guoyk93/acicn/debian
-                    acicn/debian
+                images: ${{inputs.registry}}/${{inputs.prefix}}/debian
                 tags: type=raw,value=11
             - id: build
               name: build for debian:11
@@ -347,15 +325,14 @@ jobs:
                 cache-to: type=gha,mode=max
                 context: out/debian:11
                 labels: ${{steps.meta.outputs.labels}}
-                pull: ${{ inputs.force_pull }}
+                pull: true
                 push: true
                 tags: ${{steps.meta.outputs.tags}}
-    r_debian_11_no_minit:
-        if: inputs.job_name == 'all' || contains(inputs.job_name,'r_debian_11_no_minit,')
+    m_debian_11_no_minit:
         permissions:
             contents: read
             id-token: write
-            packages: write
+            packages: read
         runs-on: ubuntu-latest
         steps:
             - name: checkout
@@ -365,7 +342,7 @@ jobs:
               with:
                 go-version: "1.19"
             - name: generate out
-              run: go run -mod vendor ./cmd/acicn-build/main.go -generate 'debian:11-no-minit'
+              run: go run -mod vendor ./cmd/acicn-build/main.go -mirror -generate 'debian:11-no-minit'
             - name: setup docker buildx
               uses: docker/setup-buildx-action@v2
             - name: docker login - ghcr
@@ -374,18 +351,17 @@ jobs:
                 password: ${{secrets.GITHUB_TOKEN}}
                 registry: ghcr.io
                 username: ${{github.actor}}
-            - name: docker login - dockerhub
+            - name: docker login - target registry
               uses: docker/login-action@v2
               with:
-                password: ${{secrets.DOCKERHUB_TOKEN}}
-                username: guoyk
+                password: ${{inputs.password}}
+                registry: ${{inputs.registry}}
+                username: ${{inputs.username}}
             - id: meta
               name: meta for debian:11-no-minit
               uses: docker/metadata-action@v4
               with:
-                images: |-
-                    ghcr.io/guoyk93/acicn/debian
-                    acicn/debian
+                images: ${{inputs.registry}}/${{inputs.prefix}}/debian
                 tags: type=raw,value=11-no-minit
             - id: build
               name: build for debian:11-no-minit
@@ -395,17 +371,14 @@ jobs:
                 cache-to: type=gha,mode=max
                 context: out/debian:11-no-minit
                 labels: ${{steps.meta.outputs.labels}}
-                pull: ${{ inputs.force_pull }}
+                pull: true
                 push: true
                 tags: ${{steps.meta.outputs.tags}}
-    r_elasticsearch_6_3_2_jdk_11:
-        if: inputs.job_name == 'all' || contains(inputs.job_name,'r_elasticsearch_6_3_2_jdk_11,')
-        needs:
-            - r_jdk_11_debian_11
+    m_elasticsearch_6_3_2_jdk_11:
         permissions:
             contents: read
             id-token: write
-            packages: write
+            packages: read
         runs-on: ubuntu-latest
         steps:
             - name: checkout
@@ -415,7 +388,7 @@ jobs:
               with:
                 go-version: "1.19"
             - name: generate out
-              run: go run -mod vendor ./cmd/acicn-build/main.go -generate 'elasticsearch:6.3.2-jdk-11'
+              run: go run -mod vendor ./cmd/acicn-build/main.go -mirror -generate 'elasticsearch:6.3.2-jdk-11'
             - name: setup docker buildx
               uses: docker/setup-buildx-action@v2
             - name: docker login - ghcr
@@ -424,18 +397,17 @@ jobs:
                 password: ${{secrets.GITHUB_TOKEN}}
                 registry: ghcr.io
                 username: ${{github.actor}}
-            - name: docker login - dockerhub
+            - name: docker login - target registry
               uses: docker/login-action@v2
               with:
-                password: ${{secrets.DOCKERHUB_TOKEN}}
-                username: guoyk
+                password: ${{inputs.password}}
+                registry: ${{inputs.registry}}
+                username: ${{inputs.username}}
             - id: meta
               name: meta for elasticsearch:6.3.2-jdk-11
               uses: docker/metadata-action@v4
               with:
-                images: |-
-                    ghcr.io/guoyk93/acicn/elasticsearch
-                    acicn/elasticsearch
+                images: ${{inputs.registry}}/${{inputs.prefix}}/elasticsearch
                 tags: |-
                     type=raw,value=6.3.2-jdk-11
                     type=raw,value=6.3.2
@@ -450,14 +422,11 @@ jobs:
                 pull: true
                 push: true
                 tags: ${{steps.meta.outputs.tags}}
-    r_elasticsearch_6_8_18_jdk_11:
-        if: inputs.job_name == 'all' || contains(inputs.job_name,'r_elasticsearch_6_8_18_jdk_11,')
-        needs:
-            - r_jdk_11_debian_11
+    m_elasticsearch_6_8_18_jdk_11:
         permissions:
             contents: read
             id-token: write
-            packages: write
+            packages: read
         runs-on: ubuntu-latest
         steps:
             - name: checkout
@@ -467,7 +436,7 @@ jobs:
               with:
                 go-version: "1.19"
             - name: generate out
-              run: go run -mod vendor ./cmd/acicn-build/main.go -generate 'elasticsearch:6.8.18-jdk-11'
+              run: go run -mod vendor ./cmd/acicn-build/main.go -mirror -generate 'elasticsearch:6.8.18-jdk-11'
             - name: setup docker buildx
               uses: docker/setup-buildx-action@v2
             - name: docker login - ghcr
@@ -476,18 +445,17 @@ jobs:
                 password: ${{secrets.GITHUB_TOKEN}}
                 registry: ghcr.io
                 username: ${{github.actor}}
-            - name: docker login - dockerhub
+            - name: docker login - target registry
               uses: docker/login-action@v2
               with:
-                password: ${{secrets.DOCKERHUB_TOKEN}}
-                username: guoyk
+                password: ${{inputs.password}}
+                registry: ${{inputs.registry}}
+                username: ${{inputs.username}}
             - id: meta
               name: meta for elasticsearch:6.8.18-jdk-11
               uses: docker/metadata-action@v4
               with:
-                images: |-
-                    ghcr.io/guoyk93/acicn/elasticsearch
-                    acicn/elasticsearch
+                images: ${{inputs.registry}}/${{inputs.prefix}}/elasticsearch
                 tags: |-
                     type=raw,value=6.8.18-jdk-11
                     type=raw,value=6.8.18
@@ -502,14 +470,11 @@ jobs:
                 pull: true
                 push: true
                 tags: ${{steps.meta.outputs.tags}}
-    r_filebeat_6_3_2_debian_11:
-        if: inputs.job_name == 'all' || contains(inputs.job_name,'r_filebeat_6_3_2_debian_11,')
-        needs:
-            - r_debian_11
+    m_filebeat_6_3_2_debian_11:
         permissions:
             contents: read
             id-token: write
-            packages: write
+            packages: read
         runs-on: ubuntu-latest
         steps:
             - name: checkout
@@ -519,7 +484,7 @@ jobs:
               with:
                 go-version: "1.19"
             - name: generate out
-              run: go run -mod vendor ./cmd/acicn-build/main.go -generate 'filebeat:6.3.2-debian-11'
+              run: go run -mod vendor ./cmd/acicn-build/main.go -mirror -generate 'filebeat:6.3.2-debian-11'
             - name: setup docker buildx
               uses: docker/setup-buildx-action@v2
             - name: docker login - ghcr
@@ -528,18 +493,17 @@ jobs:
                 password: ${{secrets.GITHUB_TOKEN}}
                 registry: ghcr.io
                 username: ${{github.actor}}
-            - name: docker login - dockerhub
+            - name: docker login - target registry
               uses: docker/login-action@v2
               with:
-                password: ${{secrets.DOCKERHUB_TOKEN}}
-                username: guoyk
+                password: ${{inputs.password}}
+                registry: ${{inputs.registry}}
+                username: ${{inputs.username}}
             - id: meta
               name: meta for filebeat:6.3.2-debian-11
               uses: docker/metadata-action@v4
               with:
-                images: |-
-                    ghcr.io/guoyk93/acicn/filebeat
-                    acicn/filebeat
+                images: ${{inputs.registry}}/${{inputs.prefix}}/filebeat
                 tags: |-
                     type=raw,value=6.3.2-debian-11
                     type=raw,value=6.3.2
@@ -554,14 +518,11 @@ jobs:
                 pull: true
                 push: true
                 tags: ${{steps.meta.outputs.tags}}
-    r_jdk_8_debian_11:
-        if: inputs.job_name == 'all' || contains(inputs.job_name,'r_jdk_8_debian_11,')
-        needs:
-            - r_debian_11
+    m_jdk_8_debian_11:
         permissions:
             contents: read
             id-token: write
-            packages: write
+            packages: read
         runs-on: ubuntu-latest
         steps:
             - name: checkout
@@ -571,7 +532,7 @@ jobs:
               with:
                 go-version: "1.19"
             - name: generate out
-              run: go run -mod vendor ./cmd/acicn-build/main.go -generate 'jdk:8-debian-11'
+              run: go run -mod vendor ./cmd/acicn-build/main.go -mirror -generate 'jdk:8-debian-11'
             - name: setup docker buildx
               uses: docker/setup-buildx-action@v2
             - name: docker login - ghcr
@@ -580,18 +541,17 @@ jobs:
                 password: ${{secrets.GITHUB_TOKEN}}
                 registry: ghcr.io
                 username: ${{github.actor}}
-            - name: docker login - dockerhub
+            - name: docker login - target registry
               uses: docker/login-action@v2
               with:
-                password: ${{secrets.DOCKERHUB_TOKEN}}
-                username: guoyk
+                password: ${{inputs.password}}
+                registry: ${{inputs.registry}}
+                username: ${{inputs.username}}
             - id: meta
               name: meta for jdk:8-debian-11
               uses: docker/metadata-action@v4
               with:
-                images: |-
-                    ghcr.io/guoyk93/acicn/jdk
-                    acicn/jdk
+                images: ${{inputs.registry}}/${{inputs.prefix}}/jdk
                 tags: |-
                     type=raw,value=8-debian-11
                     type=raw,value=8
@@ -606,14 +566,11 @@ jobs:
                 pull: true
                 push: true
                 tags: ${{steps.meta.outputs.tags}}
-    r_jdk_8_pagoda:
-        if: inputs.job_name == 'all' || contains(inputs.job_name,'r_jdk_8_pagoda,')
-        needs:
-            - r_debian_11
+    m_jdk_8_pagoda:
         permissions:
             contents: read
             id-token: write
-            packages: write
+            packages: read
         runs-on: ubuntu-latest
         steps:
             - name: checkout
@@ -623,7 +580,7 @@ jobs:
               with:
                 go-version: "1.19"
             - name: generate out
-              run: go run -mod vendor ./cmd/acicn-build/main.go -generate 'jdk:8-pagoda'
+              run: go run -mod vendor ./cmd/acicn-build/main.go -mirror -generate 'jdk:8-pagoda'
             - name: setup docker buildx
               uses: docker/setup-buildx-action@v2
             - name: docker login - ghcr
@@ -632,18 +589,17 @@ jobs:
                 password: ${{secrets.GITHUB_TOKEN}}
                 registry: ghcr.io
                 username: ${{github.actor}}
-            - name: docker login - dockerhub
+            - name: docker login - target registry
               uses: docker/login-action@v2
               with:
-                password: ${{secrets.DOCKERHUB_TOKEN}}
-                username: guoyk
+                password: ${{inputs.password}}
+                registry: ${{inputs.registry}}
+                username: ${{inputs.username}}
             - id: meta
               name: meta for jdk:8-pagoda
               uses: docker/metadata-action@v4
               with:
-                images: |-
-                    ghcr.io/guoyk93/acicn/jdk
-                    acicn/jdk
+                images: ${{inputs.registry}}/${{inputs.prefix}}/jdk
                 tags: type=raw,value=8-pagoda
             - id: build
               name: build for jdk:8-pagoda
@@ -656,14 +612,11 @@ jobs:
                 pull: true
                 push: true
                 tags: ${{steps.meta.outputs.tags}}
-    r_jdk_8_pagoda_cubic:
-        if: inputs.job_name == 'all' || contains(inputs.job_name,'r_jdk_8_pagoda_cubic,')
-        needs:
-            - r_debian_11
+    m_jdk_8_pagoda_cubic:
         permissions:
             contents: read
             id-token: write
-            packages: write
+            packages: read
         runs-on: ubuntu-latest
         steps:
             - name: checkout
@@ -673,7 +626,7 @@ jobs:
               with:
                 go-version: "1.19"
             - name: generate out
-              run: go run -mod vendor ./cmd/acicn-build/main.go -generate 'jdk:8-pagoda-cubic'
+              run: go run -mod vendor ./cmd/acicn-build/main.go -mirror -generate 'jdk:8-pagoda-cubic'
             - name: setup docker buildx
               uses: docker/setup-buildx-action@v2
             - name: docker login - ghcr
@@ -682,18 +635,17 @@ jobs:
                 password: ${{secrets.GITHUB_TOKEN}}
                 registry: ghcr.io
                 username: ${{github.actor}}
-            - name: docker login - dockerhub
+            - name: docker login - target registry
               uses: docker/login-action@v2
               with:
-                password: ${{secrets.DOCKERHUB_TOKEN}}
-                username: guoyk
+                password: ${{inputs.password}}
+                registry: ${{inputs.registry}}
+                username: ${{inputs.username}}
             - id: meta
               name: meta for jdk:8-pagoda-cubic
               uses: docker/metadata-action@v4
               with:
-                images: |-
-                    ghcr.io/guoyk93/acicn/jdk
-                    acicn/jdk
+                images: ${{inputs.registry}}/${{inputs.prefix}}/jdk
                 tags: type=raw,value=8-pagoda-cubic
             - id: build
               name: build for jdk:8-pagoda-cubic
@@ -706,14 +658,11 @@ jobs:
                 pull: true
                 push: true
                 tags: ${{steps.meta.outputs.tags}}
-    r_jdk_11_debian_11:
-        if: inputs.job_name == 'all' || contains(inputs.job_name,'r_jdk_11_debian_11,')
-        needs:
-            - r_debian_11
+    m_jdk_11_debian_11:
         permissions:
             contents: read
             id-token: write
-            packages: write
+            packages: read
         runs-on: ubuntu-latest
         steps:
             - name: checkout
@@ -723,7 +672,7 @@ jobs:
               with:
                 go-version: "1.19"
             - name: generate out
-              run: go run -mod vendor ./cmd/acicn-build/main.go -generate 'jdk:11-debian-11'
+              run: go run -mod vendor ./cmd/acicn-build/main.go -mirror -generate 'jdk:11-debian-11'
             - name: setup docker buildx
               uses: docker/setup-buildx-action@v2
             - name: docker login - ghcr
@@ -732,18 +681,17 @@ jobs:
                 password: ${{secrets.GITHUB_TOKEN}}
                 registry: ghcr.io
                 username: ${{github.actor}}
-            - name: docker login - dockerhub
+            - name: docker login - target registry
               uses: docker/login-action@v2
               with:
-                password: ${{secrets.DOCKERHUB_TOKEN}}
-                username: guoyk
+                password: ${{inputs.password}}
+                registry: ${{inputs.registry}}
+                username: ${{inputs.username}}
             - id: meta
               name: meta for jdk:11-debian-11
               uses: docker/metadata-action@v4
               with:
-                images: |-
-                    ghcr.io/guoyk93/acicn/jdk
-                    acicn/jdk
+                images: ${{inputs.registry}}/${{inputs.prefix}}/jdk
                 tags: |-
                     type=raw,value=11-debian-11
                     type=raw,value=11
@@ -758,14 +706,11 @@ jobs:
                 pull: true
                 push: true
                 tags: ${{steps.meta.outputs.tags}}
-    r_jdk_11_pagoda:
-        if: inputs.job_name == 'all' || contains(inputs.job_name,'r_jdk_11_pagoda,')
-        needs:
-            - r_debian_11
+    m_jdk_11_pagoda:
         permissions:
             contents: read
             id-token: write
-            packages: write
+            packages: read
         runs-on: ubuntu-latest
         steps:
             - name: checkout
@@ -775,7 +720,7 @@ jobs:
               with:
                 go-version: "1.19"
             - name: generate out
-              run: go run -mod vendor ./cmd/acicn-build/main.go -generate 'jdk:11-pagoda'
+              run: go run -mod vendor ./cmd/acicn-build/main.go -mirror -generate 'jdk:11-pagoda'
             - name: setup docker buildx
               uses: docker/setup-buildx-action@v2
             - name: docker login - ghcr
@@ -784,18 +729,17 @@ jobs:
                 password: ${{secrets.GITHUB_TOKEN}}
                 registry: ghcr.io
                 username: ${{github.actor}}
-            - name: docker login - dockerhub
+            - name: docker login - target registry
               uses: docker/login-action@v2
               with:
-                password: ${{secrets.DOCKERHUB_TOKEN}}
-                username: guoyk
+                password: ${{inputs.password}}
+                registry: ${{inputs.registry}}
+                username: ${{inputs.username}}
             - id: meta
               name: meta for jdk:11-pagoda
               uses: docker/metadata-action@v4
               with:
-                images: |-
-                    ghcr.io/guoyk93/acicn/jdk
-                    acicn/jdk
+                images: ${{inputs.registry}}/${{inputs.prefix}}/jdk
                 tags: type=raw,value=11-pagoda
             - id: build
               name: build for jdk:11-pagoda
@@ -808,14 +752,11 @@ jobs:
                 pull: true
                 push: true
                 tags: ${{steps.meta.outputs.tags}}
-    r_jdk_17_debian_11:
-        if: inputs.job_name == 'all' || contains(inputs.job_name,'r_jdk_17_debian_11,')
-        needs:
-            - r_debian_11
+    m_jdk_17_debian_11:
         permissions:
             contents: read
             id-token: write
-            packages: write
+            packages: read
         runs-on: ubuntu-latest
         steps:
             - name: checkout
@@ -825,7 +766,7 @@ jobs:
               with:
                 go-version: "1.19"
             - name: generate out
-              run: go run -mod vendor ./cmd/acicn-build/main.go -generate 'jdk:17-debian-11'
+              run: go run -mod vendor ./cmd/acicn-build/main.go -mirror -generate 'jdk:17-debian-11'
             - name: setup docker buildx
               uses: docker/setup-buildx-action@v2
             - name: docker login - ghcr
@@ -834,18 +775,17 @@ jobs:
                 password: ${{secrets.GITHUB_TOKEN}}
                 registry: ghcr.io
                 username: ${{github.actor}}
-            - name: docker login - dockerhub
+            - name: docker login - target registry
               uses: docker/login-action@v2
               with:
-                password: ${{secrets.DOCKERHUB_TOKEN}}
-                username: guoyk
+                password: ${{inputs.password}}
+                registry: ${{inputs.registry}}
+                username: ${{inputs.username}}
             - id: meta
               name: meta for jdk:17-debian-11
               uses: docker/metadata-action@v4
               with:
-                images: |-
-                    ghcr.io/guoyk93/acicn/jdk
-                    acicn/jdk
+                images: ${{inputs.registry}}/${{inputs.prefix}}/jdk
                 tags: |-
                     type=raw,value=17-debian-11
                     type=raw,value=17
@@ -860,14 +800,11 @@ jobs:
                 pull: true
                 push: true
                 tags: ${{steps.meta.outputs.tags}}
-    r_jdk_17_pagoda:
-        if: inputs.job_name == 'all' || contains(inputs.job_name,'r_jdk_17_pagoda,')
-        needs:
-            - r_debian_11
+    m_jdk_17_pagoda:
         permissions:
             contents: read
             id-token: write
-            packages: write
+            packages: read
         runs-on: ubuntu-latest
         steps:
             - name: checkout
@@ -877,7 +814,7 @@ jobs:
               with:
                 go-version: "1.19"
             - name: generate out
-              run: go run -mod vendor ./cmd/acicn-build/main.go -generate 'jdk:17-pagoda'
+              run: go run -mod vendor ./cmd/acicn-build/main.go -mirror -generate 'jdk:17-pagoda'
             - name: setup docker buildx
               uses: docker/setup-buildx-action@v2
             - name: docker login - ghcr
@@ -886,18 +823,17 @@ jobs:
                 password: ${{secrets.GITHUB_TOKEN}}
                 registry: ghcr.io
                 username: ${{github.actor}}
-            - name: docker login - dockerhub
+            - name: docker login - target registry
               uses: docker/login-action@v2
               with:
-                password: ${{secrets.DOCKERHUB_TOKEN}}
-                username: guoyk
+                password: ${{inputs.password}}
+                registry: ${{inputs.registry}}
+                username: ${{inputs.username}}
             - id: meta
               name: meta for jdk:17-pagoda
               uses: docker/metadata-action@v4
               with:
-                images: |-
-                    ghcr.io/guoyk93/acicn/jdk
-                    acicn/jdk
+                images: ${{inputs.registry}}/${{inputs.prefix}}/jdk
                 tags: type=raw,value=17-pagoda
             - id: build
               name: build for jdk:17-pagoda
@@ -910,14 +846,11 @@ jobs:
                 pull: true
                 push: true
                 tags: ${{steps.meta.outputs.tags}}
-    r_jdk_builder_8_maven_3_5_debian_11:
-        if: inputs.job_name == 'all' || contains(inputs.job_name,'r_jdk_builder_8_maven_3_5_debian_11,')
-        needs:
-            - r_debian_11_no_minit
+    m_jdk_builder_8_maven_3_5_debian_11:
         permissions:
             contents: read
             id-token: write
-            packages: write
+            packages: read
         runs-on: ubuntu-latest
         steps:
             - name: checkout
@@ -927,7 +860,7 @@ jobs:
               with:
                 go-version: "1.19"
             - name: generate out
-              run: go run -mod vendor ./cmd/acicn-build/main.go -generate 'jdk:builder-8-maven-3.5-debian-11'
+              run: go run -mod vendor ./cmd/acicn-build/main.go -mirror -generate 'jdk:builder-8-maven-3.5-debian-11'
             - name: setup docker buildx
               uses: docker/setup-buildx-action@v2
             - name: docker login - ghcr
@@ -936,18 +869,17 @@ jobs:
                 password: ${{secrets.GITHUB_TOKEN}}
                 registry: ghcr.io
                 username: ${{github.actor}}
-            - name: docker login - dockerhub
+            - name: docker login - target registry
               uses: docker/login-action@v2
               with:
-                password: ${{secrets.DOCKERHUB_TOKEN}}
-                username: guoyk
+                password: ${{inputs.password}}
+                registry: ${{inputs.registry}}
+                username: ${{inputs.username}}
             - id: meta
               name: meta for jdk:builder-8-maven-3.5-debian-11
               uses: docker/metadata-action@v4
               with:
-                images: |-
-                    ghcr.io/guoyk93/acicn/jdk
-                    acicn/jdk
+                images: ${{inputs.registry}}/${{inputs.prefix}}/jdk
                 tags: |-
                     type=raw,value=builder-8-maven-3.5-debian-11
                     type=raw,value=builder-8-maven-3.5
@@ -962,14 +894,11 @@ jobs:
                 pull: true
                 push: true
                 tags: ${{steps.meta.outputs.tags}}
-    r_jdk_builder_8_maven_3_6_debian_11:
-        if: inputs.job_name == 'all' || contains(inputs.job_name,'r_jdk_builder_8_maven_3_6_debian_11,')
-        needs:
-            - r_debian_11_no_minit
+    m_jdk_builder_8_maven_3_6_debian_11:
         permissions:
             contents: read
             id-token: write
-            packages: write
+            packages: read
         runs-on: ubuntu-latest
         steps:
             - name: checkout
@@ -979,7 +908,7 @@ jobs:
               with:
                 go-version: "1.19"
             - name: generate out
-              run: go run -mod vendor ./cmd/acicn-build/main.go -generate 'jdk:builder-8-maven-3.6-debian-11'
+              run: go run -mod vendor ./cmd/acicn-build/main.go -mirror -generate 'jdk:builder-8-maven-3.6-debian-11'
             - name: setup docker buildx
               uses: docker/setup-buildx-action@v2
             - name: docker login - ghcr
@@ -988,18 +917,17 @@ jobs:
                 password: ${{secrets.GITHUB_TOKEN}}
                 registry: ghcr.io
                 username: ${{github.actor}}
-            - name: docker login - dockerhub
+            - name: docker login - target registry
               uses: docker/login-action@v2
               with:
-                password: ${{secrets.DOCKERHUB_TOKEN}}
-                username: guoyk
+                password: ${{inputs.password}}
+                registry: ${{inputs.registry}}
+                username: ${{inputs.username}}
             - id: meta
               name: meta for jdk:builder-8-maven-3.6-debian-11
               uses: docker/metadata-action@v4
               with:
-                images: |-
-                    ghcr.io/guoyk93/acicn/jdk
-                    acicn/jdk
+                images: ${{inputs.registry}}/${{inputs.prefix}}/jdk
                 tags: |-
                     type=raw,value=builder-8-maven-3.6-debian-11
                     type=raw,value=builder-8-maven-3.6
@@ -1014,14 +942,11 @@ jobs:
                 pull: true
                 push: true
                 tags: ${{steps.meta.outputs.tags}}
-    r_jdk_builder_8_maven_3_8_debian_11:
-        if: inputs.job_name == 'all' || contains(inputs.job_name,'r_jdk_builder_8_maven_3_8_debian_11,')
-        needs:
-            - r_debian_11_no_minit
+    m_jdk_builder_8_maven_3_8_debian_11:
         permissions:
             contents: read
             id-token: write
-            packages: write
+            packages: read
         runs-on: ubuntu-latest
         steps:
             - name: checkout
@@ -1031,7 +956,7 @@ jobs:
               with:
                 go-version: "1.19"
             - name: generate out
-              run: go run -mod vendor ./cmd/acicn-build/main.go -generate 'jdk:builder-8-maven-3.8-debian-11'
+              run: go run -mod vendor ./cmd/acicn-build/main.go -mirror -generate 'jdk:builder-8-maven-3.8-debian-11'
             - name: setup docker buildx
               uses: docker/setup-buildx-action@v2
             - name: docker login - ghcr
@@ -1040,18 +965,17 @@ jobs:
                 password: ${{secrets.GITHUB_TOKEN}}
                 registry: ghcr.io
                 username: ${{github.actor}}
-            - name: docker login - dockerhub
+            - name: docker login - target registry
               uses: docker/login-action@v2
               with:
-                password: ${{secrets.DOCKERHUB_TOKEN}}
-                username: guoyk
+                password: ${{inputs.password}}
+                registry: ${{inputs.registry}}
+                username: ${{inputs.username}}
             - id: meta
               name: meta for jdk:builder-8-maven-3.8-debian-11
               uses: docker/metadata-action@v4
               with:
-                images: |-
-                    ghcr.io/guoyk93/acicn/jdk
-                    acicn/jdk
+                images: ${{inputs.registry}}/${{inputs.prefix}}/jdk
                 tags: |-
                     type=raw,value=builder-8-maven-3.8-debian-11
                     type=raw,value=builder-8-maven-3.8
@@ -1067,14 +991,11 @@ jobs:
                 pull: true
                 push: true
                 tags: ${{steps.meta.outputs.tags}}
-    r_jdk_builder_11_maven_3_5_debian_11:
-        if: inputs.job_name == 'all' || contains(inputs.job_name,'r_jdk_builder_11_maven_3_5_debian_11,')
-        needs:
-            - r_debian_11_no_minit
+    m_jdk_builder_11_maven_3_5_debian_11:
         permissions:
             contents: read
             id-token: write
-            packages: write
+            packages: read
         runs-on: ubuntu-latest
         steps:
             - name: checkout
@@ -1084,7 +1005,7 @@ jobs:
               with:
                 go-version: "1.19"
             - name: generate out
-              run: go run -mod vendor ./cmd/acicn-build/main.go -generate 'jdk:builder-11-maven-3.5-debian-11'
+              run: go run -mod vendor ./cmd/acicn-build/main.go -mirror -generate 'jdk:builder-11-maven-3.5-debian-11'
             - name: setup docker buildx
               uses: docker/setup-buildx-action@v2
             - name: docker login - ghcr
@@ -1093,18 +1014,17 @@ jobs:
                 password: ${{secrets.GITHUB_TOKEN}}
                 registry: ghcr.io
                 username: ${{github.actor}}
-            - name: docker login - dockerhub
+            - name: docker login - target registry
               uses: docker/login-action@v2
               with:
-                password: ${{secrets.DOCKERHUB_TOKEN}}
-                username: guoyk
+                password: ${{inputs.password}}
+                registry: ${{inputs.registry}}
+                username: ${{inputs.username}}
             - id: meta
               name: meta for jdk:builder-11-maven-3.5-debian-11
               uses: docker/metadata-action@v4
               with:
-                images: |-
-                    ghcr.io/guoyk93/acicn/jdk
-                    acicn/jdk
+                images: ${{inputs.registry}}/${{inputs.prefix}}/jdk
                 tags: |-
                     type=raw,value=builder-11-maven-3.5-debian-11
                     type=raw,value=builder-11-maven-3.5
@@ -1119,14 +1039,11 @@ jobs:
                 pull: true
                 push: true
                 tags: ${{steps.meta.outputs.tags}}
-    r_jdk_builder_11_maven_3_6_debian_11:
-        if: inputs.job_name == 'all' || contains(inputs.job_name,'r_jdk_builder_11_maven_3_6_debian_11,')
-        needs:
-            - r_debian_11_no_minit
+    m_jdk_builder_11_maven_3_6_debian_11:
         permissions:
             contents: read
             id-token: write
-            packages: write
+            packages: read
         runs-on: ubuntu-latest
         steps:
             - name: checkout
@@ -1136,7 +1053,7 @@ jobs:
               with:
                 go-version: "1.19"
             - name: generate out
-              run: go run -mod vendor ./cmd/acicn-build/main.go -generate 'jdk:builder-11-maven-3.6-debian-11'
+              run: go run -mod vendor ./cmd/acicn-build/main.go -mirror -generate 'jdk:builder-11-maven-3.6-debian-11'
             - name: setup docker buildx
               uses: docker/setup-buildx-action@v2
             - name: docker login - ghcr
@@ -1145,18 +1062,17 @@ jobs:
                 password: ${{secrets.GITHUB_TOKEN}}
                 registry: ghcr.io
                 username: ${{github.actor}}
-            - name: docker login - dockerhub
+            - name: docker login - target registry
               uses: docker/login-action@v2
               with:
-                password: ${{secrets.DOCKERHUB_TOKEN}}
-                username: guoyk
+                password: ${{inputs.password}}
+                registry: ${{inputs.registry}}
+                username: ${{inputs.username}}
             - id: meta
               name: meta for jdk:builder-11-maven-3.6-debian-11
               uses: docker/metadata-action@v4
               with:
-                images: |-
-                    ghcr.io/guoyk93/acicn/jdk
-                    acicn/jdk
+                images: ${{inputs.registry}}/${{inputs.prefix}}/jdk
                 tags: |-
                     type=raw,value=builder-11-maven-3.6-debian-11
                     type=raw,value=builder-11-maven-3.6
@@ -1171,14 +1087,11 @@ jobs:
                 pull: true
                 push: true
                 tags: ${{steps.meta.outputs.tags}}
-    r_jdk_builder_11_maven_3_8_debian_11:
-        if: inputs.job_name == 'all' || contains(inputs.job_name,'r_jdk_builder_11_maven_3_8_debian_11,')
-        needs:
-            - r_debian_11_no_minit
+    m_jdk_builder_11_maven_3_8_debian_11:
         permissions:
             contents: read
             id-token: write
-            packages: write
+            packages: read
         runs-on: ubuntu-latest
         steps:
             - name: checkout
@@ -1188,7 +1101,7 @@ jobs:
               with:
                 go-version: "1.19"
             - name: generate out
-              run: go run -mod vendor ./cmd/acicn-build/main.go -generate 'jdk:builder-11-maven-3.8-debian-11'
+              run: go run -mod vendor ./cmd/acicn-build/main.go -mirror -generate 'jdk:builder-11-maven-3.8-debian-11'
             - name: setup docker buildx
               uses: docker/setup-buildx-action@v2
             - name: docker login - ghcr
@@ -1197,18 +1110,17 @@ jobs:
                 password: ${{secrets.GITHUB_TOKEN}}
                 registry: ghcr.io
                 username: ${{github.actor}}
-            - name: docker login - dockerhub
+            - name: docker login - target registry
               uses: docker/login-action@v2
               with:
-                password: ${{secrets.DOCKERHUB_TOKEN}}
-                username: guoyk
+                password: ${{inputs.password}}
+                registry: ${{inputs.registry}}
+                username: ${{inputs.username}}
             - id: meta
               name: meta for jdk:builder-11-maven-3.8-debian-11
               uses: docker/metadata-action@v4
               with:
-                images: |-
-                    ghcr.io/guoyk93/acicn/jdk
-                    acicn/jdk
+                images: ${{inputs.registry}}/${{inputs.prefix}}/jdk
                 tags: |-
                     type=raw,value=builder-11-maven-3.8-debian-11
                     type=raw,value=builder-11-maven-3.8
@@ -1224,14 +1136,11 @@ jobs:
                 pull: true
                 push: true
                 tags: ${{steps.meta.outputs.tags}}
-    r_jdk_builder_17_maven_3_6_debian_11:
-        if: inputs.job_name == 'all' || contains(inputs.job_name,'r_jdk_builder_17_maven_3_6_debian_11,')
-        needs:
-            - r_debian_11_no_minit
+    m_jdk_builder_17_maven_3_6_debian_11:
         permissions:
             contents: read
             id-token: write
-            packages: write
+            packages: read
         runs-on: ubuntu-latest
         steps:
             - name: checkout
@@ -1241,7 +1150,7 @@ jobs:
               with:
                 go-version: "1.19"
             - name: generate out
-              run: go run -mod vendor ./cmd/acicn-build/main.go -generate 'jdk:builder-17-maven-3.6-debian-11'
+              run: go run -mod vendor ./cmd/acicn-build/main.go -mirror -generate 'jdk:builder-17-maven-3.6-debian-11'
             - name: setup docker buildx
               uses: docker/setup-buildx-action@v2
             - name: docker login - ghcr
@@ -1250,18 +1159,17 @@ jobs:
                 password: ${{secrets.GITHUB_TOKEN}}
                 registry: ghcr.io
                 username: ${{github.actor}}
-            - name: docker login - dockerhub
+            - name: docker login - target registry
               uses: docker/login-action@v2
               with:
-                password: ${{secrets.DOCKERHUB_TOKEN}}
-                username: guoyk
+                password: ${{inputs.password}}
+                registry: ${{inputs.registry}}
+                username: ${{inputs.username}}
             - id: meta
               name: meta for jdk:builder-17-maven-3.6-debian-11
               uses: docker/metadata-action@v4
               with:
-                images: |-
-                    ghcr.io/guoyk93/acicn/jdk
-                    acicn/jdk
+                images: ${{inputs.registry}}/${{inputs.prefix}}/jdk
                 tags: |-
                     type=raw,value=builder-17-maven-3.6-debian-11
                     type=raw,value=builder-17-maven-3.6
@@ -1276,14 +1184,11 @@ jobs:
                 pull: true
                 push: true
                 tags: ${{steps.meta.outputs.tags}}
-    r_jdk_builder_17_maven_3_8_debian_11:
-        if: inputs.job_name == 'all' || contains(inputs.job_name,'r_jdk_builder_17_maven_3_8_debian_11,')
-        needs:
-            - r_debian_11_no_minit
+    m_jdk_builder_17_maven_3_8_debian_11:
         permissions:
             contents: read
             id-token: write
-            packages: write
+            packages: read
         runs-on: ubuntu-latest
         steps:
             - name: checkout
@@ -1293,7 +1198,7 @@ jobs:
               with:
                 go-version: "1.19"
             - name: generate out
-              run: go run -mod vendor ./cmd/acicn-build/main.go -generate 'jdk:builder-17-maven-3.8-debian-11'
+              run: go run -mod vendor ./cmd/acicn-build/main.go -mirror -generate 'jdk:builder-17-maven-3.8-debian-11'
             - name: setup docker buildx
               uses: docker/setup-buildx-action@v2
             - name: docker login - ghcr
@@ -1302,18 +1207,17 @@ jobs:
                 password: ${{secrets.GITHUB_TOKEN}}
                 registry: ghcr.io
                 username: ${{github.actor}}
-            - name: docker login - dockerhub
+            - name: docker login - target registry
               uses: docker/login-action@v2
               with:
-                password: ${{secrets.DOCKERHUB_TOKEN}}
-                username: guoyk
+                password: ${{inputs.password}}
+                registry: ${{inputs.registry}}
+                username: ${{inputs.username}}
             - id: meta
               name: meta for jdk:builder-17-maven-3.8-debian-11
               uses: docker/metadata-action@v4
               with:
-                images: |-
-                    ghcr.io/guoyk93/acicn/jdk
-                    acicn/jdk
+                images: ${{inputs.registry}}/${{inputs.prefix}}/jdk
                 tags: |-
                     type=raw,value=builder-17-maven-3.8-debian-11
                     type=raw,value=builder-17-maven-3.8
@@ -1329,14 +1233,11 @@ jobs:
                 pull: true
                 push: true
                 tags: ${{steps.meta.outputs.tags}}
-    r_kafka_2_1:
-        if: inputs.job_name == 'all' || contains(inputs.job_name,'r_kafka_2_1,')
-        needs:
-            - r_jdk_11_debian_11
+    m_kafka_2_1:
         permissions:
             contents: read
             id-token: write
-            packages: write
+            packages: read
         runs-on: ubuntu-latest
         steps:
             - name: checkout
@@ -1346,7 +1247,7 @@ jobs:
               with:
                 go-version: "1.19"
             - name: generate out
-              run: go run -mod vendor ./cmd/acicn-build/main.go -generate 'kafka:2.1'
+              run: go run -mod vendor ./cmd/acicn-build/main.go -mirror -generate 'kafka:2.1'
             - name: setup docker buildx
               uses: docker/setup-buildx-action@v2
             - name: docker login - ghcr
@@ -1355,18 +1256,17 @@ jobs:
                 password: ${{secrets.GITHUB_TOKEN}}
                 registry: ghcr.io
                 username: ${{github.actor}}
-            - name: docker login - dockerhub
+            - name: docker login - target registry
               uses: docker/login-action@v2
               with:
-                password: ${{secrets.DOCKERHUB_TOKEN}}
-                username: guoyk
+                password: ${{inputs.password}}
+                registry: ${{inputs.registry}}
+                username: ${{inputs.username}}
             - id: meta
               name: meta for kafka:2.1
               uses: docker/metadata-action@v4
               with:
-                images: |-
-                    ghcr.io/guoyk93/acicn/kafka
-                    acicn/kafka
+                images: ${{inputs.registry}}/${{inputs.prefix}}/kafka
                 tags: type=raw,value=2.1
             - id: build
               name: build for kafka:2.1
@@ -1379,14 +1279,11 @@ jobs:
                 pull: true
                 push: true
                 tags: ${{steps.meta.outputs.tags}}
-    r_kafka_2_4:
-        if: inputs.job_name == 'all' || contains(inputs.job_name,'r_kafka_2_4,')
-        needs:
-            - r_jdk_11_debian_11
+    m_kafka_2_4:
         permissions:
             contents: read
             id-token: write
-            packages: write
+            packages: read
         runs-on: ubuntu-latest
         steps:
             - name: checkout
@@ -1396,7 +1293,7 @@ jobs:
               with:
                 go-version: "1.19"
             - name: generate out
-              run: go run -mod vendor ./cmd/acicn-build/main.go -generate 'kafka:2.4'
+              run: go run -mod vendor ./cmd/acicn-build/main.go -mirror -generate 'kafka:2.4'
             - name: setup docker buildx
               uses: docker/setup-buildx-action@v2
             - name: docker login - ghcr
@@ -1405,18 +1302,17 @@ jobs:
                 password: ${{secrets.GITHUB_TOKEN}}
                 registry: ghcr.io
                 username: ${{github.actor}}
-            - name: docker login - dockerhub
+            - name: docker login - target registry
               uses: docker/login-action@v2
               with:
-                password: ${{secrets.DOCKERHUB_TOKEN}}
-                username: guoyk
+                password: ${{inputs.password}}
+                registry: ${{inputs.registry}}
+                username: ${{inputs.username}}
             - id: meta
               name: meta for kafka:2.4
               uses: docker/metadata-action@v4
               with:
-                images: |-
-                    ghcr.io/guoyk93/acicn/kafka
-                    acicn/kafka
+                images: ${{inputs.registry}}/${{inputs.prefix}}/kafka
                 tags: type=raw,value=2.4
             - id: build
               name: build for kafka:2.4
@@ -1429,14 +1325,11 @@ jobs:
                 pull: true
                 push: true
                 tags: ${{steps.meta.outputs.tags}}
-    r_kafka_2_8:
-        if: inputs.job_name == 'all' || contains(inputs.job_name,'r_kafka_2_8,')
-        needs:
-            - r_jdk_11_debian_11
+    m_kafka_2_8:
         permissions:
             contents: read
             id-token: write
-            packages: write
+            packages: read
         runs-on: ubuntu-latest
         steps:
             - name: checkout
@@ -1446,7 +1339,7 @@ jobs:
               with:
                 go-version: "1.19"
             - name: generate out
-              run: go run -mod vendor ./cmd/acicn-build/main.go -generate 'kafka:2.8'
+              run: go run -mod vendor ./cmd/acicn-build/main.go -mirror -generate 'kafka:2.8'
             - name: setup docker buildx
               uses: docker/setup-buildx-action@v2
             - name: docker login - ghcr
@@ -1455,18 +1348,17 @@ jobs:
                 password: ${{secrets.GITHUB_TOKEN}}
                 registry: ghcr.io
                 username: ${{github.actor}}
-            - name: docker login - dockerhub
+            - name: docker login - target registry
               uses: docker/login-action@v2
               with:
-                password: ${{secrets.DOCKERHUB_TOKEN}}
-                username: guoyk
+                password: ${{inputs.password}}
+                registry: ${{inputs.registry}}
+                username: ${{inputs.username}}
             - id: meta
               name: meta for kafka:2.8
               uses: docker/metadata-action@v4
               with:
-                images: |-
-                    ghcr.io/guoyk93/acicn/kafka
-                    acicn/kafka
+                images: ${{inputs.registry}}/${{inputs.prefix}}/kafka
                 tags: |-
                     type=raw,value=2.8
                     type=raw,value=latest
@@ -1481,12 +1373,11 @@ jobs:
                 pull: true
                 push: true
                 tags: ${{steps.meta.outputs.tags}}
-    r_mongo_3_6:
-        if: inputs.job_name == 'all' || contains(inputs.job_name,'r_mongo_3_6,')
+    m_mongo_3_6:
         permissions:
             contents: read
             id-token: write
-            packages: write
+            packages: read
         runs-on: ubuntu-latest
         steps:
             - name: checkout
@@ -1496,7 +1387,7 @@ jobs:
               with:
                 go-version: "1.19"
             - name: generate out
-              run: go run -mod vendor ./cmd/acicn-build/main.go -generate 'mongo:3.6'
+              run: go run -mod vendor ./cmd/acicn-build/main.go -mirror -generate 'mongo:3.6'
             - name: setup docker buildx
               uses: docker/setup-buildx-action@v2
             - name: docker login - ghcr
@@ -1505,18 +1396,17 @@ jobs:
                 password: ${{secrets.GITHUB_TOKEN}}
                 registry: ghcr.io
                 username: ${{github.actor}}
-            - name: docker login - dockerhub
+            - name: docker login - target registry
               uses: docker/login-action@v2
               with:
-                password: ${{secrets.DOCKERHUB_TOKEN}}
-                username: guoyk
+                password: ${{inputs.password}}
+                registry: ${{inputs.registry}}
+                username: ${{inputs.username}}
             - id: meta
               name: meta for mongo:3.6
               uses: docker/metadata-action@v4
               with:
-                images: |-
-                    ghcr.io/guoyk93/acicn/mongo
-                    acicn/mongo
+                images: ${{inputs.registry}}/${{inputs.prefix}}/mongo
                 tags: type=raw,value=3.6
             - id: build
               name: build for mongo:3.6
@@ -1526,15 +1416,14 @@ jobs:
                 cache-to: type=gha,mode=max
                 context: out/mongo:3.6
                 labels: ${{steps.meta.outputs.labels}}
-                pull: ${{ inputs.force_pull }}
+                pull: true
                 push: true
                 tags: ${{steps.meta.outputs.tags}}
-    r_mongo_4_0:
-        if: inputs.job_name == 'all' || contains(inputs.job_name,'r_mongo_4_0,')
+    m_mongo_4_0:
         permissions:
             contents: read
             id-token: write
-            packages: write
+            packages: read
         runs-on: ubuntu-latest
         steps:
             - name: checkout
@@ -1544,7 +1433,7 @@ jobs:
               with:
                 go-version: "1.19"
             - name: generate out
-              run: go run -mod vendor ./cmd/acicn-build/main.go -generate 'mongo:4.0'
+              run: go run -mod vendor ./cmd/acicn-build/main.go -mirror -generate 'mongo:4.0'
             - name: setup docker buildx
               uses: docker/setup-buildx-action@v2
             - name: docker login - ghcr
@@ -1553,18 +1442,17 @@ jobs:
                 password: ${{secrets.GITHUB_TOKEN}}
                 registry: ghcr.io
                 username: ${{github.actor}}
-            - name: docker login - dockerhub
+            - name: docker login - target registry
               uses: docker/login-action@v2
               with:
-                password: ${{secrets.DOCKERHUB_TOKEN}}
-                username: guoyk
+                password: ${{inputs.password}}
+                registry: ${{inputs.registry}}
+                username: ${{inputs.username}}
             - id: meta
               name: meta for mongo:4.0
               uses: docker/metadata-action@v4
               with:
-                images: |-
-                    ghcr.io/guoyk93/acicn/mongo
-                    acicn/mongo
+                images: ${{inputs.registry}}/${{inputs.prefix}}/mongo
                 tags: type=raw,value=4.0
             - id: build
               name: build for mongo:4.0
@@ -1574,15 +1462,14 @@ jobs:
                 cache-to: type=gha,mode=max
                 context: out/mongo:4.0
                 labels: ${{steps.meta.outputs.labels}}
-                pull: ${{ inputs.force_pull }}
+                pull: true
                 push: true
                 tags: ${{steps.meta.outputs.tags}}
-    r_mongo_4_2:
-        if: inputs.job_name == 'all' || contains(inputs.job_name,'r_mongo_4_2,')
+    m_mongo_4_2:
         permissions:
             contents: read
             id-token: write
-            packages: write
+            packages: read
         runs-on: ubuntu-latest
         steps:
             - name: checkout
@@ -1592,7 +1479,7 @@ jobs:
               with:
                 go-version: "1.19"
             - name: generate out
-              run: go run -mod vendor ./cmd/acicn-build/main.go -generate 'mongo:4.2'
+              run: go run -mod vendor ./cmd/acicn-build/main.go -mirror -generate 'mongo:4.2'
             - name: setup docker buildx
               uses: docker/setup-buildx-action@v2
             - name: docker login - ghcr
@@ -1601,18 +1488,17 @@ jobs:
                 password: ${{secrets.GITHUB_TOKEN}}
                 registry: ghcr.io
                 username: ${{github.actor}}
-            - name: docker login - dockerhub
+            - name: docker login - target registry
               uses: docker/login-action@v2
               with:
-                password: ${{secrets.DOCKERHUB_TOKEN}}
-                username: guoyk
+                password: ${{inputs.password}}
+                registry: ${{inputs.registry}}
+                username: ${{inputs.username}}
             - id: meta
               name: meta for mongo:4.2
               uses: docker/metadata-action@v4
               with:
-                images: |-
-                    ghcr.io/guoyk93/acicn/mongo
-                    acicn/mongo
+                images: ${{inputs.registry}}/${{inputs.prefix}}/mongo
                 tags: type=raw,value=4.2
             - id: build
               name: build for mongo:4.2
@@ -1622,15 +1508,14 @@ jobs:
                 cache-to: type=gha,mode=max
                 context: out/mongo:4.2
                 labels: ${{steps.meta.outputs.labels}}
-                pull: ${{ inputs.force_pull }}
+                pull: true
                 push: true
                 tags: ${{steps.meta.outputs.tags}}
-    r_mongo_4_4:
-        if: inputs.job_name == 'all' || contains(inputs.job_name,'r_mongo_4_4,')
+    m_mongo_4_4:
         permissions:
             contents: read
             id-token: write
-            packages: write
+            packages: read
         runs-on: ubuntu-latest
         steps:
             - name: checkout
@@ -1640,7 +1525,7 @@ jobs:
               with:
                 go-version: "1.19"
             - name: generate out
-              run: go run -mod vendor ./cmd/acicn-build/main.go -generate 'mongo:4.4'
+              run: go run -mod vendor ./cmd/acicn-build/main.go -mirror -generate 'mongo:4.4'
             - name: setup docker buildx
               uses: docker/setup-buildx-action@v2
             - name: docker login - ghcr
@@ -1649,18 +1534,17 @@ jobs:
                 password: ${{secrets.GITHUB_TOKEN}}
                 registry: ghcr.io
                 username: ${{github.actor}}
-            - name: docker login - dockerhub
+            - name: docker login - target registry
               uses: docker/login-action@v2
               with:
-                password: ${{secrets.DOCKERHUB_TOKEN}}
-                username: guoyk
+                password: ${{inputs.password}}
+                registry: ${{inputs.registry}}
+                username: ${{inputs.username}}
             - id: meta
               name: meta for mongo:4.4
               uses: docker/metadata-action@v4
               with:
-                images: |-
-                    ghcr.io/guoyk93/acicn/mongo
-                    acicn/mongo
+                images: ${{inputs.registry}}/${{inputs.prefix}}/mongo
                 tags: type=raw,value=4.4
             - id: build
               name: build for mongo:4.4
@@ -1670,15 +1554,14 @@ jobs:
                 cache-to: type=gha,mode=max
                 context: out/mongo:4.4
                 labels: ${{steps.meta.outputs.labels}}
-                pull: ${{ inputs.force_pull }}
+                pull: true
                 push: true
                 tags: ${{steps.meta.outputs.tags}}
-    r_mysql_5_6:
-        if: inputs.job_name == 'all' || contains(inputs.job_name,'r_mysql_5_6,')
+    m_mysql_5_6:
         permissions:
             contents: read
             id-token: write
-            packages: write
+            packages: read
         runs-on: ubuntu-latest
         steps:
             - name: checkout
@@ -1688,7 +1571,7 @@ jobs:
               with:
                 go-version: "1.19"
             - name: generate out
-              run: go run -mod vendor ./cmd/acicn-build/main.go -generate 'mysql:5.6'
+              run: go run -mod vendor ./cmd/acicn-build/main.go -mirror -generate 'mysql:5.6'
             - name: setup docker buildx
               uses: docker/setup-buildx-action@v2
             - name: docker login - ghcr
@@ -1697,18 +1580,17 @@ jobs:
                 password: ${{secrets.GITHUB_TOKEN}}
                 registry: ghcr.io
                 username: ${{github.actor}}
-            - name: docker login - dockerhub
+            - name: docker login - target registry
               uses: docker/login-action@v2
               with:
-                password: ${{secrets.DOCKERHUB_TOKEN}}
-                username: guoyk
+                password: ${{inputs.password}}
+                registry: ${{inputs.registry}}
+                username: ${{inputs.username}}
             - id: meta
               name: meta for mysql:5.6
               uses: docker/metadata-action@v4
               with:
-                images: |-
-                    ghcr.io/guoyk93/acicn/mysql
-                    acicn/mysql
+                images: ${{inputs.registry}}/${{inputs.prefix}}/mysql
                 tags: type=raw,value=5.6
             - id: build
               name: build for mysql:5.6
@@ -1718,15 +1600,14 @@ jobs:
                 cache-to: type=gha,mode=max
                 context: out/mysql:5.6
                 labels: ${{steps.meta.outputs.labels}}
-                pull: ${{ inputs.force_pull }}
+                pull: true
                 push: true
                 tags: ${{steps.meta.outputs.tags}}
-    r_mysql_5_7:
-        if: inputs.job_name == 'all' || contains(inputs.job_name,'r_mysql_5_7,')
+    m_mysql_5_7:
         permissions:
             contents: read
             id-token: write
-            packages: write
+            packages: read
         runs-on: ubuntu-latest
         steps:
             - name: checkout
@@ -1736,7 +1617,7 @@ jobs:
               with:
                 go-version: "1.19"
             - name: generate out
-              run: go run -mod vendor ./cmd/acicn-build/main.go -generate 'mysql:5.7'
+              run: go run -mod vendor ./cmd/acicn-build/main.go -mirror -generate 'mysql:5.7'
             - name: setup docker buildx
               uses: docker/setup-buildx-action@v2
             - name: docker login - ghcr
@@ -1745,18 +1626,17 @@ jobs:
                 password: ${{secrets.GITHUB_TOKEN}}
                 registry: ghcr.io
                 username: ${{github.actor}}
-            - name: docker login - dockerhub
+            - name: docker login - target registry
               uses: docker/login-action@v2
               with:
-                password: ${{secrets.DOCKERHUB_TOKEN}}
-                username: guoyk
+                password: ${{inputs.password}}
+                registry: ${{inputs.registry}}
+                username: ${{inputs.username}}
             - id: meta
               name: meta for mysql:5.7
               uses: docker/metadata-action@v4
               with:
-                images: |-
-                    ghcr.io/guoyk93/acicn/mysql
-                    acicn/mysql
+                images: ${{inputs.registry}}/${{inputs.prefix}}/mysql
                 tags: type=raw,value=5.7
             - id: build
               name: build for mysql:5.7
@@ -1766,15 +1646,14 @@ jobs:
                 cache-to: type=gha,mode=max
                 context: out/mysql:5.7
                 labels: ${{steps.meta.outputs.labels}}
-                pull: ${{ inputs.force_pull }}
+                pull: true
                 push: true
                 tags: ${{steps.meta.outputs.tags}}
-    r_mysql_8_0:
-        if: inputs.job_name == 'all' || contains(inputs.job_name,'r_mysql_8_0,')
+    m_mysql_8_0:
         permissions:
             contents: read
             id-token: write
-            packages: write
+            packages: read
         runs-on: ubuntu-latest
         steps:
             - name: checkout
@@ -1784,7 +1663,7 @@ jobs:
               with:
                 go-version: "1.19"
             - name: generate out
-              run: go run -mod vendor ./cmd/acicn-build/main.go -generate 'mysql:8.0'
+              run: go run -mod vendor ./cmd/acicn-build/main.go -mirror -generate 'mysql:8.0'
             - name: setup docker buildx
               uses: docker/setup-buildx-action@v2
             - name: docker login - ghcr
@@ -1793,18 +1672,17 @@ jobs:
                 password: ${{secrets.GITHUB_TOKEN}}
                 registry: ghcr.io
                 username: ${{github.actor}}
-            - name: docker login - dockerhub
+            - name: docker login - target registry
               uses: docker/login-action@v2
               with:
-                password: ${{secrets.DOCKERHUB_TOKEN}}
-                username: guoyk
+                password: ${{inputs.password}}
+                registry: ${{inputs.registry}}
+                username: ${{inputs.username}}
             - id: meta
               name: meta for mysql:8.0
               uses: docker/metadata-action@v4
               with:
-                images: |-
-                    ghcr.io/guoyk93/acicn/mysql
-                    acicn/mysql
+                images: ${{inputs.registry}}/${{inputs.prefix}}/mysql
                 tags: type=raw,value=8.0
             - id: build
               name: build for mysql:8.0
@@ -1814,17 +1692,14 @@ jobs:
                 cache-to: type=gha,mode=max
                 context: out/mysql:8.0
                 labels: ${{steps.meta.outputs.labels}}
-                pull: ${{ inputs.force_pull }}
+                pull: true
                 push: true
                 tags: ${{steps.meta.outputs.tags}}
-    r_nginx_alpine_3_16:
-        if: inputs.job_name == 'all' || contains(inputs.job_name,'r_nginx_alpine_3_16,')
-        needs:
-            - r_alpine_3_16
+    m_nginx_alpine_3_16:
         permissions:
             contents: read
             id-token: write
-            packages: write
+            packages: read
         runs-on: ubuntu-latest
         steps:
             - name: checkout
@@ -1834,7 +1709,7 @@ jobs:
               with:
                 go-version: "1.19"
             - name: generate out
-              run: go run -mod vendor ./cmd/acicn-build/main.go -generate 'nginx:alpine-3.16'
+              run: go run -mod vendor ./cmd/acicn-build/main.go -mirror -generate 'nginx:alpine-3.16'
             - name: setup docker buildx
               uses: docker/setup-buildx-action@v2
             - name: docker login - ghcr
@@ -1843,18 +1718,17 @@ jobs:
                 password: ${{secrets.GITHUB_TOKEN}}
                 registry: ghcr.io
                 username: ${{github.actor}}
-            - name: docker login - dockerhub
+            - name: docker login - target registry
               uses: docker/login-action@v2
               with:
-                password: ${{secrets.DOCKERHUB_TOKEN}}
-                username: guoyk
+                password: ${{inputs.password}}
+                registry: ${{inputs.registry}}
+                username: ${{inputs.username}}
             - id: meta
               name: meta for nginx:alpine-3.16
               uses: docker/metadata-action@v4
               with:
-                images: |-
-                    ghcr.io/guoyk93/acicn/nginx
-                    acicn/nginx
+                images: ${{inputs.registry}}/${{inputs.prefix}}/nginx
                 tags: |-
                     type=raw,value=alpine-3.16
                     type=raw,value=latest
@@ -1869,14 +1743,11 @@ jobs:
                 pull: true
                 push: true
                 tags: ${{steps.meta.outputs.tags}}
-    r_node_8_debian_11:
-        if: inputs.job_name == 'all' || contains(inputs.job_name,'r_node_8_debian_11,')
-        needs:
-            - r_debian_11
+    m_node_8_debian_11:
         permissions:
             contents: read
             id-token: write
-            packages: write
+            packages: read
         runs-on: ubuntu-latest
         steps:
             - name: checkout
@@ -1886,7 +1757,7 @@ jobs:
               with:
                 go-version: "1.19"
             - name: generate out
-              run: go run -mod vendor ./cmd/acicn-build/main.go -generate 'node:8-debian-11'
+              run: go run -mod vendor ./cmd/acicn-build/main.go -mirror -generate 'node:8-debian-11'
             - name: setup docker buildx
               uses: docker/setup-buildx-action@v2
             - name: docker login - ghcr
@@ -1895,18 +1766,17 @@ jobs:
                 password: ${{secrets.GITHUB_TOKEN}}
                 registry: ghcr.io
                 username: ${{github.actor}}
-            - name: docker login - dockerhub
+            - name: docker login - target registry
               uses: docker/login-action@v2
               with:
-                password: ${{secrets.DOCKERHUB_TOKEN}}
-                username: guoyk
+                password: ${{inputs.password}}
+                registry: ${{inputs.registry}}
+                username: ${{inputs.username}}
             - id: meta
               name: meta for node:8-debian-11
               uses: docker/metadata-action@v4
               with:
-                images: |-
-                    ghcr.io/guoyk93/acicn/node
-                    acicn/node
+                images: ${{inputs.registry}}/${{inputs.prefix}}/node
                 tags: |-
                     type=raw,value=8-debian-11
                     type=raw,value=8
@@ -1921,14 +1791,11 @@ jobs:
                 pull: true
                 push: true
                 tags: ${{steps.meta.outputs.tags}}
-    r_node_10_debian_11:
-        if: inputs.job_name == 'all' || contains(inputs.job_name,'r_node_10_debian_11,')
-        needs:
-            - r_debian_11
+    m_node_10_debian_11:
         permissions:
             contents: read
             id-token: write
-            packages: write
+            packages: read
         runs-on: ubuntu-latest
         steps:
             - name: checkout
@@ -1938,7 +1805,7 @@ jobs:
               with:
                 go-version: "1.19"
             - name: generate out
-              run: go run -mod vendor ./cmd/acicn-build/main.go -generate 'node:10-debian-11'
+              run: go run -mod vendor ./cmd/acicn-build/main.go -mirror -generate 'node:10-debian-11'
             - name: setup docker buildx
               uses: docker/setup-buildx-action@v2
             - name: docker login - ghcr
@@ -1947,18 +1814,17 @@ jobs:
                 password: ${{secrets.GITHUB_TOKEN}}
                 registry: ghcr.io
                 username: ${{github.actor}}
-            - name: docker login - dockerhub
+            - name: docker login - target registry
               uses: docker/login-action@v2
               with:
-                password: ${{secrets.DOCKERHUB_TOKEN}}
-                username: guoyk
+                password: ${{inputs.password}}
+                registry: ${{inputs.registry}}
+                username: ${{inputs.username}}
             - id: meta
               name: meta for node:10-debian-11
               uses: docker/metadata-action@v4
               with:
-                images: |-
-                    ghcr.io/guoyk93/acicn/node
-                    acicn/node
+                images: ${{inputs.registry}}/${{inputs.prefix}}/node
                 tags: |-
                     type=raw,value=10-debian-11
                     type=raw,value=10
@@ -1973,14 +1839,11 @@ jobs:
                 pull: true
                 push: true
                 tags: ${{steps.meta.outputs.tags}}
-    r_node_12_debian_11:
-        if: inputs.job_name == 'all' || contains(inputs.job_name,'r_node_12_debian_11,')
-        needs:
-            - r_debian_11
+    m_node_12_debian_11:
         permissions:
             contents: read
             id-token: write
-            packages: write
+            packages: read
         runs-on: ubuntu-latest
         steps:
             - name: checkout
@@ -1990,7 +1853,7 @@ jobs:
               with:
                 go-version: "1.19"
             - name: generate out
-              run: go run -mod vendor ./cmd/acicn-build/main.go -generate 'node:12-debian-11'
+              run: go run -mod vendor ./cmd/acicn-build/main.go -mirror -generate 'node:12-debian-11'
             - name: setup docker buildx
               uses: docker/setup-buildx-action@v2
             - name: docker login - ghcr
@@ -1999,18 +1862,17 @@ jobs:
                 password: ${{secrets.GITHUB_TOKEN}}
                 registry: ghcr.io
                 username: ${{github.actor}}
-            - name: docker login - dockerhub
+            - name: docker login - target registry
               uses: docker/login-action@v2
               with:
-                password: ${{secrets.DOCKERHUB_TOKEN}}
-                username: guoyk
+                password: ${{inputs.password}}
+                registry: ${{inputs.registry}}
+                username: ${{inputs.username}}
             - id: meta
               name: meta for node:12-debian-11
               uses: docker/metadata-action@v4
               with:
-                images: |-
-                    ghcr.io/guoyk93/acicn/node
-                    acicn/node
+                images: ${{inputs.registry}}/${{inputs.prefix}}/node
                 tags: |-
                     type=raw,value=12-debian-11
                     type=raw,value=12
@@ -2025,14 +1887,11 @@ jobs:
                 pull: true
                 push: true
                 tags: ${{steps.meta.outputs.tags}}
-    r_node_14_debian_11:
-        if: inputs.job_name == 'all' || contains(inputs.job_name,'r_node_14_debian_11,')
-        needs:
-            - r_debian_11
+    m_node_14_debian_11:
         permissions:
             contents: read
             id-token: write
-            packages: write
+            packages: read
         runs-on: ubuntu-latest
         steps:
             - name: checkout
@@ -2042,7 +1901,7 @@ jobs:
               with:
                 go-version: "1.19"
             - name: generate out
-              run: go run -mod vendor ./cmd/acicn-build/main.go -generate 'node:14-debian-11'
+              run: go run -mod vendor ./cmd/acicn-build/main.go -mirror -generate 'node:14-debian-11'
             - name: setup docker buildx
               uses: docker/setup-buildx-action@v2
             - name: docker login - ghcr
@@ -2051,18 +1910,17 @@ jobs:
                 password: ${{secrets.GITHUB_TOKEN}}
                 registry: ghcr.io
                 username: ${{github.actor}}
-            - name: docker login - dockerhub
+            - name: docker login - target registry
               uses: docker/login-action@v2
               with:
-                password: ${{secrets.DOCKERHUB_TOKEN}}
-                username: guoyk
+                password: ${{inputs.password}}
+                registry: ${{inputs.registry}}
+                username: ${{inputs.username}}
             - id: meta
               name: meta for node:14-debian-11
               uses: docker/metadata-action@v4
               with:
-                images: |-
-                    ghcr.io/guoyk93/acicn/node
-                    acicn/node
+                images: ${{inputs.registry}}/${{inputs.prefix}}/node
                 tags: |-
                     type=raw,value=14-debian-11
                     type=raw,value=14
@@ -2077,14 +1935,11 @@ jobs:
                 pull: true
                 push: true
                 tags: ${{steps.meta.outputs.tags}}
-    r_node_16_debian_11:
-        if: inputs.job_name == 'all' || contains(inputs.job_name,'r_node_16_debian_11,')
-        needs:
-            - r_debian_11
+    m_node_16_debian_11:
         permissions:
             contents: read
             id-token: write
-            packages: write
+            packages: read
         runs-on: ubuntu-latest
         steps:
             - name: checkout
@@ -2094,7 +1949,7 @@ jobs:
               with:
                 go-version: "1.19"
             - name: generate out
-              run: go run -mod vendor ./cmd/acicn-build/main.go -generate 'node:16-debian-11'
+              run: go run -mod vendor ./cmd/acicn-build/main.go -mirror -generate 'node:16-debian-11'
             - name: setup docker buildx
               uses: docker/setup-buildx-action@v2
             - name: docker login - ghcr
@@ -2103,18 +1958,17 @@ jobs:
                 password: ${{secrets.GITHUB_TOKEN}}
                 registry: ghcr.io
                 username: ${{github.actor}}
-            - name: docker login - dockerhub
+            - name: docker login - target registry
               uses: docker/login-action@v2
               with:
-                password: ${{secrets.DOCKERHUB_TOKEN}}
-                username: guoyk
+                password: ${{inputs.password}}
+                registry: ${{inputs.registry}}
+                username: ${{inputs.username}}
             - id: meta
               name: meta for node:16-debian-11
               uses: docker/metadata-action@v4
               with:
-                images: |-
-                    ghcr.io/guoyk93/acicn/node
-                    acicn/node
+                images: ${{inputs.registry}}/${{inputs.prefix}}/node
                 tags: |-
                     type=raw,value=16-debian-11
                     type=raw,value=16
@@ -2129,14 +1983,11 @@ jobs:
                 pull: true
                 push: true
                 tags: ${{steps.meta.outputs.tags}}
-    r_node_18_debian_11:
-        if: inputs.job_name == 'all' || contains(inputs.job_name,'r_node_18_debian_11,')
-        needs:
-            - r_debian_11
+    m_node_18_debian_11:
         permissions:
             contents: read
             id-token: write
-            packages: write
+            packages: read
         runs-on: ubuntu-latest
         steps:
             - name: checkout
@@ -2146,7 +1997,7 @@ jobs:
               with:
                 go-version: "1.19"
             - name: generate out
-              run: go run -mod vendor ./cmd/acicn-build/main.go -generate 'node:18-debian-11'
+              run: go run -mod vendor ./cmd/acicn-build/main.go -mirror -generate 'node:18-debian-11'
             - name: setup docker buildx
               uses: docker/setup-buildx-action@v2
             - name: docker login - ghcr
@@ -2155,18 +2006,17 @@ jobs:
                 password: ${{secrets.GITHUB_TOKEN}}
                 registry: ghcr.io
                 username: ${{github.actor}}
-            - name: docker login - dockerhub
+            - name: docker login - target registry
               uses: docker/login-action@v2
               with:
-                password: ${{secrets.DOCKERHUB_TOKEN}}
-                username: guoyk
+                password: ${{inputs.password}}
+                registry: ${{inputs.registry}}
+                username: ${{inputs.username}}
             - id: meta
               name: meta for node:18-debian-11
               uses: docker/metadata-action@v4
               with:
-                images: |-
-                    ghcr.io/guoyk93/acicn/node
-                    acicn/node
+                images: ${{inputs.registry}}/${{inputs.prefix}}/node
                 tags: |-
                     type=raw,value=18-debian-11
                     type=raw,value=18
@@ -2181,14 +2031,11 @@ jobs:
                 pull: true
                 push: true
                 tags: ${{steps.meta.outputs.tags}}
-    r_node_builder_8_debian_11:
-        if: inputs.job_name == 'all' || contains(inputs.job_name,'r_node_builder_8_debian_11,')
-        needs:
-            - r_debian_11_no_minit
+    m_node_builder_8_debian_11:
         permissions:
             contents: read
             id-token: write
-            packages: write
+            packages: read
         runs-on: ubuntu-latest
         steps:
             - name: checkout
@@ -2198,7 +2045,7 @@ jobs:
               with:
                 go-version: "1.19"
             - name: generate out
-              run: go run -mod vendor ./cmd/acicn-build/main.go -generate 'node:builder-8-debian-11'
+              run: go run -mod vendor ./cmd/acicn-build/main.go -mirror -generate 'node:builder-8-debian-11'
             - name: setup docker buildx
               uses: docker/setup-buildx-action@v2
             - name: docker login - ghcr
@@ -2207,18 +2054,17 @@ jobs:
                 password: ${{secrets.GITHUB_TOKEN}}
                 registry: ghcr.io
                 username: ${{github.actor}}
-            - name: docker login - dockerhub
+            - name: docker login - target registry
               uses: docker/login-action@v2
               with:
-                password: ${{secrets.DOCKERHUB_TOKEN}}
-                username: guoyk
+                password: ${{inputs.password}}
+                registry: ${{inputs.registry}}
+                username: ${{inputs.username}}
             - id: meta
               name: meta for node:builder-8-debian-11
               uses: docker/metadata-action@v4
               with:
-                images: |-
-                    ghcr.io/guoyk93/acicn/node
-                    acicn/node
+                images: ${{inputs.registry}}/${{inputs.prefix}}/node
                 tags: |-
                     type=raw,value=builder-8-debian-11
                     type=raw,value=builder-8
@@ -2233,14 +2079,11 @@ jobs:
                 pull: true
                 push: true
                 tags: ${{steps.meta.outputs.tags}}
-    r_node_builder_10_debian_11:
-        if: inputs.job_name == 'all' || contains(inputs.job_name,'r_node_builder_10_debian_11,')
-        needs:
-            - r_debian_11_no_minit
+    m_node_builder_10_debian_11:
         permissions:
             contents: read
             id-token: write
-            packages: write
+            packages: read
         runs-on: ubuntu-latest
         steps:
             - name: checkout
@@ -2250,7 +2093,7 @@ jobs:
               with:
                 go-version: "1.19"
             - name: generate out
-              run: go run -mod vendor ./cmd/acicn-build/main.go -generate 'node:builder-10-debian-11'
+              run: go run -mod vendor ./cmd/acicn-build/main.go -mirror -generate 'node:builder-10-debian-11'
             - name: setup docker buildx
               uses: docker/setup-buildx-action@v2
             - name: docker login - ghcr
@@ -2259,18 +2102,17 @@ jobs:
                 password: ${{secrets.GITHUB_TOKEN}}
                 registry: ghcr.io
                 username: ${{github.actor}}
-            - name: docker login - dockerhub
+            - name: docker login - target registry
               uses: docker/login-action@v2
               with:
-                password: ${{secrets.DOCKERHUB_TOKEN}}
-                username: guoyk
+                password: ${{inputs.password}}
+                registry: ${{inputs.registry}}
+                username: ${{inputs.username}}
             - id: meta
               name: meta for node:builder-10-debian-11
               uses: docker/metadata-action@v4
               with:
-                images: |-
-                    ghcr.io/guoyk93/acicn/node
-                    acicn/node
+                images: ${{inputs.registry}}/${{inputs.prefix}}/node
                 tags: |-
                     type=raw,value=builder-10-debian-11
                     type=raw,value=builder-10
@@ -2285,14 +2127,11 @@ jobs:
                 pull: true
                 push: true
                 tags: ${{steps.meta.outputs.tags}}
-    r_node_builder_12_debian_11:
-        if: inputs.job_name == 'all' || contains(inputs.job_name,'r_node_builder_12_debian_11,')
-        needs:
-            - r_debian_11_no_minit
+    m_node_builder_12_debian_11:
         permissions:
             contents: read
             id-token: write
-            packages: write
+            packages: read
         runs-on: ubuntu-latest
         steps:
             - name: checkout
@@ -2302,7 +2141,7 @@ jobs:
               with:
                 go-version: "1.19"
             - name: generate out
-              run: go run -mod vendor ./cmd/acicn-build/main.go -generate 'node:builder-12-debian-11'
+              run: go run -mod vendor ./cmd/acicn-build/main.go -mirror -generate 'node:builder-12-debian-11'
             - name: setup docker buildx
               uses: docker/setup-buildx-action@v2
             - name: docker login - ghcr
@@ -2311,18 +2150,17 @@ jobs:
                 password: ${{secrets.GITHUB_TOKEN}}
                 registry: ghcr.io
                 username: ${{github.actor}}
-            - name: docker login - dockerhub
+            - name: docker login - target registry
               uses: docker/login-action@v2
               with:
-                password: ${{secrets.DOCKERHUB_TOKEN}}
-                username: guoyk
+                password: ${{inputs.password}}
+                registry: ${{inputs.registry}}
+                username: ${{inputs.username}}
             - id: meta
               name: meta for node:builder-12-debian-11
               uses: docker/metadata-action@v4
               with:
-                images: |-
-                    ghcr.io/guoyk93/acicn/node
-                    acicn/node
+                images: ${{inputs.registry}}/${{inputs.prefix}}/node
                 tags: |-
                     type=raw,value=builder-12-debian-11
                     type=raw,value=builder-12
@@ -2337,14 +2175,11 @@ jobs:
                 pull: true
                 push: true
                 tags: ${{steps.meta.outputs.tags}}
-    r_node_builder_14_debian_11:
-        if: inputs.job_name == 'all' || contains(inputs.job_name,'r_node_builder_14_debian_11,')
-        needs:
-            - r_debian_11_no_minit
+    m_node_builder_14_debian_11:
         permissions:
             contents: read
             id-token: write
-            packages: write
+            packages: read
         runs-on: ubuntu-latest
         steps:
             - name: checkout
@@ -2354,7 +2189,7 @@ jobs:
               with:
                 go-version: "1.19"
             - name: generate out
-              run: go run -mod vendor ./cmd/acicn-build/main.go -generate 'node:builder-14-debian-11'
+              run: go run -mod vendor ./cmd/acicn-build/main.go -mirror -generate 'node:builder-14-debian-11'
             - name: setup docker buildx
               uses: docker/setup-buildx-action@v2
             - name: docker login - ghcr
@@ -2363,18 +2198,17 @@ jobs:
                 password: ${{secrets.GITHUB_TOKEN}}
                 registry: ghcr.io
                 username: ${{github.actor}}
-            - name: docker login - dockerhub
+            - name: docker login - target registry
               uses: docker/login-action@v2
               with:
-                password: ${{secrets.DOCKERHUB_TOKEN}}
-                username: guoyk
+                password: ${{inputs.password}}
+                registry: ${{inputs.registry}}
+                username: ${{inputs.username}}
             - id: meta
               name: meta for node:builder-14-debian-11
               uses: docker/metadata-action@v4
               with:
-                images: |-
-                    ghcr.io/guoyk93/acicn/node
-                    acicn/node
+                images: ${{inputs.registry}}/${{inputs.prefix}}/node
                 tags: |-
                     type=raw,value=builder-14-debian-11
                     type=raw,value=builder-14
@@ -2389,14 +2223,11 @@ jobs:
                 pull: true
                 push: true
                 tags: ${{steps.meta.outputs.tags}}
-    r_node_builder_16_debian_11:
-        if: inputs.job_name == 'all' || contains(inputs.job_name,'r_node_builder_16_debian_11,')
-        needs:
-            - r_debian_11_no_minit
+    m_node_builder_16_debian_11:
         permissions:
             contents: read
             id-token: write
-            packages: write
+            packages: read
         runs-on: ubuntu-latest
         steps:
             - name: checkout
@@ -2406,7 +2237,7 @@ jobs:
               with:
                 go-version: "1.19"
             - name: generate out
-              run: go run -mod vendor ./cmd/acicn-build/main.go -generate 'node:builder-16-debian-11'
+              run: go run -mod vendor ./cmd/acicn-build/main.go -mirror -generate 'node:builder-16-debian-11'
             - name: setup docker buildx
               uses: docker/setup-buildx-action@v2
             - name: docker login - ghcr
@@ -2415,18 +2246,17 @@ jobs:
                 password: ${{secrets.GITHUB_TOKEN}}
                 registry: ghcr.io
                 username: ${{github.actor}}
-            - name: docker login - dockerhub
+            - name: docker login - target registry
               uses: docker/login-action@v2
               with:
-                password: ${{secrets.DOCKERHUB_TOKEN}}
-                username: guoyk
+                password: ${{inputs.password}}
+                registry: ${{inputs.registry}}
+                username: ${{inputs.username}}
             - id: meta
               name: meta for node:builder-16-debian-11
               uses: docker/metadata-action@v4
               with:
-                images: |-
-                    ghcr.io/guoyk93/acicn/node
-                    acicn/node
+                images: ${{inputs.registry}}/${{inputs.prefix}}/node
                 tags: |-
                     type=raw,value=builder-16-debian-11
                     type=raw,value=builder-16
@@ -2441,14 +2271,11 @@ jobs:
                 pull: true
                 push: true
                 tags: ${{steps.meta.outputs.tags}}
-    r_node_builder_18_debian_11:
-        if: inputs.job_name == 'all' || contains(inputs.job_name,'r_node_builder_18_debian_11,')
-        needs:
-            - r_debian_11_no_minit
+    m_node_builder_18_debian_11:
         permissions:
             contents: read
             id-token: write
-            packages: write
+            packages: read
         runs-on: ubuntu-latest
         steps:
             - name: checkout
@@ -2458,7 +2285,7 @@ jobs:
               with:
                 go-version: "1.19"
             - name: generate out
-              run: go run -mod vendor ./cmd/acicn-build/main.go -generate 'node:builder-18-debian-11'
+              run: go run -mod vendor ./cmd/acicn-build/main.go -mirror -generate 'node:builder-18-debian-11'
             - name: setup docker buildx
               uses: docker/setup-buildx-action@v2
             - name: docker login - ghcr
@@ -2467,18 +2294,17 @@ jobs:
                 password: ${{secrets.GITHUB_TOKEN}}
                 registry: ghcr.io
                 username: ${{github.actor}}
-            - name: docker login - dockerhub
+            - name: docker login - target registry
               uses: docker/login-action@v2
               with:
-                password: ${{secrets.DOCKERHUB_TOKEN}}
-                username: guoyk
+                password: ${{inputs.password}}
+                registry: ${{inputs.registry}}
+                username: ${{inputs.username}}
             - id: meta
               name: meta for node:builder-18-debian-11
               uses: docker/metadata-action@v4
               with:
-                images: |-
-                    ghcr.io/guoyk93/acicn/node
-                    acicn/node
+                images: ${{inputs.registry}}/${{inputs.prefix}}/node
                 tags: |-
                     type=raw,value=builder-18-debian-11
                     type=raw,value=builder-18
@@ -2493,15 +2319,11 @@ jobs:
                 pull: true
                 push: true
                 tags: ${{steps.meta.outputs.tags}}
-    r_php_7_4_debian_11:
-        if: inputs.job_name == 'all' || contains(inputs.job_name,'r_php_7_4_debian_11,')
-        needs:
-            - r_debian_11
-            - r_nginx_alpine_3_16
+    m_php_7_4_debian_11:
         permissions:
             contents: read
             id-token: write
-            packages: write
+            packages: read
         runs-on: ubuntu-latest
         steps:
             - name: checkout
@@ -2511,7 +2333,7 @@ jobs:
               with:
                 go-version: "1.19"
             - name: generate out
-              run: go run -mod vendor ./cmd/acicn-build/main.go -generate 'php:7.4-debian-11'
+              run: go run -mod vendor ./cmd/acicn-build/main.go -mirror -generate 'php:7.4-debian-11'
             - name: setup docker buildx
               uses: docker/setup-buildx-action@v2
             - name: docker login - ghcr
@@ -2520,18 +2342,17 @@ jobs:
                 password: ${{secrets.GITHUB_TOKEN}}
                 registry: ghcr.io
                 username: ${{github.actor}}
-            - name: docker login - dockerhub
+            - name: docker login - target registry
               uses: docker/login-action@v2
               with:
-                password: ${{secrets.DOCKERHUB_TOKEN}}
-                username: guoyk
+                password: ${{inputs.password}}
+                registry: ${{inputs.registry}}
+                username: ${{inputs.username}}
             - id: meta
               name: meta for php:7.4-debian-11
               uses: docker/metadata-action@v4
               with:
-                images: |-
-                    ghcr.io/guoyk93/acicn/php
-                    acicn/php
+                images: ${{inputs.registry}}/${{inputs.prefix}}/php
                 tags: |-
                     type=raw,value=7.4-debian-11
                     type=raw,value=7.4
@@ -2546,15 +2367,11 @@ jobs:
                 pull: true
                 push: true
                 tags: ${{steps.meta.outputs.tags}}
-    r_php_7_4_pagoda_debian_11:
-        if: inputs.job_name == 'all' || contains(inputs.job_name,'r_php_7_4_pagoda_debian_11,')
-        needs:
-            - r_debian_11
-            - r_nginx_alpine_3_16
+    m_php_7_4_pagoda_debian_11:
         permissions:
             contents: read
             id-token: write
-            packages: write
+            packages: read
         runs-on: ubuntu-latest
         steps:
             - name: checkout
@@ -2564,7 +2381,7 @@ jobs:
               with:
                 go-version: "1.19"
             - name: generate out
-              run: go run -mod vendor ./cmd/acicn-build/main.go -generate 'php:7.4-pagoda-debian-11'
+              run: go run -mod vendor ./cmd/acicn-build/main.go -mirror -generate 'php:7.4-pagoda-debian-11'
             - name: setup docker buildx
               uses: docker/setup-buildx-action@v2
             - name: docker login - ghcr
@@ -2573,18 +2390,17 @@ jobs:
                 password: ${{secrets.GITHUB_TOKEN}}
                 registry: ghcr.io
                 username: ${{github.actor}}
-            - name: docker login - dockerhub
+            - name: docker login - target registry
               uses: docker/login-action@v2
               with:
-                password: ${{secrets.DOCKERHUB_TOKEN}}
-                username: guoyk
+                password: ${{inputs.password}}
+                registry: ${{inputs.registry}}
+                username: ${{inputs.username}}
             - id: meta
               name: meta for php:7.4-pagoda-debian-11
               uses: docker/metadata-action@v4
               with:
-                images: |-
-                    ghcr.io/guoyk93/acicn/php
-                    acicn/php
+                images: ${{inputs.registry}}/${{inputs.prefix}}/php
                 tags: |-
                     type=raw,value=7.4-pagoda-debian-11
                     type=raw,value=7.4-pagoda
@@ -2599,12 +2415,11 @@ jobs:
                 pull: true
                 push: true
                 tags: ${{steps.meta.outputs.tags}}
-    r_postgres_9_6:
-        if: inputs.job_name == 'all' || contains(inputs.job_name,'r_postgres_9_6,')
+    m_postgres_9_6:
         permissions:
             contents: read
             id-token: write
-            packages: write
+            packages: read
         runs-on: ubuntu-latest
         steps:
             - name: checkout
@@ -2614,7 +2429,7 @@ jobs:
               with:
                 go-version: "1.19"
             - name: generate out
-              run: go run -mod vendor ./cmd/acicn-build/main.go -generate 'postgres:9.6'
+              run: go run -mod vendor ./cmd/acicn-build/main.go -mirror -generate 'postgres:9.6'
             - name: setup docker buildx
               uses: docker/setup-buildx-action@v2
             - name: docker login - ghcr
@@ -2623,18 +2438,17 @@ jobs:
                 password: ${{secrets.GITHUB_TOKEN}}
                 registry: ghcr.io
                 username: ${{github.actor}}
-            - name: docker login - dockerhub
+            - name: docker login - target registry
               uses: docker/login-action@v2
               with:
-                password: ${{secrets.DOCKERHUB_TOKEN}}
-                username: guoyk
+                password: ${{inputs.password}}
+                registry: ${{inputs.registry}}
+                username: ${{inputs.username}}
             - id: meta
               name: meta for postgres:9.6
               uses: docker/metadata-action@v4
               with:
-                images: |-
-                    ghcr.io/guoyk93/acicn/postgres
-                    acicn/postgres
+                images: ${{inputs.registry}}/${{inputs.prefix}}/postgres
                 tags: type=raw,value=9.6
             - id: build
               name: build for postgres:9.6
@@ -2644,15 +2458,14 @@ jobs:
                 cache-to: type=gha,mode=max
                 context: out/postgres:9.6
                 labels: ${{steps.meta.outputs.labels}}
-                pull: ${{ inputs.force_pull }}
+                pull: true
                 push: true
                 tags: ${{steps.meta.outputs.tags}}
-    r_postgres_10_15:
-        if: inputs.job_name == 'all' || contains(inputs.job_name,'r_postgres_10_15,')
+    m_postgres_10_15:
         permissions:
             contents: read
             id-token: write
-            packages: write
+            packages: read
         runs-on: ubuntu-latest
         steps:
             - name: checkout
@@ -2662,7 +2475,7 @@ jobs:
               with:
                 go-version: "1.19"
             - name: generate out
-              run: go run -mod vendor ./cmd/acicn-build/main.go -generate 'postgres:10.15'
+              run: go run -mod vendor ./cmd/acicn-build/main.go -mirror -generate 'postgres:10.15'
             - name: setup docker buildx
               uses: docker/setup-buildx-action@v2
             - name: docker login - ghcr
@@ -2671,18 +2484,17 @@ jobs:
                 password: ${{secrets.GITHUB_TOKEN}}
                 registry: ghcr.io
                 username: ${{github.actor}}
-            - name: docker login - dockerhub
+            - name: docker login - target registry
               uses: docker/login-action@v2
               with:
-                password: ${{secrets.DOCKERHUB_TOKEN}}
-                username: guoyk
+                password: ${{inputs.password}}
+                registry: ${{inputs.registry}}
+                username: ${{inputs.username}}
             - id: meta
               name: meta for postgres:10.15
               uses: docker/metadata-action@v4
               with:
-                images: |-
-                    ghcr.io/guoyk93/acicn/postgres
-                    acicn/postgres
+                images: ${{inputs.registry}}/${{inputs.prefix}}/postgres
                 tags: type=raw,value=10.15
             - id: build
               name: build for postgres:10.15
@@ -2692,15 +2504,14 @@ jobs:
                 cache-to: type=gha,mode=max
                 context: out/postgres:10.15
                 labels: ${{steps.meta.outputs.labels}}
-                pull: ${{ inputs.force_pull }}
+                pull: true
                 push: true
                 tags: ${{steps.meta.outputs.tags}}
-    r_postgres_11_10:
-        if: inputs.job_name == 'all' || contains(inputs.job_name,'r_postgres_11_10,')
+    m_postgres_11_10:
         permissions:
             contents: read
             id-token: write
-            packages: write
+            packages: read
         runs-on: ubuntu-latest
         steps:
             - name: checkout
@@ -2710,7 +2521,7 @@ jobs:
               with:
                 go-version: "1.19"
             - name: generate out
-              run: go run -mod vendor ./cmd/acicn-build/main.go -generate 'postgres:11.10'
+              run: go run -mod vendor ./cmd/acicn-build/main.go -mirror -generate 'postgres:11.10'
             - name: setup docker buildx
               uses: docker/setup-buildx-action@v2
             - name: docker login - ghcr
@@ -2719,18 +2530,17 @@ jobs:
                 password: ${{secrets.GITHUB_TOKEN}}
                 registry: ghcr.io
                 username: ${{github.actor}}
-            - name: docker login - dockerhub
+            - name: docker login - target registry
               uses: docker/login-action@v2
               with:
-                password: ${{secrets.DOCKERHUB_TOKEN}}
-                username: guoyk
+                password: ${{inputs.password}}
+                registry: ${{inputs.registry}}
+                username: ${{inputs.username}}
             - id: meta
               name: meta for postgres:11.10
               uses: docker/metadata-action@v4
               with:
-                images: |-
-                    ghcr.io/guoyk93/acicn/postgres
-                    acicn/postgres
+                images: ${{inputs.registry}}/${{inputs.prefix}}/postgres
                 tags: type=raw,value=11.10
             - id: build
               name: build for postgres:11.10
@@ -2740,15 +2550,14 @@ jobs:
                 cache-to: type=gha,mode=max
                 context: out/postgres:11.10
                 labels: ${{steps.meta.outputs.labels}}
-                pull: ${{ inputs.force_pull }}
+                pull: true
                 push: true
                 tags: ${{steps.meta.outputs.tags}}
-    r_postgres_12_5:
-        if: inputs.job_name == 'all' || contains(inputs.job_name,'r_postgres_12_5,')
+    m_postgres_12_5:
         permissions:
             contents: read
             id-token: write
-            packages: write
+            packages: read
         runs-on: ubuntu-latest
         steps:
             - name: checkout
@@ -2758,7 +2567,7 @@ jobs:
               with:
                 go-version: "1.19"
             - name: generate out
-              run: go run -mod vendor ./cmd/acicn-build/main.go -generate 'postgres:12.5'
+              run: go run -mod vendor ./cmd/acicn-build/main.go -mirror -generate 'postgres:12.5'
             - name: setup docker buildx
               uses: docker/setup-buildx-action@v2
             - name: docker login - ghcr
@@ -2767,18 +2576,17 @@ jobs:
                 password: ${{secrets.GITHUB_TOKEN}}
                 registry: ghcr.io
                 username: ${{github.actor}}
-            - name: docker login - dockerhub
+            - name: docker login - target registry
               uses: docker/login-action@v2
               with:
-                password: ${{secrets.DOCKERHUB_TOKEN}}
-                username: guoyk
+                password: ${{inputs.password}}
+                registry: ${{inputs.registry}}
+                username: ${{inputs.username}}
             - id: meta
               name: meta for postgres:12.5
               uses: docker/metadata-action@v4
               with:
-                images: |-
-                    ghcr.io/guoyk93/acicn/postgres
-                    acicn/postgres
+                images: ${{inputs.registry}}/${{inputs.prefix}}/postgres
                 tags: type=raw,value=12.5
             - id: build
               name: build for postgres:12.5
@@ -2788,17 +2596,14 @@ jobs:
                 cache-to: type=gha,mode=max
                 context: out/postgres:12.5
                 labels: ${{steps.meta.outputs.labels}}
-                pull: ${{ inputs.force_pull }}
+                pull: true
                 push: true
                 tags: ${{steps.meta.outputs.tags}}
-    r_prometheus_2_25:
-        if: inputs.job_name == 'all' || contains(inputs.job_name,'r_prometheus_2_25,')
-        needs:
-            - r_debian_11
+    m_prometheus_2_25:
         permissions:
             contents: read
             id-token: write
-            packages: write
+            packages: read
         runs-on: ubuntu-latest
         steps:
             - name: checkout
@@ -2808,7 +2613,7 @@ jobs:
               with:
                 go-version: "1.19"
             - name: generate out
-              run: go run -mod vendor ./cmd/acicn-build/main.go -generate 'prometheus:2.25'
+              run: go run -mod vendor ./cmd/acicn-build/main.go -mirror -generate 'prometheus:2.25'
             - name: setup docker buildx
               uses: docker/setup-buildx-action@v2
             - name: docker login - ghcr
@@ -2817,18 +2622,17 @@ jobs:
                 password: ${{secrets.GITHUB_TOKEN}}
                 registry: ghcr.io
                 username: ${{github.actor}}
-            - name: docker login - dockerhub
+            - name: docker login - target registry
               uses: docker/login-action@v2
               with:
-                password: ${{secrets.DOCKERHUB_TOKEN}}
-                username: guoyk
+                password: ${{inputs.password}}
+                registry: ${{inputs.registry}}
+                username: ${{inputs.username}}
             - id: meta
               name: meta for prometheus:2.25
               uses: docker/metadata-action@v4
               with:
-                images: |-
-                    ghcr.io/guoyk93/acicn/prometheus
-                    acicn/prometheus
+                images: ${{inputs.registry}}/${{inputs.prefix}}/prometheus
                 tags: type=raw,value=2.25
             - id: build
               name: build for prometheus:2.25
@@ -2841,14 +2645,11 @@ jobs:
                 pull: true
                 push: true
                 tags: ${{steps.meta.outputs.tags}}
-    r_python_3_6_debian_11:
-        if: inputs.job_name == 'all' || contains(inputs.job_name,'r_python_3_6_debian_11,')
-        needs:
-            - r_debian_11
+    m_python_3_6_debian_11:
         permissions:
             contents: read
             id-token: write
-            packages: write
+            packages: read
         runs-on: ubuntu-latest
         steps:
             - name: checkout
@@ -2858,7 +2659,7 @@ jobs:
               with:
                 go-version: "1.19"
             - name: generate out
-              run: go run -mod vendor ./cmd/acicn-build/main.go -generate 'python:3.6-debian-11'
+              run: go run -mod vendor ./cmd/acicn-build/main.go -mirror -generate 'python:3.6-debian-11'
             - name: setup docker buildx
               uses: docker/setup-buildx-action@v2
             - name: docker login - ghcr
@@ -2867,18 +2668,17 @@ jobs:
                 password: ${{secrets.GITHUB_TOKEN}}
                 registry: ghcr.io
                 username: ${{github.actor}}
-            - name: docker login - dockerhub
+            - name: docker login - target registry
               uses: docker/login-action@v2
               with:
-                password: ${{secrets.DOCKERHUB_TOKEN}}
-                username: guoyk
+                password: ${{inputs.password}}
+                registry: ${{inputs.registry}}
+                username: ${{inputs.username}}
             - id: meta
               name: meta for python:3.6-debian-11
               uses: docker/metadata-action@v4
               with:
-                images: |-
-                    ghcr.io/guoyk93/acicn/python
-                    acicn/python
+                images: ${{inputs.registry}}/${{inputs.prefix}}/python
                 tags: |-
                     type=raw,value=3.6-debian-11
                     type=raw,value=3.6
@@ -2893,14 +2693,11 @@ jobs:
                 pull: true
                 push: true
                 tags: ${{steps.meta.outputs.tags}}
-    r_python_3_7_debian_11:
-        if: inputs.job_name == 'all' || contains(inputs.job_name,'r_python_3_7_debian_11,')
-        needs:
-            - r_debian_11
+    m_python_3_7_debian_11:
         permissions:
             contents: read
             id-token: write
-            packages: write
+            packages: read
         runs-on: ubuntu-latest
         steps:
             - name: checkout
@@ -2910,7 +2707,7 @@ jobs:
               with:
                 go-version: "1.19"
             - name: generate out
-              run: go run -mod vendor ./cmd/acicn-build/main.go -generate 'python:3.7-debian-11'
+              run: go run -mod vendor ./cmd/acicn-build/main.go -mirror -generate 'python:3.7-debian-11'
             - name: setup docker buildx
               uses: docker/setup-buildx-action@v2
             - name: docker login - ghcr
@@ -2919,18 +2716,17 @@ jobs:
                 password: ${{secrets.GITHUB_TOKEN}}
                 registry: ghcr.io
                 username: ${{github.actor}}
-            - name: docker login - dockerhub
+            - name: docker login - target registry
               uses: docker/login-action@v2
               with:
-                password: ${{secrets.DOCKERHUB_TOKEN}}
-                username: guoyk
+                password: ${{inputs.password}}
+                registry: ${{inputs.registry}}
+                username: ${{inputs.username}}
             - id: meta
               name: meta for python:3.7-debian-11
               uses: docker/metadata-action@v4
               with:
-                images: |-
-                    ghcr.io/guoyk93/acicn/python
-                    acicn/python
+                images: ${{inputs.registry}}/${{inputs.prefix}}/python
                 tags: |-
                     type=raw,value=3.7-debian-11
                     type=raw,value=3.7
@@ -2945,14 +2741,11 @@ jobs:
                 pull: true
                 push: true
                 tags: ${{steps.meta.outputs.tags}}
-    r_python_3_8_debian_11:
-        if: inputs.job_name == 'all' || contains(inputs.job_name,'r_python_3_8_debian_11,')
-        needs:
-            - r_debian_11
+    m_python_3_8_debian_11:
         permissions:
             contents: read
             id-token: write
-            packages: write
+            packages: read
         runs-on: ubuntu-latest
         steps:
             - name: checkout
@@ -2962,7 +2755,7 @@ jobs:
               with:
                 go-version: "1.19"
             - name: generate out
-              run: go run -mod vendor ./cmd/acicn-build/main.go -generate 'python:3.8-debian-11'
+              run: go run -mod vendor ./cmd/acicn-build/main.go -mirror -generate 'python:3.8-debian-11'
             - name: setup docker buildx
               uses: docker/setup-buildx-action@v2
             - name: docker login - ghcr
@@ -2971,18 +2764,17 @@ jobs:
                 password: ${{secrets.GITHUB_TOKEN}}
                 registry: ghcr.io
                 username: ${{github.actor}}
-            - name: docker login - dockerhub
+            - name: docker login - target registry
               uses: docker/login-action@v2
               with:
-                password: ${{secrets.DOCKERHUB_TOKEN}}
-                username: guoyk
+                password: ${{inputs.password}}
+                registry: ${{inputs.registry}}
+                username: ${{inputs.username}}
             - id: meta
               name: meta for python:3.8-debian-11
               uses: docker/metadata-action@v4
               with:
-                images: |-
-                    ghcr.io/guoyk93/acicn/python
-                    acicn/python
+                images: ${{inputs.registry}}/${{inputs.prefix}}/python
                 tags: |-
                     type=raw,value=3.8-debian-11
                     type=raw,value=3.8
@@ -2997,14 +2789,11 @@ jobs:
                 pull: true
                 push: true
                 tags: ${{steps.meta.outputs.tags}}
-    r_python_3_9_debian_11:
-        if: inputs.job_name == 'all' || contains(inputs.job_name,'r_python_3_9_debian_11,')
-        needs:
-            - r_debian_11
+    m_python_3_9_debian_11:
         permissions:
             contents: read
             id-token: write
-            packages: write
+            packages: read
         runs-on: ubuntu-latest
         steps:
             - name: checkout
@@ -3014,7 +2803,7 @@ jobs:
               with:
                 go-version: "1.19"
             - name: generate out
-              run: go run -mod vendor ./cmd/acicn-build/main.go -generate 'python:3.9-debian-11'
+              run: go run -mod vendor ./cmd/acicn-build/main.go -mirror -generate 'python:3.9-debian-11'
             - name: setup docker buildx
               uses: docker/setup-buildx-action@v2
             - name: docker login - ghcr
@@ -3023,18 +2812,17 @@ jobs:
                 password: ${{secrets.GITHUB_TOKEN}}
                 registry: ghcr.io
                 username: ${{github.actor}}
-            - name: docker login - dockerhub
+            - name: docker login - target registry
               uses: docker/login-action@v2
               with:
-                password: ${{secrets.DOCKERHUB_TOKEN}}
-                username: guoyk
+                password: ${{inputs.password}}
+                registry: ${{inputs.registry}}
+                username: ${{inputs.username}}
             - id: meta
               name: meta for python:3.9-debian-11
               uses: docker/metadata-action@v4
               with:
-                images: |-
-                    ghcr.io/guoyk93/acicn/python
-                    acicn/python
+                images: ${{inputs.registry}}/${{inputs.prefix}}/python
                 tags: |-
                     type=raw,value=3.9-debian-11
                     type=raw,value=3.9
@@ -3049,14 +2837,11 @@ jobs:
                 pull: true
                 push: true
                 tags: ${{steps.meta.outputs.tags}}
-    r_python_3_10_debian_11:
-        if: inputs.job_name == 'all' || contains(inputs.job_name,'r_python_3_10_debian_11,')
-        needs:
-            - r_debian_11
+    m_python_3_10_debian_11:
         permissions:
             contents: read
             id-token: write
-            packages: write
+            packages: read
         runs-on: ubuntu-latest
         steps:
             - name: checkout
@@ -3066,7 +2851,7 @@ jobs:
               with:
                 go-version: "1.19"
             - name: generate out
-              run: go run -mod vendor ./cmd/acicn-build/main.go -generate 'python:3.10-debian-11'
+              run: go run -mod vendor ./cmd/acicn-build/main.go -mirror -generate 'python:3.10-debian-11'
             - name: setup docker buildx
               uses: docker/setup-buildx-action@v2
             - name: docker login - ghcr
@@ -3075,18 +2860,17 @@ jobs:
                 password: ${{secrets.GITHUB_TOKEN}}
                 registry: ghcr.io
                 username: ${{github.actor}}
-            - name: docker login - dockerhub
+            - name: docker login - target registry
               uses: docker/login-action@v2
               with:
-                password: ${{secrets.DOCKERHUB_TOKEN}}
-                username: guoyk
+                password: ${{inputs.password}}
+                registry: ${{inputs.registry}}
+                username: ${{inputs.username}}
             - id: meta
               name: meta for python:3.10-debian-11
               uses: docker/metadata-action@v4
               with:
-                images: |-
-                    ghcr.io/guoyk93/acicn/python
-                    acicn/python
+                images: ${{inputs.registry}}/${{inputs.prefix}}/python
                 tags: |-
                     type=raw,value=3.10-debian-11
                     type=raw,value=3.10
@@ -3101,14 +2885,11 @@ jobs:
                 pull: true
                 push: true
                 tags: ${{steps.meta.outputs.tags}}
-    r_python_3_11_debian_11:
-        if: inputs.job_name == 'all' || contains(inputs.job_name,'r_python_3_11_debian_11,')
-        needs:
-            - r_debian_11
+    m_python_3_11_debian_11:
         permissions:
             contents: read
             id-token: write
-            packages: write
+            packages: read
         runs-on: ubuntu-latest
         steps:
             - name: checkout
@@ -3118,7 +2899,7 @@ jobs:
               with:
                 go-version: "1.19"
             - name: generate out
-              run: go run -mod vendor ./cmd/acicn-build/main.go -generate 'python:3.11-debian-11'
+              run: go run -mod vendor ./cmd/acicn-build/main.go -mirror -generate 'python:3.11-debian-11'
             - name: setup docker buildx
               uses: docker/setup-buildx-action@v2
             - name: docker login - ghcr
@@ -3127,18 +2908,17 @@ jobs:
                 password: ${{secrets.GITHUB_TOKEN}}
                 registry: ghcr.io
                 username: ${{github.actor}}
-            - name: docker login - dockerhub
+            - name: docker login - target registry
               uses: docker/login-action@v2
               with:
-                password: ${{secrets.DOCKERHUB_TOKEN}}
-                username: guoyk
+                password: ${{inputs.password}}
+                registry: ${{inputs.registry}}
+                username: ${{inputs.username}}
             - id: meta
               name: meta for python:3.11-debian-11
               uses: docker/metadata-action@v4
               with:
-                images: |-
-                    ghcr.io/guoyk93/acicn/python
-                    acicn/python
+                images: ${{inputs.registry}}/${{inputs.prefix}}/python
                 tags: |-
                     type=raw,value=3.11-debian-11
                     type=raw,value=3.11
@@ -3153,14 +2933,11 @@ jobs:
                 pull: true
                 push: true
                 tags: ${{steps.meta.outputs.tags}}
-    r_redis_5_alpine_3_16:
-        if: inputs.job_name == 'all' || contains(inputs.job_name,'r_redis_5_alpine_3_16,')
-        needs:
-            - r_alpine_3_16
+    m_redis_5_alpine_3_16:
         permissions:
             contents: read
             id-token: write
-            packages: write
+            packages: read
         runs-on: ubuntu-latest
         steps:
             - name: checkout
@@ -3170,7 +2947,7 @@ jobs:
               with:
                 go-version: "1.19"
             - name: generate out
-              run: go run -mod vendor ./cmd/acicn-build/main.go -generate 'redis:5-alpine-3.16'
+              run: go run -mod vendor ./cmd/acicn-build/main.go -mirror -generate 'redis:5-alpine-3.16'
             - name: setup docker buildx
               uses: docker/setup-buildx-action@v2
             - name: docker login - ghcr
@@ -3179,18 +2956,17 @@ jobs:
                 password: ${{secrets.GITHUB_TOKEN}}
                 registry: ghcr.io
                 username: ${{github.actor}}
-            - name: docker login - dockerhub
+            - name: docker login - target registry
               uses: docker/login-action@v2
               with:
-                password: ${{secrets.DOCKERHUB_TOKEN}}
-                username: guoyk
+                password: ${{inputs.password}}
+                registry: ${{inputs.registry}}
+                username: ${{inputs.username}}
             - id: meta
               name: meta for redis:5-alpine-3.16
               uses: docker/metadata-action@v4
               with:
-                images: |-
-                    ghcr.io/guoyk93/acicn/redis
-                    acicn/redis
+                images: ${{inputs.registry}}/${{inputs.prefix}}/redis
                 tags: |-
                     type=raw,value=5-alpine-3.16
                     type=raw,value=5
@@ -3205,14 +2981,11 @@ jobs:
                 pull: true
                 push: true
                 tags: ${{steps.meta.outputs.tags}}
-    r_redis_6_0_alpine_3_16:
-        if: inputs.job_name == 'all' || contains(inputs.job_name,'r_redis_6_0_alpine_3_16,')
-        needs:
-            - r_alpine_3_16
+    m_redis_6_0_alpine_3_16:
         permissions:
             contents: read
             id-token: write
-            packages: write
+            packages: read
         runs-on: ubuntu-latest
         steps:
             - name: checkout
@@ -3222,7 +2995,7 @@ jobs:
               with:
                 go-version: "1.19"
             - name: generate out
-              run: go run -mod vendor ./cmd/acicn-build/main.go -generate 'redis:6.0-alpine-3.16'
+              run: go run -mod vendor ./cmd/acicn-build/main.go -mirror -generate 'redis:6.0-alpine-3.16'
             - name: setup docker buildx
               uses: docker/setup-buildx-action@v2
             - name: docker login - ghcr
@@ -3231,18 +3004,17 @@ jobs:
                 password: ${{secrets.GITHUB_TOKEN}}
                 registry: ghcr.io
                 username: ${{github.actor}}
-            - name: docker login - dockerhub
+            - name: docker login - target registry
               uses: docker/login-action@v2
               with:
-                password: ${{secrets.DOCKERHUB_TOKEN}}
-                username: guoyk
+                password: ${{inputs.password}}
+                registry: ${{inputs.registry}}
+                username: ${{inputs.username}}
             - id: meta
               name: meta for redis:6.0-alpine-3.16
               uses: docker/metadata-action@v4
               with:
-                images: |-
-                    ghcr.io/guoyk93/acicn/redis
-                    acicn/redis
+                images: ${{inputs.registry}}/${{inputs.prefix}}/redis
                 tags: |-
                     type=raw,value=6.0-alpine-3.16
                     type=raw,value=6.0
@@ -3257,14 +3029,11 @@ jobs:
                 pull: true
                 push: true
                 tags: ${{steps.meta.outputs.tags}}
-    r_redis_6_2_alpine_3_16:
-        if: inputs.job_name == 'all' || contains(inputs.job_name,'r_redis_6_2_alpine_3_16,')
-        needs:
-            - r_alpine_3_16
+    m_redis_6_2_alpine_3_16:
         permissions:
             contents: read
             id-token: write
-            packages: write
+            packages: read
         runs-on: ubuntu-latest
         steps:
             - name: checkout
@@ -3274,7 +3043,7 @@ jobs:
               with:
                 go-version: "1.19"
             - name: generate out
-              run: go run -mod vendor ./cmd/acicn-build/main.go -generate 'redis:6.2-alpine-3.16'
+              run: go run -mod vendor ./cmd/acicn-build/main.go -mirror -generate 'redis:6.2-alpine-3.16'
             - name: setup docker buildx
               uses: docker/setup-buildx-action@v2
             - name: docker login - ghcr
@@ -3283,18 +3052,17 @@ jobs:
                 password: ${{secrets.GITHUB_TOKEN}}
                 registry: ghcr.io
                 username: ${{github.actor}}
-            - name: docker login - dockerhub
+            - name: docker login - target registry
               uses: docker/login-action@v2
               with:
-                password: ${{secrets.DOCKERHUB_TOKEN}}
-                username: guoyk
+                password: ${{inputs.password}}
+                registry: ${{inputs.registry}}
+                username: ${{inputs.username}}
             - id: meta
               name: meta for redis:6.2-alpine-3.16
               uses: docker/metadata-action@v4
               with:
-                images: |-
-                    ghcr.io/guoyk93/acicn/redis
-                    acicn/redis
+                images: ${{inputs.registry}}/${{inputs.prefix}}/redis
                 tags: |-
                     type=raw,value=6.2-alpine-3.16
                     type=raw,value=6-alpine-3.16
@@ -3311,14 +3079,11 @@ jobs:
                 pull: true
                 push: true
                 tags: ${{steps.meta.outputs.tags}}
-    r_rocketmq_4_6_1_broker_jdk_8:
-        if: inputs.job_name == 'all' || contains(inputs.job_name,'r_rocketmq_4_6_1_broker_jdk_8,')
-        needs:
-            - r_jdk_8_debian_11
+    m_rocketmq_4_6_1_broker_jdk_8:
         permissions:
             contents: read
             id-token: write
-            packages: write
+            packages: read
         runs-on: ubuntu-latest
         steps:
             - name: checkout
@@ -3328,7 +3093,7 @@ jobs:
               with:
                 go-version: "1.19"
             - name: generate out
-              run: go run -mod vendor ./cmd/acicn-build/main.go -generate 'rocketmq:4.6.1-broker-jdk-8'
+              run: go run -mod vendor ./cmd/acicn-build/main.go -mirror -generate 'rocketmq:4.6.1-broker-jdk-8'
             - name: setup docker buildx
               uses: docker/setup-buildx-action@v2
             - name: docker login - ghcr
@@ -3337,18 +3102,17 @@ jobs:
                 password: ${{secrets.GITHUB_TOKEN}}
                 registry: ghcr.io
                 username: ${{github.actor}}
-            - name: docker login - dockerhub
+            - name: docker login - target registry
               uses: docker/login-action@v2
               with:
-                password: ${{secrets.DOCKERHUB_TOKEN}}
-                username: guoyk
+                password: ${{inputs.password}}
+                registry: ${{inputs.registry}}
+                username: ${{inputs.username}}
             - id: meta
               name: meta for rocketmq:4.6.1-broker-jdk-8
               uses: docker/metadata-action@v4
               with:
-                images: |-
-                    ghcr.io/guoyk93/acicn/rocketmq
-                    acicn/rocketmq
+                images: ${{inputs.registry}}/${{inputs.prefix}}/rocketmq
                 tags: |-
                     type=raw,value=4.6.1-broker-jdk-8
                     type=raw,value=4.6.1-broker
@@ -3363,14 +3127,11 @@ jobs:
                 pull: true
                 push: true
                 tags: ${{steps.meta.outputs.tags}}
-    r_rocketmq_4_6_1_namesrv_jdk_8:
-        if: inputs.job_name == 'all' || contains(inputs.job_name,'r_rocketmq_4_6_1_namesrv_jdk_8,')
-        needs:
-            - r_jdk_8_debian_11
+    m_rocketmq_4_6_1_namesrv_jdk_8:
         permissions:
             contents: read
             id-token: write
-            packages: write
+            packages: read
         runs-on: ubuntu-latest
         steps:
             - name: checkout
@@ -3380,7 +3141,7 @@ jobs:
               with:
                 go-version: "1.19"
             - name: generate out
-              run: go run -mod vendor ./cmd/acicn-build/main.go -generate 'rocketmq:4.6.1-namesrv-jdk-8'
+              run: go run -mod vendor ./cmd/acicn-build/main.go -mirror -generate 'rocketmq:4.6.1-namesrv-jdk-8'
             - name: setup docker buildx
               uses: docker/setup-buildx-action@v2
             - name: docker login - ghcr
@@ -3389,18 +3150,17 @@ jobs:
                 password: ${{secrets.GITHUB_TOKEN}}
                 registry: ghcr.io
                 username: ${{github.actor}}
-            - name: docker login - dockerhub
+            - name: docker login - target registry
               uses: docker/login-action@v2
               with:
-                password: ${{secrets.DOCKERHUB_TOKEN}}
-                username: guoyk
+                password: ${{inputs.password}}
+                registry: ${{inputs.registry}}
+                username: ${{inputs.username}}
             - id: meta
               name: meta for rocketmq:4.6.1-namesrv-jdk-8
               uses: docker/metadata-action@v4
               with:
-                images: |-
-                    ghcr.io/guoyk93/acicn/rocketmq
-                    acicn/rocketmq
+                images: ${{inputs.registry}}/${{inputs.prefix}}/rocketmq
                 tags: |-
                     type=raw,value=4.6.1-namesrv-jdk-8
                     type=raw,value=4.6.1-namesrv
@@ -3415,14 +3175,11 @@ jobs:
                 pull: true
                 push: true
                 tags: ${{steps.meta.outputs.tags}}
-    r_rocketmq_4_8_0_broker_jdk_8:
-        if: inputs.job_name == 'all' || contains(inputs.job_name,'r_rocketmq_4_8_0_broker_jdk_8,')
-        needs:
-            - r_jdk_8_debian_11
+    m_rocketmq_4_8_0_broker_jdk_8:
         permissions:
             contents: read
             id-token: write
-            packages: write
+            packages: read
         runs-on: ubuntu-latest
         steps:
             - name: checkout
@@ -3432,7 +3189,7 @@ jobs:
               with:
                 go-version: "1.19"
             - name: generate out
-              run: go run -mod vendor ./cmd/acicn-build/main.go -generate 'rocketmq:4.8.0-broker-jdk-8'
+              run: go run -mod vendor ./cmd/acicn-build/main.go -mirror -generate 'rocketmq:4.8.0-broker-jdk-8'
             - name: setup docker buildx
               uses: docker/setup-buildx-action@v2
             - name: docker login - ghcr
@@ -3441,18 +3198,17 @@ jobs:
                 password: ${{secrets.GITHUB_TOKEN}}
                 registry: ghcr.io
                 username: ${{github.actor}}
-            - name: docker login - dockerhub
+            - name: docker login - target registry
               uses: docker/login-action@v2
               with:
-                password: ${{secrets.DOCKERHUB_TOKEN}}
-                username: guoyk
+                password: ${{inputs.password}}
+                registry: ${{inputs.registry}}
+                username: ${{inputs.username}}
             - id: meta
               name: meta for rocketmq:4.8.0-broker-jdk-8
               uses: docker/metadata-action@v4
               with:
-                images: |-
-                    ghcr.io/guoyk93/acicn/rocketmq
-                    acicn/rocketmq
+                images: ${{inputs.registry}}/${{inputs.prefix}}/rocketmq
                 tags: |-
                     type=raw,value=4.8.0-broker-jdk-8
                     type=raw,value=4.8.0-broker
@@ -3467,14 +3223,11 @@ jobs:
                 pull: true
                 push: true
                 tags: ${{steps.meta.outputs.tags}}
-    r_rocketmq_4_8_0_namesrv_jdk_8:
-        if: inputs.job_name == 'all' || contains(inputs.job_name,'r_rocketmq_4_8_0_namesrv_jdk_8,')
-        needs:
-            - r_jdk_8_debian_11
+    m_rocketmq_4_8_0_namesrv_jdk_8:
         permissions:
             contents: read
             id-token: write
-            packages: write
+            packages: read
         runs-on: ubuntu-latest
         steps:
             - name: checkout
@@ -3484,7 +3237,7 @@ jobs:
               with:
                 go-version: "1.19"
             - name: generate out
-              run: go run -mod vendor ./cmd/acicn-build/main.go -generate 'rocketmq:4.8.0-namesrv-jdk-8'
+              run: go run -mod vendor ./cmd/acicn-build/main.go -mirror -generate 'rocketmq:4.8.0-namesrv-jdk-8'
             - name: setup docker buildx
               uses: docker/setup-buildx-action@v2
             - name: docker login - ghcr
@@ -3493,18 +3246,17 @@ jobs:
                 password: ${{secrets.GITHUB_TOKEN}}
                 registry: ghcr.io
                 username: ${{github.actor}}
-            - name: docker login - dockerhub
+            - name: docker login - target registry
               uses: docker/login-action@v2
               with:
-                password: ${{secrets.DOCKERHUB_TOKEN}}
-                username: guoyk
+                password: ${{inputs.password}}
+                registry: ${{inputs.registry}}
+                username: ${{inputs.username}}
             - id: meta
               name: meta for rocketmq:4.8.0-namesrv-jdk-8
               uses: docker/metadata-action@v4
               with:
-                images: |-
-                    ghcr.io/guoyk93/acicn/rocketmq
-                    acicn/rocketmq
+                images: ${{inputs.registry}}/${{inputs.prefix}}/rocketmq
                 tags: |-
                     type=raw,value=4.8.0-namesrv-jdk-8
                     type=raw,value=4.8.0-namesrv
@@ -3519,14 +3271,11 @@ jobs:
                 pull: true
                 push: true
                 tags: ${{steps.meta.outputs.tags}}
-    r_rocketmq_4_9_1_broker_jdk_8:
-        if: inputs.job_name == 'all' || contains(inputs.job_name,'r_rocketmq_4_9_1_broker_jdk_8,')
-        needs:
-            - r_jdk_8_debian_11
+    m_rocketmq_4_9_1_broker_jdk_8:
         permissions:
             contents: read
             id-token: write
-            packages: write
+            packages: read
         runs-on: ubuntu-latest
         steps:
             - name: checkout
@@ -3536,7 +3285,7 @@ jobs:
               with:
                 go-version: "1.19"
             - name: generate out
-              run: go run -mod vendor ./cmd/acicn-build/main.go -generate 'rocketmq:4.9.1-broker-jdk-8'
+              run: go run -mod vendor ./cmd/acicn-build/main.go -mirror -generate 'rocketmq:4.9.1-broker-jdk-8'
             - name: setup docker buildx
               uses: docker/setup-buildx-action@v2
             - name: docker login - ghcr
@@ -3545,18 +3294,17 @@ jobs:
                 password: ${{secrets.GITHUB_TOKEN}}
                 registry: ghcr.io
                 username: ${{github.actor}}
-            - name: docker login - dockerhub
+            - name: docker login - target registry
               uses: docker/login-action@v2
               with:
-                password: ${{secrets.DOCKERHUB_TOKEN}}
-                username: guoyk
+                password: ${{inputs.password}}
+                registry: ${{inputs.registry}}
+                username: ${{inputs.username}}
             - id: meta
               name: meta for rocketmq:4.9.1-broker-jdk-8
               uses: docker/metadata-action@v4
               with:
-                images: |-
-                    ghcr.io/guoyk93/acicn/rocketmq
-                    acicn/rocketmq
+                images: ${{inputs.registry}}/${{inputs.prefix}}/rocketmq
                 tags: |-
                     type=raw,value=4.9.1-broker-jdk-8
                     type=raw,value=4.9.1-broker
@@ -3571,14 +3319,11 @@ jobs:
                 pull: true
                 push: true
                 tags: ${{steps.meta.outputs.tags}}
-    r_rocketmq_4_9_1_namesrv_jdk_8:
-        if: inputs.job_name == 'all' || contains(inputs.job_name,'r_rocketmq_4_9_1_namesrv_jdk_8,')
-        needs:
-            - r_jdk_8_debian_11
+    m_rocketmq_4_9_1_namesrv_jdk_8:
         permissions:
             contents: read
             id-token: write
-            packages: write
+            packages: read
         runs-on: ubuntu-latest
         steps:
             - name: checkout
@@ -3588,7 +3333,7 @@ jobs:
               with:
                 go-version: "1.19"
             - name: generate out
-              run: go run -mod vendor ./cmd/acicn-build/main.go -generate 'rocketmq:4.9.1-namesrv-jdk-8'
+              run: go run -mod vendor ./cmd/acicn-build/main.go -mirror -generate 'rocketmq:4.9.1-namesrv-jdk-8'
             - name: setup docker buildx
               uses: docker/setup-buildx-action@v2
             - name: docker login - ghcr
@@ -3597,18 +3342,17 @@ jobs:
                 password: ${{secrets.GITHUB_TOKEN}}
                 registry: ghcr.io
                 username: ${{github.actor}}
-            - name: docker login - dockerhub
+            - name: docker login - target registry
               uses: docker/login-action@v2
               with:
-                password: ${{secrets.DOCKERHUB_TOKEN}}
-                username: guoyk
+                password: ${{inputs.password}}
+                registry: ${{inputs.registry}}
+                username: ${{inputs.username}}
             - id: meta
               name: meta for rocketmq:4.9.1-namesrv-jdk-8
               uses: docker/metadata-action@v4
               with:
-                images: |-
-                    ghcr.io/guoyk93/acicn/rocketmq
-                    acicn/rocketmq
+                images: ${{inputs.registry}}/${{inputs.prefix}}/rocketmq
                 tags: |-
                     type=raw,value=4.9.1-namesrv-jdk-8
                     type=raw,value=4.9.1-namesrv
@@ -3623,14 +3367,11 @@ jobs:
                 pull: true
                 push: true
                 tags: ${{steps.meta.outputs.tags}}
-    r_rocketmq_console:
-        if: inputs.job_name == 'all' || contains(inputs.job_name,'r_rocketmq_console,')
-        needs:
-            - r_jdk_8_debian_11
+    m_rocketmq_console:
         permissions:
             contents: read
             id-token: write
-            packages: write
+            packages: read
         runs-on: ubuntu-latest
         steps:
             - name: checkout
@@ -3640,7 +3381,7 @@ jobs:
               with:
                 go-version: "1.19"
             - name: generate out
-              run: go run -mod vendor ./cmd/acicn-build/main.go -generate 'rocketmq:console'
+              run: go run -mod vendor ./cmd/acicn-build/main.go -mirror -generate 'rocketmq:console'
             - name: setup docker buildx
               uses: docker/setup-buildx-action@v2
             - name: docker login - ghcr
@@ -3649,18 +3390,17 @@ jobs:
                 password: ${{secrets.GITHUB_TOKEN}}
                 registry: ghcr.io
                 username: ${{github.actor}}
-            - name: docker login - dockerhub
+            - name: docker login - target registry
               uses: docker/login-action@v2
               with:
-                password: ${{secrets.DOCKERHUB_TOKEN}}
-                username: guoyk
+                password: ${{inputs.password}}
+                registry: ${{inputs.registry}}
+                username: ${{inputs.username}}
             - id: meta
               name: meta for rocketmq:console
               uses: docker/metadata-action@v4
               with:
-                images: |-
-                    ghcr.io/guoyk93/acicn/rocketmq
-                    acicn/rocketmq
+                images: ${{inputs.registry}}/${{inputs.prefix}}/rocketmq
                 tags: type=raw,value=console
             - id: build
               name: build for rocketmq:console
@@ -3673,14 +3413,11 @@ jobs:
                 pull: true
                 push: true
                 tags: ${{steps.meta.outputs.tags}}
-    r_spring_boot_admin_1_0:
-        if: inputs.job_name == 'all' || contains(inputs.job_name,'r_spring_boot_admin_1_0,')
-        needs:
-            - r_jdk_8_debian_11
+    m_spring_boot_admin_1_0:
         permissions:
             contents: read
             id-token: write
-            packages: write
+            packages: read
         runs-on: ubuntu-latest
         steps:
             - name: checkout
@@ -3690,7 +3427,7 @@ jobs:
               with:
                 go-version: "1.19"
             - name: generate out
-              run: go run -mod vendor ./cmd/acicn-build/main.go -generate 'spring-boot-admin:1.0'
+              run: go run -mod vendor ./cmd/acicn-build/main.go -mirror -generate 'spring-boot-admin:1.0'
             - name: setup docker buildx
               uses: docker/setup-buildx-action@v2
             - name: docker login - ghcr
@@ -3699,18 +3436,17 @@ jobs:
                 password: ${{secrets.GITHUB_TOKEN}}
                 registry: ghcr.io
                 username: ${{github.actor}}
-            - name: docker login - dockerhub
+            - name: docker login - target registry
               uses: docker/login-action@v2
               with:
-                password: ${{secrets.DOCKERHUB_TOKEN}}
-                username: guoyk
+                password: ${{inputs.password}}
+                registry: ${{inputs.registry}}
+                username: ${{inputs.username}}
             - id: meta
               name: meta for spring-boot-admin:1.0
               uses: docker/metadata-action@v4
               with:
-                images: |-
-                    ghcr.io/guoyk93/acicn/spring-boot-admin
-                    acicn/spring-boot-admin
+                images: ${{inputs.registry}}/${{inputs.prefix}}/spring-boot-admin
                 tags: |-
                     type=raw,value=1.0
                     type=raw,value=latest
@@ -3725,14 +3461,11 @@ jobs:
                 pull: true
                 push: true
                 tags: ${{steps.meta.outputs.tags}}
-    r_tomcat_8_jdk_8_debian_11:
-        if: inputs.job_name == 'all' || contains(inputs.job_name,'r_tomcat_8_jdk_8_debian_11,')
-        needs:
-            - r_jdk_8_debian_11
+    m_tomcat_8_jdk_8_debian_11:
         permissions:
             contents: read
             id-token: write
-            packages: write
+            packages: read
         runs-on: ubuntu-latest
         steps:
             - name: checkout
@@ -3742,7 +3475,7 @@ jobs:
               with:
                 go-version: "1.19"
             - name: generate out
-              run: go run -mod vendor ./cmd/acicn-build/main.go -generate 'tomcat:8-jdk-8-debian-11'
+              run: go run -mod vendor ./cmd/acicn-build/main.go -mirror -generate 'tomcat:8-jdk-8-debian-11'
             - name: setup docker buildx
               uses: docker/setup-buildx-action@v2
             - name: docker login - ghcr
@@ -3751,18 +3484,17 @@ jobs:
                 password: ${{secrets.GITHUB_TOKEN}}
                 registry: ghcr.io
                 username: ${{github.actor}}
-            - name: docker login - dockerhub
+            - name: docker login - target registry
               uses: docker/login-action@v2
               with:
-                password: ${{secrets.DOCKERHUB_TOKEN}}
-                username: guoyk
+                password: ${{inputs.password}}
+                registry: ${{inputs.registry}}
+                username: ${{inputs.username}}
             - id: meta
               name: meta for tomcat:8-jdk-8-debian-11
               uses: docker/metadata-action@v4
               with:
-                images: |-
-                    ghcr.io/guoyk93/acicn/tomcat
-                    acicn/tomcat
+                images: ${{inputs.registry}}/${{inputs.prefix}}/tomcat
                 tags: |-
                     type=raw,value=8-jdk-8-debian-11
                     type=raw,value=8-jdk-8
@@ -3777,14 +3509,11 @@ jobs:
                 pull: true
                 push: true
                 tags: ${{steps.meta.outputs.tags}}
-    r_tomcat_8_jdk_11_debian_11:
-        if: inputs.job_name == 'all' || contains(inputs.job_name,'r_tomcat_8_jdk_11_debian_11,')
-        needs:
-            - r_jdk_11_debian_11
+    m_tomcat_8_jdk_11_debian_11:
         permissions:
             contents: read
             id-token: write
-            packages: write
+            packages: read
         runs-on: ubuntu-latest
         steps:
             - name: checkout
@@ -3794,7 +3523,7 @@ jobs:
               with:
                 go-version: "1.19"
             - name: generate out
-              run: go run -mod vendor ./cmd/acicn-build/main.go -generate 'tomcat:8-jdk-11-debian-11'
+              run: go run -mod vendor ./cmd/acicn-build/main.go -mirror -generate 'tomcat:8-jdk-11-debian-11'
             - name: setup docker buildx
               uses: docker/setup-buildx-action@v2
             - name: docker login - ghcr
@@ -3803,18 +3532,17 @@ jobs:
                 password: ${{secrets.GITHUB_TOKEN}}
                 registry: ghcr.io
                 username: ${{github.actor}}
-            - name: docker login - dockerhub
+            - name: docker login - target registry
               uses: docker/login-action@v2
               with:
-                password: ${{secrets.DOCKERHUB_TOKEN}}
-                username: guoyk
+                password: ${{inputs.password}}
+                registry: ${{inputs.registry}}
+                username: ${{inputs.username}}
             - id: meta
               name: meta for tomcat:8-jdk-11-debian-11
               uses: docker/metadata-action@v4
               with:
-                images: |-
-                    ghcr.io/guoyk93/acicn/tomcat
-                    acicn/tomcat
+                images: ${{inputs.registry}}/${{inputs.prefix}}/tomcat
                 tags: |-
                     type=raw,value=8-jdk-11-debian-11
                     type=raw,value=8-jdk-11
@@ -3830,14 +3558,11 @@ jobs:
                 pull: true
                 push: true
                 tags: ${{steps.meta.outputs.tags}}
-    r_tomcat_8_pagoda:
-        if: inputs.job_name == 'all' || contains(inputs.job_name,'r_tomcat_8_pagoda,')
-        needs:
-            - r_jdk_8_pagoda
+    m_tomcat_8_pagoda:
         permissions:
             contents: read
             id-token: write
-            packages: write
+            packages: read
         runs-on: ubuntu-latest
         steps:
             - name: checkout
@@ -3847,7 +3572,7 @@ jobs:
               with:
                 go-version: "1.19"
             - name: generate out
-              run: go run -mod vendor ./cmd/acicn-build/main.go -generate 'tomcat:8-pagoda'
+              run: go run -mod vendor ./cmd/acicn-build/main.go -mirror -generate 'tomcat:8-pagoda'
             - name: setup docker buildx
               uses: docker/setup-buildx-action@v2
             - name: docker login - ghcr
@@ -3856,18 +3581,17 @@ jobs:
                 password: ${{secrets.GITHUB_TOKEN}}
                 registry: ghcr.io
                 username: ${{github.actor}}
-            - name: docker login - dockerhub
+            - name: docker login - target registry
               uses: docker/login-action@v2
               with:
-                password: ${{secrets.DOCKERHUB_TOKEN}}
-                username: guoyk
+                password: ${{inputs.password}}
+                registry: ${{inputs.registry}}
+                username: ${{inputs.username}}
             - id: meta
               name: meta for tomcat:8-pagoda
               uses: docker/metadata-action@v4
               with:
-                images: |-
-                    ghcr.io/guoyk93/acicn/tomcat
-                    acicn/tomcat
+                images: ${{inputs.registry}}/${{inputs.prefix}}/tomcat
                 tags: type=raw,value=8-pagoda
             - id: build
               name: build for tomcat:8-pagoda
@@ -3880,14 +3604,11 @@ jobs:
                 pull: true
                 push: true
                 tags: ${{steps.meta.outputs.tags}}
-    r_tomcat_9_jdk_8_debian_11:
-        if: inputs.job_name == 'all' || contains(inputs.job_name,'r_tomcat_9_jdk_8_debian_11,')
-        needs:
-            - r_jdk_8_debian_11
+    m_tomcat_9_jdk_8_debian_11:
         permissions:
             contents: read
             id-token: write
-            packages: write
+            packages: read
         runs-on: ubuntu-latest
         steps:
             - name: checkout
@@ -3897,7 +3618,7 @@ jobs:
               with:
                 go-version: "1.19"
             - name: generate out
-              run: go run -mod vendor ./cmd/acicn-build/main.go -generate 'tomcat:9-jdk-8-debian-11'
+              run: go run -mod vendor ./cmd/acicn-build/main.go -mirror -generate 'tomcat:9-jdk-8-debian-11'
             - name: setup docker buildx
               uses: docker/setup-buildx-action@v2
             - name: docker login - ghcr
@@ -3906,18 +3627,17 @@ jobs:
                 password: ${{secrets.GITHUB_TOKEN}}
                 registry: ghcr.io
                 username: ${{github.actor}}
-            - name: docker login - dockerhub
+            - name: docker login - target registry
               uses: docker/login-action@v2
               with:
-                password: ${{secrets.DOCKERHUB_TOKEN}}
-                username: guoyk
+                password: ${{inputs.password}}
+                registry: ${{inputs.registry}}
+                username: ${{inputs.username}}
             - id: meta
               name: meta for tomcat:9-jdk-8-debian-11
               uses: docker/metadata-action@v4
               with:
-                images: |-
-                    ghcr.io/guoyk93/acicn/tomcat
-                    acicn/tomcat
+                images: ${{inputs.registry}}/${{inputs.prefix}}/tomcat
                 tags: |-
                     type=raw,value=9-jdk-8-debian-11
                     type=raw,value=9-jdk-8
@@ -3932,14 +3652,11 @@ jobs:
                 pull: true
                 push: true
                 tags: ${{steps.meta.outputs.tags}}
-    r_tomcat_9_jdk_11_debian_11:
-        if: inputs.job_name == 'all' || contains(inputs.job_name,'r_tomcat_9_jdk_11_debian_11,')
-        needs:
-            - r_jdk_11_debian_11
+    m_tomcat_9_jdk_11_debian_11:
         permissions:
             contents: read
             id-token: write
-            packages: write
+            packages: read
         runs-on: ubuntu-latest
         steps:
             - name: checkout
@@ -3949,7 +3666,7 @@ jobs:
               with:
                 go-version: "1.19"
             - name: generate out
-              run: go run -mod vendor ./cmd/acicn-build/main.go -generate 'tomcat:9-jdk-11-debian-11'
+              run: go run -mod vendor ./cmd/acicn-build/main.go -mirror -generate 'tomcat:9-jdk-11-debian-11'
             - name: setup docker buildx
               uses: docker/setup-buildx-action@v2
             - name: docker login - ghcr
@@ -3958,18 +3675,17 @@ jobs:
                 password: ${{secrets.GITHUB_TOKEN}}
                 registry: ghcr.io
                 username: ${{github.actor}}
-            - name: docker login - dockerhub
+            - name: docker login - target registry
               uses: docker/login-action@v2
               with:
-                password: ${{secrets.DOCKERHUB_TOKEN}}
-                username: guoyk
+                password: ${{inputs.password}}
+                registry: ${{inputs.registry}}
+                username: ${{inputs.username}}
             - id: meta
               name: meta for tomcat:9-jdk-11-debian-11
               uses: docker/metadata-action@v4
               with:
-                images: |-
-                    ghcr.io/guoyk93/acicn/tomcat
-                    acicn/tomcat
+                images: ${{inputs.registry}}/${{inputs.prefix}}/tomcat
                 tags: |-
                     type=raw,value=9-jdk-11-debian-11
                     type=raw,value=9-jdk-11
@@ -3985,14 +3701,11 @@ jobs:
                 pull: true
                 push: true
                 tags: ${{steps.meta.outputs.tags}}
-    r_zookeeper_3_6_2_jdk_11:
-        if: inputs.job_name == 'all' || contains(inputs.job_name,'r_zookeeper_3_6_2_jdk_11,')
-        needs:
-            - r_jdk_11_debian_11
+    m_zookeeper_3_6_2_jdk_11:
         permissions:
             contents: read
             id-token: write
-            packages: write
+            packages: read
         runs-on: ubuntu-latest
         steps:
             - name: checkout
@@ -4002,7 +3715,7 @@ jobs:
               with:
                 go-version: "1.19"
             - name: generate out
-              run: go run -mod vendor ./cmd/acicn-build/main.go -generate 'zookeeper:3.6.2-jdk-11'
+              run: go run -mod vendor ./cmd/acicn-build/main.go -mirror -generate 'zookeeper:3.6.2-jdk-11'
             - name: setup docker buildx
               uses: docker/setup-buildx-action@v2
             - name: docker login - ghcr
@@ -4011,18 +3724,17 @@ jobs:
                 password: ${{secrets.GITHUB_TOKEN}}
                 registry: ghcr.io
                 username: ${{github.actor}}
-            - name: docker login - dockerhub
+            - name: docker login - target registry
               uses: docker/login-action@v2
               with:
-                password: ${{secrets.DOCKERHUB_TOKEN}}
-                username: guoyk
+                password: ${{inputs.password}}
+                registry: ${{inputs.registry}}
+                username: ${{inputs.username}}
             - id: meta
               name: meta for zookeeper:3.6.2-jdk-11
               uses: docker/metadata-action@v4
               with:
-                images: |-
-                    ghcr.io/guoyk93/acicn/zookeeper
-                    acicn/zookeeper
+                images: ${{inputs.registry}}/${{inputs.prefix}}/zookeeper
                 tags: |-
                     type=raw,value=3.6.2-jdk-11
                     type=raw,value=latest
@@ -4039,15 +3751,23 @@ jobs:
                 pull: true
                 push: true
                 tags: ${{steps.meta.outputs.tags}}
-name: release
+name: mirror
 "on":
     workflow_dispatch:
         inputs:
-            force_pull:
-                description: force pull upstream images
+            password:
+                description: registry password
                 required: true
-                type: boolean
-            job_name:
-                description: names of jobs to execute, 'all' for all
+                type: string
+            prefix:
+                description: registry image prefix
+                required: true
+                type: string
+            registry:
+                description: registry address
+                required: true
+                type: string
+            username:
+                description: registry username
                 required: true
                 type: string

@@ -72,6 +72,17 @@ func (b Repo) LookupKnown(upstream string) (string, error) {
 	return "", errors.New("no known: " + upstream)
 }
 
+func (b Repo) GenerateMirror() (err error) {
+	defer gg.Guard(&err)
+
+	dir := filepath.Join("out", b.ShortName())
+	gg.Must0(os.RemoveAll(dir))
+	gg.Must0(os.MkdirAll(dir, 0755))
+	gg.Must0(os.WriteFile(filepath.Join(dir, "Dockerfile"), []byte("FROM "+b.Name), 0644))
+
+	return
+}
+
 func (b Repo) Generate() (err error) {
 	defer gg.Guard(&err)
 
