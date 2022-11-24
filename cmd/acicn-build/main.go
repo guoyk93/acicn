@@ -39,6 +39,7 @@ func updateWorkflowMirror(repos []*acicn.Repo) (err error) {
 		})
 
 		job := gg.M{
+			"if":      "inputs.job_name == 'all' || contains(inputs.job_name,'" + mirrorJobName(item.Name) + ",')",
 			"runs-on": "ubuntu-latest",
 			"permissions": gg.M{
 				"contents": "read",
@@ -124,6 +125,11 @@ func updateWorkflowMirror(repos []*acicn.Repo) (err error) {
 					},
 					"prefix": gg.M{
 						"description": "registry image prefix",
+						"required":    true,
+						"type":        "string",
+					},
+					"job_name": gg.M{
+						"description": "names of jobs to execute, 'all' for all",
 						"required":    true,
 						"type":        "string",
 					},
