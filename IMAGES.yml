@@ -66,10 +66,10 @@
     - jdk:builder-8-maven-3.5
 - name: jdk:builder-8-maven-3.6-debian-11
   also:
+    - jdk:builder-8
     - jdk:builder-8-maven-3.6
 - name: jdk:builder-8-maven-3.8-debian-11
   also:
-    - jdk:builder-8
     - jdk:builder-8-maven-3.8
 - name: kafka:2.1
   also: []

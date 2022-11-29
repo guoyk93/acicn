@@ -951,6 +951,7 @@ jobs:
                 tags: |-
                     type=raw,value=builder-8-maven-3.6-debian-11
                     type=raw,value=builder-8-maven-3.6
+                    type=raw,value=builder-8
             - id: build
               name: build for jdk:builder-8-maven-3.6-debian-11
               uses: docker/build-push-action@v3
@@ -1000,7 +1001,6 @@ jobs:
                 tags: |-
                     type=raw,value=builder-8-maven-3.8-debian-11
                     type=raw,value=builder-8-maven-3.8
-                    type=raw,value=builder-8
             - id: build
               name: build for jdk:builder-8-maven-3.8-debian-11
               uses: docker/build-push-action@v3
