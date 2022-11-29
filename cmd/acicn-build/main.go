@@ -76,12 +76,30 @@ func updateWorkflowMirror(repos []*acicn.Repo) (err error) {
 					},
 				},
 				{
-					"name": "docker login - target registry",
+					"name": "docker login - coding registry",
 					"uses": "docker/login-action@v2",
 					"with": gg.M{
-						"registry": "${{inputs.registry}}",
-						"username": "${{secrets.MIRROR_USERNAME}}",
-						"password": "${{secrets.MIRROR_PASSWORD}}",
+						"registry": "${{secrets.MIRROR_CODING_REGISTRY}}",
+						"username": "${{secrets.MIRROR_CODING_USERNAME}}",
+						"password": "${{secrets.MIRROR_CODING_PASSWORD}}",
+					},
+				},
+				{
+					"name": "docker login - ccr registry",
+					"uses": "docker/login-action@v2",
+					"with": gg.M{
+						"registry": "ccr.ccs.tencentyun.com",
+						"username": "${{secrets.MIRROR_CCR_USERNAME}}",
+						"password": "${{secrets.MIRROR_CCR_PASSWORD}}",
+					},
+				},
+				{
+					"name": "docker login - aliyun registry",
+					"uses": "docker/login-action@v2",
+					"with": gg.M{
+						"registry": "registry.cn-shenzhen.aliyuncs.com",
+						"username": "${{secrets.MIRROR_ALIYUN_USERNAME}}",
+						"password": "${{secrets.MIRROR_ALIYUN_PASSWORD}}",
 					},
 				},
 				{
@@ -89,8 +107,12 @@ func updateWorkflowMirror(repos []*acicn.Repo) (err error) {
 					"id":   "meta",
 					"uses": "docker/metadata-action@v4",
 					"with": gg.M{
-						"images": "${{inputs.registry}}/${{inputs.prefix}}/" + item.Repo,
-						"tags":   strings.Join(tags, "\n"),
+						"images": strings.Join([]string{
+							"${{secrets.MIRROR_CODING_REGISTRY}}/${{secrets.MIRROR_CODING_PREFIX}}/" + item.Repo,
+							"registry.cn-shenzhen.aliyuncs.com/acicn/" + item.Repo,
+							"ccr.ccs.tencentyun.com/acicn/" + item.Repo,
+						}, "\n"),
+						"tags": strings.Join(tags, "\n"),
 					},
 				},
 				{
@@ -118,16 +140,6 @@ func updateWorkflowMirror(repos []*acicn.Repo) (err error) {
 		"on": gg.M{
 			"workflow_dispatch": gg.M{
 				"inputs": gg.M{
-					"registry": gg.M{
-						"description": "registry address",
-						"required":    true,
-						"type":        "string",
-					},
-					"prefix": gg.M{
-						"description": "registry image prefix",
-						"required":    true,
-						"type":        "string",
-					},
 					"job_name": gg.M{
 						"description": "names of jobs to execute, 'all' for all",
 						"required":    true,
