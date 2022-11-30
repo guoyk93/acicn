@@ -11,7 +11,7 @@ RUN curl -sSL -o alinode.tar.gz '{{.alinode_download_url}}' && \
     tar -xf alinode.tar.gz -C /opt/alinode --strip-components=1 && \
     rm -rf alinode.tar.gz && \
     export ENABLE_NODE_LOG=NO && \
-    npm config set registry http://registry.npmjs.org && \
+    npm config set registry https://registry.npmjs.org && \
     npm install -g cnpm@{{.cnpm_version}} @alicloud/agenthub && \
     npm cache clean --force && \
     mkdir -p $NODE_LOG_DIR
