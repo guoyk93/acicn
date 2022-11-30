@@ -6,9 +6,11 @@ vars:
   alinode-12:
     alinode_version: '5.20.6'
     alinode_download_url: 'https://github.com/guoyk93/acicn-assets/releases/download/v20221122/alinode-v5.20.6-linux-x64.tar.gz'
+    cnpm_version: '7.1.1'
   alinode-16:
     alinode_version: '7.7.0'
     alinode_download_url: 'https://github.com/guoyk93/acicn-assets/releases/download/v20221122/alinode-v7.7.0-linux-x64.tar.gz'
+    cnpm_version: '8.4.0'
   filebeat:
     filebeat_download_url: 'https://artifacts.elastic.co/downloads/beats/filebeat/filebeat-7.2.1-linux-x86_64.tar.gz'
 tags:
