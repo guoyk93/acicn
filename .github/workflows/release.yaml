@@ -101,6 +101,106 @@ jobs:
                 pull: true
                 push: true
                 tags: ${{steps.meta.outputs.tags}}
+    r_alinode_12_sensordata_filebeat:
+        if: inputs.job_name == 'all' || contains(inputs.job_name,'r_alinode_12_sensordata_filebeat,')
+        needs:
+            - r_debian_11
+        permissions:
+            contents: read
+            id-token: write
+            packages: write
+        runs-on: ubuntu-latest
+        steps:
+            - name: checkout
+              uses: actions/checkout@v3
+            - name: setup go
+              uses: actions/setup-go@v3
+              with:
+                go-version: "1.19"
+            - name: generate out
+              run: go run -mod vendor ./cmd/acicn-build/main.go -generate 'alinode:12-sensordata-filebeat'
+            - name: setup docker buildx
+              uses: docker/setup-buildx-action@v2
+            - name: docker login - ghcr
+              uses: docker/login-action@v2
+              with:
+                password: ${{secrets.GITHUB_TOKEN}}
+                registry: ghcr.io
+                username: ${{github.actor}}
+            - name: docker login - dockerhub
+              uses: docker/login-action@v2
+              with:
+                password: ${{secrets.DOCKERHUB_TOKEN}}
+                username: guoyk
+            - id: meta
+              name: meta for alinode:12-sensordata-filebeat
+              uses: docker/metadata-action@v4
+              with:
+                images: |-
+                    ghcr.io/guoyk93/acicn/alinode
+                    acicn/alinode
+                tags: type=raw,value=12-sensordata-filebeat
+            - id: build
+              name: build for alinode:12-sensordata-filebeat
+              uses: docker/build-push-action@v3
+              with:
+                cache-from: type=gha
+                cache-to: type=gha,mode=max
+                context: out/alinode:12-sensordata-filebeat
+                labels: ${{steps.meta.outputs.labels}}
+                pull: true
+                push: true
+                tags: ${{steps.meta.outputs.tags}}
+    r_alinode_16_sensordata_filebeat:
+        if: inputs.job_name == 'all' || contains(inputs.job_name,'r_alinode_16_sensordata_filebeat,')
+        needs:
+            - r_debian_11
+        permissions:
+            contents: read
+            id-token: write
+            packages: write
+        runs-on: ubuntu-latest
+        steps:
+            - name: checkout
+              uses: actions/checkout@v3
+            - name: setup go
+              uses: actions/setup-go@v3
+              with:
+                go-version: "1.19"
+            - name: generate out
+              run: go run -mod vendor ./cmd/acicn-build/main.go -generate 'alinode:16-sensordata-filebeat'
+            - name: setup docker buildx
+              uses: docker/setup-buildx-action@v2
+            - name: docker login - ghcr
+              uses: docker/login-action@v2
+              with:
+                password: ${{secrets.GITHUB_TOKEN}}
+                registry: ghcr.io
+                username: ${{github.actor}}
+            - name: docker login - dockerhub
+              uses: docker/login-action@v2
+              with:
+                password: ${{secrets.DOCKERHUB_TOKEN}}
+                username: guoyk
+            - id: meta
+              name: meta for alinode:16-sensordata-filebeat
+              uses: docker/metadata-action@v4
+              with:
+                images: |-
+                    ghcr.io/guoyk93/acicn/alinode
+                    acicn/alinode
+                tags: type=raw,value=16-sensordata-filebeat
+            - id: build
+              name: build for alinode:16-sensordata-filebeat
+              uses: docker/build-push-action@v3
+              with:
+                cache-from: type=gha
+                cache-to: type=gha,mode=max
+                context: out/alinode:16-sensordata-filebeat
+                labels: ${{steps.meta.outputs.labels}}
+                pull: true
+                push: true
+                tags: ${{steps.meta.outputs.tags}}
     r_alpine_3_16:
         if: inputs.job_name == 'all' || contains(inputs.job_name,'r_alpine_3_16,')
         permissions:

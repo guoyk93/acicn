@@ -3,6 +3,10 @@
     - activemq:5.15
 - name: activemq:5.15-jdk-8
   also: []
+- name: alinode:12-sensordata-filebeat
+  also: []
+- name: alinode:16-sensordata-filebeat
+  also: []
 - name: alpine:3.16
   also: []
 - name: alpine:3.16-no-minit

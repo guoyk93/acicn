@@ -24,6 +24,7 @@ dirs:
   - elasticsearch
   - zookeeper
   - spring-boot-admin
+  - alinode
 vars:
   utils_image_minit: ghcr.io/guoyk93/minit:1.9.0
   utils_image_merge_env_to_ini: ghcr.io/guoyk93/merge-env-to-ini:1.0.0
