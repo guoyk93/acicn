@@ -55,6 +55,13 @@
 
     - 兼容旧的 `JAVA_MEMORY_MAX`, `JAVA_MEMROY_MIN`, `JAVA_XMX` 和 `JAVA_XMS` 环境变量
 
+## 用法实例
+
+``` dockerfile
+FROM acicn/tomcat:8
+ADD target/ROOT.war /usr/local/tomcat/webapps/ROOT.war
+```
+
 ## 默认配置
 
 * 工作目录 `/usr/local/tomcat`
