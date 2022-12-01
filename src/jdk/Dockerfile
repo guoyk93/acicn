@@ -77,9 +77,7 @@ RUN mkdir -p /opt/lib/skywalking-agent && \
     curl -sSL -o skywalking.tar.gz "{{.skywalking_javaagent_download_url}}" && \
     tar -xf skywalking.tar.gz --strip-components 2 -C /opt/lib/skywalking-agent && \
     rm -f skywalking.tar.gz
-{{end}}
 
-{{if .pagoda}}
 RUN cd /opt/lib/skywalking-agent && \
     cp -rf bootstrap-plugins/*.jar plugins/ && \
     cd optional-plugins && \
@@ -95,12 +93,12 @@ RUN cd /opt/lib/skywalking-agent/plugins && rm -rf apm-jdk-http-plugin-*
 
 RUN curl -sSL -o '/opt/lib/skywalking-agent/optional-plugins/apm-seata-skywalking-plugin.jar' '{{.apm_seata_skywalking_plugin_download_url}}'
 
-ADD pagoda/skywalking-agent/config /opt/lib/skywalking-agent/config
+ADD opt/skywalking-agent/config /opt/lib/skywalking-agent/config
+{{end}}
 
 {{if .cubic}}
 RUN curl -sSL -o cubic.tar.gz '{{.cubic_agent_download_url}}' && \
     mkdir -p /opt/lib/cubic-agent && \
     tar -xf cubic.tar.gz -C /opt/lib/cubic-agent --strip-components 1 && \
     rm -f cubic.tar.gz
-{{end}}
 {{end}}

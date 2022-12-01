@@ -39,12 +39,13 @@
   also:
     - jdk:17
     - jdk:17-pagoda
+- name: jdk:8-cubic
+  also:
+    - jdk:8-pagoda-cubic
 - name: jdk:8-debian-11
   also:
     - jdk:8
     - jdk:8-pagoda
-- name: jdk:8-pagoda-cubic
-  also: []
 - name: jdk:builder-11-maven-3.5-debian-11
   also:
     - jdk:builder-11-maven-3.5

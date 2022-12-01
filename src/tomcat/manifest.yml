@@ -14,9 +14,6 @@ vars:
     tomcat_version: 9
     tomcat_download_url: "https://archive.apache.org/dist/tomcat/tomcat-9/v9.0.69/bin/apache-tomcat-9.0.69.tar.gz"
     empty_war_download_url: 'https://github.com/guoyk93/emptywar/releases/download/v1.0.0/emptywar-1.0.0.war'
-  jdk-8-pagoda:
-    debian_version: 11
-    upstream: jdk:8-pagoda
 tags:
   - name: 8-jdk-11-debian-11
     also:
