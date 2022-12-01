@@ -245,7 +245,7 @@ func updateWorkflowRelease(repos []*acicn.Repo) (err error) {
 					"with": gg.M{
 						"context":    "out/" + item.ShortName(),
 						"pull":       pull,
-						"push":       true,
+						"push":       "${{ inputs.push }}",
 						"tags":       "${{steps.meta.outputs.tags}}",
 						"labels":     "${{steps.meta.outputs.labels}}",
 						"cache-from": "type=gha",
@@ -279,6 +279,11 @@ func updateWorkflowRelease(repos []*acicn.Repo) (err error) {
 		"on": gg.M{
 			"workflow_dispatch": gg.M{
 				"inputs": gg.M{
+					"push": gg.M{
+						"description": "push to registry",
+						"required":    true,
+						"type":        "boolean",
+					},
 					"force_pull": gg.M{
 						"description": "force pull upstream images",
 						"required":    true,

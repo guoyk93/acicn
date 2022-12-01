@@ -67,6 +67,48 @@ ADD scripts /opt/bin
 ADD {{.php_version}}/etc /etc
 
 {{if .pagoda }}
+#################################
+# BEGIN: Skywalking Agent       #
+#################################
+
+# install dependencies
+RUN apt-get update && \
+    apt-get install -y gcc make libclang-dev protobuf-compiler && \
+    rm -rf /var/lib/apt/lists/*
+
+# install rust manually
+RUN mkdir -p /opt/src/rust && \
+    curl -sSL -o rust.tar.gz 'https://static.rust-lang.org/dist/rust-1.65.0-x86_64-unknown-linux-gnu.tar.gz' && \
+    tar -xf rust.tar.gz -C /opt/src/rust --strip-components 1 && \
+    rm -f rust.tar.gz && \
+    cd /opt/src/rust && \
+    ./install.sh --prefix=/opt && \
+    cd / && \
+    rm -rf /opt/src/rust
+
+# instlal skywalking-agent
+RUN acicn-php-ext-install php-skywalking-agent 'https://github.com/apache/skywalking-php/archive/refs/tags/v0.2.0.tar.gz'
+
+# environment variables for php skywalking agent
+
+# SW_APP_CODE is skywalking_agent.service_name
+ENV SW_APP_CODE             "demo"
+ENV SW_ENABLE               "1"
+ENV SW_LOG_FILE             "/var/log/skywalking-agent.log"
+ENV SW_LOG_LEVEL            "INFO"
+ENV SW_OAP_ADDRESS          "skywalking-oap:11800"
+ENV SW_PROTOCOL_VERSION     "8"
+ENV SW_WORKER_THREADS       "3"
+
+# deprecated skywalking environment variables
+ENV SW_ERROR_HANDLER_ENABLE "0"
+ENV SW_SAMPLE_N_PER_3_SECS  "-1"
+ENV SW_INSTANCE_NAME        ""
+
+#################################
+# END: Skywalking Agent         #
+#################################
+
 RUN acicn-php-ext-install php-apcu 'https://pecl.php.net/get/apcu-5.1.20.tgz' && \
     acicn-php-ext-install php-mcrypt 'https://pecl.php.net/get/mcrypt-1.0.4.tgz' && \
     acicn-php-ext-install php-igbinary 'https://pecl.php.net/get/igbinary-3.2.1.tgz' && \
@@ -95,30 +137,6 @@ RUN acicn-php-ext-install php-apcu 'https://pecl.php.net/get/apcu-5.1.20.tgz' &&
     acicn-php-ext-install php-imagick 'https://pecl.php.net/get/imagick-3.4.4.tgz' && \
     acicn-php-ext-install php-yaml 'https://pecl.php.net/get/yaml-2.2.1.tgz' && \
     acicn-php-ext-install php-svn 'https://pecl.php.net/get/svn-2.0.3.tgz'
-
-# skywalking
-RUN apt-get update && \
-    apt-get install -y libgrpc-dev cmake cmake-extras libboost-mpi-dev && \
-    rm -rf /var/lib/apt/lists/*
-
-RUN mkdir -p /opt/src/grpc && \
-    curl -sSL -o grpc.tar.gz 'https://github.com/guoyk93/acicn-assets/releases/download/v20221122/grpc-v1.31.x-full.tar.gz' && \
-    tar -xf grpc.tar.gz -C /opt/src/grpc --strip-components 1 && \
-    rm -f grpc.tar.gz && \
-    cd /opt/src/grpc && \
-    mkdir -p cmake/build && \
-    cd cmake/build && \
-    cmake ../.. && \
-    make -j$(nproc)
-
-RUN acicn-php-ext-install php-skywalking-sdk 'https://github.com/guoyk93/acicn-assets/releases/download/v20221122/skyapm-php-sdk-4.2.0-with-patch.tar.gz' --with-grpc=/opt/src/grpc
-
-ENV SW_APP_CODE             "demo"
-ENV SW_ENABLE               "1"
-ENV SW_OAP_ADDRESS          "skywalking-oap:11800"
-ENV SW_ERROR_HANDLER_ENABLE "0"
-ENV SW_SAMPLE_N_PER_3_SECS  "-1"
-ENV SW_INSTANCE_NAME        ""
 
 # yac
 RUN acicn-php-ext-install php-yac 'https://pecl.php.net/get/yac-2.3.1.tgz'
