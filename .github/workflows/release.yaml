@@ -695,6 +695,7 @@ jobs:
                 tags: |-
                     type=raw,value=8-debian-11
                     type=raw,value=8
+                    type=raw,value=8-pagoda
             - id: build
               name: build for jdk:8-debian-11
               uses: docker/build-push-action@v3
@@ -702,56 +703,6 @@ jobs:
                 cache-from: type=gha
                 cache-to: type=gha,mode=max
                 context: out/jdk:8-debian-11
-                labels: ${{steps.meta.outputs.labels}}
-                pull: true
-                push: true
-                tags: ${{steps.meta.outputs.tags}}
-    r_jdk_8_pagoda:
-        if: inputs.job_name == 'all' || contains(inputs.job_name,'r_jdk_8_pagoda,')
-        needs:
-            - r_debian_11
-        permissions:
-            contents: read
-            id-token: write
-            packages: write
-        runs-on: ubuntu-latest
-        steps:
-            - name: checkout
-              uses: actions/checkout@v3
-            - name: setup go
-              uses: actions/setup-go@v3
-              with:
-                go-version: "1.19"
-            - name: generate out
-              run: go run -mod vendor ./cmd/acicn-build/main.go -generate 'jdk:8-pagoda'
-            - name: setup docker buildx
-              uses: docker/setup-buildx-action@v2
-            - name: docker login - ghcr
-              uses: docker/login-action@v2
-              with:
-                password: ${{secrets.GITHUB_TOKEN}}
-                registry: ghcr.io
-                username: ${{github.actor}}
-            - name: docker login - dockerhub
-              uses: docker/login-action@v2
-              with:
-                password: ${{secrets.DOCKERHUB_TOKEN}}
-                username: guoyk
-            - id: meta
-              name: meta for jdk:8-pagoda
-              uses: docker/metadata-action@v4
-              with:
-                images: |-
-                    ghcr.io/guoyk93/acicn/jdk
-                    acicn/jdk
-                tags: type=raw,value=8-pagoda
-            - id: build
-              name: build for jdk:8-pagoda
-              uses: docker/build-push-action@v3
-              with:
-                cache-from: type=gha
-                cache-to: type=gha,mode=max
-                context: out/jdk:8-pagoda
                 labels: ${{steps.meta.outputs.labels}}
                 pull: true
                 push: true
@@ -847,6 +798,7 @@ jobs:
                 tags: |-
                     type=raw,value=11-debian-11
                     type=raw,value=11
+                    type=raw,value=11-pagoda
             - id: build
               name: build for jdk:11-debian-11
               uses: docker/build-push-action@v3
@@ -854,56 +806,6 @@ jobs:
                 cache-from: type=gha
                 cache-to: type=gha,mode=max
                 context: out/jdk:11-debian-11
-                labels: ${{steps.meta.outputs.labels}}
-                pull: true
-                push: true
-                tags: ${{steps.meta.outputs.tags}}
-    r_jdk_11_pagoda:
-        if: inputs.job_name == 'all' || contains(inputs.job_name,'r_jdk_11_pagoda,')
-        needs:
-            - r_debian_11
-        permissions:
-            contents: read
-            id-token: write
-            packages: write
-        runs-on: ubuntu-latest
-        steps:
-            - name: checkout
-              uses: actions/checkout@v3
-            - name: setup go
-              uses: actions/setup-go@v3
-              with:
-                go-version: "1.19"
-            - name: generate out
-              run: go run -mod vendor ./cmd/acicn-build/main.go -generate 'jdk:11-pagoda'
-            - name: setup docker buildx
-              uses: docker/setup-buildx-action@v2
-            - name: docker login - ghcr
-              uses: docker/login-action@v2
-              with:
-                password: ${{secrets.GITHUB_TOKEN}}
-                registry: ghcr.io
-                username: ${{github.actor}}
-            - name: docker login - dockerhub
-              uses: docker/login-action@v2
-              with:
-                password: ${{secrets.DOCKERHUB_TOKEN}}
-                username: guoyk
-            - id: meta
-              name: meta for jdk:11-pagoda
-              uses: docker/metadata-action@v4
-              with:
-                images: |-
-                    ghcr.io/guoyk93/acicn/jdk
-                    acicn/jdk
-                tags: type=raw,value=11-pagoda
-            - id: build
-              name: build for jdk:11-pagoda
-              uses: docker/build-push-action@v3
-              with:
-                cache-from: type=gha
-                cache-to: type=gha,mode=max
-                context: out/jdk:11-pagoda
                 labels: ${{steps.meta.outputs.labels}}
                 pull: true
                 push: true
@@ -949,6 +851,7 @@ jobs:
                 tags: |-
                     type=raw,value=17-debian-11
                     type=raw,value=17
+                    type=raw,value=17-pagoda
             - id: build
               name: build for jdk:17-debian-11
               uses: docker/build-push-action@v3
@@ -956,56 +859,6 @@ jobs:
                 cache-from: type=gha
                 cache-to: type=gha,mode=max
                 context: out/jdk:17-debian-11
-                labels: ${{steps.meta.outputs.labels}}
-                pull: true
-                push: true
-                tags: ${{steps.meta.outputs.tags}}
-    r_jdk_17_pagoda:
-        if: inputs.job_name == 'all' || contains(inputs.job_name,'r_jdk_17_pagoda,')
-        needs:
-            - r_debian_11
-        permissions:
-            contents: read
-            id-token: write
-            packages: write
-        runs-on: ubuntu-latest
-        steps:
-            - name: checkout
-              uses: actions/checkout@v3
-            - name: setup go
-              uses: actions/setup-go@v3
-              with:
-                go-version: "1.19"
-            - name: generate out
-              run: go run -mod vendor ./cmd/acicn-build/main.go -generate 'jdk:17-pagoda'
-            - name: setup docker buildx
-              uses: docker/setup-buildx-action@v2
-            - name: docker login - ghcr
-              uses: docker/login-action@v2
-              with:
-                password: ${{secrets.GITHUB_TOKEN}}
-                registry: ghcr.io
-                username: ${{github.actor}}
-            - name: docker login - dockerhub
-              uses: docker/login-action@v2
-              with:
-                password: ${{secrets.DOCKERHUB_TOKEN}}
-                username: guoyk
-            - id: meta
-              name: meta for jdk:17-pagoda
-              uses: docker/metadata-action@v4
-              with:
-                images: |-
-                    ghcr.io/guoyk93/acicn/jdk
-                    acicn/jdk
-                tags: type=raw,value=17-pagoda
-            - id: build
-              name: build for jdk:17-pagoda
-              uses: docker/build-push-action@v3
-              with:
-                cache-from: type=gha
-                cache-to: type=gha,mode=max
-                context: out/jdk:17-pagoda
                 labels: ${{steps.meta.outputs.labels}}
                 pull: true
                 push: true
@@ -3919,6 +3772,7 @@ jobs:
                     type=raw,value=8-jdk-11-debian-11
                     type=raw,value=8-jdk-11
                     type=raw,value=8
+                    type=raw,value=8-pagoda
             - id: build
               name: build for tomcat:8-jdk-11-debian-11
               uses: docker/build-push-action@v3
@@ -3926,56 +3780,6 @@ jobs:
                 cache-from: type=gha
                 cache-to: type=gha,mode=max
                 context: out/tomcat:8-jdk-11-debian-11
-                labels: ${{steps.meta.outputs.labels}}
-                pull: true
-                push: true
-                tags: ${{steps.meta.outputs.tags}}
-    r_tomcat_8_pagoda:
-        if: inputs.job_name == 'all' || contains(inputs.job_name,'r_tomcat_8_pagoda,')
-        needs:
-            - r_jdk_8_pagoda
-        permissions:
-            contents: read
-            id-token: write
-            packages: write
-        runs-on: ubuntu-latest
-        steps:
-            - name: checkout
-              uses: actions/checkout@v3
-            - name: setup go
-              uses: actions/setup-go@v3
-              with:
-                go-version: "1.19"
-            - name: generate out
-              run: go run -mod vendor ./cmd/acicn-build/main.go -generate 'tomcat:8-pagoda'
-            - name: setup docker buildx
-              uses: docker/setup-buildx-action@v2
-            - name: docker login - ghcr
-              uses: docker/login-action@v2
-              with:
-                password: ${{secrets.GITHUB_TOKEN}}
-                registry: ghcr.io
-                username: ${{github.actor}}
-            - name: docker login - dockerhub
-              uses: docker/login-action@v2
-              with:
-                password: ${{secrets.DOCKERHUB_TOKEN}}
-                username: guoyk
-            - id: meta
-              name: meta for tomcat:8-pagoda
-              uses: docker/metadata-action@v4
-              with:
-                images: |-
-                    ghcr.io/guoyk93/acicn/tomcat
-                    acicn/tomcat
-                tags: type=raw,value=8-pagoda
-            - id: build
-              name: build for tomcat:8-pagoda
-              uses: docker/build-push-action@v3
-              with:
-                cache-from: type=gha
-                cache-to: type=gha,mode=max
-                context: out/tomcat:8-pagoda
                 labels: ${{steps.meta.outputs.labels}}
                 pull: true
                 push: true

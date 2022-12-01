@@ -34,18 +34,15 @@
 - name: jdk:11-debian-11
   also:
     - jdk:11
-- name: jdk:11-pagoda
-  also: []
+    - jdk:11-pagoda
 - name: jdk:17-debian-11
   also:
     - jdk:17
-- name: jdk:17-pagoda
-  also: []
+    - jdk:17-pagoda
 - name: jdk:8-debian-11
   also:
     - jdk:8
-- name: jdk:8-pagoda
-  also: []
+    - jdk:8-pagoda
 - name: jdk:8-pagoda-cubic
   also: []
 - name: jdk:builder-11-maven-3.5-debian-11
@@ -207,11 +204,10 @@
   also:
     - tomcat:8
     - tomcat:8-jdk-11
+    - tomcat:8-pagoda
 - name: tomcat:8-jdk-8-debian-11
   also:
     - tomcat:8-jdk-8
-- name: tomcat:8-pagoda
-  also: []
 - name: tomcat:9-jdk-11-debian-11
   also:
     - tomcat:9
