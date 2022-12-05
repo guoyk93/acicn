@@ -4062,6 +4062,70 @@ jobs:
                 pull: true
                 push: true
                 tags: ${{steps.meta.outputs.tags}}
+    m_redis_7_alpine_3_16:
+        if: inputs.job_name == 'all' || contains(inputs.job_name,'m_redis_7_alpine_3_16,')
+        permissions:
+            contents: read
+            id-token: write
+            packages: read
+        runs-on: ubuntu-latest
+        steps:
+            - name: checkout
+              uses: actions/checkout@v3
+            - name: setup go
+              uses: actions/setup-go@v3
+              with:
+                go-version: "1.19"
+            - name: generate out
+              run: go run -mod vendor ./cmd/acicn-build/main.go -mirror -generate 'redis:7-alpine-3.16'
+            - name: setup docker buildx
+              uses: docker/setup-buildx-action@v2
+            - name: docker login - ghcr
+              uses: docker/login-action@v2
+              with:
+                password: ${{secrets.GITHUB_TOKEN}}
+                registry: ghcr.io
+                username: ${{github.actor}}
+            - name: docker login - coding registry
+              uses: docker/login-action@v2
+              with:
+                password: ${{secrets.MIRROR_CODING_PASSWORD}}
+                registry: ${{secrets.MIRROR_CODING_REGISTRY}}
+                username: ${{secrets.MIRROR_CODING_USERNAME}}
+            - name: docker login - ccr registry
+              uses: docker/login-action@v2
+              with:
+                password: ${{secrets.MIRROR_CCR_PASSWORD}}
+                registry: ccr.ccs.tencentyun.com
+                username: ${{secrets.MIRROR_CCR_USERNAME}}
+            - name: docker login - aliyun registry
+              uses: docker/login-action@v2
+              with:
+                password: ${{secrets.MIRROR_ALIYUN_PASSWORD}}
+                registry: registry.cn-shenzhen.aliyuncs.com
+                username: ${{secrets.MIRROR_ALIYUN_USERNAME}}
+            - id: meta
+              name: meta for redis:7-alpine-3.16
+              uses: docker/metadata-action@v4
+              with:
+                images: |-
+                    ${{secrets.MIRROR_CODING_REGISTRY}}/${{secrets.MIRROR_CODING_PREFIX}}/redis
+                    registry.cn-shenzhen.aliyuncs.com/acicn/redis
+                    ccr.ccs.tencentyun.com/acicn/redis
+                tags: |-
+                    type=raw,value=7-alpine-3.16
+                    type=raw,value=7
+            - id: build
+              name: build for redis:7-alpine-3.16
+              uses: docker/build-push-action@v3
+              with:
+                cache-from: type=gha
+                cache-to: type=gha,mode=max
+                context: out/redis:7-alpine-3.16
+                labels: ${{steps.meta.outputs.labels}}
+                pull: true
+                push: true
+                tags: ${{steps.meta.outputs.tags}}
     m_rocketmq_4_6_1_broker_jdk_8:
         if: inputs.job_name == 'all' || contains(inputs.job_name,'m_rocketmq_4_6_1_broker_jdk_8,')
         permissions:

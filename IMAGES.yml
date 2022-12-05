@@ -178,6 +178,9 @@
     - redis:6
     - redis:6-alpine-3.16
     - redis:6.2
+- name: redis:7-alpine-3.16
+  also:
+    - redis:7
 - name: rocketmq:4.6.1-broker-jdk-8
   also:
     - rocketmq:4.6.1-broker

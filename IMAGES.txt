@@ -114,6 +114,8 @@ redis:6.0
 redis:6.0-alpine-3.16
 redis:6.2
 redis:6.2-alpine-3.16
+redis:7
+redis:7-alpine-3.16
 rocketmq:4.6.1-broker
 rocketmq:4.6.1-broker-jdk-8
 rocketmq:4.6.1-namesrv

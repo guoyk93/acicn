@@ -3,6 +3,9 @@ vars:
   alpine-3.16:
     alpine_version: 3.16
     upstream: alpine:3.16
+  redis-7:
+    redis_version: 7
+    redis_download_url: "https://github.com/redis/redis/archive/7.0.5.tar.gz"
   redis-6.2:
     redis_version: 6.2
     redis_download_url: "https://download.redis.io/releases/redis-6.2.7.tar.gz"
@@ -13,6 +16,12 @@ vars:
     redis_version: 5
     redis_download_url: "https://download.redis.io/releases/redis-5.0.14.tar.gz"
 tags:
+  - name: 7-alpine-3.16
+    also:
+      - 7
+    vars:
+      - alpine-3.16
+      - redis-7
   - name: 6.2-alpine-3.16
     also:
       - 6-alpine-3.16
