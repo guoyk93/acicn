@@ -16,6 +16,8 @@ elasticsearch:6.3.2
 elasticsearch:6.3.2-jdk-11
 elasticsearch:6.8.18
 elasticsearch:6.8.18-jdk-11
+elasticsearch:7.17.7
+elasticsearch:7.17.7-jdk-11
 filebeat:6.3.2
 filebeat:6.3.2-debian-11
 jdk:11

@@ -28,6 +28,9 @@
 - name: elasticsearch:6.8.18-jdk-11
   also:
     - elasticsearch:6.8.18
+- name: elasticsearch:7.17.7-jdk-11
+  also:
+    - elasticsearch:7.17.7
 - name: filebeat:6.3.2-debian-11
   also:
     - filebeat:6.3.2

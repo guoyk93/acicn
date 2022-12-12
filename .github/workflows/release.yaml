@@ -602,6 +602,58 @@ jobs:
                 pull: true
                 push: ${{ inputs.push }}
                 tags: ${{steps.meta.outputs.tags}}
+    r_elasticsearch_7_17_7_jdk_11:
+        if: inputs.job_name == 'all' || contains(inputs.job_name,'r_elasticsearch_7_17_7_jdk_11,')
+        needs:
+            - r_jdk_11_debian_11
+        permissions:
+            contents: read
+            id-token: write
+            packages: write
+        runs-on: ubuntu-latest
+        steps:
+            - name: checkout
+              uses: actions/checkout@v3
+            - name: setup go
+              uses: actions/setup-go@v3
+              with:
+                go-version: "1.19"
+            - name: generate out
+              run: go run -mod vendor ./cmd/acicn-build/main.go -generate 'elasticsearch:7.17.7-jdk-11'
+            - name: setup docker buildx
+              uses: docker/setup-buildx-action@v2
+            - name: docker login - ghcr
+              uses: docker/login-action@v2
+              with:
+                password: ${{secrets.GITHUB_TOKEN}}
+                registry: ghcr.io
+                username: ${{github.actor}}
+            - name: docker login - dockerhub
+              uses: docker/login-action@v2
+              with:
+                password: ${{secrets.DOCKERHUB_TOKEN}}
+                username: guoyk
+            - id: meta
+              name: meta for elasticsearch:7.17.7-jdk-11
+              uses: docker/metadata-action@v4
+              with:
+                images: |-
+                    ghcr.io/guoyk93/acicn/elasticsearch
+                    acicn/elasticsearch
+                tags: |-
+                    type=raw,value=7.17.7-jdk-11
+                    type=raw,value=7.17.7
+            - id: build
+              name: build for elasticsearch:7.17.7-jdk-11
+              uses: docker/build-push-action@v3
+              with:
+                cache-from: type=gha
+                cache-to: type=gha,mode=max
+                context: out/elasticsearch:7.17.7-jdk-11
+                labels: ${{steps.meta.outputs.labels}}
+                pull: true
+                push: ${{ inputs.push }}
+                tags: ${{steps.meta.outputs.tags}}
     r_filebeat_6_3_2_debian_11:
         if: inputs.job_name == 'all' || contains(inputs.job_name,'r_filebeat_6_3_2_debian_11,')
         needs:
