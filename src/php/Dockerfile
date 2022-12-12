@@ -66,7 +66,6 @@ ADD scripts /opt/bin
 
 ADD {{.php_version}}/etc /etc
 
-{{if .pagoda }}
 #################################
 # BEGIN: Skywalking Agent       #
 #################################
@@ -161,7 +160,6 @@ RUN mkdir -p /opt/oracle && \
 
 RUN acicn-php-ext-install php-oci8 '{{.oci8_download_url}}' --with-oci8="shared,instantclient,$ORACLE_HOME" && \
     acicn-php-ext-activate pdo_oci --with-pdo-oci="instantclient,$ORACLE_HOME" --with-oci8="instantclient,$ORACLE_HOME"
-{{end}}
 
 COPY --from=utils-merge-env-to-ini /merge-env-to-ini /opt/bin/merge-env-to-ini
 
