@@ -20,11 +20,11 @@ var (
 )
 
 func releaseJobName(name string) string {
-	return "r_" + regexpNotSafe.ReplaceAllString(path.Base(strings.ToLower(name)), "_")
+	return "r_" + regexpNotSafe.ReplaceAllString(path.Base(strings.ToLower(name)), "_") + "_r"
 }
 
 func mirrorJobName(name string) string {
-	return "m_" + regexpNotSafe.ReplaceAllString(path.Base(strings.ToLower(name)), "_")
+	return "m_" + regexpNotSafe.ReplaceAllString(path.Base(strings.ToLower(name)), "_") + "_m"
 }
 
 func updateWorkflowMirror(repos []*acicn.Repo) (err error) {
@@ -39,7 +39,7 @@ func updateWorkflowMirror(repos []*acicn.Repo) (err error) {
 		})
 
 		job := gg.M{
-			"if":      "inputs.job_name == 'all' || contains(inputs.job_name,'" + mirrorJobName(item.Name) + ",')",
+			"if":      "inputs.job_name == 'all' || contains(inputs.job_name,'" + mirrorJobName(item.Name) + "')",
 			"runs-on": "ubuntu-latest",
 			"permissions": gg.M{
 				"contents": "read",
@@ -182,7 +182,7 @@ func updateWorkflowRelease(repos []*acicn.Repo) (err error) {
 		}
 
 		job := gg.M{
-			"if":      "inputs.job_name == 'all' || contains(inputs.job_name,'" + releaseJobName(item.Name) + ",')",
+			"if":      "inputs.job_name == 'all' || contains(inputs.job_name,'" + releaseJobName(item.Name) + "')",
 			"runs-on": "ubuntu-latest",
 			"permissions": gg.M{
 				"contents": "read",
