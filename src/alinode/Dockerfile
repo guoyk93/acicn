@@ -12,7 +12,10 @@ RUN curl -sSL -o alinode.tar.gz '{{.alinode_download_url}}' && \
     rm -rf alinode.tar.gz && \
     export ENABLE_NODE_LOG=NO && \
     npm config set registry https://registry.npmjs.org && \
-    npm install -g cnpm@{{.cnpm_version}} @alicloud/agenthub && \
+    npm config set unsafe-perm true && \
+    npm install -g cnpm@{{.cnpm_version}} @alicloud/agenthub yarn && \
+    yarn config set cache-folder $HOME/.npm/yarn && \
+    yarn config set registry https://registry.npmmirror.com && \
     npm cache clean --force && \
     mkdir -p $NODE_LOG_DIR
 
