@@ -2542,6 +2542,8 @@ jobs:
                 tags: |-
                     type=raw,value=7.4-debian-11
                     type=raw,value=7.4
+                    type=raw,value=7.4-pagoda
+                    type=raw,value=7.4-pagoda-debian-11
             - id: build
               name: build for php:7.4-debian-11
               uses: docker/build-push-action@v3
@@ -2549,59 +2551,6 @@ jobs:
                 cache-from: type=gha
                 cache-to: type=gha,mode=max
                 context: out/php:7.4-debian-11
-                labels: ${{steps.meta.outputs.labels}}
-                pull: true
-                push: ${{ inputs.push }}
-                tags: ${{steps.meta.outputs.tags}}
-    r_php_7_4_pagoda_debian_11_r:
-        if: inputs.job_name == 'all' || contains(inputs.job_name,'r_php_7_4_pagoda_debian_11_r')
-        needs:
-            - r_debian_11_r
-            - r_nginx_alpine_3_16_r
-        permissions:
-            contents: read
-            id-token: write
-            packages: write
-        runs-on: ubuntu-latest
-        steps:
-            - name: checkout
-              uses: actions/checkout@v3
-            - name: setup go
-              uses: actions/setup-go@v3
-              with:
-                go-version: "1.19"
-            - name: generate out
-              run: go run -mod vendor ./cmd/acicn-build/main.go -generate 'php:7.4-pagoda-debian-11'
-            - name: setup docker buildx
-              uses: docker/setup-buildx-action@v2
-            - name: docker login - ghcr
-              uses: docker/login-action@v2
-              with:
-                password: ${{secrets.GITHUB_TOKEN}}
-                registry: ghcr.io
-                username: ${{github.actor}}
-            - name: docker login - dockerhub
-              uses: docker/login-action@v2
-              with:
-                password: ${{secrets.DOCKERHUB_TOKEN}}
-                username: guoyk
-            - id: meta
-              name: meta for php:7.4-pagoda-debian-11
-              uses: docker/metadata-action@v4
-              with:
-                images: |-
-                    ghcr.io/guoyk93/acicn/php
-                    acicn/php
-                tags: |-
-                    type=raw,value=7.4-pagoda-debian-11
-                    type=raw,value=7.4-pagoda
-            - id: build
-              name: build for php:7.4-pagoda-debian-11
-              uses: docker/build-push-action@v3
-              with:
-                cache-from: type=gha
-                cache-to: type=gha,mode=max
-                context: out/php:7.4-pagoda-debian-11
                 labels: ${{steps.meta.outputs.labels}}
                 pull: true
                 push: ${{ inputs.push }}

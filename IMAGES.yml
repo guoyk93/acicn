@@ -139,9 +139,8 @@
 - name: php:7.4-debian-11
   also:
     - php:7.4
-- name: php:7.4-pagoda-debian-11
-  also:
     - php:7.4-pagoda
+    - php:7.4-pagoda-debian-11
 - name: postgres:10.15
   also: []
 - name: postgres:11.10
