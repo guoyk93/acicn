@@ -83,6 +83,8 @@
 - name: kafka:2.8
   also:
     - kafka:latest
+- name: kibana:7.17.7
+  also: []
 - name: mongo:3.6
   also: []
 - name: mongo:4.0

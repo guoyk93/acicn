@@ -1488,6 +1488,54 @@ jobs:
                 pull: true
                 push: ${{ inputs.push }}
                 tags: ${{steps.meta.outputs.tags}}
+    r_kibana_7_17_7_r:
+        if: inputs.job_name == 'all' || contains(inputs.job_name,'r_kibana_7_17_7_r')
+        permissions:
+            contents: read
+            id-token: write
+            packages: write
+        runs-on: ubuntu-latest
+        steps:
+            - name: checkout
+              uses: actions/checkout@v3
+            - name: setup go
+              uses: actions/setup-go@v3
+              with:
+                go-version: "1.19"
+            - name: generate out
+              run: go run -mod vendor ./cmd/acicn-build/main.go -generate 'kibana:7.17.7'
+            - name: setup docker buildx
+              uses: docker/setup-buildx-action@v2
+            - name: docker login - ghcr
+              uses: docker/login-action@v2
+              with:
+                password: ${{secrets.GITHUB_TOKEN}}
+                registry: ghcr.io
+                username: ${{github.actor}}
+            - name: docker login - dockerhub
+              uses: docker/login-action@v2
+              with:
+                password: ${{secrets.DOCKERHUB_TOKEN}}
+                username: guoyk
+            - id: meta
+              name: meta for kibana:7.17.7
+              uses: docker/metadata-action@v4
+              with:
+                images: |-
+                    ghcr.io/guoyk93/acicn/kibana
+                    acicn/kibana
+                tags: type=raw,value=7.17.7
+            - id: build
+              name: build for kibana:7.17.7
+              uses: docker/build-push-action@v3
+              with:
+                cache-from: type=gha
+                cache-to: type=gha,mode=max
+                context: out/kibana:7.17.7
+                labels: ${{steps.meta.outputs.labels}}
+                pull: ${{ inputs.force_pull }}
+                push: ${{ inputs.push }}
+                tags: ${{steps.meta.outputs.tags}}
     r_mongo_3_6_r:
         if: inputs.job_name == 'all' || contains(inputs.job_name,'r_mongo_3_6_r')
         permissions:

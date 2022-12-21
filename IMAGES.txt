@@ -54,6 +54,7 @@ kafka:2.1
 kafka:2.4
 kafka:2.8
 kafka:latest
+kibana:7.17.7
 mongo:3.6
 mongo:4.0
 mongo:4.2
