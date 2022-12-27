@@ -171,9 +171,7 @@ ADD minit.d /etc/minit.d
 ADD index.php /var/www/public/index.php
 ADD php.conf /etc/nginx/default.conf.d/php.conf
 
-{{if .pagoda}}
-ADD pagoda/etc /etc
-{{end}}
+ADD {{.php_version}}/extra/etc /etc
 
 ENV NGXCFG_DEFAULT_EXTRA_INDEX index.php
 ENV NGXCFG_SNIPPETS_ENABLE_SPA true
