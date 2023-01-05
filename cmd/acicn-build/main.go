@@ -157,8 +157,13 @@ func updateWorkflowMirror(repos []*acicn.Repo) (err error) {
 	return
 }
 
-func updateWorkflowRelease(repos []*acicn.Repo) (err error) {
+func updateWorkflowRelease(repos []*acicn.Repo, noDep bool) (err error) {
 	defer gg.Guard(&err)
+
+	var soloSuffix string
+	if noDep {
+		soloSuffix = "-nodep"
+	}
 
 	jobs := gg.M{}
 
@@ -267,7 +272,7 @@ func updateWorkflowRelease(repos []*acicn.Repo) (err error) {
 
 		sort.Strings(needs)
 
-		if len(needs) > 0 {
+		if len(needs) > 0 && !noDep {
 			job["needs"] = needs
 		}
 
@@ -275,7 +280,7 @@ func updateWorkflowRelease(repos []*acicn.Repo) (err error) {
 	}
 
 	doc := gg.M{
-		"name": "release",
+		"name": "release" + soloSuffix,
 		"on": gg.M{
 			"workflow_dispatch": gg.M{
 				"inputs": gg.M{
@@ -302,7 +307,7 @@ func updateWorkflowRelease(repos []*acicn.Repo) (err error) {
 
 	buf := gg.Must(yaml.Marshal(doc))
 	gg.Must0(os.MkdirAll(filepath.Join(".github", "workflows"), 0755))
-	gg.Must0(os.WriteFile(filepath.Join(".github", "workflows", "release.yaml"), buf, 0640))
+	gg.Must0(os.WriteFile(filepath.Join(".github", "workflows", "release"+soloSuffix+".yaml"), buf, 0640))
 	return
 }
 
@@ -351,7 +356,8 @@ func main() {
 
 	// generate github workflow
 	if optUpdateWorkflow {
-		gg.Must0(updateWorkflowRelease(repos))
+		gg.Must0(updateWorkflowRelease(repos, false))
+		gg.Must0(updateWorkflowRelease(repos, true))
 		gg.Must0(updateWorkflowMirror(repos))
 	}
 
