@@ -92,7 +92,7 @@ RUN acicn-php-ext-install php-skywalking-agent 'https://github.com/apache/skywal
 
 # SW_APP_CODE is skywalking_agent.service_name
 ENV SW_APP_CODE             "demo"
-ENV SW_ENABLE               "1"
+ENV SW_ENABLE               "0"
 ENV SW_LOG_FILE             "/var/log/skywalking-agent.log"
 ENV SW_LOG_LEVEL            "INFO"
 ENV SW_OAP_ADDRESS          "skywalking-oap:11800"
