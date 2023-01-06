@@ -121,9 +121,9 @@ func updateWorkflowMirror(repos []*acicn.Repo, opts WorkflowMirrorOptions) (err 
 					"uses": "docker/metadata-action@v4",
 					"with": gg.M{
 						"images": strings.Join([]string{
-							"${{secrets.MIRROR_CODING_REGISTRY}}/${{secrets.MIRROR_CODING_PREFIX}}/" + item.Repo,
-							"registry.cn-shenzhen.aliyuncs.com/acicn/" + item.Repo,
 							"ccr.ccs.tencentyun.com/acicn/" + item.Repo,
+							"registry.cn-shenzhen.aliyuncs.com/acicn/" + item.Repo,
+							"${{secrets.MIRROR_CODING_REGISTRY}}/${{secrets.MIRROR_CODING_PREFIX}}/" + item.Repo,
 						}, "\n"),
 						"tags": strings.Join(tags, "\n"),
 					},
