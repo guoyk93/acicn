@@ -18,6 +18,3 @@ banner.minit.txt
 
 # GoLand
 .idea/
-
-# Output
-/out/

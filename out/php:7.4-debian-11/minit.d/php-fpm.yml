@@ -1,0 +1,42 @@
+name: php-fpm-update-php-ini
+kind: once
+command:
+  - merge-env-to-ini
+  - --from
+  - PHPCFG_PHP_INI_
+  - --to 
+  - $PHPCFG_PATH_PHP_INI
+---
+name: php-fpm-update-php-fpm-conf
+kind: once
+command:
+  - merge-env-to-ini
+  - --from 
+  - PHPCFG_PHP_FPM_CONF_
+  - --to 
+  - $PHPCFG_PATH_PHP_FPM_CONF
+---
+name: php-fpm-update-php-fpm-www-conf
+kind: once
+command:
+  - merge-env-to-ini
+  - --from 
+  - PHPCFG_PHP_FPM_WWW_CONF_
+  - --to 
+  - $PHPCFG_PATH_PHP_FPM_WWW_CONF
+---
+name: php-fpm-mkdir
+kind: once
+command:
+  - mkdir
+  - -p
+  - /run/php
+---
+name: php-fpm
+kind: daemon
+command:
+  - php-fpm
+  - -R
+  - --nodaemonize
+  - --fpm-config
+  - /etc/php-fpm.conf

@@ -1,0 +1,13 @@
+name: render-sensordata-filebeat-config
+kind: render
+raw: true
+files:
+    - /opt/sensordata-filebeat/filebeat.yml
+---
+name: sensordata-filebeat
+kind: daemon
+dir: /opt/sensordata-filebeat
+command:
+    - "./filebeat"
+    - "-c"
+    - "filebeat.yml"

@@ -1,0 +1,12 @@
+#!/bin/bash
+
+set -eu
+
+EXT_NAME="$1"
+EXT_CONFIGURE_OPTS="${@:2}"
+
+cd /opt/src/php/ext/${EXT_NAME}
+phpize
+./configure --with-php-config=/opt/bin/php-config ${EXT_CONFIGURE_OPTS}
+make
+make install

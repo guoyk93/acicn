@@ -1,0 +1,4 @@
+name: php-skywalking-render-config
+kind: render
+files:
+  - /etc/php.d/skywalking.ini

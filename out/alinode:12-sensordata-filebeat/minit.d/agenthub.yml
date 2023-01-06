@@ -1,0 +1,12 @@
+name: agenthub
+kind: once
+shell: "/bin/bash -eu"
+dir: /opt/agenthub
+command:
+    - export ENABLE_NODE_LOG=NO
+    - node generate-config.js
+    - if [ -f config.json ]; then
+    -   exec agenthub start config.json
+    - else
+    -   echo "failed generating /opt/agenthub/config.json，check environment variable APP_ID and APP_SECRET"
+    - fi
