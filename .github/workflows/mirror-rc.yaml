@@ -5025,7 +5025,7 @@ jobs:
                 pull: true
                 push: true
                 tags: ${{steps.meta.outputs.tags}}
-name: mirror
+name: mirror-rc
 "on":
     workflow_dispatch:
         inputs:

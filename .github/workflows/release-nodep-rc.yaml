@@ -3919,7 +3919,7 @@ jobs:
                 pull: true
                 push: ${{ inputs.push }}
                 tags: ${{steps.meta.outputs.tags}}
-name: release-nodep
+name: release-nodep-rc
 "on":
     workflow_dispatch:
         inputs:

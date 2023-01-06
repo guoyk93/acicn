@@ -4046,7 +4046,7 @@ jobs:
                 pull: true
                 push: ${{ inputs.push }}
                 tags: ${{steps.meta.outputs.tags}}
-name: release
+name: release-rc
 "on":
     workflow_dispatch:
         inputs:

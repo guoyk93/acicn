@@ -145,7 +145,7 @@ func updateWorkflowMirror(repos []*acicn.Repo, opts WorkflowMirrorOptions) (err 
 	}
 
 	doc := gg.M{
-		"name": "mirror",
+		"name": "mirror" + rcSuffix,
 		"on": gg.M{
 			"workflow_dispatch": gg.M{
 				"inputs": gg.M{
@@ -298,7 +298,7 @@ func updateWorkflowRelease(repos []*acicn.Repo, opts WorkflowReleaseOptions) (er
 	}
 
 	doc := gg.M{
-		"name": "release" + soloSuffix,
+		"name": "release" + soloSuffix + rcSuffix,
 		"on": gg.M{
 			"workflow_dispatch": gg.M{
 				"inputs": gg.M{
