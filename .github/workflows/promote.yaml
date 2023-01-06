@@ -23,6 +23,11 @@ jobs:
                 password: ${{secrets.GITHUB_TOKEN}}
                 registry: ghcr.io
                 username: ${{github.actor}}
+            - name: docker login - dockerhub
+              uses: docker/login-action@v2
+              with:
+                password: ${{secrets.DOCKERHUB_TOKEN}}
+                username: guoyk
             - name: docker login - coding registry
               uses: docker/login-action@v2
               with:
@@ -46,10 +51,12 @@ jobs:
               uses: docker/metadata-action@v4
               with:
                 images: |-
+                    ghcr.io/guoyk93/acicn/activemq
+                    acicn/activemq
                     ccr.ccs.tencentyun.com/acicn/activemq
                     registry.cn-shenzhen.aliyuncs.com/acicn/activemq
                     ${{secrets.MIRROR_CODING_REGISTRY}}/${{secrets.MIRROR_CODING_PREFIX}}/activemq
-                tags: type=raw,value=5.15-jdk-8-rc
+                tags: type=raw,value=5.15-jdk-8
             - id: build
               name: build for activemq:5.15-jdk-8
               uses: docker/build-push-action@v3
@@ -85,6 +92,11 @@ jobs:
                 password: ${{secrets.GITHUB_TOKEN}}
                 registry: ghcr.io
                 username: ${{github.actor}}
+            - name: docker login - dockerhub
+              uses: docker/login-action@v2
+              with:
+                password: ${{secrets.DOCKERHUB_TOKEN}}
+                username: guoyk
             - name: docker login - coding registry
               uses: docker/login-action@v2
               with:
@@ -108,12 +120,14 @@ jobs:
               uses: docker/metadata-action@v4
               with:
                 images: |-
+                    ghcr.io/guoyk93/acicn/activemq
+                    acicn/activemq
                     ccr.ccs.tencentyun.com/acicn/activemq
                     registry.cn-shenzhen.aliyuncs.com/acicn/activemq
                     ${{secrets.MIRROR_CODING_REGISTRY}}/${{secrets.MIRROR_CODING_PREFIX}}/activemq
                 tags: |-
-                    type=raw,value=5.15-jdk-11-rc
-                    type=raw,value=5.15-rc
+                    type=raw,value=5.15-jdk-11
+                    type=raw,value=5.15
             - id: build
               name: build for activemq:5.15-jdk-11
               uses: docker/build-push-action@v3
@@ -149,6 +163,11 @@ jobs:
                 password: ${{secrets.GITHUB_TOKEN}}
                 registry: ghcr.io
                 username: ${{github.actor}}
+            - name: docker login - dockerhub
+              uses: docker/login-action@v2
+              with:
+                password: ${{secrets.DOCKERHUB_TOKEN}}
+                username: guoyk
             - name: docker login - coding registry
               uses: docker/login-action@v2
               with:
@@ -172,10 +191,12 @@ jobs:
               uses: docker/metadata-action@v4
               with:
                 images: |-
+                    ghcr.io/guoyk93/acicn/alinode
+                    acicn/alinode
                     ccr.ccs.tencentyun.com/acicn/alinode
                     registry.cn-shenzhen.aliyuncs.com/acicn/alinode
                     ${{secrets.MIRROR_CODING_REGISTRY}}/${{secrets.MIRROR_CODING_PREFIX}}/alinode
-                tags: type=raw,value=12-sensordata-filebeat-rc
+                tags: type=raw,value=12-sensordata-filebeat
             - id: build
               name: build for alinode:12-sensordata-filebeat
               uses: docker/build-push-action@v3
@@ -211,6 +232,11 @@ jobs:
                 password: ${{secrets.GITHUB_TOKEN}}
                 registry: ghcr.io
                 username: ${{github.actor}}
+            - name: docker login - dockerhub
+              uses: docker/login-action@v2
+              with:
+                password: ${{secrets.DOCKERHUB_TOKEN}}
+                username: guoyk
             - name: docker login - coding registry
               uses: docker/login-action@v2
               with:
@@ -234,10 +260,12 @@ jobs:
               uses: docker/metadata-action@v4
               with:
                 images: |-
+                    ghcr.io/guoyk93/acicn/alinode
+                    acicn/alinode
                     ccr.ccs.tencentyun.com/acicn/alinode
                     registry.cn-shenzhen.aliyuncs.com/acicn/alinode
                     ${{secrets.MIRROR_CODING_REGISTRY}}/${{secrets.MIRROR_CODING_PREFIX}}/alinode
-                tags: type=raw,value=16-sensordata-filebeat-rc
+                tags: type=raw,value=16-sensordata-filebeat
             - id: build
               name: build for alinode:16-sensordata-filebeat
               uses: docker/build-push-action@v3
@@ -273,6 +301,11 @@ jobs:
                 password: ${{secrets.GITHUB_TOKEN}}
                 registry: ghcr.io
                 username: ${{github.actor}}
+            - name: docker login - dockerhub
+              uses: docker/login-action@v2
+              with:
+                password: ${{secrets.DOCKERHUB_TOKEN}}
+                username: guoyk
             - name: docker login - coding registry
               uses: docker/login-action@v2
               with:
@@ -296,10 +329,12 @@ jobs:
               uses: docker/metadata-action@v4
               with:
                 images: |-
+                    ghcr.io/guoyk93/acicn/alpine
+                    acicn/alpine
                     ccr.ccs.tencentyun.com/acicn/alpine
                     registry.cn-shenzhen.aliyuncs.com/acicn/alpine
                     ${{secrets.MIRROR_CODING_REGISTRY}}/${{secrets.MIRROR_CODING_PREFIX}}/alpine
-                tags: type=raw,value=3.16-rc
+                tags: type=raw,value=3.16
             - id: build
               name: build for alpine:3.16
               uses: docker/build-push-action@v3
@@ -335,6 +370,11 @@ jobs:
                 password: ${{secrets.GITHUB_TOKEN}}
                 registry: ghcr.io
                 username: ${{github.actor}}
+            - name: docker login - dockerhub
+              uses: docker/login-action@v2
+              with:
+                password: ${{secrets.DOCKERHUB_TOKEN}}
+                username: guoyk
             - name: docker login - coding registry
               uses: docker/login-action@v2
               with:
@@ -358,10 +398,12 @@ jobs:
               uses: docker/metadata-action@v4
               with:
                 images: |-
+                    ghcr.io/guoyk93/acicn/alpine
+                    acicn/alpine
                     ccr.ccs.tencentyun.com/acicn/alpine
                     registry.cn-shenzhen.aliyuncs.com/acicn/alpine
                     ${{secrets.MIRROR_CODING_REGISTRY}}/${{secrets.MIRROR_CODING_PREFIX}}/alpine
-                tags: type=raw,value=3.16-no-minit-rc
+                tags: type=raw,value=3.16-no-minit
             - id: build
               name: build for alpine:3.16-no-minit
               uses: docker/build-push-action@v3
@@ -397,6 +439,11 @@ jobs:
                 password: ${{secrets.GITHUB_TOKEN}}
                 registry: ghcr.io
                 username: ${{github.actor}}
+            - name: docker login - dockerhub
+              uses: docker/login-action@v2
+              with:
+                password: ${{secrets.DOCKERHUB_TOKEN}}
+                username: guoyk
             - name: docker login - coding registry
               uses: docker/login-action@v2
               with:
@@ -420,12 +467,14 @@ jobs:
               uses: docker/metadata-action@v4
               with:
                 images: |-
+                    ghcr.io/guoyk93/acicn/apollo
+                    acicn/apollo
                     ccr.ccs.tencentyun.com/acicn/apollo
                     registry.cn-shenzhen.aliyuncs.com/acicn/apollo
                     ${{secrets.MIRROR_CODING_REGISTRY}}/${{secrets.MIRROR_CODING_PREFIX}}/apollo
                 tags: |-
-                    type=raw,value=1.3.0-jdk-11-rc
-                    type=raw,value=1.3.0-rc
+                    type=raw,value=1.3.0-jdk-11
+                    type=raw,value=1.3.0
             - id: build
               name: build for apollo:1.3.0-jdk-11
               uses: docker/build-push-action@v3
@@ -461,6 +510,11 @@ jobs:
                 password: ${{secrets.GITHUB_TOKEN}}
                 registry: ghcr.io
                 username: ${{github.actor}}
+            - name: docker login - dockerhub
+              uses: docker/login-action@v2
+              with:
+                password: ${{secrets.DOCKERHUB_TOKEN}}
+                username: guoyk
             - name: docker login - coding registry
               uses: docker/login-action@v2
               with:
@@ -484,13 +538,15 @@ jobs:
               uses: docker/metadata-action@v4
               with:
                 images: |-
+                    ghcr.io/guoyk93/acicn/beanstalk
+                    acicn/beanstalk
                     ccr.ccs.tencentyun.com/acicn/beanstalk
                     registry.cn-shenzhen.aliyuncs.com/acicn/beanstalk
                     ${{secrets.MIRROR_CODING_REGISTRY}}/${{secrets.MIRROR_CODING_PREFIX}}/beanstalk
                 tags: |-
-                    type=raw,value=1-alpine-3.16-rc
-                    type=raw,value=1-rc
-                    type=raw,value=latest-rc
+                    type=raw,value=1-alpine-3.16
+                    type=raw,value=1
+                    type=raw,value=latest
             - id: build
               name: build for beanstalk:1-alpine-3.16
               uses: docker/build-push-action@v3
@@ -526,6 +582,11 @@ jobs:
                 password: ${{secrets.GITHUB_TOKEN}}
                 registry: ghcr.io
                 username: ${{github.actor}}
+            - name: docker login - dockerhub
+              uses: docker/login-action@v2
+              with:
+                password: ${{secrets.DOCKERHUB_TOKEN}}
+                username: guoyk
             - name: docker login - coding registry
               uses: docker/login-action@v2
               with:
@@ -549,10 +610,12 @@ jobs:
               uses: docker/metadata-action@v4
               with:
                 images: |-
+                    ghcr.io/guoyk93/acicn/debian
+                    acicn/debian
                     ccr.ccs.tencentyun.com/acicn/debian
                     registry.cn-shenzhen.aliyuncs.com/acicn/debian
                     ${{secrets.MIRROR_CODING_REGISTRY}}/${{secrets.MIRROR_CODING_PREFIX}}/debian
-                tags: type=raw,value=11-rc
+                tags: type=raw,value=11
             - id: build
               name: build for debian:11
               uses: docker/build-push-action@v3
@@ -588,6 +651,11 @@ jobs:
                 password: ${{secrets.GITHUB_TOKEN}}
                 registry: ghcr.io
                 username: ${{github.actor}}
+            - name: docker login - dockerhub
+              uses: docker/login-action@v2
+              with:
+                password: ${{secrets.DOCKERHUB_TOKEN}}
+                username: guoyk
             - name: docker login - coding registry
               uses: docker/login-action@v2
               with:
@@ -611,10 +679,12 @@ jobs:
               uses: docker/metadata-action@v4
               with:
                 images: |-
+                    ghcr.io/guoyk93/acicn/debian
+                    acicn/debian
                     ccr.ccs.tencentyun.com/acicn/debian
                     registry.cn-shenzhen.aliyuncs.com/acicn/debian
                     ${{secrets.MIRROR_CODING_REGISTRY}}/${{secrets.MIRROR_CODING_PREFIX}}/debian
-                tags: type=raw,value=11-no-minit-rc
+                tags: type=raw,value=11-no-minit
             - id: build
               name: build for debian:11-no-minit
               uses: docker/build-push-action@v3
@@ -650,6 +720,11 @@ jobs:
                 password: ${{secrets.GITHUB_TOKEN}}
                 registry: ghcr.io
                 username: ${{github.actor}}
+            - name: docker login - dockerhub
+              uses: docker/login-action@v2
+              with:
+                password: ${{secrets.DOCKERHUB_TOKEN}}
+                username: guoyk
             - name: docker login - coding registry
               uses: docker/login-action@v2
               with:
@@ -673,12 +748,14 @@ jobs:
               uses: docker/metadata-action@v4
               with:
                 images: |-
+                    ghcr.io/guoyk93/acicn/elasticsearch
+                    acicn/elasticsearch
                     ccr.ccs.tencentyun.com/acicn/elasticsearch
                     registry.cn-shenzhen.aliyuncs.com/acicn/elasticsearch
                     ${{secrets.MIRROR_CODING_REGISTRY}}/${{secrets.MIRROR_CODING_PREFIX}}/elasticsearch
                 tags: |-
-                    type=raw,value=6.3.2-jdk-11-rc
-                    type=raw,value=6.3.2-rc
+                    type=raw,value=6.3.2-jdk-11
+                    type=raw,value=6.3.2
             - id: build
               name: build for elasticsearch:6.3.2-jdk-11
               uses: docker/build-push-action@v3
@@ -714,6 +791,11 @@ jobs:
                 password: ${{secrets.GITHUB_TOKEN}}
                 registry: ghcr.io
                 username: ${{github.actor}}
+            - name: docker login - dockerhub
+              uses: docker/login-action@v2
+              with:
+                password: ${{secrets.DOCKERHUB_TOKEN}}
+                username: guoyk
             - name: docker login - coding registry
               uses: docker/login-action@v2
               with:
@@ -737,12 +819,14 @@ jobs:
               uses: docker/metadata-action@v4
               with:
                 images: |-
+                    ghcr.io/guoyk93/acicn/elasticsearch
+                    acicn/elasticsearch
                     ccr.ccs.tencentyun.com/acicn/elasticsearch
                     registry.cn-shenzhen.aliyuncs.com/acicn/elasticsearch
                     ${{secrets.MIRROR_CODING_REGISTRY}}/${{secrets.MIRROR_CODING_PREFIX}}/elasticsearch
                 tags: |-
-                    type=raw,value=6.8.18-jdk-11-rc
-                    type=raw,value=6.8.18-rc
+                    type=raw,value=6.8.18-jdk-11
+                    type=raw,value=6.8.18
             - id: build
               name: build for elasticsearch:6.8.18-jdk-11
               uses: docker/build-push-action@v3
@@ -778,6 +862,11 @@ jobs:
                 password: ${{secrets.GITHUB_TOKEN}}
                 registry: ghcr.io
                 username: ${{github.actor}}
+            - name: docker login - dockerhub
+              uses: docker/login-action@v2
+              with:
+                password: ${{secrets.DOCKERHUB_TOKEN}}
+                username: guoyk
             - name: docker login - coding registry
               uses: docker/login-action@v2
               with:
@@ -801,12 +890,14 @@ jobs:
               uses: docker/metadata-action@v4
               with:
                 images: |-
+                    ghcr.io/guoyk93/acicn/elasticsearch
+                    acicn/elasticsearch
                     ccr.ccs.tencentyun.com/acicn/elasticsearch
                     registry.cn-shenzhen.aliyuncs.com/acicn/elasticsearch
                     ${{secrets.MIRROR_CODING_REGISTRY}}/${{secrets.MIRROR_CODING_PREFIX}}/elasticsearch
                 tags: |-
-                    type=raw,value=7.17.7-jdk-11-rc
-                    type=raw,value=7.17.7-rc
+                    type=raw,value=7.17.7-jdk-11
+                    type=raw,value=7.17.7
             - id: build
               name: build for elasticsearch:7.17.7-jdk-11
               uses: docker/build-push-action@v3
@@ -842,6 +933,11 @@ jobs:
                 password: ${{secrets.GITHUB_TOKEN}}
                 registry: ghcr.io
                 username: ${{github.actor}}
+            - name: docker login - dockerhub
+              uses: docker/login-action@v2
+              with:
+                password: ${{secrets.DOCKERHUB_TOKEN}}
+                username: guoyk
             - name: docker login - coding registry
               uses: docker/login-action@v2
               with:
@@ -865,12 +961,14 @@ jobs:
               uses: docker/metadata-action@v4
               with:
                 images: |-
+                    ghcr.io/guoyk93/acicn/filebeat
+                    acicn/filebeat
                     ccr.ccs.tencentyun.com/acicn/filebeat
                     registry.cn-shenzhen.aliyuncs.com/acicn/filebeat
                     ${{secrets.MIRROR_CODING_REGISTRY}}/${{secrets.MIRROR_CODING_PREFIX}}/filebeat
                 tags: |-
-                    type=raw,value=6.3.2-debian-11-rc
-                    type=raw,value=6.3.2-rc
+                    type=raw,value=6.3.2-debian-11
+                    type=raw,value=6.3.2
             - id: build
               name: build for filebeat:6.3.2-debian-11
               uses: docker/build-push-action@v3
@@ -906,6 +1004,11 @@ jobs:
                 password: ${{secrets.GITHUB_TOKEN}}
                 registry: ghcr.io
                 username: ${{github.actor}}
+            - name: docker login - dockerhub
+              uses: docker/login-action@v2
+              with:
+                password: ${{secrets.DOCKERHUB_TOKEN}}
+                username: guoyk
             - name: docker login - coding registry
               uses: docker/login-action@v2
               with:
@@ -929,12 +1032,14 @@ jobs:
               uses: docker/metadata-action@v4
               with:
                 images: |-
+                    ghcr.io/guoyk93/acicn/jdk
+                    acicn/jdk
                     ccr.ccs.tencentyun.com/acicn/jdk
                     registry.cn-shenzhen.aliyuncs.com/acicn/jdk
                     ${{secrets.MIRROR_CODING_REGISTRY}}/${{secrets.MIRROR_CODING_PREFIX}}/jdk
                 tags: |-
-                    type=raw,value=8-cubic-rc
-                    type=raw,value=8-pagoda-cubic-rc
+                    type=raw,value=8-cubic
+                    type=raw,value=8-pagoda-cubic
             - id: build
               name: build for jdk:8-cubic
               uses: docker/build-push-action@v3
@@ -970,6 +1075,11 @@ jobs:
                 password: ${{secrets.GITHUB_TOKEN}}
                 registry: ghcr.io
                 username: ${{github.actor}}
+            - name: docker login - dockerhub
+              uses: docker/login-action@v2
+              with:
+                password: ${{secrets.DOCKERHUB_TOKEN}}
+                username: guoyk
             - name: docker login - coding registry
               uses: docker/login-action@v2
               with:
@@ -993,13 +1103,15 @@ jobs:
               uses: docker/metadata-action@v4
               with:
                 images: |-
+                    ghcr.io/guoyk93/acicn/jdk
+                    acicn/jdk
                     ccr.ccs.tencentyun.com/acicn/jdk
                     registry.cn-shenzhen.aliyuncs.com/acicn/jdk
                     ${{secrets.MIRROR_CODING_REGISTRY}}/${{secrets.MIRROR_CODING_PREFIX}}/jdk
                 tags: |-
-                    type=raw,value=8-debian-11-rc
-                    type=raw,value=8-rc
-                    type=raw,value=8-pagoda-rc
+                    type=raw,value=8-debian-11
+                    type=raw,value=8
+                    type=raw,value=8-pagoda
             - id: build
               name: build for jdk:8-debian-11
               uses: docker/build-push-action@v3
@@ -1035,6 +1147,11 @@ jobs:
                 password: ${{secrets.GITHUB_TOKEN}}
                 registry: ghcr.io
                 username: ${{github.actor}}
+            - name: docker login - dockerhub
+              uses: docker/login-action@v2
+              with:
+                password: ${{secrets.DOCKERHUB_TOKEN}}
+                username: guoyk
             - name: docker login - coding registry
               uses: docker/login-action@v2
               with:
@@ -1058,13 +1175,15 @@ jobs:
               uses: docker/metadata-action@v4
               with:
                 images: |-
+                    ghcr.io/guoyk93/acicn/jdk
+                    acicn/jdk
                     ccr.ccs.tencentyun.com/acicn/jdk
                     registry.cn-shenzhen.aliyuncs.com/acicn/jdk
                     ${{secrets.MIRROR_CODING_REGISTRY}}/${{secrets.MIRROR_CODING_PREFIX}}/jdk
                 tags: |-
-                    type=raw,value=11-debian-11-rc
-                    type=raw,value=11-rc
-                    type=raw,value=11-pagoda-rc
+                    type=raw,value=11-debian-11
+                    type=raw,value=11
+                    type=raw,value=11-pagoda
             - id: build
               name: build for jdk:11-debian-11
               uses: docker/build-push-action@v3
@@ -1100,6 +1219,11 @@ jobs:
                 password: ${{secrets.GITHUB_TOKEN}}
                 registry: ghcr.io
                 username: ${{github.actor}}
+            - name: docker login - dockerhub
+              uses: docker/login-action@v2
+              with:
+                password: ${{secrets.DOCKERHUB_TOKEN}}
+                username: guoyk
             - name: docker login - coding registry
               uses: docker/login-action@v2
               with:
@@ -1123,13 +1247,15 @@ jobs:
               uses: docker/metadata-action@v4
               with:
                 images: |-
+                    ghcr.io/guoyk93/acicn/jdk
+                    acicn/jdk
                     ccr.ccs.tencentyun.com/acicn/jdk
                     registry.cn-shenzhen.aliyuncs.com/acicn/jdk
                     ${{secrets.MIRROR_CODING_REGISTRY}}/${{secrets.MIRROR_CODING_PREFIX}}/jdk
                 tags: |-
-                    type=raw,value=17-debian-11-rc
-                    type=raw,value=17-rc
-                    type=raw,value=17-pagoda-rc
+                    type=raw,value=17-debian-11
+                    type=raw,value=17
+                    type=raw,value=17-pagoda
             - id: build
               name: build for jdk:17-debian-11
               uses: docker/build-push-action@v3
@@ -1165,6 +1291,11 @@ jobs:
                 password: ${{secrets.GITHUB_TOKEN}}
                 registry: ghcr.io
                 username: ${{github.actor}}
+            - name: docker login - dockerhub
+              uses: docker/login-action@v2
+              with:
+                password: ${{secrets.DOCKERHUB_TOKEN}}
+                username: guoyk
             - name: docker login - coding registry
               uses: docker/login-action@v2
               with:
@@ -1188,12 +1319,14 @@ jobs:
               uses: docker/metadata-action@v4
               with:
                 images: |-
+                    ghcr.io/guoyk93/acicn/jdk
+                    acicn/jdk
                     ccr.ccs.tencentyun.com/acicn/jdk
                     registry.cn-shenzhen.aliyuncs.com/acicn/jdk
                     ${{secrets.MIRROR_CODING_REGISTRY}}/${{secrets.MIRROR_CODING_PREFIX}}/jdk
                 tags: |-
-                    type=raw,value=builder-8-maven-3.5-debian-11-rc
-                    type=raw,value=builder-8-maven-3.5-rc
+                    type=raw,value=builder-8-maven-3.5-debian-11
+                    type=raw,value=builder-8-maven-3.5
             - id: build
               name: build for jdk:builder-8-maven-3.5-debian-11
               uses: docker/build-push-action@v3
@@ -1229,6 +1362,11 @@ jobs:
                 password: ${{secrets.GITHUB_TOKEN}}
                 registry: ghcr.io
                 username: ${{github.actor}}
+            - name: docker login - dockerhub
+              uses: docker/login-action@v2
+              with:
+                password: ${{secrets.DOCKERHUB_TOKEN}}
+                username: guoyk
             - name: docker login - coding registry
               uses: docker/login-action@v2
               with:
@@ -1252,13 +1390,15 @@ jobs:
               uses: docker/metadata-action@v4
               with:
                 images: |-
+                    ghcr.io/guoyk93/acicn/jdk
+                    acicn/jdk
                     ccr.ccs.tencentyun.com/acicn/jdk
                     registry.cn-shenzhen.aliyuncs.com/acicn/jdk
                     ${{secrets.MIRROR_CODING_REGISTRY}}/${{secrets.MIRROR_CODING_PREFIX}}/jdk
                 tags: |-
-                    type=raw,value=builder-8-maven-3.6-debian-11-rc
-                    type=raw,value=builder-8-maven-3.6-rc
-                    type=raw,value=builder-8-rc
+                    type=raw,value=builder-8-maven-3.6-debian-11
+                    type=raw,value=builder-8-maven-3.6
+                    type=raw,value=builder-8
             - id: build
               name: build for jdk:builder-8-maven-3.6-debian-11
               uses: docker/build-push-action@v3
@@ -1294,6 +1434,11 @@ jobs:
                 password: ${{secrets.GITHUB_TOKEN}}
                 registry: ghcr.io
                 username: ${{github.actor}}
+            - name: docker login - dockerhub
+              uses: docker/login-action@v2
+              with:
+                password: ${{secrets.DOCKERHUB_TOKEN}}
+                username: guoyk
             - name: docker login - coding registry
               uses: docker/login-action@v2
               with:
@@ -1317,12 +1462,14 @@ jobs:
               uses: docker/metadata-action@v4
               with:
                 images: |-
+                    ghcr.io/guoyk93/acicn/jdk
+                    acicn/jdk
                     ccr.ccs.tencentyun.com/acicn/jdk
                     registry.cn-shenzhen.aliyuncs.com/acicn/jdk
                     ${{secrets.MIRROR_CODING_REGISTRY}}/${{secrets.MIRROR_CODING_PREFIX}}/jdk
                 tags: |-
-                    type=raw,value=builder-8-maven-3.8-debian-11-rc
-                    type=raw,value=builder-8-maven-3.8-rc
+                    type=raw,value=builder-8-maven-3.8-debian-11
+                    type=raw,value=builder-8-maven-3.8
             - id: build
               name: build for jdk:builder-8-maven-3.8-debian-11
               uses: docker/build-push-action@v3
@@ -1358,6 +1505,11 @@ jobs:
                 password: ${{secrets.GITHUB_TOKEN}}
                 registry: ghcr.io
                 username: ${{github.actor}}
+            - name: docker login - dockerhub
+              uses: docker/login-action@v2
+              with:
+                password: ${{secrets.DOCKERHUB_TOKEN}}
+                username: guoyk
             - name: docker login - coding registry
               uses: docker/login-action@v2
               with:
@@ -1381,12 +1533,14 @@ jobs:
               uses: docker/metadata-action@v4
               with:
                 images: |-
+                    ghcr.io/guoyk93/acicn/jdk
+                    acicn/jdk
                     ccr.ccs.tencentyun.com/acicn/jdk
                     registry.cn-shenzhen.aliyuncs.com/acicn/jdk
                     ${{secrets.MIRROR_CODING_REGISTRY}}/${{secrets.MIRROR_CODING_PREFIX}}/jdk
                 tags: |-
-                    type=raw,value=builder-11-maven-3.5-debian-11-rc
-                    type=raw,value=builder-11-maven-3.5-rc
+                    type=raw,value=builder-11-maven-3.5-debian-11
+                    type=raw,value=builder-11-maven-3.5
             - id: build
               name: build for jdk:builder-11-maven-3.5-debian-11
               uses: docker/build-push-action@v3
@@ -1422,6 +1576,11 @@ jobs:
                 password: ${{secrets.GITHUB_TOKEN}}
                 registry: ghcr.io
                 username: ${{github.actor}}
+            - name: docker login - dockerhub
+              uses: docker/login-action@v2
+              with:
+                password: ${{secrets.DOCKERHUB_TOKEN}}
+                username: guoyk
             - name: docker login - coding registry
               uses: docker/login-action@v2
               with:
@@ -1445,12 +1604,14 @@ jobs:
               uses: docker/metadata-action@v4
               with:
                 images: |-
+                    ghcr.io/guoyk93/acicn/jdk
+                    acicn/jdk
                     ccr.ccs.tencentyun.com/acicn/jdk
                     registry.cn-shenzhen.aliyuncs.com/acicn/jdk
                     ${{secrets.MIRROR_CODING_REGISTRY}}/${{secrets.MIRROR_CODING_PREFIX}}/jdk
                 tags: |-
-                    type=raw,value=builder-11-maven-3.6-debian-11-rc
-                    type=raw,value=builder-11-maven-3.6-rc
+                    type=raw,value=builder-11-maven-3.6-debian-11
+                    type=raw,value=builder-11-maven-3.6
             - id: build
               name: build for jdk:builder-11-maven-3.6-debian-11
               uses: docker/build-push-action@v3
@@ -1486,6 +1647,11 @@ jobs:
                 password: ${{secrets.GITHUB_TOKEN}}
                 registry: ghcr.io
                 username: ${{github.actor}}
+            - name: docker login - dockerhub
+              uses: docker/login-action@v2
+              with:
+                password: ${{secrets.DOCKERHUB_TOKEN}}
+                username: guoyk
             - name: docker login - coding registry
               uses: docker/login-action@v2
               with:
@@ -1509,13 +1675,15 @@ jobs:
               uses: docker/metadata-action@v4
               with:
                 images: |-
+                    ghcr.io/guoyk93/acicn/jdk
+                    acicn/jdk
                     ccr.ccs.tencentyun.com/acicn/jdk
                     registry.cn-shenzhen.aliyuncs.com/acicn/jdk
                     ${{secrets.MIRROR_CODING_REGISTRY}}/${{secrets.MIRROR_CODING_PREFIX}}/jdk
                 tags: |-
-                    type=raw,value=builder-11-maven-3.8-debian-11-rc
-                    type=raw,value=builder-11-maven-3.8-rc
-                    type=raw,value=builder-11-rc
+                    type=raw,value=builder-11-maven-3.8-debian-11
+                    type=raw,value=builder-11-maven-3.8
+                    type=raw,value=builder-11
             - id: build
               name: build for jdk:builder-11-maven-3.8-debian-11
               uses: docker/build-push-action@v3
@@ -1551,6 +1719,11 @@ jobs:
                 password: ${{secrets.GITHUB_TOKEN}}
                 registry: ghcr.io
                 username: ${{github.actor}}
+            - name: docker login - dockerhub
+              uses: docker/login-action@v2
+              with:
+                password: ${{secrets.DOCKERHUB_TOKEN}}
+                username: guoyk
             - name: docker login - coding registry
               uses: docker/login-action@v2
               with:
@@ -1574,12 +1747,14 @@ jobs:
               uses: docker/metadata-action@v4
               with:
                 images: |-
+                    ghcr.io/guoyk93/acicn/jdk
+                    acicn/jdk
                     ccr.ccs.tencentyun.com/acicn/jdk
                     registry.cn-shenzhen.aliyuncs.com/acicn/jdk
                     ${{secrets.MIRROR_CODING_REGISTRY}}/${{secrets.MIRROR_CODING_PREFIX}}/jdk
                 tags: |-
-                    type=raw,value=builder-17-maven-3.6-debian-11-rc
-                    type=raw,value=builder-17-maven-3.6-rc
+                    type=raw,value=builder-17-maven-3.6-debian-11
+                    type=raw,value=builder-17-maven-3.6
             - id: build
               name: build for jdk:builder-17-maven-3.6-debian-11
               uses: docker/build-push-action@v3
@@ -1615,6 +1790,11 @@ jobs:
                 password: ${{secrets.GITHUB_TOKEN}}
                 registry: ghcr.io
                 username: ${{github.actor}}
+            - name: docker login - dockerhub
+              uses: docker/login-action@v2
+              with:
+                password: ${{secrets.DOCKERHUB_TOKEN}}
+                username: guoyk
             - name: docker login - coding registry
               uses: docker/login-action@v2
               with:
@@ -1638,13 +1818,15 @@ jobs:
               uses: docker/metadata-action@v4
               with:
                 images: |-
+                    ghcr.io/guoyk93/acicn/jdk
+                    acicn/jdk
                     ccr.ccs.tencentyun.com/acicn/jdk
                     registry.cn-shenzhen.aliyuncs.com/acicn/jdk
                     ${{secrets.MIRROR_CODING_REGISTRY}}/${{secrets.MIRROR_CODING_PREFIX}}/jdk
                 tags: |-
-                    type=raw,value=builder-17-maven-3.8-debian-11-rc
-                    type=raw,value=builder-17-maven-3.8-rc
-                    type=raw,value=builder-17-rc
+                    type=raw,value=builder-17-maven-3.8-debian-11
+                    type=raw,value=builder-17-maven-3.8
+                    type=raw,value=builder-17
             - id: build
               name: build for jdk:builder-17-maven-3.8-debian-11
               uses: docker/build-push-action@v3
@@ -1680,6 +1862,11 @@ jobs:
                 password: ${{secrets.GITHUB_TOKEN}}
                 registry: ghcr.io
                 username: ${{github.actor}}
+            - name: docker login - dockerhub
+              uses: docker/login-action@v2
+              with:
+                password: ${{secrets.DOCKERHUB_TOKEN}}
+                username: guoyk
             - name: docker login - coding registry
               uses: docker/login-action@v2
               with:
@@ -1703,10 +1890,12 @@ jobs:
               uses: docker/metadata-action@v4
               with:
                 images: |-
+                    ghcr.io/guoyk93/acicn/kafka
+                    acicn/kafka
                     ccr.ccs.tencentyun.com/acicn/kafka
                     registry.cn-shenzhen.aliyuncs.com/acicn/kafka
                     ${{secrets.MIRROR_CODING_REGISTRY}}/${{secrets.MIRROR_CODING_PREFIX}}/kafka
-                tags: type=raw,value=2.1-rc
+                tags: type=raw,value=2.1
             - id: build
               name: build for kafka:2.1
               uses: docker/build-push-action@v3
@@ -1742,6 +1931,11 @@ jobs:
                 password: ${{secrets.GITHUB_TOKEN}}
                 registry: ghcr.io
                 username: ${{github.actor}}
+            - name: docker login - dockerhub
+              uses: docker/login-action@v2
+              with:
+                password: ${{secrets.DOCKERHUB_TOKEN}}
+                username: guoyk
             - name: docker login - coding registry
               uses: docker/login-action@v2
               with:
@@ -1765,10 +1959,12 @@ jobs:
               uses: docker/metadata-action@v4
               with:
                 images: |-
+                    ghcr.io/guoyk93/acicn/kafka
+                    acicn/kafka
                     ccr.ccs.tencentyun.com/acicn/kafka
                     registry.cn-shenzhen.aliyuncs.com/acicn/kafka
                     ${{secrets.MIRROR_CODING_REGISTRY}}/${{secrets.MIRROR_CODING_PREFIX}}/kafka
-                tags: type=raw,value=2.4-rc
+                tags: type=raw,value=2.4
             - id: build
               name: build for kafka:2.4
               uses: docker/build-push-action@v3
@@ -1804,6 +2000,11 @@ jobs:
                 password: ${{secrets.GITHUB_TOKEN}}
                 registry: ghcr.io
                 username: ${{github.actor}}
+            - name: docker login - dockerhub
+              uses: docker/login-action@v2
+              with:
+                password: ${{secrets.DOCKERHUB_TOKEN}}
+                username: guoyk
             - name: docker login - coding registry
               uses: docker/login-action@v2
               with:
@@ -1827,12 +2028,14 @@ jobs:
               uses: docker/metadata-action@v4
               with:
                 images: |-
+                    ghcr.io/guoyk93/acicn/kafka
+                    acicn/kafka
                     ccr.ccs.tencentyun.com/acicn/kafka
                     registry.cn-shenzhen.aliyuncs.com/acicn/kafka
                     ${{secrets.MIRROR_CODING_REGISTRY}}/${{secrets.MIRROR_CODING_PREFIX}}/kafka
                 tags: |-
-                    type=raw,value=2.8-rc
-                    type=raw,value=latest-rc
+                    type=raw,value=2.8
+                    type=raw,value=latest
             - id: build
               name: build for kafka:2.8
               uses: docker/build-push-action@v3
@@ -1868,6 +2071,11 @@ jobs:
                 password: ${{secrets.GITHUB_TOKEN}}
                 registry: ghcr.io
                 username: ${{github.actor}}
+            - name: docker login - dockerhub
+              uses: docker/login-action@v2
+              with:
+                password: ${{secrets.DOCKERHUB_TOKEN}}
+                username: guoyk
             - name: docker login - coding registry
               uses: docker/login-action@v2
               with:
@@ -1891,10 +2099,12 @@ jobs:
               uses: docker/metadata-action@v4
               with:
                 images: |-
+                    ghcr.io/guoyk93/acicn/kibana
+                    acicn/kibana
                     ccr.ccs.tencentyun.com/acicn/kibana
                     registry.cn-shenzhen.aliyuncs.com/acicn/kibana
                     ${{secrets.MIRROR_CODING_REGISTRY}}/${{secrets.MIRROR_CODING_PREFIX}}/kibana
-                tags: type=raw,value=7.17.7-rc
+                tags: type=raw,value=7.17.7
             - id: build
               name: build for kibana:7.17.7
               uses: docker/build-push-action@v3
@@ -1930,6 +2140,11 @@ jobs:
                 password: ${{secrets.GITHUB_TOKEN}}
                 registry: ghcr.io
                 username: ${{github.actor}}
+            - name: docker login - dockerhub
+              uses: docker/login-action@v2
+              with:
+                password: ${{secrets.DOCKERHUB_TOKEN}}
+                username: guoyk
             - name: docker login - coding registry
               uses: docker/login-action@v2
               with:
@@ -1953,10 +2168,12 @@ jobs:
               uses: docker/metadata-action@v4
               with:
                 images: |-
+                    ghcr.io/guoyk93/acicn/mongo
+                    acicn/mongo
                     ccr.ccs.tencentyun.com/acicn/mongo
                     registry.cn-shenzhen.aliyuncs.com/acicn/mongo
                     ${{secrets.MIRROR_CODING_REGISTRY}}/${{secrets.MIRROR_CODING_PREFIX}}/mongo
-                tags: type=raw,value=3.6-rc
+                tags: type=raw,value=3.6
             - id: build
               name: build for mongo:3.6
               uses: docker/build-push-action@v3
@@ -1992,6 +2209,11 @@ jobs:
                 password: ${{secrets.GITHUB_TOKEN}}
                 registry: ghcr.io
                 username: ${{github.actor}}
+            - name: docker login - dockerhub
+              uses: docker/login-action@v2
+              with:
+                password: ${{secrets.DOCKERHUB_TOKEN}}
+                username: guoyk
             - name: docker login - coding registry
               uses: docker/login-action@v2
               with:
@@ -2015,10 +2237,12 @@ jobs:
               uses: docker/metadata-action@v4
               with:
                 images: |-
+                    ghcr.io/guoyk93/acicn/mongo
+                    acicn/mongo
                     ccr.ccs.tencentyun.com/acicn/mongo
                     registry.cn-shenzhen.aliyuncs.com/acicn/mongo
                     ${{secrets.MIRROR_CODING_REGISTRY}}/${{secrets.MIRROR_CODING_PREFIX}}/mongo
-                tags: type=raw,value=4.0-rc
+                tags: type=raw,value=4.0
             - id: build
               name: build for mongo:4.0
               uses: docker/build-push-action@v3
@@ -2054,6 +2278,11 @@ jobs:
                 password: ${{secrets.GITHUB_TOKEN}}
                 registry: ghcr.io
                 username: ${{github.actor}}
+            - name: docker login - dockerhub
+              uses: docker/login-action@v2
+              with:
+                password: ${{secrets.DOCKERHUB_TOKEN}}
+                username: guoyk
             - name: docker login - coding registry
               uses: docker/login-action@v2
               with:
@@ -2077,10 +2306,12 @@ jobs:
               uses: docker/metadata-action@v4
               with:
                 images: |-
+                    ghcr.io/guoyk93/acicn/mongo
+                    acicn/mongo
                     ccr.ccs.tencentyun.com/acicn/mongo
                     registry.cn-shenzhen.aliyuncs.com/acicn/mongo
                     ${{secrets.MIRROR_CODING_REGISTRY}}/${{secrets.MIRROR_CODING_PREFIX}}/mongo
-                tags: type=raw,value=4.2-rc
+                tags: type=raw,value=4.2
             - id: build
               name: build for mongo:4.2
               uses: docker/build-push-action@v3
@@ -2116,6 +2347,11 @@ jobs:
                 password: ${{secrets.GITHUB_TOKEN}}
                 registry: ghcr.io
                 username: ${{github.actor}}
+            - name: docker login - dockerhub
+              uses: docker/login-action@v2
+              with:
+                password: ${{secrets.DOCKERHUB_TOKEN}}
+                username: guoyk
             - name: docker login - coding registry
               uses: docker/login-action@v2
               with:
@@ -2139,10 +2375,12 @@ jobs:
               uses: docker/metadata-action@v4
               with:
                 images: |-
+                    ghcr.io/guoyk93/acicn/mongo
+                    acicn/mongo
                     ccr.ccs.tencentyun.com/acicn/mongo
                     registry.cn-shenzhen.aliyuncs.com/acicn/mongo
                     ${{secrets.MIRROR_CODING_REGISTRY}}/${{secrets.MIRROR_CODING_PREFIX}}/mongo
-                tags: type=raw,value=4.4-rc
+                tags: type=raw,value=4.4
             - id: build
               name: build for mongo:4.4
               uses: docker/build-push-action@v3
@@ -2178,6 +2416,11 @@ jobs:
                 password: ${{secrets.GITHUB_TOKEN}}
                 registry: ghcr.io
                 username: ${{github.actor}}
+            - name: docker login - dockerhub
+              uses: docker/login-action@v2
+              with:
+                password: ${{secrets.DOCKERHUB_TOKEN}}
+                username: guoyk
             - name: docker login - coding registry
               uses: docker/login-action@v2
               with:
@@ -2201,10 +2444,12 @@ jobs:
               uses: docker/metadata-action@v4
               with:
                 images: |-
+                    ghcr.io/guoyk93/acicn/mysql
+                    acicn/mysql
                     ccr.ccs.tencentyun.com/acicn/mysql
                     registry.cn-shenzhen.aliyuncs.com/acicn/mysql
                     ${{secrets.MIRROR_CODING_REGISTRY}}/${{secrets.MIRROR_CODING_PREFIX}}/mysql
-                tags: type=raw,value=5.6-rc
+                tags: type=raw,value=5.6
             - id: build
               name: build for mysql:5.6
               uses: docker/build-push-action@v3
@@ -2240,6 +2485,11 @@ jobs:
                 password: ${{secrets.GITHUB_TOKEN}}
                 registry: ghcr.io
                 username: ${{github.actor}}
+            - name: docker login - dockerhub
+              uses: docker/login-action@v2
+              with:
+                password: ${{secrets.DOCKERHUB_TOKEN}}
+                username: guoyk
             - name: docker login - coding registry
               uses: docker/login-action@v2
               with:
@@ -2263,10 +2513,12 @@ jobs:
               uses: docker/metadata-action@v4
               with:
                 images: |-
+                    ghcr.io/guoyk93/acicn/mysql
+                    acicn/mysql
                     ccr.ccs.tencentyun.com/acicn/mysql
                     registry.cn-shenzhen.aliyuncs.com/acicn/mysql
                     ${{secrets.MIRROR_CODING_REGISTRY}}/${{secrets.MIRROR_CODING_PREFIX}}/mysql
-                tags: type=raw,value=5.7-rc
+                tags: type=raw,value=5.7
             - id: build
               name: build for mysql:5.7
               uses: docker/build-push-action@v3
@@ -2302,6 +2554,11 @@ jobs:
                 password: ${{secrets.GITHUB_TOKEN}}
                 registry: ghcr.io
                 username: ${{github.actor}}
+            - name: docker login - dockerhub
+              uses: docker/login-action@v2
+              with:
+                password: ${{secrets.DOCKERHUB_TOKEN}}
+                username: guoyk
             - name: docker login - coding registry
               uses: docker/login-action@v2
               with:
@@ -2325,10 +2582,12 @@ jobs:
               uses: docker/metadata-action@v4
               with:
                 images: |-
+                    ghcr.io/guoyk93/acicn/mysql
+                    acicn/mysql
                     ccr.ccs.tencentyun.com/acicn/mysql
                     registry.cn-shenzhen.aliyuncs.com/acicn/mysql
                     ${{secrets.MIRROR_CODING_REGISTRY}}/${{secrets.MIRROR_CODING_PREFIX}}/mysql
-                tags: type=raw,value=8.0-rc
+                tags: type=raw,value=8.0
             - id: build
               name: build for mysql:8.0
               uses: docker/build-push-action@v3
@@ -2364,6 +2623,11 @@ jobs:
                 password: ${{secrets.GITHUB_TOKEN}}
                 registry: ghcr.io
                 username: ${{github.actor}}
+            - name: docker login - dockerhub
+              uses: docker/login-action@v2
+              with:
+                password: ${{secrets.DOCKERHUB_TOKEN}}
+                username: guoyk
             - name: docker login - coding registry
               uses: docker/login-action@v2
               with:
@@ -2387,12 +2651,14 @@ jobs:
               uses: docker/metadata-action@v4
               with:
                 images: |-
+                    ghcr.io/guoyk93/acicn/nginx
+                    acicn/nginx
                     ccr.ccs.tencentyun.com/acicn/nginx
                     registry.cn-shenzhen.aliyuncs.com/acicn/nginx
                     ${{secrets.MIRROR_CODING_REGISTRY}}/${{secrets.MIRROR_CODING_PREFIX}}/nginx
                 tags: |-
-                    type=raw,value=alpine-3.16-rc
-                    type=raw,value=latest-rc
+                    type=raw,value=alpine-3.16
+                    type=raw,value=latest
             - id: build
               name: build for nginx:alpine-3.16
               uses: docker/build-push-action@v3
@@ -2428,6 +2694,11 @@ jobs:
                 password: ${{secrets.GITHUB_TOKEN}}
                 registry: ghcr.io
                 username: ${{github.actor}}
+            - name: docker login - dockerhub
+              uses: docker/login-action@v2
+              with:
+                password: ${{secrets.DOCKERHUB_TOKEN}}
+                username: guoyk
             - name: docker login - coding registry
               uses: docker/login-action@v2
               with:
@@ -2451,12 +2722,14 @@ jobs:
               uses: docker/metadata-action@v4
               with:
                 images: |-
+                    ghcr.io/guoyk93/acicn/node
+                    acicn/node
                     ccr.ccs.tencentyun.com/acicn/node
                     registry.cn-shenzhen.aliyuncs.com/acicn/node
                     ${{secrets.MIRROR_CODING_REGISTRY}}/${{secrets.MIRROR_CODING_PREFIX}}/node
                 tags: |-
-                    type=raw,value=8-debian-11-rc
-                    type=raw,value=8-rc
+                    type=raw,value=8-debian-11
+                    type=raw,value=8
             - id: build
               name: build for node:8-debian-11
               uses: docker/build-push-action@v3
@@ -2492,6 +2765,11 @@ jobs:
                 password: ${{secrets.GITHUB_TOKEN}}
                 registry: ghcr.io
                 username: ${{github.actor}}
+            - name: docker login - dockerhub
+              uses: docker/login-action@v2
+              with:
+                password: ${{secrets.DOCKERHUB_TOKEN}}
+                username: guoyk
             - name: docker login - coding registry
               uses: docker/login-action@v2
               with:
@@ -2515,12 +2793,14 @@ jobs:
               uses: docker/metadata-action@v4
               with:
                 images: |-
+                    ghcr.io/guoyk93/acicn/node
+                    acicn/node
                     ccr.ccs.tencentyun.com/acicn/node
                     registry.cn-shenzhen.aliyuncs.com/acicn/node
                     ${{secrets.MIRROR_CODING_REGISTRY}}/${{secrets.MIRROR_CODING_PREFIX}}/node
                 tags: |-
-                    type=raw,value=10-debian-11-rc
-                    type=raw,value=10-rc
+                    type=raw,value=10-debian-11
+                    type=raw,value=10
             - id: build
               name: build for node:10-debian-11
               uses: docker/build-push-action@v3
@@ -2556,6 +2836,11 @@ jobs:
                 password: ${{secrets.GITHUB_TOKEN}}
                 registry: ghcr.io
                 username: ${{github.actor}}
+            - name: docker login - dockerhub
+              uses: docker/login-action@v2
+              with:
+                password: ${{secrets.DOCKERHUB_TOKEN}}
+                username: guoyk
             - name: docker login - coding registry
               uses: docker/login-action@v2
               with:
@@ -2579,12 +2864,14 @@ jobs:
               uses: docker/metadata-action@v4
               with:
                 images: |-
+                    ghcr.io/guoyk93/acicn/node
+                    acicn/node
                     ccr.ccs.tencentyun.com/acicn/node
                     registry.cn-shenzhen.aliyuncs.com/acicn/node
                     ${{secrets.MIRROR_CODING_REGISTRY}}/${{secrets.MIRROR_CODING_PREFIX}}/node
                 tags: |-
-                    type=raw,value=12-debian-11-rc
-                    type=raw,value=12-rc
+                    type=raw,value=12-debian-11
+                    type=raw,value=12
             - id: build
               name: build for node:12-debian-11
               uses: docker/build-push-action@v3
@@ -2620,6 +2907,11 @@ jobs:
                 password: ${{secrets.GITHUB_TOKEN}}
                 registry: ghcr.io
                 username: ${{github.actor}}
+            - name: docker login - dockerhub
+              uses: docker/login-action@v2
+              with:
+                password: ${{secrets.DOCKERHUB_TOKEN}}
+                username: guoyk
             - name: docker login - coding registry
               uses: docker/login-action@v2
               with:
@@ -2643,12 +2935,14 @@ jobs:
               uses: docker/metadata-action@v4
               with:
                 images: |-
+                    ghcr.io/guoyk93/acicn/node
+                    acicn/node
                     ccr.ccs.tencentyun.com/acicn/node
                     registry.cn-shenzhen.aliyuncs.com/acicn/node
                     ${{secrets.MIRROR_CODING_REGISTRY}}/${{secrets.MIRROR_CODING_PREFIX}}/node
                 tags: |-
-                    type=raw,value=14-debian-11-rc
-                    type=raw,value=14-rc
+                    type=raw,value=14-debian-11
+                    type=raw,value=14
             - id: build
               name: build for node:14-debian-11
               uses: docker/build-push-action@v3
@@ -2684,6 +2978,11 @@ jobs:
                 password: ${{secrets.GITHUB_TOKEN}}
                 registry: ghcr.io
                 username: ${{github.actor}}
+            - name: docker login - dockerhub
+              uses: docker/login-action@v2
+              with:
+                password: ${{secrets.DOCKERHUB_TOKEN}}
+                username: guoyk
             - name: docker login - coding registry
               uses: docker/login-action@v2
               with:
@@ -2707,12 +3006,14 @@ jobs:
               uses: docker/metadata-action@v4
               with:
                 images: |-
+                    ghcr.io/guoyk93/acicn/node
+                    acicn/node
                     ccr.ccs.tencentyun.com/acicn/node
                     registry.cn-shenzhen.aliyuncs.com/acicn/node
                     ${{secrets.MIRROR_CODING_REGISTRY}}/${{secrets.MIRROR_CODING_PREFIX}}/node
                 tags: |-
-                    type=raw,value=16-debian-11-rc
-                    type=raw,value=16-rc
+                    type=raw,value=16-debian-11
+                    type=raw,value=16
             - id: build
               name: build for node:16-debian-11
               uses: docker/build-push-action@v3
@@ -2748,6 +3049,11 @@ jobs:
                 password: ${{secrets.GITHUB_TOKEN}}
                 registry: ghcr.io
                 username: ${{github.actor}}
+            - name: docker login - dockerhub
+              uses: docker/login-action@v2
+              with:
+                password: ${{secrets.DOCKERHUB_TOKEN}}
+                username: guoyk
             - name: docker login - coding registry
               uses: docker/login-action@v2
               with:
@@ -2771,12 +3077,14 @@ jobs:
               uses: docker/metadata-action@v4
               with:
                 images: |-
+                    ghcr.io/guoyk93/acicn/node
+                    acicn/node
                     ccr.ccs.tencentyun.com/acicn/node
                     registry.cn-shenzhen.aliyuncs.com/acicn/node
                     ${{secrets.MIRROR_CODING_REGISTRY}}/${{secrets.MIRROR_CODING_PREFIX}}/node
                 tags: |-
-                    type=raw,value=18-debian-11-rc
-                    type=raw,value=18-rc
+                    type=raw,value=18-debian-11
+                    type=raw,value=18
             - id: build
               name: build for node:18-debian-11
               uses: docker/build-push-action@v3
@@ -2812,6 +3120,11 @@ jobs:
                 password: ${{secrets.GITHUB_TOKEN}}
                 registry: ghcr.io
                 username: ${{github.actor}}
+            - name: docker login - dockerhub
+              uses: docker/login-action@v2
+              with:
+                password: ${{secrets.DOCKERHUB_TOKEN}}
+                username: guoyk
             - name: docker login - coding registry
               uses: docker/login-action@v2
               with:
@@ -2835,12 +3148,14 @@ jobs:
               uses: docker/metadata-action@v4
               with:
                 images: |-
+                    ghcr.io/guoyk93/acicn/node
+                    acicn/node
                     ccr.ccs.tencentyun.com/acicn/node
                     registry.cn-shenzhen.aliyuncs.com/acicn/node
                     ${{secrets.MIRROR_CODING_REGISTRY}}/${{secrets.MIRROR_CODING_PREFIX}}/node
                 tags: |-
-                    type=raw,value=builder-8-debian-11-rc
-                    type=raw,value=builder-8-rc
+                    type=raw,value=builder-8-debian-11
+                    type=raw,value=builder-8
             - id: build
               name: build for node:builder-8-debian-11
               uses: docker/build-push-action@v3
@@ -2876,6 +3191,11 @@ jobs:
                 password: ${{secrets.GITHUB_TOKEN}}
                 registry: ghcr.io
                 username: ${{github.actor}}
+            - name: docker login - dockerhub
+              uses: docker/login-action@v2
+              with:
+                password: ${{secrets.DOCKERHUB_TOKEN}}
+                username: guoyk
             - name: docker login - coding registry
               uses: docker/login-action@v2
               with:
@@ -2899,12 +3219,14 @@ jobs:
               uses: docker/metadata-action@v4
               with:
                 images: |-
+                    ghcr.io/guoyk93/acicn/node
+                    acicn/node
                     ccr.ccs.tencentyun.com/acicn/node
                     registry.cn-shenzhen.aliyuncs.com/acicn/node
                     ${{secrets.MIRROR_CODING_REGISTRY}}/${{secrets.MIRROR_CODING_PREFIX}}/node
                 tags: |-
-                    type=raw,value=builder-10-debian-11-rc
-                    type=raw,value=builder-10-rc
+                    type=raw,value=builder-10-debian-11
+                    type=raw,value=builder-10
             - id: build
               name: build for node:builder-10-debian-11
               uses: docker/build-push-action@v3
@@ -2940,6 +3262,11 @@ jobs:
                 password: ${{secrets.GITHUB_TOKEN}}
                 registry: ghcr.io
                 username: ${{github.actor}}
+            - name: docker login - dockerhub
+              uses: docker/login-action@v2
+              with:
+                password: ${{secrets.DOCKERHUB_TOKEN}}
+                username: guoyk
             - name: docker login - coding registry
               uses: docker/login-action@v2
               with:
@@ -2963,12 +3290,14 @@ jobs:
               uses: docker/metadata-action@v4
               with:
                 images: |-
+                    ghcr.io/guoyk93/acicn/node
+                    acicn/node
                     ccr.ccs.tencentyun.com/acicn/node
                     registry.cn-shenzhen.aliyuncs.com/acicn/node
                     ${{secrets.MIRROR_CODING_REGISTRY}}/${{secrets.MIRROR_CODING_PREFIX}}/node
                 tags: |-
-                    type=raw,value=builder-12-debian-11-rc
-                    type=raw,value=builder-12-rc
+                    type=raw,value=builder-12-debian-11
+                    type=raw,value=builder-12
             - id: build
               name: build for node:builder-12-debian-11
               uses: docker/build-push-action@v3
@@ -3004,6 +3333,11 @@ jobs:
                 password: ${{secrets.GITHUB_TOKEN}}
                 registry: ghcr.io
                 username: ${{github.actor}}
+            - name: docker login - dockerhub
+              uses: docker/login-action@v2
+              with:
+                password: ${{secrets.DOCKERHUB_TOKEN}}
+                username: guoyk
             - name: docker login - coding registry
               uses: docker/login-action@v2
               with:
@@ -3027,12 +3361,14 @@ jobs:
               uses: docker/metadata-action@v4
               with:
                 images: |-
+                    ghcr.io/guoyk93/acicn/node
+                    acicn/node
                     ccr.ccs.tencentyun.com/acicn/node
                     registry.cn-shenzhen.aliyuncs.com/acicn/node
                     ${{secrets.MIRROR_CODING_REGISTRY}}/${{secrets.MIRROR_CODING_PREFIX}}/node
                 tags: |-
-                    type=raw,value=builder-14-debian-11-rc
-                    type=raw,value=builder-14-rc
+                    type=raw,value=builder-14-debian-11
+                    type=raw,value=builder-14
             - id: build
               name: build for node:builder-14-debian-11
               uses: docker/build-push-action@v3
@@ -3068,6 +3404,11 @@ jobs:
                 password: ${{secrets.GITHUB_TOKEN}}
                 registry: ghcr.io
                 username: ${{github.actor}}
+            - name: docker login - dockerhub
+              uses: docker/login-action@v2
+              with:
+                password: ${{secrets.DOCKERHUB_TOKEN}}
+                username: guoyk
             - name: docker login - coding registry
               uses: docker/login-action@v2
               with:
@@ -3091,12 +3432,14 @@ jobs:
               uses: docker/metadata-action@v4
               with:
                 images: |-
+                    ghcr.io/guoyk93/acicn/node
+                    acicn/node
                     ccr.ccs.tencentyun.com/acicn/node
                     registry.cn-shenzhen.aliyuncs.com/acicn/node
                     ${{secrets.MIRROR_CODING_REGISTRY}}/${{secrets.MIRROR_CODING_PREFIX}}/node
                 tags: |-
-                    type=raw,value=builder-16-debian-11-rc
-                    type=raw,value=builder-16-rc
+                    type=raw,value=builder-16-debian-11
+                    type=raw,value=builder-16
             - id: build
               name: build for node:builder-16-debian-11
               uses: docker/build-push-action@v3
@@ -3132,6 +3475,11 @@ jobs:
                 password: ${{secrets.GITHUB_TOKEN}}
                 registry: ghcr.io
                 username: ${{github.actor}}
+            - name: docker login - dockerhub
+              uses: docker/login-action@v2
+              with:
+                password: ${{secrets.DOCKERHUB_TOKEN}}
+                username: guoyk
             - name: docker login - coding registry
               uses: docker/login-action@v2
               with:
@@ -3155,12 +3503,14 @@ jobs:
               uses: docker/metadata-action@v4
               with:
                 images: |-
+                    ghcr.io/guoyk93/acicn/node
+                    acicn/node
                     ccr.ccs.tencentyun.com/acicn/node
                     registry.cn-shenzhen.aliyuncs.com/acicn/node
                     ${{secrets.MIRROR_CODING_REGISTRY}}/${{secrets.MIRROR_CODING_PREFIX}}/node
                 tags: |-
-                    type=raw,value=builder-18-debian-11-rc
-                    type=raw,value=builder-18-rc
+                    type=raw,value=builder-18-debian-11
+                    type=raw,value=builder-18
             - id: build
               name: build for node:builder-18-debian-11
               uses: docker/build-push-action@v3
@@ -3196,6 +3546,11 @@ jobs:
                 password: ${{secrets.GITHUB_TOKEN}}
                 registry: ghcr.io
                 username: ${{github.actor}}
+            - name: docker login - dockerhub
+              uses: docker/login-action@v2
+              with:
+                password: ${{secrets.DOCKERHUB_TOKEN}}
+                username: guoyk
             - name: docker login - coding registry
               uses: docker/login-action@v2
               with:
@@ -3219,14 +3574,16 @@ jobs:
               uses: docker/metadata-action@v4
               with:
                 images: |-
+                    ghcr.io/guoyk93/acicn/php
+                    acicn/php
                     ccr.ccs.tencentyun.com/acicn/php
                     registry.cn-shenzhen.aliyuncs.com/acicn/php
                     ${{secrets.MIRROR_CODING_REGISTRY}}/${{secrets.MIRROR_CODING_PREFIX}}/php
                 tags: |-
-                    type=raw,value=7.4-debian-11-rc
-                    type=raw,value=7.4-rc
-                    type=raw,value=7.4-pagoda-rc
-                    type=raw,value=7.4-pagoda-debian-11-rc
+                    type=raw,value=7.4-debian-11
+                    type=raw,value=7.4
+                    type=raw,value=7.4-pagoda
+                    type=raw,value=7.4-pagoda-debian-11
             - id: build
               name: build for php:7.4-debian-11
               uses: docker/build-push-action@v3
@@ -3262,6 +3619,11 @@ jobs:
                 password: ${{secrets.GITHUB_TOKEN}}
                 registry: ghcr.io
                 username: ${{github.actor}}
+            - name: docker login - dockerhub
+              uses: docker/login-action@v2
+              with:
+                password: ${{secrets.DOCKERHUB_TOKEN}}
+                username: guoyk
             - name: docker login - coding registry
               uses: docker/login-action@v2
               with:
@@ -3285,10 +3647,12 @@ jobs:
               uses: docker/metadata-action@v4
               with:
                 images: |-
+                    ghcr.io/guoyk93/acicn/postgres
+                    acicn/postgres
                     ccr.ccs.tencentyun.com/acicn/postgres
                     registry.cn-shenzhen.aliyuncs.com/acicn/postgres
                     ${{secrets.MIRROR_CODING_REGISTRY}}/${{secrets.MIRROR_CODING_PREFIX}}/postgres
-                tags: type=raw,value=9.6-rc
+                tags: type=raw,value=9.6
             - id: build
               name: build for postgres:9.6
               uses: docker/build-push-action@v3
@@ -3324,6 +3688,11 @@ jobs:
                 password: ${{secrets.GITHUB_TOKEN}}
                 registry: ghcr.io
                 username: ${{github.actor}}
+            - name: docker login - dockerhub
+              uses: docker/login-action@v2
+              with:
+                password: ${{secrets.DOCKERHUB_TOKEN}}
+                username: guoyk
             - name: docker login - coding registry
               uses: docker/login-action@v2
               with:
@@ -3347,10 +3716,12 @@ jobs:
               uses: docker/metadata-action@v4
               with:
                 images: |-
+                    ghcr.io/guoyk93/acicn/postgres
+                    acicn/postgres
                     ccr.ccs.tencentyun.com/acicn/postgres
                     registry.cn-shenzhen.aliyuncs.com/acicn/postgres
                     ${{secrets.MIRROR_CODING_REGISTRY}}/${{secrets.MIRROR_CODING_PREFIX}}/postgres
-                tags: type=raw,value=10.15-rc
+                tags: type=raw,value=10.15
             - id: build
               name: build for postgres:10.15
               uses: docker/build-push-action@v3
@@ -3386,6 +3757,11 @@ jobs:
                 password: ${{secrets.GITHUB_TOKEN}}
                 registry: ghcr.io
                 username: ${{github.actor}}
+            - name: docker login - dockerhub
+              uses: docker/login-action@v2
+              with:
+                password: ${{secrets.DOCKERHUB_TOKEN}}
+                username: guoyk
             - name: docker login - coding registry
               uses: docker/login-action@v2
               with:
@@ -3409,10 +3785,12 @@ jobs:
               uses: docker/metadata-action@v4
               with:
                 images: |-
+                    ghcr.io/guoyk93/acicn/postgres
+                    acicn/postgres
                     ccr.ccs.tencentyun.com/acicn/postgres
                     registry.cn-shenzhen.aliyuncs.com/acicn/postgres
                     ${{secrets.MIRROR_CODING_REGISTRY}}/${{secrets.MIRROR_CODING_PREFIX}}/postgres
-                tags: type=raw,value=11.10-rc
+                tags: type=raw,value=11.10
             - id: build
               name: build for postgres:11.10
               uses: docker/build-push-action@v3
@@ -3448,6 +3826,11 @@ jobs:
                 password: ${{secrets.GITHUB_TOKEN}}
                 registry: ghcr.io
                 username: ${{github.actor}}
+            - name: docker login - dockerhub
+              uses: docker/login-action@v2
+              with:
+                password: ${{secrets.DOCKERHUB_TOKEN}}
+                username: guoyk
             - name: docker login - coding registry
               uses: docker/login-action@v2
               with:
@@ -3471,10 +3854,12 @@ jobs:
               uses: docker/metadata-action@v4
               with:
                 images: |-
+                    ghcr.io/guoyk93/acicn/postgres
+                    acicn/postgres
                     ccr.ccs.tencentyun.com/acicn/postgres
                     registry.cn-shenzhen.aliyuncs.com/acicn/postgres
                     ${{secrets.MIRROR_CODING_REGISTRY}}/${{secrets.MIRROR_CODING_PREFIX}}/postgres
-                tags: type=raw,value=12.5-rc
+                tags: type=raw,value=12.5
             - id: build
               name: build for postgres:12.5
               uses: docker/build-push-action@v3
@@ -3510,6 +3895,11 @@ jobs:
                 password: ${{secrets.GITHUB_TOKEN}}
                 registry: ghcr.io
                 username: ${{github.actor}}
+            - name: docker login - dockerhub
+              uses: docker/login-action@v2
+              with:
+                password: ${{secrets.DOCKERHUB_TOKEN}}
+                username: guoyk
             - name: docker login - coding registry
               uses: docker/login-action@v2
               with:
@@ -3533,10 +3923,12 @@ jobs:
               uses: docker/metadata-action@v4
               with:
                 images: |-
+                    ghcr.io/guoyk93/acicn/prometheus
+                    acicn/prometheus
                     ccr.ccs.tencentyun.com/acicn/prometheus
                     registry.cn-shenzhen.aliyuncs.com/acicn/prometheus
                     ${{secrets.MIRROR_CODING_REGISTRY}}/${{secrets.MIRROR_CODING_PREFIX}}/prometheus
-                tags: type=raw,value=2.25-rc
+                tags: type=raw,value=2.25
             - id: build
               name: build for prometheus:2.25
               uses: docker/build-push-action@v3
@@ -3572,6 +3964,11 @@ jobs:
                 password: ${{secrets.GITHUB_TOKEN}}
                 registry: ghcr.io
                 username: ${{github.actor}}
+            - name: docker login - dockerhub
+              uses: docker/login-action@v2
+              with:
+                password: ${{secrets.DOCKERHUB_TOKEN}}
+                username: guoyk
             - name: docker login - coding registry
               uses: docker/login-action@v2
               with:
@@ -3595,12 +3992,14 @@ jobs:
               uses: docker/metadata-action@v4
               with:
                 images: |-
+                    ghcr.io/guoyk93/acicn/python
+                    acicn/python
                     ccr.ccs.tencentyun.com/acicn/python
                     registry.cn-shenzhen.aliyuncs.com/acicn/python
                     ${{secrets.MIRROR_CODING_REGISTRY}}/${{secrets.MIRROR_CODING_PREFIX}}/python
                 tags: |-
-                    type=raw,value=3.6-debian-11-rc
-                    type=raw,value=3.6-rc
+                    type=raw,value=3.6-debian-11
+                    type=raw,value=3.6
             - id: build
               name: build for python:3.6-debian-11
               uses: docker/build-push-action@v3
@@ -3636,6 +4035,11 @@ jobs:
                 password: ${{secrets.GITHUB_TOKEN}}
                 registry: ghcr.io
                 username: ${{github.actor}}
+            - name: docker login - dockerhub
+              uses: docker/login-action@v2
+              with:
+                password: ${{secrets.DOCKERHUB_TOKEN}}
+                username: guoyk
             - name: docker login - coding registry
               uses: docker/login-action@v2
               with:
@@ -3659,12 +4063,14 @@ jobs:
               uses: docker/metadata-action@v4
               with:
                 images: |-
+                    ghcr.io/guoyk93/acicn/python
+                    acicn/python
                     ccr.ccs.tencentyun.com/acicn/python
                     registry.cn-shenzhen.aliyuncs.com/acicn/python
                     ${{secrets.MIRROR_CODING_REGISTRY}}/${{secrets.MIRROR_CODING_PREFIX}}/python
                 tags: |-
-                    type=raw,value=3.7-debian-11-rc
-                    type=raw,value=3.7-rc
+                    type=raw,value=3.7-debian-11
+                    type=raw,value=3.7
             - id: build
               name: build for python:3.7-debian-11
               uses: docker/build-push-action@v3
@@ -3700,6 +4106,11 @@ jobs:
                 password: ${{secrets.GITHUB_TOKEN}}
                 registry: ghcr.io
                 username: ${{github.actor}}
+            - name: docker login - dockerhub
+              uses: docker/login-action@v2
+              with:
+                password: ${{secrets.DOCKERHUB_TOKEN}}
+                username: guoyk
             - name: docker login - coding registry
               uses: docker/login-action@v2
               with:
@@ -3723,12 +4134,14 @@ jobs:
               uses: docker/metadata-action@v4
               with:
                 images: |-
+                    ghcr.io/guoyk93/acicn/python
+                    acicn/python
                     ccr.ccs.tencentyun.com/acicn/python
                     registry.cn-shenzhen.aliyuncs.com/acicn/python
                     ${{secrets.MIRROR_CODING_REGISTRY}}/${{secrets.MIRROR_CODING_PREFIX}}/python
                 tags: |-
-                    type=raw,value=3.8-debian-11-rc
-                    type=raw,value=3.8-rc
+                    type=raw,value=3.8-debian-11
+                    type=raw,value=3.8
             - id: build
               name: build for python:3.8-debian-11
               uses: docker/build-push-action@v3
@@ -3764,6 +4177,11 @@ jobs:
                 password: ${{secrets.GITHUB_TOKEN}}
                 registry: ghcr.io
                 username: ${{github.actor}}
+            - name: docker login - dockerhub
+              uses: docker/login-action@v2
+              with:
+                password: ${{secrets.DOCKERHUB_TOKEN}}
+                username: guoyk
             - name: docker login - coding registry
               uses: docker/login-action@v2
               with:
@@ -3787,12 +4205,14 @@ jobs:
               uses: docker/metadata-action@v4
               with:
                 images: |-
+                    ghcr.io/guoyk93/acicn/python
+                    acicn/python
                     ccr.ccs.tencentyun.com/acicn/python
                     registry.cn-shenzhen.aliyuncs.com/acicn/python
                     ${{secrets.MIRROR_CODING_REGISTRY}}/${{secrets.MIRROR_CODING_PREFIX}}/python
                 tags: |-
-                    type=raw,value=3.9-debian-11-rc
-                    type=raw,value=3.9-rc
+                    type=raw,value=3.9-debian-11
+                    type=raw,value=3.9
             - id: build
               name: build for python:3.9-debian-11
               uses: docker/build-push-action@v3
@@ -3828,6 +4248,11 @@ jobs:
                 password: ${{secrets.GITHUB_TOKEN}}
                 registry: ghcr.io
                 username: ${{github.actor}}
+            - name: docker login - dockerhub
+              uses: docker/login-action@v2
+              with:
+                password: ${{secrets.DOCKERHUB_TOKEN}}
+                username: guoyk
             - name: docker login - coding registry
               uses: docker/login-action@v2
               with:
@@ -3851,12 +4276,14 @@ jobs:
               uses: docker/metadata-action@v4
               with:
                 images: |-
+                    ghcr.io/guoyk93/acicn/python
+                    acicn/python
                     ccr.ccs.tencentyun.com/acicn/python
                     registry.cn-shenzhen.aliyuncs.com/acicn/python
                     ${{secrets.MIRROR_CODING_REGISTRY}}/${{secrets.MIRROR_CODING_PREFIX}}/python
                 tags: |-
-                    type=raw,value=3.10-debian-11-rc
-                    type=raw,value=3.10-rc
+                    type=raw,value=3.10-debian-11
+                    type=raw,value=3.10
             - id: build
               name: build for python:3.10-debian-11
               uses: docker/build-push-action@v3
@@ -3892,6 +4319,11 @@ jobs:
                 password: ${{secrets.GITHUB_TOKEN}}
                 registry: ghcr.io
                 username: ${{github.actor}}
+            - name: docker login - dockerhub
+              uses: docker/login-action@v2
+              with:
+                password: ${{secrets.DOCKERHUB_TOKEN}}
+                username: guoyk
             - name: docker login - coding registry
               uses: docker/login-action@v2
               with:
@@ -3915,12 +4347,14 @@ jobs:
               uses: docker/metadata-action@v4
               with:
                 images: |-
+                    ghcr.io/guoyk93/acicn/python
+                    acicn/python
                     ccr.ccs.tencentyun.com/acicn/python
                     registry.cn-shenzhen.aliyuncs.com/acicn/python
                     ${{secrets.MIRROR_CODING_REGISTRY}}/${{secrets.MIRROR_CODING_PREFIX}}/python
                 tags: |-
-                    type=raw,value=3.11-debian-11-rc
-                    type=raw,value=3.11-rc
+                    type=raw,value=3.11-debian-11
+                    type=raw,value=3.11
             - id: build
               name: build for python:3.11-debian-11
               uses: docker/build-push-action@v3
@@ -3956,6 +4390,11 @@ jobs:
                 password: ${{secrets.GITHUB_TOKEN}}
                 registry: ghcr.io
                 username: ${{github.actor}}
+            - name: docker login - dockerhub
+              uses: docker/login-action@v2
+              with:
+                password: ${{secrets.DOCKERHUB_TOKEN}}
+                username: guoyk
             - name: docker login - coding registry
               uses: docker/login-action@v2
               with:
@@ -3979,12 +4418,14 @@ jobs:
               uses: docker/metadata-action@v4
               with:
                 images: |-
+                    ghcr.io/guoyk93/acicn/redis
+                    acicn/redis
                     ccr.ccs.tencentyun.com/acicn/redis
                     registry.cn-shenzhen.aliyuncs.com/acicn/redis
                     ${{secrets.MIRROR_CODING_REGISTRY}}/${{secrets.MIRROR_CODING_PREFIX}}/redis
                 tags: |-
-                    type=raw,value=5-alpine-3.16-rc
-                    type=raw,value=5-rc
+                    type=raw,value=5-alpine-3.16
+                    type=raw,value=5
             - id: build
               name: build for redis:5-alpine-3.16
               uses: docker/build-push-action@v3
@@ -4020,6 +4461,11 @@ jobs:
                 password: ${{secrets.GITHUB_TOKEN}}
                 registry: ghcr.io
                 username: ${{github.actor}}
+            - name: docker login - dockerhub
+              uses: docker/login-action@v2
+              with:
+                password: ${{secrets.DOCKERHUB_TOKEN}}
+                username: guoyk
             - name: docker login - coding registry
               uses: docker/login-action@v2
               with:
@@ -4043,12 +4489,14 @@ jobs:
               uses: docker/metadata-action@v4
               with:
                 images: |-
+                    ghcr.io/guoyk93/acicn/redis
+                    acicn/redis
                     ccr.ccs.tencentyun.com/acicn/redis
                     registry.cn-shenzhen.aliyuncs.com/acicn/redis
                     ${{secrets.MIRROR_CODING_REGISTRY}}/${{secrets.MIRROR_CODING_PREFIX}}/redis
                 tags: |-
-                    type=raw,value=6.0-alpine-3.16-rc
-                    type=raw,value=6.0-rc
+                    type=raw,value=6.0-alpine-3.16
+                    type=raw,value=6.0
             - id: build
               name: build for redis:6.0-alpine-3.16
               uses: docker/build-push-action@v3
@@ -4084,6 +4532,11 @@ jobs:
                 password: ${{secrets.GITHUB_TOKEN}}
                 registry: ghcr.io
                 username: ${{github.actor}}
+            - name: docker login - dockerhub
+              uses: docker/login-action@v2
+              with:
+                password: ${{secrets.DOCKERHUB_TOKEN}}
+                username: guoyk
             - name: docker login - coding registry
               uses: docker/login-action@v2
               with:
@@ -4107,14 +4560,16 @@ jobs:
               uses: docker/metadata-action@v4
               with:
                 images: |-
+                    ghcr.io/guoyk93/acicn/redis
+                    acicn/redis
                     ccr.ccs.tencentyun.com/acicn/redis
                     registry.cn-shenzhen.aliyuncs.com/acicn/redis
                     ${{secrets.MIRROR_CODING_REGISTRY}}/${{secrets.MIRROR_CODING_PREFIX}}/redis
                 tags: |-
-                    type=raw,value=6.2-alpine-3.16-rc
-                    type=raw,value=6-alpine-3.16-rc
-                    type=raw,value=6-rc
-                    type=raw,value=6.2-rc
+                    type=raw,value=6.2-alpine-3.16
+                    type=raw,value=6-alpine-3.16
+                    type=raw,value=6
+                    type=raw,value=6.2
             - id: build
               name: build for redis:6.2-alpine-3.16
               uses: docker/build-push-action@v3
@@ -4150,6 +4605,11 @@ jobs:
                 password: ${{secrets.GITHUB_TOKEN}}
                 registry: ghcr.io
                 username: ${{github.actor}}
+            - name: docker login - dockerhub
+              uses: docker/login-action@v2
+              with:
+                password: ${{secrets.DOCKERHUB_TOKEN}}
+                username: guoyk
             - name: docker login - coding registry
               uses: docker/login-action@v2
               with:
@@ -4173,12 +4633,14 @@ jobs:
               uses: docker/metadata-action@v4
               with:
                 images: |-
+                    ghcr.io/guoyk93/acicn/redis
+                    acicn/redis
                     ccr.ccs.tencentyun.com/acicn/redis
                     registry.cn-shenzhen.aliyuncs.com/acicn/redis
                     ${{secrets.MIRROR_CODING_REGISTRY}}/${{secrets.MIRROR_CODING_PREFIX}}/redis
                 tags: |-
-                    type=raw,value=7-alpine-3.16-rc
-                    type=raw,value=7-rc
+                    type=raw,value=7-alpine-3.16
+                    type=raw,value=7
             - id: build
               name: build for redis:7-alpine-3.16
               uses: docker/build-push-action@v3
@@ -4214,6 +4676,11 @@ jobs:
                 password: ${{secrets.GITHUB_TOKEN}}
                 registry: ghcr.io
                 username: ${{github.actor}}
+            - name: docker login - dockerhub
+              uses: docker/login-action@v2
+              with:
+                password: ${{secrets.DOCKERHUB_TOKEN}}
+                username: guoyk
             - name: docker login - coding registry
               uses: docker/login-action@v2
               with:
@@ -4237,12 +4704,14 @@ jobs:
               uses: docker/metadata-action@v4
               with:
                 images: |-
+                    ghcr.io/guoyk93/acicn/rocketmq
+                    acicn/rocketmq
                     ccr.ccs.tencentyun.com/acicn/rocketmq
                     registry.cn-shenzhen.aliyuncs.com/acicn/rocketmq
                     ${{secrets.MIRROR_CODING_REGISTRY}}/${{secrets.MIRROR_CODING_PREFIX}}/rocketmq
                 tags: |-
-                    type=raw,value=4.6.1-broker-jdk-8-rc
-                    type=raw,value=4.6.1-broker-rc
+                    type=raw,value=4.6.1-broker-jdk-8
+                    type=raw,value=4.6.1-broker
             - id: build
               name: build for rocketmq:4.6.1-broker-jdk-8
               uses: docker/build-push-action@v3
@@ -4278,6 +4747,11 @@ jobs:
                 password: ${{secrets.GITHUB_TOKEN}}
                 registry: ghcr.io
                 username: ${{github.actor}}
+            - name: docker login - dockerhub
+              uses: docker/login-action@v2
+              with:
+                password: ${{secrets.DOCKERHUB_TOKEN}}
+                username: guoyk
             - name: docker login - coding registry
               uses: docker/login-action@v2
               with:
@@ -4301,12 +4775,14 @@ jobs:
               uses: docker/metadata-action@v4
               with:
                 images: |-
+                    ghcr.io/guoyk93/acicn/rocketmq
+                    acicn/rocketmq
                     ccr.ccs.tencentyun.com/acicn/rocketmq
                     registry.cn-shenzhen.aliyuncs.com/acicn/rocketmq
                     ${{secrets.MIRROR_CODING_REGISTRY}}/${{secrets.MIRROR_CODING_PREFIX}}/rocketmq
                 tags: |-
-                    type=raw,value=4.6.1-namesrv-jdk-8-rc
-                    type=raw,value=4.6.1-namesrv-rc
+                    type=raw,value=4.6.1-namesrv-jdk-8
+                    type=raw,value=4.6.1-namesrv
             - id: build
               name: build for rocketmq:4.6.1-namesrv-jdk-8
               uses: docker/build-push-action@v3
@@ -4342,6 +4818,11 @@ jobs:
                 password: ${{secrets.GITHUB_TOKEN}}
                 registry: ghcr.io
                 username: ${{github.actor}}
+            - name: docker login - dockerhub
+              uses: docker/login-action@v2
+              with:
+                password: ${{secrets.DOCKERHUB_TOKEN}}
+                username: guoyk
             - name: docker login - coding registry
               uses: docker/login-action@v2
               with:
@@ -4365,12 +4846,14 @@ jobs:
               uses: docker/metadata-action@v4
               with:
                 images: |-
+                    ghcr.io/guoyk93/acicn/rocketmq
+                    acicn/rocketmq
                     ccr.ccs.tencentyun.com/acicn/rocketmq
                     registry.cn-shenzhen.aliyuncs.com/acicn/rocketmq
                     ${{secrets.MIRROR_CODING_REGISTRY}}/${{secrets.MIRROR_CODING_PREFIX}}/rocketmq
                 tags: |-
-                    type=raw,value=4.8.0-broker-jdk-8-rc
-                    type=raw,value=4.8.0-broker-rc
+                    type=raw,value=4.8.0-broker-jdk-8
+                    type=raw,value=4.8.0-broker
             - id: build
               name: build for rocketmq:4.8.0-broker-jdk-8
               uses: docker/build-push-action@v3
@@ -4406,6 +4889,11 @@ jobs:
                 password: ${{secrets.GITHUB_TOKEN}}
                 registry: ghcr.io
                 username: ${{github.actor}}
+            - name: docker login - dockerhub
+              uses: docker/login-action@v2
+              with:
+                password: ${{secrets.DOCKERHUB_TOKEN}}
+                username: guoyk
             - name: docker login - coding registry
               uses: docker/login-action@v2
               with:
@@ -4429,12 +4917,14 @@ jobs:
               uses: docker/metadata-action@v4
               with:
                 images: |-
+                    ghcr.io/guoyk93/acicn/rocketmq
+                    acicn/rocketmq
                     ccr.ccs.tencentyun.com/acicn/rocketmq
                     registry.cn-shenzhen.aliyuncs.com/acicn/rocketmq
                     ${{secrets.MIRROR_CODING_REGISTRY}}/${{secrets.MIRROR_CODING_PREFIX}}/rocketmq
                 tags: |-
-                    type=raw,value=4.8.0-namesrv-jdk-8-rc
-                    type=raw,value=4.8.0-namesrv-rc
+                    type=raw,value=4.8.0-namesrv-jdk-8
+                    type=raw,value=4.8.0-namesrv
             - id: build
               name: build for rocketmq:4.8.0-namesrv-jdk-8
               uses: docker/build-push-action@v3
@@ -4470,6 +4960,11 @@ jobs:
                 password: ${{secrets.GITHUB_TOKEN}}
                 registry: ghcr.io
                 username: ${{github.actor}}
+            - name: docker login - dockerhub
+              uses: docker/login-action@v2
+              with:
+                password: ${{secrets.DOCKERHUB_TOKEN}}
+                username: guoyk
             - name: docker login - coding registry
               uses: docker/login-action@v2
               with:
@@ -4493,12 +4988,14 @@ jobs:
               uses: docker/metadata-action@v4
               with:
                 images: |-
+                    ghcr.io/guoyk93/acicn/rocketmq
+                    acicn/rocketmq
                     ccr.ccs.tencentyun.com/acicn/rocketmq
                     registry.cn-shenzhen.aliyuncs.com/acicn/rocketmq
                     ${{secrets.MIRROR_CODING_REGISTRY}}/${{secrets.MIRROR_CODING_PREFIX}}/rocketmq
                 tags: |-
-                    type=raw,value=4.9.1-broker-jdk-8-rc
-                    type=raw,value=4.9.1-broker-rc
+                    type=raw,value=4.9.1-broker-jdk-8
+                    type=raw,value=4.9.1-broker
             - id: build
               name: build for rocketmq:4.9.1-broker-jdk-8
               uses: docker/build-push-action@v3
@@ -4534,6 +5031,11 @@ jobs:
                 password: ${{secrets.GITHUB_TOKEN}}
                 registry: ghcr.io
                 username: ${{github.actor}}
+            - name: docker login - dockerhub
+              uses: docker/login-action@v2
+              with:
+                password: ${{secrets.DOCKERHUB_TOKEN}}
+                username: guoyk
             - name: docker login - coding registry
               uses: docker/login-action@v2
               with:
@@ -4557,12 +5059,14 @@ jobs:
               uses: docker/metadata-action@v4
               with:
                 images: |-
+                    ghcr.io/guoyk93/acicn/rocketmq
+                    acicn/rocketmq
                     ccr.ccs.tencentyun.com/acicn/rocketmq
                     registry.cn-shenzhen.aliyuncs.com/acicn/rocketmq
                     ${{secrets.MIRROR_CODING_REGISTRY}}/${{secrets.MIRROR_CODING_PREFIX}}/rocketmq
                 tags: |-
-                    type=raw,value=4.9.1-namesrv-jdk-8-rc
-                    type=raw,value=4.9.1-namesrv-rc
+                    type=raw,value=4.9.1-namesrv-jdk-8
+                    type=raw,value=4.9.1-namesrv
             - id: build
               name: build for rocketmq:4.9.1-namesrv-jdk-8
               uses: docker/build-push-action@v3
@@ -4598,6 +5102,11 @@ jobs:
                 password: ${{secrets.GITHUB_TOKEN}}
                 registry: ghcr.io
                 username: ${{github.actor}}
+            - name: docker login - dockerhub
+              uses: docker/login-action@v2
+              with:
+                password: ${{secrets.DOCKERHUB_TOKEN}}
+                username: guoyk
             - name: docker login - coding registry
               uses: docker/login-action@v2
               with:
@@ -4621,10 +5130,12 @@ jobs:
               uses: docker/metadata-action@v4
               with:
                 images: |-
+                    ghcr.io/guoyk93/acicn/rocketmq
+                    acicn/rocketmq
                     ccr.ccs.tencentyun.com/acicn/rocketmq
                     registry.cn-shenzhen.aliyuncs.com/acicn/rocketmq
                     ${{secrets.MIRROR_CODING_REGISTRY}}/${{secrets.MIRROR_CODING_PREFIX}}/rocketmq
-                tags: type=raw,value=console-rc
+                tags: type=raw,value=console
             - id: build
               name: build for rocketmq:console
               uses: docker/build-push-action@v3
@@ -4660,6 +5171,11 @@ jobs:
                 password: ${{secrets.GITHUB_TOKEN}}
                 registry: ghcr.io
                 username: ${{github.actor}}
+            - name: docker login - dockerhub
+              uses: docker/login-action@v2
+              with:
+                password: ${{secrets.DOCKERHUB_TOKEN}}
+                username: guoyk
             - name: docker login - coding registry
               uses: docker/login-action@v2
               with:
@@ -4683,12 +5199,14 @@ jobs:
               uses: docker/metadata-action@v4
               with:
                 images: |-
+                    ghcr.io/guoyk93/acicn/spring-boot-admin
+                    acicn/spring-boot-admin
                     ccr.ccs.tencentyun.com/acicn/spring-boot-admin
                     registry.cn-shenzhen.aliyuncs.com/acicn/spring-boot-admin
                     ${{secrets.MIRROR_CODING_REGISTRY}}/${{secrets.MIRROR_CODING_PREFIX}}/spring-boot-admin
                 tags: |-
-                    type=raw,value=1.0-rc
-                    type=raw,value=latest-rc
+                    type=raw,value=1.0
+                    type=raw,value=latest
             - id: build
               name: build for spring-boot-admin:1.0
               uses: docker/build-push-action@v3
@@ -4724,6 +5242,11 @@ jobs:
                 password: ${{secrets.GITHUB_TOKEN}}
                 registry: ghcr.io
                 username: ${{github.actor}}
+            - name: docker login - dockerhub
+              uses: docker/login-action@v2
+              with:
+                password: ${{secrets.DOCKERHUB_TOKEN}}
+                username: guoyk
             - name: docker login - coding registry
               uses: docker/login-action@v2
               with:
@@ -4747,12 +5270,14 @@ jobs:
               uses: docker/metadata-action@v4
               with:
                 images: |-
+                    ghcr.io/guoyk93/acicn/tomcat
+                    acicn/tomcat
                     ccr.ccs.tencentyun.com/acicn/tomcat
                     registry.cn-shenzhen.aliyuncs.com/acicn/tomcat
                     ${{secrets.MIRROR_CODING_REGISTRY}}/${{secrets.MIRROR_CODING_PREFIX}}/tomcat
                 tags: |-
-                    type=raw,value=8-jdk-8-debian-11-rc
-                    type=raw,value=8-jdk-8-rc
+                    type=raw,value=8-jdk-8-debian-11
+                    type=raw,value=8-jdk-8
             - id: build
               name: build for tomcat:8-jdk-8-debian-11
               uses: docker/build-push-action@v3
@@ -4788,6 +5313,11 @@ jobs:
                 password: ${{secrets.GITHUB_TOKEN}}
                 registry: ghcr.io
                 username: ${{github.actor}}
+            - name: docker login - dockerhub
+              uses: docker/login-action@v2
+              with:
+                password: ${{secrets.DOCKERHUB_TOKEN}}
+                username: guoyk
             - name: docker login - coding registry
               uses: docker/login-action@v2
               with:
@@ -4811,14 +5341,16 @@ jobs:
               uses: docker/metadata-action@v4
               with:
                 images: |-
+                    ghcr.io/guoyk93/acicn/tomcat
+                    acicn/tomcat
                     ccr.ccs.tencentyun.com/acicn/tomcat
                     registry.cn-shenzhen.aliyuncs.com/acicn/tomcat
                     ${{secrets.MIRROR_CODING_REGISTRY}}/${{secrets.MIRROR_CODING_PREFIX}}/tomcat
                 tags: |-
-                    type=raw,value=8-jdk-11-debian-11-rc
-                    type=raw,value=8-jdk-11-rc
-                    type=raw,value=8-rc
-                    type=raw,value=8-pagoda-rc
+                    type=raw,value=8-jdk-11-debian-11
+                    type=raw,value=8-jdk-11
+                    type=raw,value=8
+                    type=raw,value=8-pagoda
             - id: build
               name: build for tomcat:8-jdk-11-debian-11
               uses: docker/build-push-action@v3
@@ -4854,6 +5386,11 @@ jobs:
                 password: ${{secrets.GITHUB_TOKEN}}
                 registry: ghcr.io
                 username: ${{github.actor}}
+            - name: docker login - dockerhub
+              uses: docker/login-action@v2
+              with:
+                password: ${{secrets.DOCKERHUB_TOKEN}}
+                username: guoyk
             - name: docker login - coding registry
               uses: docker/login-action@v2
               with:
@@ -4877,12 +5414,14 @@ jobs:
               uses: docker/metadata-action@v4
               with:
                 images: |-
+                    ghcr.io/guoyk93/acicn/tomcat
+                    acicn/tomcat
                     ccr.ccs.tencentyun.com/acicn/tomcat
                     registry.cn-shenzhen.aliyuncs.com/acicn/tomcat
                     ${{secrets.MIRROR_CODING_REGISTRY}}/${{secrets.MIRROR_CODING_PREFIX}}/tomcat
                 tags: |-
-                    type=raw,value=9-jdk-8-debian-11-rc
-                    type=raw,value=9-jdk-8-rc
+                    type=raw,value=9-jdk-8-debian-11
+                    type=raw,value=9-jdk-8
             - id: build
               name: build for tomcat:9-jdk-8-debian-11
               uses: docker/build-push-action@v3
@@ -4918,6 +5457,11 @@ jobs:
                 password: ${{secrets.GITHUB_TOKEN}}
                 registry: ghcr.io
                 username: ${{github.actor}}
+            - name: docker login - dockerhub
+              uses: docker/login-action@v2
+              with:
+                password: ${{secrets.DOCKERHUB_TOKEN}}
+                username: guoyk
             - name: docker login - coding registry
               uses: docker/login-action@v2
               with:
@@ -4941,13 +5485,15 @@ jobs:
               uses: docker/metadata-action@v4
               with:
                 images: |-
+                    ghcr.io/guoyk93/acicn/tomcat
+                    acicn/tomcat
                     ccr.ccs.tencentyun.com/acicn/tomcat
                     registry.cn-shenzhen.aliyuncs.com/acicn/tomcat
                     ${{secrets.MIRROR_CODING_REGISTRY}}/${{secrets.MIRROR_CODING_PREFIX}}/tomcat
                 tags: |-
-                    type=raw,value=9-jdk-11-debian-11-rc
-                    type=raw,value=9-jdk-11-rc
-                    type=raw,value=9-rc
+                    type=raw,value=9-jdk-11-debian-11
+                    type=raw,value=9-jdk-11
+                    type=raw,value=9
             - id: build
               name: build for tomcat:9-jdk-11-debian-11
               uses: docker/build-push-action@v3
@@ -4983,6 +5529,11 @@ jobs:
                 password: ${{secrets.GITHUB_TOKEN}}
                 registry: ghcr.io
                 username: ${{github.actor}}
+            - name: docker login - dockerhub
+              uses: docker/login-action@v2
+              with:
+                password: ${{secrets.DOCKERHUB_TOKEN}}
+                username: guoyk
             - name: docker login - coding registry
               uses: docker/login-action@v2
               with:
@@ -5006,14 +5557,16 @@ jobs:
               uses: docker/metadata-action@v4
               with:
                 images: |-
+                    ghcr.io/guoyk93/acicn/zookeeper
+                    acicn/zookeeper
                     ccr.ccs.tencentyun.com/acicn/zookeeper
                     registry.cn-shenzhen.aliyuncs.com/acicn/zookeeper
                     ${{secrets.MIRROR_CODING_REGISTRY}}/${{secrets.MIRROR_CODING_PREFIX}}/zookeeper
                 tags: |-
-                    type=raw,value=3.6.2-jdk-11-rc
-                    type=raw,value=latest-rc
-                    type=raw,value=3.6-rc
-                    type=raw,value=3.6.2-rc
+                    type=raw,value=3.6.2-jdk-11
+                    type=raw,value=latest
+                    type=raw,value=3.6
+                    type=raw,value=3.6.2
             - id: build
               name: build for zookeeper:3.6.2-jdk-11
               uses: docker/build-push-action@v3

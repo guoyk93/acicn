@@ -76,25 +76,119 @@ var (
 	}
 )
 
-func mustTagRC(buf []byte) {
+func mustRC(buf []byte, check bool) {
 	items := bytes.Split(buf, []byte{'\n'})
 	for _, item := range items {
 		s := string(bytes.TrimSpace(item))
 		if !strings.Contains(s, "type=raw") {
 			continue
 		}
-		if !strings.HasSuffix(s, "-rc") {
+		if check != strings.HasSuffix(s, "-rc") {
 			panic(errors.New("unexpected tag: " + s))
 		}
 	}
 }
 
-func releaseJobName(name string) string {
-	return "r_" + regexpNotSafe.ReplaceAllString(path.Base(strings.ToLower(name)), "_") + "_r"
+func jobName(name string) string {
+	return regexpNotSafe.ReplaceAllString(path.Base(strings.ToLower(name)), "_")
 }
 
-func mirrorJobName(name string) string {
-	return "m_" + regexpNotSafe.ReplaceAllString(path.Base(strings.ToLower(name)), "_") + "_m"
+type WorkflowPromoteOptions struct{}
+
+func updateWorkflowPromote(repos []*acicn.Repo, opts WorkflowPromoteOptions) (err error) {
+	defer gg.Guard(&err)
+
+	jobs := gg.M{}
+
+	for _, item := range repos {
+
+		tags := gg.Map(item.Tags, func(tag string) string {
+			return fmt.Sprintf("type=raw,value=%s", tag)
+		})
+
+		job := gg.M{
+			"if":      "inputs.job_name == 'all' || contains(inputs.job_name,'" + jobName(item.Name) + ",')",
+			"runs-on": "ubuntu-latest",
+			"permissions": gg.M{
+				"contents": "read",
+				"packages": "read",
+				"id-token": "write",
+			},
+			"steps": []gg.M{
+				stepCheckout,
+				{
+					"name": "generate dockerfile",
+					"uses": "DamianReeves/write-file-action@v1.2",
+					"with": gg.M{
+						"path":       "docker/Dockerfile",
+						"write-mode": "overwrite",
+						"contents":   "FROM " + item.Name + acicn.SuffixRC,
+					},
+				},
+				stepSetupBuildX,
+				stepLoginGithubCR,
+				stepSetupDockerhub,
+				stepLoginCodingCR,
+				stepLoginTencentCR,
+				stepLoginAliyunCR,
+				{
+					"name": "meta for " + item.ShortName(),
+					"id":   "meta",
+					"uses": "docker/metadata-action@v4",
+					"with": gg.M{
+						"images": strings.Join([]string{
+							"ghcr.io/guoyk93/acicn/" + item.Repo,
+							"acicn/" + item.Repo,
+							"ccr.ccs.tencentyun.com/acicn/" + item.Repo,
+							"registry.cn-shenzhen.aliyuncs.com/acicn/" + item.Repo,
+							"${{secrets.MIRROR_CODING_REGISTRY}}/${{secrets.MIRROR_CODING_PREFIX}}/" + item.Repo,
+						}, "\n"),
+						"tags": strings.Join(tags, "\n"),
+					},
+				},
+				{
+					"name": "build for " + item.ShortName(),
+					"uses": "docker/build-push-action@v3",
+					"id":   "build",
+					"with": gg.M{
+						"context":    "docker",
+						"pull":       true,
+						"push":       true,
+						"tags":       "${{steps.meta.outputs.tags}}",
+						"labels":     "${{steps.meta.outputs.labels}}",
+						"cache-from": "type=gha",
+						"cache-to":   "type=gha,mode=min",
+					},
+				},
+			},
+		}
+
+		jobs[jobName(item.Name)] = job
+	}
+
+	doc := gg.M{
+		"name": "mirror",
+		"on": gg.M{
+			"workflow_dispatch": gg.M{
+				"inputs": gg.M{
+					"job_name": gg.M{
+						"description": "names of jobs to execute, 'all' for all",
+						"required":    true,
+						"type":        "string",
+					},
+				},
+			},
+		},
+		"jobs": jobs,
+	}
+
+	buf := gg.Must(yaml.Marshal(doc))
+
+	mustRC(buf, false)
+
+	gg.Must0(os.MkdirAll(filepath.Join(".github", "workflows"), 0755))
+	gg.Must0(os.WriteFile(filepath.Join(".github", "workflows", "promote.yaml"), buf, 0640))
+	return
 }
 
 type WorkflowMirrorOptions struct{}
@@ -111,7 +205,7 @@ func updateWorkflowMirror(repos []*acicn.Repo, opts WorkflowMirrorOptions) (err 
 		})
 
 		job := gg.M{
-			"if":      "inputs.job_name == 'all' || contains(inputs.job_name,'" + mirrorJobName(item.Name) + "')",
+			"if":      "inputs.job_name == 'all' || contains(inputs.job_name,'" + jobName(item.Name) + ",')",
 			"runs-on": "ubuntu-latest",
 			"permissions": gg.M{
 				"contents": "read",
@@ -164,7 +258,7 @@ func updateWorkflowMirror(repos []*acicn.Repo, opts WorkflowMirrorOptions) (err 
 			},
 		}
 
-		jobs[mirrorJobName(item.Name)] = job
+		jobs[jobName(item.Name)] = job
 	}
 
 	doc := gg.M{
@@ -185,7 +279,7 @@ func updateWorkflowMirror(repos []*acicn.Repo, opts WorkflowMirrorOptions) (err 
 
 	buf := gg.Must(yaml.Marshal(doc))
 
-	mustTagRC(buf)
+	mustRC(buf, true)
 
 	gg.Must0(os.MkdirAll(filepath.Join(".github", "workflows"), 0755))
 	gg.Must0(os.WriteFile(filepath.Join(".github", "workflows", "mirror.yaml"), buf, 0640))
@@ -277,7 +371,7 @@ func updateWorkflowRelease(repos []*acicn.Repo, opts WorkflowReleaseOptions) (er
 		}
 
 		if opts.Solo {
-			job["if"] = "inputs.job_name == 'all' || contains(inputs.job_name,'" + releaseJobName(item.Name) + "')"
+			job["if"] = "inputs.job_name == 'all' || contains(inputs.job_name,'" + jobName(item.Name) + ",')"
 		}
 
 		var needs []string
@@ -285,7 +379,7 @@ func updateWorkflowRelease(repos []*acicn.Repo, opts WorkflowReleaseOptions) (er
 		for k, v := range item.Vars {
 			if s, ok := v.(string); ok && s != "" {
 				if strings.HasPrefix(k, "upstream") {
-					needs = append(needs, releaseJobName(gg.Must(item.Lookup(s))))
+					needs = append(needs, jobName(gg.Must(item.Lookup(s))))
 				}
 			}
 		}
@@ -296,7 +390,7 @@ func updateWorkflowRelease(repos []*acicn.Repo, opts WorkflowReleaseOptions) (er
 			job["needs"] = needs
 		}
 
-		jobs[releaseJobName(item.Name)] = job
+		jobs[jobName(item.Name)] = job
 	}
 
 	workflowDispatch := gg.M{}
@@ -326,7 +420,7 @@ func updateWorkflowRelease(repos []*acicn.Repo, opts WorkflowReleaseOptions) (er
 
 	buf := gg.Must(yaml.Marshal(doc))
 
-	mustTagRC(buf)
+	mustRC(buf, true)
 
 	gg.Must0(os.MkdirAll(filepath.Join(".github", "workflows"), 0755))
 	gg.Must0(os.WriteFile(filepath.Join(".github", "workflows", "release"+nameSuffix+".yaml"), buf, 0640))
@@ -371,6 +465,7 @@ func main() {
 	gg.Must0(updateWorkflowRelease(repos, WorkflowReleaseOptions{Solo: false}))
 	gg.Must0(updateWorkflowRelease(repos, WorkflowReleaseOptions{Solo: true}))
 	gg.Must0(updateWorkflowMirror(repos, WorkflowMirrorOptions{}))
+	gg.Must0(updateWorkflowPromote(repos, WorkflowPromoteOptions{}))
 
 	// collect image names
 	// update IMAGES.txt

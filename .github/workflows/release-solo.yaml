@@ -1,6 +1,6 @@
 jobs:
-    r_activemq_5_15_jdk_8_r:
-        if: inputs.job_name == 'all' || contains(inputs.job_name,'r_activemq_5_15_jdk_8_r')
+    activemq_5_15_jdk_8:
+        if: inputs.job_name == 'all' || contains(inputs.job_name,'activemq_5_15_jdk_8,')
         permissions:
             contents: read
             id-token: write
@@ -41,8 +41,8 @@ jobs:
                 pull: true
                 push: ${{inputs.push}}
                 tags: ${{steps.meta.outputs.tags}}
-    r_activemq_5_15_jdk_11_r:
-        if: inputs.job_name == 'all' || contains(inputs.job_name,'r_activemq_5_15_jdk_11_r')
+    activemq_5_15_jdk_11:
+        if: inputs.job_name == 'all' || contains(inputs.job_name,'activemq_5_15_jdk_11,')
         permissions:
             contents: read
             id-token: write
@@ -85,8 +85,8 @@ jobs:
                 pull: true
                 push: ${{inputs.push}}
                 tags: ${{steps.meta.outputs.tags}}
-    r_alinode_12_sensordata_filebeat_r:
-        if: inputs.job_name == 'all' || contains(inputs.job_name,'r_alinode_12_sensordata_filebeat_r')
+    alinode_12_sensordata_filebeat:
+        if: inputs.job_name == 'all' || contains(inputs.job_name,'alinode_12_sensordata_filebeat,')
         permissions:
             contents: read
             id-token: write
@@ -127,8 +127,8 @@ jobs:
                 pull: true
                 push: ${{inputs.push}}
                 tags: ${{steps.meta.outputs.tags}}
-    r_alinode_16_sensordata_filebeat_r:
-        if: inputs.job_name == 'all' || contains(inputs.job_name,'r_alinode_16_sensordata_filebeat_r')
+    alinode_16_sensordata_filebeat:
+        if: inputs.job_name == 'all' || contains(inputs.job_name,'alinode_16_sensordata_filebeat,')
         permissions:
             contents: read
             id-token: write
@@ -169,50 +169,8 @@ jobs:
                 pull: true
                 push: ${{inputs.push}}
                 tags: ${{steps.meta.outputs.tags}}
-    r_alpine_3_16_no_minit_r:
-        if: inputs.job_name == 'all' || contains(inputs.job_name,'r_alpine_3_16_no_minit_r')
-        permissions:
-            contents: read
-            id-token: write
-            packages: write
-        runs-on: ubuntu-latest
-        steps:
-            - name: checkout
-              uses: actions/checkout@v3
-            - name: setup docker buildx
-              uses: docker/setup-buildx-action@v2
-            - name: docker login - ghcr
-              uses: docker/login-action@v2
-              with:
-                password: ${{secrets.GITHUB_TOKEN}}
-                registry: ghcr.io
-                username: ${{github.actor}}
-            - name: docker login - dockerhub
-              uses: docker/login-action@v2
-              with:
-                password: ${{secrets.DOCKERHUB_TOKEN}}
-                username: guoyk
-            - id: meta
-              name: meta for alpine:3.16-no-minit
-              uses: docker/metadata-action@v4
-              with:
-                images: |-
-                    ghcr.io/guoyk93/acicn/alpine
-                    acicn/alpine
-                tags: type=raw,value=3.16-no-minit-rc
-            - id: build
-              name: build for alpine:3.16-no-minit
-              uses: docker/build-push-action@v3
-              with:
-                cache-from: type=gha
-                cache-to: type=gha,mode=min
-                context: out/alpine:3.16-no-minit
-                labels: ${{steps.meta.outputs.labels}}
-                pull: false
-                push: ${{inputs.push}}
-                tags: ${{steps.meta.outputs.tags}}
-    r_alpine_3_16_r:
-        if: inputs.job_name == 'all' || contains(inputs.job_name,'r_alpine_3_16_r')
+    alpine_3_16:
+        if: inputs.job_name == 'all' || contains(inputs.job_name,'alpine_3_16,')
         permissions:
             contents: read
             id-token: write
@@ -253,8 +211,50 @@ jobs:
                 pull: false
                 push: ${{inputs.push}}
                 tags: ${{steps.meta.outputs.tags}}
-    r_apollo_1_3_0_jdk_11_r:
-        if: inputs.job_name == 'all' || contains(inputs.job_name,'r_apollo_1_3_0_jdk_11_r')
+    alpine_3_16_no_minit:
+        if: inputs.job_name == 'all' || contains(inputs.job_name,'alpine_3_16_no_minit,')
+        permissions:
+            contents: read
+            id-token: write
+            packages: write
+        runs-on: ubuntu-latest
+        steps:
+            - name: checkout
+              uses: actions/checkout@v3
+            - name: setup docker buildx
+              uses: docker/setup-buildx-action@v2
+            - name: docker login - ghcr
+              uses: docker/login-action@v2
+              with:
+                password: ${{secrets.GITHUB_TOKEN}}
+                registry: ghcr.io
+                username: ${{github.actor}}
+            - name: docker login - dockerhub
+              uses: docker/login-action@v2
+              with:
+                password: ${{secrets.DOCKERHUB_TOKEN}}
+                username: guoyk
+            - id: meta
+              name: meta for alpine:3.16-no-minit
+              uses: docker/metadata-action@v4
+              with:
+                images: |-
+                    ghcr.io/guoyk93/acicn/alpine
+                    acicn/alpine
+                tags: type=raw,value=3.16-no-minit-rc
+            - id: build
+              name: build for alpine:3.16-no-minit
+              uses: docker/build-push-action@v3
+              with:
+                cache-from: type=gha
+                cache-to: type=gha,mode=min
+                context: out/alpine:3.16-no-minit
+                labels: ${{steps.meta.outputs.labels}}
+                pull: false
+                push: ${{inputs.push}}
+                tags: ${{steps.meta.outputs.tags}}
+    apollo_1_3_0_jdk_11:
+        if: inputs.job_name == 'all' || contains(inputs.job_name,'apollo_1_3_0_jdk_11,')
         permissions:
             contents: read
             id-token: write
@@ -297,8 +297,8 @@ jobs:
                 pull: true
                 push: ${{inputs.push}}
                 tags: ${{steps.meta.outputs.tags}}
-    r_beanstalk_1_alpine_3_16_r:
-        if: inputs.job_name == 'all' || contains(inputs.job_name,'r_beanstalk_1_alpine_3_16_r')
+    beanstalk_1_alpine_3_16:
+        if: inputs.job_name == 'all' || contains(inputs.job_name,'beanstalk_1_alpine_3_16,')
         permissions:
             contents: read
             id-token: write
@@ -342,50 +342,8 @@ jobs:
                 pull: true
                 push: ${{inputs.push}}
                 tags: ${{steps.meta.outputs.tags}}
-    r_debian_11_no_minit_r:
-        if: inputs.job_name == 'all' || contains(inputs.job_name,'r_debian_11_no_minit_r')
-        permissions:
-            contents: read
-            id-token: write
-            packages: write
-        runs-on: ubuntu-latest
-        steps:
-            - name: checkout
-              uses: actions/checkout@v3
-            - name: setup docker buildx
-              uses: docker/setup-buildx-action@v2
-            - name: docker login - ghcr
-              uses: docker/login-action@v2
-              with:
-                password: ${{secrets.GITHUB_TOKEN}}
-                registry: ghcr.io
-                username: ${{github.actor}}
-            - name: docker login - dockerhub
-              uses: docker/login-action@v2
-              with:
-                password: ${{secrets.DOCKERHUB_TOKEN}}
-                username: guoyk
-            - id: meta
-              name: meta for debian:11-no-minit
-              uses: docker/metadata-action@v4
-              with:
-                images: |-
-                    ghcr.io/guoyk93/acicn/debian
-                    acicn/debian
-                tags: type=raw,value=11-no-minit-rc
-            - id: build
-              name: build for debian:11-no-minit
-              uses: docker/build-push-action@v3
-              with:
-                cache-from: type=gha
-                cache-to: type=gha,mode=min
-                context: out/debian:11-no-minit
-                labels: ${{steps.meta.outputs.labels}}
-                pull: false
-                push: ${{inputs.push}}
-                tags: ${{steps.meta.outputs.tags}}
-    r_debian_11_r:
-        if: inputs.job_name == 'all' || contains(inputs.job_name,'r_debian_11_r')
+    debian_11:
+        if: inputs.job_name == 'all' || contains(inputs.job_name,'debian_11,')
         permissions:
             contents: read
             id-token: write
@@ -426,8 +384,50 @@ jobs:
                 pull: false
                 push: ${{inputs.push}}
                 tags: ${{steps.meta.outputs.tags}}
-    r_elasticsearch_6_3_2_jdk_11_r:
-        if: inputs.job_name == 'all' || contains(inputs.job_name,'r_elasticsearch_6_3_2_jdk_11_r')
+    debian_11_no_minit:
+        if: inputs.job_name == 'all' || contains(inputs.job_name,'debian_11_no_minit,')
+        permissions:
+            contents: read
+            id-token: write
+            packages: write
+        runs-on: ubuntu-latest
+        steps:
+            - name: checkout
+              uses: actions/checkout@v3
+            - name: setup docker buildx
+              uses: docker/setup-buildx-action@v2
+            - name: docker login - ghcr
+              uses: docker/login-action@v2
+              with:
+                password: ${{secrets.GITHUB_TOKEN}}
+                registry: ghcr.io
+                username: ${{github.actor}}
+            - name: docker login - dockerhub
+              uses: docker/login-action@v2
+              with:
+                password: ${{secrets.DOCKERHUB_TOKEN}}
+                username: guoyk
+            - id: meta
+              name: meta for debian:11-no-minit
+              uses: docker/metadata-action@v4
+              with:
+                images: |-
+                    ghcr.io/guoyk93/acicn/debian
+                    acicn/debian
+                tags: type=raw,value=11-no-minit-rc
+            - id: build
+              name: build for debian:11-no-minit
+              uses: docker/build-push-action@v3
+              with:
+                cache-from: type=gha
+                cache-to: type=gha,mode=min
+                context: out/debian:11-no-minit
+                labels: ${{steps.meta.outputs.labels}}
+                pull: false
+                push: ${{inputs.push}}
+                tags: ${{steps.meta.outputs.tags}}
+    elasticsearch_6_3_2_jdk_11:
+        if: inputs.job_name == 'all' || contains(inputs.job_name,'elasticsearch_6_3_2_jdk_11,')
         permissions:
             contents: read
             id-token: write
@@ -470,8 +470,8 @@ jobs:
                 pull: true
                 push: ${{inputs.push}}
                 tags: ${{steps.meta.outputs.tags}}
-    r_elasticsearch_6_8_18_jdk_11_r:
-        if: inputs.job_name == 'all' || contains(inputs.job_name,'r_elasticsearch_6_8_18_jdk_11_r')
+    elasticsearch_6_8_18_jdk_11:
+        if: inputs.job_name == 'all' || contains(inputs.job_name,'elasticsearch_6_8_18_jdk_11,')
         permissions:
             contents: read
             id-token: write
@@ -514,8 +514,8 @@ jobs:
                 pull: true
                 push: ${{inputs.push}}
                 tags: ${{steps.meta.outputs.tags}}
-    r_elasticsearch_7_17_7_jdk_11_r:
-        if: inputs.job_name == 'all' || contains(inputs.job_name,'r_elasticsearch_7_17_7_jdk_11_r')
+    elasticsearch_7_17_7_jdk_11:
+        if: inputs.job_name == 'all' || contains(inputs.job_name,'elasticsearch_7_17_7_jdk_11,')
         permissions:
             contents: read
             id-token: write
@@ -558,8 +558,8 @@ jobs:
                 pull: true
                 push: ${{inputs.push}}
                 tags: ${{steps.meta.outputs.tags}}
-    r_filebeat_6_3_2_debian_11_r:
-        if: inputs.job_name == 'all' || contains(inputs.job_name,'r_filebeat_6_3_2_debian_11_r')
+    filebeat_6_3_2_debian_11:
+        if: inputs.job_name == 'all' || contains(inputs.job_name,'filebeat_6_3_2_debian_11,')
         permissions:
             contents: read
             id-token: write
@@ -602,8 +602,8 @@ jobs:
                 pull: true
                 push: ${{inputs.push}}
                 tags: ${{steps.meta.outputs.tags}}
-    r_jdk_8_cubic_r:
-        if: inputs.job_name == 'all' || contains(inputs.job_name,'r_jdk_8_cubic_r')
+    jdk_8_cubic:
+        if: inputs.job_name == 'all' || contains(inputs.job_name,'jdk_8_cubic,')
         permissions:
             contents: read
             id-token: write
@@ -646,8 +646,8 @@ jobs:
                 pull: true
                 push: ${{inputs.push}}
                 tags: ${{steps.meta.outputs.tags}}
-    r_jdk_8_debian_11_r:
-        if: inputs.job_name == 'all' || contains(inputs.job_name,'r_jdk_8_debian_11_r')
+    jdk_8_debian_11:
+        if: inputs.job_name == 'all' || contains(inputs.job_name,'jdk_8_debian_11,')
         permissions:
             contents: read
             id-token: write
@@ -691,8 +691,8 @@ jobs:
                 pull: true
                 push: ${{inputs.push}}
                 tags: ${{steps.meta.outputs.tags}}
-    r_jdk_11_debian_11_r:
-        if: inputs.job_name == 'all' || contains(inputs.job_name,'r_jdk_11_debian_11_r')
+    jdk_11_debian_11:
+        if: inputs.job_name == 'all' || contains(inputs.job_name,'jdk_11_debian_11,')
         permissions:
             contents: read
             id-token: write
@@ -736,8 +736,8 @@ jobs:
                 pull: true
                 push: ${{inputs.push}}
                 tags: ${{steps.meta.outputs.tags}}
-    r_jdk_17_debian_11_r:
-        if: inputs.job_name == 'all' || contains(inputs.job_name,'r_jdk_17_debian_11_r')
+    jdk_17_debian_11:
+        if: inputs.job_name == 'all' || contains(inputs.job_name,'jdk_17_debian_11,')
         permissions:
             contents: read
             id-token: write
@@ -781,8 +781,8 @@ jobs:
                 pull: true
                 push: ${{inputs.push}}
                 tags: ${{steps.meta.outputs.tags}}
-    r_jdk_builder_8_maven_3_5_debian_11_r:
-        if: inputs.job_name == 'all' || contains(inputs.job_name,'r_jdk_builder_8_maven_3_5_debian_11_r')
+    jdk_builder_8_maven_3_5_debian_11:
+        if: inputs.job_name == 'all' || contains(inputs.job_name,'jdk_builder_8_maven_3_5_debian_11,')
         permissions:
             contents: read
             id-token: write
@@ -825,8 +825,8 @@ jobs:
                 pull: true
                 push: ${{inputs.push}}
                 tags: ${{steps.meta.outputs.tags}}
-    r_jdk_builder_8_maven_3_6_debian_11_r:
-        if: inputs.job_name == 'all' || contains(inputs.job_name,'r_jdk_builder_8_maven_3_6_debian_11_r')
+    jdk_builder_8_maven_3_6_debian_11:
+        if: inputs.job_name == 'all' || contains(inputs.job_name,'jdk_builder_8_maven_3_6_debian_11,')
         permissions:
             contents: read
             id-token: write
@@ -870,8 +870,8 @@ jobs:
                 pull: true
                 push: ${{inputs.push}}
                 tags: ${{steps.meta.outputs.tags}}
-    r_jdk_builder_8_maven_3_8_debian_11_r:
-        if: inputs.job_name == 'all' || contains(inputs.job_name,'r_jdk_builder_8_maven_3_8_debian_11_r')
+    jdk_builder_8_maven_3_8_debian_11:
+        if: inputs.job_name == 'all' || contains(inputs.job_name,'jdk_builder_8_maven_3_8_debian_11,')
         permissions:
             contents: read
             id-token: write
@@ -914,8 +914,8 @@ jobs:
                 pull: true
                 push: ${{inputs.push}}
                 tags: ${{steps.meta.outputs.tags}}
-    r_jdk_builder_11_maven_3_5_debian_11_r:
-        if: inputs.job_name == 'all' || contains(inputs.job_name,'r_jdk_builder_11_maven_3_5_debian_11_r')
+    jdk_builder_11_maven_3_5_debian_11:
+        if: inputs.job_name == 'all' || contains(inputs.job_name,'jdk_builder_11_maven_3_5_debian_11,')
         permissions:
             contents: read
             id-token: write
@@ -958,8 +958,8 @@ jobs:
                 pull: true
                 push: ${{inputs.push}}
                 tags: ${{steps.meta.outputs.tags}}
-    r_jdk_builder_11_maven_3_6_debian_11_r:
-        if: inputs.job_name == 'all' || contains(inputs.job_name,'r_jdk_builder_11_maven_3_6_debian_11_r')
+    jdk_builder_11_maven_3_6_debian_11:
+        if: inputs.job_name == 'all' || contains(inputs.job_name,'jdk_builder_11_maven_3_6_debian_11,')
         permissions:
             contents: read
             id-token: write
@@ -1002,8 +1002,8 @@ jobs:
                 pull: true
                 push: ${{inputs.push}}
                 tags: ${{steps.meta.outputs.tags}}
-    r_jdk_builder_11_maven_3_8_debian_11_r:
-        if: inputs.job_name == 'all' || contains(inputs.job_name,'r_jdk_builder_11_maven_3_8_debian_11_r')
+    jdk_builder_11_maven_3_8_debian_11:
+        if: inputs.job_name == 'all' || contains(inputs.job_name,'jdk_builder_11_maven_3_8_debian_11,')
         permissions:
             contents: read
             id-token: write
@@ -1047,8 +1047,8 @@ jobs:
                 pull: true
                 push: ${{inputs.push}}
                 tags: ${{steps.meta.outputs.tags}}
-    r_jdk_builder_17_maven_3_6_debian_11_r:
-        if: inputs.job_name == 'all' || contains(inputs.job_name,'r_jdk_builder_17_maven_3_6_debian_11_r')
+    jdk_builder_17_maven_3_6_debian_11:
+        if: inputs.job_name == 'all' || contains(inputs.job_name,'jdk_builder_17_maven_3_6_debian_11,')
         permissions:
             contents: read
             id-token: write
@@ -1091,8 +1091,8 @@ jobs:
                 pull: true
                 push: ${{inputs.push}}
                 tags: ${{steps.meta.outputs.tags}}
-    r_jdk_builder_17_maven_3_8_debian_11_r:
-        if: inputs.job_name == 'all' || contains(inputs.job_name,'r_jdk_builder_17_maven_3_8_debian_11_r')
+    jdk_builder_17_maven_3_8_debian_11:
+        if: inputs.job_name == 'all' || contains(inputs.job_name,'jdk_builder_17_maven_3_8_debian_11,')
         permissions:
             contents: read
             id-token: write
@@ -1136,8 +1136,8 @@ jobs:
                 pull: true
                 push: ${{inputs.push}}
                 tags: ${{steps.meta.outputs.tags}}
-    r_kafka_2_1_r:
-        if: inputs.job_name == 'all' || contains(inputs.job_name,'r_kafka_2_1_r')
+    kafka_2_1:
+        if: inputs.job_name == 'all' || contains(inputs.job_name,'kafka_2_1,')
         permissions:
             contents: read
             id-token: write
@@ -1178,8 +1178,8 @@ jobs:
                 pull: true
                 push: ${{inputs.push}}
                 tags: ${{steps.meta.outputs.tags}}
-    r_kafka_2_4_r:
-        if: inputs.job_name == 'all' || contains(inputs.job_name,'r_kafka_2_4_r')
+    kafka_2_4:
+        if: inputs.job_name == 'all' || contains(inputs.job_name,'kafka_2_4,')
         permissions:
             contents: read
             id-token: write
@@ -1220,8 +1220,8 @@ jobs:
                 pull: true
                 push: ${{inputs.push}}
                 tags: ${{steps.meta.outputs.tags}}
-    r_kafka_2_8_r:
-        if: inputs.job_name == 'all' || contains(inputs.job_name,'r_kafka_2_8_r')
+    kafka_2_8:
+        if: inputs.job_name == 'all' || contains(inputs.job_name,'kafka_2_8,')
         permissions:
             contents: read
             id-token: write
@@ -1264,8 +1264,8 @@ jobs:
                 pull: true
                 push: ${{inputs.push}}
                 tags: ${{steps.meta.outputs.tags}}
-    r_kibana_7_17_7_r:
-        if: inputs.job_name == 'all' || contains(inputs.job_name,'r_kibana_7_17_7_r')
+    kibana_7_17_7:
+        if: inputs.job_name == 'all' || contains(inputs.job_name,'kibana_7_17_7,')
         permissions:
             contents: read
             id-token: write
@@ -1306,8 +1306,8 @@ jobs:
                 pull: false
                 push: ${{inputs.push}}
                 tags: ${{steps.meta.outputs.tags}}
-    r_mongo_3_6_r:
-        if: inputs.job_name == 'all' || contains(inputs.job_name,'r_mongo_3_6_r')
+    mongo_3_6:
+        if: inputs.job_name == 'all' || contains(inputs.job_name,'mongo_3_6,')
         permissions:
             contents: read
             id-token: write
@@ -1348,8 +1348,8 @@ jobs:
                 pull: false
                 push: ${{inputs.push}}
                 tags: ${{steps.meta.outputs.tags}}
-    r_mongo_4_0_r:
-        if: inputs.job_name == 'all' || contains(inputs.job_name,'r_mongo_4_0_r')
+    mongo_4_0:
+        if: inputs.job_name == 'all' || contains(inputs.job_name,'mongo_4_0,')
         permissions:
             contents: read
             id-token: write
@@ -1390,8 +1390,8 @@ jobs:
                 pull: false
                 push: ${{inputs.push}}
                 tags: ${{steps.meta.outputs.tags}}
-    r_mongo_4_2_r:
-        if: inputs.job_name == 'all' || contains(inputs.job_name,'r_mongo_4_2_r')
+    mongo_4_2:
+        if: inputs.job_name == 'all' || contains(inputs.job_name,'mongo_4_2,')
         permissions:
             contents: read
             id-token: write
@@ -1432,8 +1432,8 @@ jobs:
                 pull: false
                 push: ${{inputs.push}}
                 tags: ${{steps.meta.outputs.tags}}
-    r_mongo_4_4_r:
-        if: inputs.job_name == 'all' || contains(inputs.job_name,'r_mongo_4_4_r')
+    mongo_4_4:
+        if: inputs.job_name == 'all' || contains(inputs.job_name,'mongo_4_4,')
         permissions:
             contents: read
             id-token: write
@@ -1474,8 +1474,8 @@ jobs:
                 pull: false
                 push: ${{inputs.push}}
                 tags: ${{steps.meta.outputs.tags}}
-    r_mysql_5_6_r:
-        if: inputs.job_name == 'all' || contains(inputs.job_name,'r_mysql_5_6_r')
+    mysql_5_6:
+        if: inputs.job_name == 'all' || contains(inputs.job_name,'mysql_5_6,')
         permissions:
             contents: read
             id-token: write
@@ -1516,8 +1516,8 @@ jobs:
                 pull: false
                 push: ${{inputs.push}}
                 tags: ${{steps.meta.outputs.tags}}
-    r_mysql_5_7_r:
-        if: inputs.job_name == 'all' || contains(inputs.job_name,'r_mysql_5_7_r')
+    mysql_5_7:
+        if: inputs.job_name == 'all' || contains(inputs.job_name,'mysql_5_7,')
         permissions:
             contents: read
             id-token: write
@@ -1558,8 +1558,8 @@ jobs:
                 pull: false
                 push: ${{inputs.push}}
                 tags: ${{steps.meta.outputs.tags}}
-    r_mysql_8_0_r:
-        if: inputs.job_name == 'all' || contains(inputs.job_name,'r_mysql_8_0_r')
+    mysql_8_0:
+        if: inputs.job_name == 'all' || contains(inputs.job_name,'mysql_8_0,')
         permissions:
             contents: read
             id-token: write
@@ -1600,8 +1600,8 @@ jobs:
                 pull: false
                 push: ${{inputs.push}}
                 tags: ${{steps.meta.outputs.tags}}
-    r_nginx_alpine_3_16_r:
-        if: inputs.job_name == 'all' || contains(inputs.job_name,'r_nginx_alpine_3_16_r')
+    nginx_alpine_3_16:
+        if: inputs.job_name == 'all' || contains(inputs.job_name,'nginx_alpine_3_16,')
         permissions:
             contents: read
             id-token: write
@@ -1644,8 +1644,8 @@ jobs:
                 pull: true
                 push: ${{inputs.push}}
                 tags: ${{steps.meta.outputs.tags}}
-    r_node_8_debian_11_r:
-        if: inputs.job_name == 'all' || contains(inputs.job_name,'r_node_8_debian_11_r')
+    node_8_debian_11:
+        if: inputs.job_name == 'all' || contains(inputs.job_name,'node_8_debian_11,')
         permissions:
             contents: read
             id-token: write
@@ -1688,8 +1688,8 @@ jobs:
                 pull: true
                 push: ${{inputs.push}}
                 tags: ${{steps.meta.outputs.tags}}
-    r_node_10_debian_11_r:
-        if: inputs.job_name == 'all' || contains(inputs.job_name,'r_node_10_debian_11_r')
+    node_10_debian_11:
+        if: inputs.job_name == 'all' || contains(inputs.job_name,'node_10_debian_11,')
         permissions:
             contents: read
             id-token: write
@@ -1732,8 +1732,8 @@ jobs:
                 pull: true
                 push: ${{inputs.push}}
                 tags: ${{steps.meta.outputs.tags}}
-    r_node_12_debian_11_r:
-        if: inputs.job_name == 'all' || contains(inputs.job_name,'r_node_12_debian_11_r')
+    node_12_debian_11:
+        if: inputs.job_name == 'all' || contains(inputs.job_name,'node_12_debian_11,')
         permissions:
             contents: read
             id-token: write
@@ -1776,8 +1776,8 @@ jobs:
                 pull: true
                 push: ${{inputs.push}}
                 tags: ${{steps.meta.outputs.tags}}
-    r_node_14_debian_11_r:
-        if: inputs.job_name == 'all' || contains(inputs.job_name,'r_node_14_debian_11_r')
+    node_14_debian_11:
+        if: inputs.job_name == 'all' || contains(inputs.job_name,'node_14_debian_11,')
         permissions:
             contents: read
             id-token: write
@@ -1820,8 +1820,8 @@ jobs:
                 pull: true
                 push: ${{inputs.push}}
                 tags: ${{steps.meta.outputs.tags}}
-    r_node_16_debian_11_r:
-        if: inputs.job_name == 'all' || contains(inputs.job_name,'r_node_16_debian_11_r')
+    node_16_debian_11:
+        if: inputs.job_name == 'all' || contains(inputs.job_name,'node_16_debian_11,')
         permissions:
             contents: read
             id-token: write
@@ -1864,8 +1864,8 @@ jobs:
                 pull: true
                 push: ${{inputs.push}}
                 tags: ${{steps.meta.outputs.tags}}
-    r_node_18_debian_11_r:
-        if: inputs.job_name == 'all' || contains(inputs.job_name,'r_node_18_debian_11_r')
+    node_18_debian_11:
+        if: inputs.job_name == 'all' || contains(inputs.job_name,'node_18_debian_11,')
         permissions:
             contents: read
             id-token: write
@@ -1908,8 +1908,8 @@ jobs:
                 pull: true
                 push: ${{inputs.push}}
                 tags: ${{steps.meta.outputs.tags}}
-    r_node_builder_8_debian_11_r:
-        if: inputs.job_name == 'all' || contains(inputs.job_name,'r_node_builder_8_debian_11_r')
+    node_builder_8_debian_11:
+        if: inputs.job_name == 'all' || contains(inputs.job_name,'node_builder_8_debian_11,')
         permissions:
             contents: read
             id-token: write
@@ -1952,8 +1952,8 @@ jobs:
                 pull: true
                 push: ${{inputs.push}}
                 tags: ${{steps.meta.outputs.tags}}
-    r_node_builder_10_debian_11_r:
-        if: inputs.job_name == 'all' || contains(inputs.job_name,'r_node_builder_10_debian_11_r')
+    node_builder_10_debian_11:
+        if: inputs.job_name == 'all' || contains(inputs.job_name,'node_builder_10_debian_11,')
         permissions:
             contents: read
             id-token: write
@@ -1996,8 +1996,8 @@ jobs:
                 pull: true
                 push: ${{inputs.push}}
                 tags: ${{steps.meta.outputs.tags}}
-    r_node_builder_12_debian_11_r:
-        if: inputs.job_name == 'all' || contains(inputs.job_name,'r_node_builder_12_debian_11_r')
+    node_builder_12_debian_11:
+        if: inputs.job_name == 'all' || contains(inputs.job_name,'node_builder_12_debian_11,')
         permissions:
             contents: read
             id-token: write
@@ -2040,8 +2040,8 @@ jobs:
                 pull: true
                 push: ${{inputs.push}}
                 tags: ${{steps.meta.outputs.tags}}
-    r_node_builder_14_debian_11_r:
-        if: inputs.job_name == 'all' || contains(inputs.job_name,'r_node_builder_14_debian_11_r')
+    node_builder_14_debian_11:
+        if: inputs.job_name == 'all' || contains(inputs.job_name,'node_builder_14_debian_11,')
         permissions:
             contents: read
             id-token: write
@@ -2084,8 +2084,8 @@ jobs:
                 pull: true
                 push: ${{inputs.push}}
                 tags: ${{steps.meta.outputs.tags}}
-    r_node_builder_16_debian_11_r:
-        if: inputs.job_name == 'all' || contains(inputs.job_name,'r_node_builder_16_debian_11_r')
+    node_builder_16_debian_11:
+        if: inputs.job_name == 'all' || contains(inputs.job_name,'node_builder_16_debian_11,')
         permissions:
             contents: read
             id-token: write
@@ -2128,8 +2128,8 @@ jobs:
                 pull: true
                 push: ${{inputs.push}}
                 tags: ${{steps.meta.outputs.tags}}
-    r_node_builder_18_debian_11_r:
-        if: inputs.job_name == 'all' || contains(inputs.job_name,'r_node_builder_18_debian_11_r')
+    node_builder_18_debian_11:
+        if: inputs.job_name == 'all' || contains(inputs.job_name,'node_builder_18_debian_11,')
         permissions:
             contents: read
             id-token: write
@@ -2172,8 +2172,8 @@ jobs:
                 pull: true
                 push: ${{inputs.push}}
                 tags: ${{steps.meta.outputs.tags}}
-    r_php_7_4_debian_11_r:
-        if: inputs.job_name == 'all' || contains(inputs.job_name,'r_php_7_4_debian_11_r')
+    php_7_4_debian_11:
+        if: inputs.job_name == 'all' || contains(inputs.job_name,'php_7_4_debian_11,')
         permissions:
             contents: read
             id-token: write
@@ -2218,8 +2218,8 @@ jobs:
                 pull: true
                 push: ${{inputs.push}}
                 tags: ${{steps.meta.outputs.tags}}
-    r_postgres_9_6_r:
-        if: inputs.job_name == 'all' || contains(inputs.job_name,'r_postgres_9_6_r')
+    postgres_9_6:
+        if: inputs.job_name == 'all' || contains(inputs.job_name,'postgres_9_6,')
         permissions:
             contents: read
             id-token: write
@@ -2260,8 +2260,8 @@ jobs:
                 pull: false
                 push: ${{inputs.push}}
                 tags: ${{steps.meta.outputs.tags}}
-    r_postgres_10_15_r:
-        if: inputs.job_name == 'all' || contains(inputs.job_name,'r_postgres_10_15_r')
+    postgres_10_15:
+        if: inputs.job_name == 'all' || contains(inputs.job_name,'postgres_10_15,')
         permissions:
             contents: read
             id-token: write
@@ -2302,8 +2302,8 @@ jobs:
                 pull: false
                 push: ${{inputs.push}}
                 tags: ${{steps.meta.outputs.tags}}
-    r_postgres_11_10_r:
-        if: inputs.job_name == 'all' || contains(inputs.job_name,'r_postgres_11_10_r')
+    postgres_11_10:
+        if: inputs.job_name == 'all' || contains(inputs.job_name,'postgres_11_10,')
         permissions:
             contents: read
             id-token: write
@@ -2344,8 +2344,8 @@ jobs:
                 pull: false
                 push: ${{inputs.push}}
                 tags: ${{steps.meta.outputs.tags}}
-    r_postgres_12_5_r:
-        if: inputs.job_name == 'all' || contains(inputs.job_name,'r_postgres_12_5_r')
+    postgres_12_5:
+        if: inputs.job_name == 'all' || contains(inputs.job_name,'postgres_12_5,')
         permissions:
             contents: read
             id-token: write
@@ -2386,8 +2386,8 @@ jobs:
                 pull: false
                 push: ${{inputs.push}}
                 tags: ${{steps.meta.outputs.tags}}
-    r_prometheus_2_25_r:
-        if: inputs.job_name == 'all' || contains(inputs.job_name,'r_prometheus_2_25_r')
+    prometheus_2_25:
+        if: inputs.job_name == 'all' || contains(inputs.job_name,'prometheus_2_25,')
         permissions:
             contents: read
             id-token: write
@@ -2428,8 +2428,8 @@ jobs:
                 pull: true
                 push: ${{inputs.push}}
                 tags: ${{steps.meta.outputs.tags}}
-    r_python_3_6_debian_11_r:
-        if: inputs.job_name == 'all' || contains(inputs.job_name,'r_python_3_6_debian_11_r')
+    python_3_6_debian_11:
+        if: inputs.job_name == 'all' || contains(inputs.job_name,'python_3_6_debian_11,')
         permissions:
             contents: read
             id-token: write
@@ -2472,8 +2472,8 @@ jobs:
                 pull: true
                 push: ${{inputs.push}}
                 tags: ${{steps.meta.outputs.tags}}
-    r_python_3_7_debian_11_r:
-        if: inputs.job_name == 'all' || contains(inputs.job_name,'r_python_3_7_debian_11_r')
+    python_3_7_debian_11:
+        if: inputs.job_name == 'all' || contains(inputs.job_name,'python_3_7_debian_11,')
         permissions:
             contents: read
             id-token: write
@@ -2516,8 +2516,8 @@ jobs:
                 pull: true
                 push: ${{inputs.push}}
                 tags: ${{steps.meta.outputs.tags}}
-    r_python_3_8_debian_11_r:
-        if: inputs.job_name == 'all' || contains(inputs.job_name,'r_python_3_8_debian_11_r')
+    python_3_8_debian_11:
+        if: inputs.job_name == 'all' || contains(inputs.job_name,'python_3_8_debian_11,')
         permissions:
             contents: read
             id-token: write
@@ -2560,8 +2560,8 @@ jobs:
                 pull: true
                 push: ${{inputs.push}}
                 tags: ${{steps.meta.outputs.tags}}
-    r_python_3_9_debian_11_r:
-        if: inputs.job_name == 'all' || contains(inputs.job_name,'r_python_3_9_debian_11_r')
+    python_3_9_debian_11:
+        if: inputs.job_name == 'all' || contains(inputs.job_name,'python_3_9_debian_11,')
         permissions:
             contents: read
             id-token: write
@@ -2604,8 +2604,8 @@ jobs:
                 pull: true
                 push: ${{inputs.push}}
                 tags: ${{steps.meta.outputs.tags}}
-    r_python_3_10_debian_11_r:
-        if: inputs.job_name == 'all' || contains(inputs.job_name,'r_python_3_10_debian_11_r')
+    python_3_10_debian_11:
+        if: inputs.job_name == 'all' || contains(inputs.job_name,'python_3_10_debian_11,')
         permissions:
             contents: read
             id-token: write
@@ -2648,8 +2648,8 @@ jobs:
                 pull: true
                 push: ${{inputs.push}}
                 tags: ${{steps.meta.outputs.tags}}
-    r_python_3_11_debian_11_r:
-        if: inputs.job_name == 'all' || contains(inputs.job_name,'r_python_3_11_debian_11_r')
+    python_3_11_debian_11:
+        if: inputs.job_name == 'all' || contains(inputs.job_name,'python_3_11_debian_11,')
         permissions:
             contents: read
             id-token: write
@@ -2692,8 +2692,8 @@ jobs:
                 pull: true
                 push: ${{inputs.push}}
                 tags: ${{steps.meta.outputs.tags}}
-    r_redis_5_alpine_3_16_r:
-        if: inputs.job_name == 'all' || contains(inputs.job_name,'r_redis_5_alpine_3_16_r')
+    redis_5_alpine_3_16:
+        if: inputs.job_name == 'all' || contains(inputs.job_name,'redis_5_alpine_3_16,')
         permissions:
             contents: read
             id-token: write
@@ -2736,8 +2736,8 @@ jobs:
                 pull: true
                 push: ${{inputs.push}}
                 tags: ${{steps.meta.outputs.tags}}
-    r_redis_6_0_alpine_3_16_r:
-        if: inputs.job_name == 'all' || contains(inputs.job_name,'r_redis_6_0_alpine_3_16_r')
+    redis_6_0_alpine_3_16:
+        if: inputs.job_name == 'all' || contains(inputs.job_name,'redis_6_0_alpine_3_16,')
         permissions:
             contents: read
             id-token: write
@@ -2780,8 +2780,8 @@ jobs:
                 pull: true
                 push: ${{inputs.push}}
                 tags: ${{steps.meta.outputs.tags}}
-    r_redis_6_2_alpine_3_16_r:
-        if: inputs.job_name == 'all' || contains(inputs.job_name,'r_redis_6_2_alpine_3_16_r')
+    redis_6_2_alpine_3_16:
+        if: inputs.job_name == 'all' || contains(inputs.job_name,'redis_6_2_alpine_3_16,')
         permissions:
             contents: read
             id-token: write
@@ -2826,8 +2826,8 @@ jobs:
                 pull: true
                 push: ${{inputs.push}}
                 tags: ${{steps.meta.outputs.tags}}
-    r_redis_7_alpine_3_16_r:
-        if: inputs.job_name == 'all' || contains(inputs.job_name,'r_redis_7_alpine_3_16_r')
+    redis_7_alpine_3_16:
+        if: inputs.job_name == 'all' || contains(inputs.job_name,'redis_7_alpine_3_16,')
         permissions:
             contents: read
             id-token: write
@@ -2870,8 +2870,8 @@ jobs:
                 pull: true
                 push: ${{inputs.push}}
                 tags: ${{steps.meta.outputs.tags}}
-    r_rocketmq_4_6_1_broker_jdk_8_r:
-        if: inputs.job_name == 'all' || contains(inputs.job_name,'r_rocketmq_4_6_1_broker_jdk_8_r')
+    rocketmq_4_6_1_broker_jdk_8:
+        if: inputs.job_name == 'all' || contains(inputs.job_name,'rocketmq_4_6_1_broker_jdk_8,')
         permissions:
             contents: read
             id-token: write
@@ -2914,8 +2914,8 @@ jobs:
                 pull: true
                 push: ${{inputs.push}}
                 tags: ${{steps.meta.outputs.tags}}
-    r_rocketmq_4_6_1_namesrv_jdk_8_r:
-        if: inputs.job_name == 'all' || contains(inputs.job_name,'r_rocketmq_4_6_1_namesrv_jdk_8_r')
+    rocketmq_4_6_1_namesrv_jdk_8:
+        if: inputs.job_name == 'all' || contains(inputs.job_name,'rocketmq_4_6_1_namesrv_jdk_8,')
         permissions:
             contents: read
             id-token: write
@@ -2958,8 +2958,8 @@ jobs:
                 pull: true
                 push: ${{inputs.push}}
                 tags: ${{steps.meta.outputs.tags}}
-    r_rocketmq_4_8_0_broker_jdk_8_r:
-        if: inputs.job_name == 'all' || contains(inputs.job_name,'r_rocketmq_4_8_0_broker_jdk_8_r')
+    rocketmq_4_8_0_broker_jdk_8:
+        if: inputs.job_name == 'all' || contains(inputs.job_name,'rocketmq_4_8_0_broker_jdk_8,')
         permissions:
             contents: read
             id-token: write
@@ -3002,8 +3002,8 @@ jobs:
                 pull: true
                 push: ${{inputs.push}}
                 tags: ${{steps.meta.outputs.tags}}
-    r_rocketmq_4_8_0_namesrv_jdk_8_r:
-        if: inputs.job_name == 'all' || contains(inputs.job_name,'r_rocketmq_4_8_0_namesrv_jdk_8_r')
+    rocketmq_4_8_0_namesrv_jdk_8:
+        if: inputs.job_name == 'all' || contains(inputs.job_name,'rocketmq_4_8_0_namesrv_jdk_8,')
         permissions:
             contents: read
             id-token: write
@@ -3046,8 +3046,8 @@ jobs:
                 pull: true
                 push: ${{inputs.push}}
                 tags: ${{steps.meta.outputs.tags}}
-    r_rocketmq_4_9_1_broker_jdk_8_r:
-        if: inputs.job_name == 'all' || contains(inputs.job_name,'r_rocketmq_4_9_1_broker_jdk_8_r')
+    rocketmq_4_9_1_broker_jdk_8:
+        if: inputs.job_name == 'all' || contains(inputs.job_name,'rocketmq_4_9_1_broker_jdk_8,')
         permissions:
             contents: read
             id-token: write
@@ -3090,8 +3090,8 @@ jobs:
                 pull: true
                 push: ${{inputs.push}}
                 tags: ${{steps.meta.outputs.tags}}
-    r_rocketmq_4_9_1_namesrv_jdk_8_r:
-        if: inputs.job_name == 'all' || contains(inputs.job_name,'r_rocketmq_4_9_1_namesrv_jdk_8_r')
+    rocketmq_4_9_1_namesrv_jdk_8:
+        if: inputs.job_name == 'all' || contains(inputs.job_name,'rocketmq_4_9_1_namesrv_jdk_8,')
         permissions:
             contents: read
             id-token: write
@@ -3134,8 +3134,8 @@ jobs:
                 pull: true
                 push: ${{inputs.push}}
                 tags: ${{steps.meta.outputs.tags}}
-    r_rocketmq_console_r:
-        if: inputs.job_name == 'all' || contains(inputs.job_name,'r_rocketmq_console_r')
+    rocketmq_console:
+        if: inputs.job_name == 'all' || contains(inputs.job_name,'rocketmq_console,')
         permissions:
             contents: read
             id-token: write
@@ -3176,8 +3176,8 @@ jobs:
                 pull: true
                 push: ${{inputs.push}}
                 tags: ${{steps.meta.outputs.tags}}
-    r_spring_boot_admin_1_0_r:
-        if: inputs.job_name == 'all' || contains(inputs.job_name,'r_spring_boot_admin_1_0_r')
+    spring_boot_admin_1_0:
+        if: inputs.job_name == 'all' || contains(inputs.job_name,'spring_boot_admin_1_0,')
         permissions:
             contents: read
             id-token: write
@@ -3220,8 +3220,8 @@ jobs:
                 pull: true
                 push: ${{inputs.push}}
                 tags: ${{steps.meta.outputs.tags}}
-    r_tomcat_8_jdk_8_debian_11_r:
-        if: inputs.job_name == 'all' || contains(inputs.job_name,'r_tomcat_8_jdk_8_debian_11_r')
+    tomcat_8_jdk_8_debian_11:
+        if: inputs.job_name == 'all' || contains(inputs.job_name,'tomcat_8_jdk_8_debian_11,')
         permissions:
             contents: read
             id-token: write
@@ -3264,8 +3264,8 @@ jobs:
                 pull: true
                 push: ${{inputs.push}}
                 tags: ${{steps.meta.outputs.tags}}
-    r_tomcat_8_jdk_11_debian_11_r:
-        if: inputs.job_name == 'all' || contains(inputs.job_name,'r_tomcat_8_jdk_11_debian_11_r')
+    tomcat_8_jdk_11_debian_11:
+        if: inputs.job_name == 'all' || contains(inputs.job_name,'tomcat_8_jdk_11_debian_11,')
         permissions:
             contents: read
             id-token: write
@@ -3310,8 +3310,8 @@ jobs:
                 pull: true
                 push: ${{inputs.push}}
                 tags: ${{steps.meta.outputs.tags}}
-    r_tomcat_9_jdk_8_debian_11_r:
-        if: inputs.job_name == 'all' || contains(inputs.job_name,'r_tomcat_9_jdk_8_debian_11_r')
+    tomcat_9_jdk_8_debian_11:
+        if: inputs.job_name == 'all' || contains(inputs.job_name,'tomcat_9_jdk_8_debian_11,')
         permissions:
             contents: read
             id-token: write
@@ -3354,8 +3354,8 @@ jobs:
                 pull: true
                 push: ${{inputs.push}}
                 tags: ${{steps.meta.outputs.tags}}
-    r_tomcat_9_jdk_11_debian_11_r:
-        if: inputs.job_name == 'all' || contains(inputs.job_name,'r_tomcat_9_jdk_11_debian_11_r')
+    tomcat_9_jdk_11_debian_11:
+        if: inputs.job_name == 'all' || contains(inputs.job_name,'tomcat_9_jdk_11_debian_11,')
         permissions:
             contents: read
             id-token: write
@@ -3399,8 +3399,8 @@ jobs:
                 pull: true
                 push: ${{inputs.push}}
                 tags: ${{steps.meta.outputs.tags}}
-    r_zookeeper_3_6_2_jdk_11_r:
-        if: inputs.job_name == 'all' || contains(inputs.job_name,'r_zookeeper_3_6_2_jdk_11_r')
+    zookeeper_3_6_2_jdk_11:
+        if: inputs.job_name == 'all' || contains(inputs.job_name,'zookeeper_3_6_2_jdk_11,')
         permissions:
             contents: read
             id-token: write
