@@ -167,7 +167,7 @@ func updateWorkflowPromote(repos []*acicn.Repo, opts WorkflowPromoteOptions) (er
 	}
 
 	doc := gg.M{
-		"name": "mirror",
+		"name": "promote",
 		"on": gg.M{
 			"workflow_dispatch": gg.M{
 				"inputs": gg.M{

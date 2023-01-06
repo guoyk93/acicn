@@ -5578,7 +5578,7 @@ jobs:
                 pull: true
                 push: true
                 tags: ${{steps.meta.outputs.tags}}
-name: mirror
+name: promote
 "on":
     workflow_dispatch:
         inputs:
