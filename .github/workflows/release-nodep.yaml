@@ -208,7 +208,7 @@ jobs:
                 cache-to: type=gha,mode=max
                 context: out/alpine:3.16-no-minit
                 labels: ${{steps.meta.outputs.labels}}
-                pull: ${{ inputs.force_pull }}
+                pull: true
                 push: ${{ inputs.push }}
                 tags: ${{steps.meta.outputs.tags}}
     r_alpine_3_16_r:
@@ -250,7 +250,7 @@ jobs:
                 cache-to: type=gha,mode=max
                 context: out/alpine:3.16
                 labels: ${{steps.meta.outputs.labels}}
-                pull: ${{ inputs.force_pull }}
+                pull: true
                 push: ${{ inputs.push }}
                 tags: ${{steps.meta.outputs.tags}}
     r_apollo_1_3_0_jdk_11_r:
@@ -381,7 +381,7 @@ jobs:
                 cache-to: type=gha,mode=max
                 context: out/debian:11-no-minit
                 labels: ${{steps.meta.outputs.labels}}
-                pull: ${{ inputs.force_pull }}
+                pull: true
                 push: ${{ inputs.push }}
                 tags: ${{steps.meta.outputs.tags}}
     r_debian_11_r:
@@ -423,7 +423,7 @@ jobs:
                 cache-to: type=gha,mode=max
                 context: out/debian:11
                 labels: ${{steps.meta.outputs.labels}}
-                pull: ${{ inputs.force_pull }}
+                pull: true
                 push: ${{ inputs.push }}
                 tags: ${{steps.meta.outputs.tags}}
     r_elasticsearch_6_3_2_jdk_11_r:
@@ -1303,7 +1303,7 @@ jobs:
                 cache-to: type=gha,mode=max
                 context: out/kibana:7.17.7
                 labels: ${{steps.meta.outputs.labels}}
-                pull: ${{ inputs.force_pull }}
+                pull: true
                 push: ${{ inputs.push }}
                 tags: ${{steps.meta.outputs.tags}}
     r_mongo_3_6_r:
@@ -1345,7 +1345,7 @@ jobs:
                 cache-to: type=gha,mode=max
                 context: out/mongo:3.6
                 labels: ${{steps.meta.outputs.labels}}
-                pull: ${{ inputs.force_pull }}
+                pull: true
                 push: ${{ inputs.push }}
                 tags: ${{steps.meta.outputs.tags}}
     r_mongo_4_0_r:
@@ -1387,7 +1387,7 @@ jobs:
                 cache-to: type=gha,mode=max
                 context: out/mongo:4.0
                 labels: ${{steps.meta.outputs.labels}}
-                pull: ${{ inputs.force_pull }}
+                pull: true
                 push: ${{ inputs.push }}
                 tags: ${{steps.meta.outputs.tags}}
     r_mongo_4_2_r:
@@ -1429,7 +1429,7 @@ jobs:
                 cache-to: type=gha,mode=max
                 context: out/mongo:4.2
                 labels: ${{steps.meta.outputs.labels}}
-                pull: ${{ inputs.force_pull }}
+                pull: true
                 push: ${{ inputs.push }}
                 tags: ${{steps.meta.outputs.tags}}
     r_mongo_4_4_r:
@@ -1471,7 +1471,7 @@ jobs:
                 cache-to: type=gha,mode=max
                 context: out/mongo:4.4
                 labels: ${{steps.meta.outputs.labels}}
-                pull: ${{ inputs.force_pull }}
+                pull: true
                 push: ${{ inputs.push }}
                 tags: ${{steps.meta.outputs.tags}}
     r_mysql_5_6_r:
@@ -1513,7 +1513,7 @@ jobs:
                 cache-to: type=gha,mode=max
                 context: out/mysql:5.6
                 labels: ${{steps.meta.outputs.labels}}
-                pull: ${{ inputs.force_pull }}
+                pull: true
                 push: ${{ inputs.push }}
                 tags: ${{steps.meta.outputs.tags}}
     r_mysql_5_7_r:
@@ -1555,7 +1555,7 @@ jobs:
                 cache-to: type=gha,mode=max
                 context: out/mysql:5.7
                 labels: ${{steps.meta.outputs.labels}}
-                pull: ${{ inputs.force_pull }}
+                pull: true
                 push: ${{ inputs.push }}
                 tags: ${{steps.meta.outputs.tags}}
     r_mysql_8_0_r:
@@ -1597,7 +1597,7 @@ jobs:
                 cache-to: type=gha,mode=max
                 context: out/mysql:8.0
                 labels: ${{steps.meta.outputs.labels}}
-                pull: ${{ inputs.force_pull }}
+                pull: true
                 push: ${{ inputs.push }}
                 tags: ${{steps.meta.outputs.tags}}
     r_nginx_alpine_3_16_r:
@@ -2257,7 +2257,7 @@ jobs:
                 cache-to: type=gha,mode=max
                 context: out/postgres:9.6
                 labels: ${{steps.meta.outputs.labels}}
-                pull: ${{ inputs.force_pull }}
+                pull: true
                 push: ${{ inputs.push }}
                 tags: ${{steps.meta.outputs.tags}}
     r_postgres_10_15_r:
@@ -2299,7 +2299,7 @@ jobs:
                 cache-to: type=gha,mode=max
                 context: out/postgres:10.15
                 labels: ${{steps.meta.outputs.labels}}
-                pull: ${{ inputs.force_pull }}
+                pull: true
                 push: ${{ inputs.push }}
                 tags: ${{steps.meta.outputs.tags}}
     r_postgres_11_10_r:
@@ -2341,7 +2341,7 @@ jobs:
                 cache-to: type=gha,mode=max
                 context: out/postgres:11.10
                 labels: ${{steps.meta.outputs.labels}}
-                pull: ${{ inputs.force_pull }}
+                pull: true
                 push: ${{ inputs.push }}
                 tags: ${{steps.meta.outputs.tags}}
     r_postgres_12_5_r:
@@ -2383,7 +2383,7 @@ jobs:
                 cache-to: type=gha,mode=max
                 context: out/postgres:12.5
                 labels: ${{steps.meta.outputs.labels}}
-                pull: ${{ inputs.force_pull }}
+                pull: true
                 push: ${{ inputs.push }}
                 tags: ${{steps.meta.outputs.tags}}
     r_prometheus_2_25_r:
@@ -3449,10 +3449,6 @@ name: release-nodep
 "on":
     workflow_dispatch:
         inputs:
-            force_pull:
-                description: force pull upstream images
-                required: true
-                type: boolean
             job_name:
                 description: names of jobs to execute, 'all' for all
                 required: true

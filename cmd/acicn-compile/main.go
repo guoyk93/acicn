@@ -190,19 +190,6 @@ func updateWorkflowRelease(repos []*acicn.Repo, opts WorkflowReleaseOptions) (er
 			return fmt.Sprintf("type=raw,value=%s", tag+rcSuffix)
 		})
 
-		var pull any
-		{
-			upstream, _ := item.Vars["upstream"].(string)
-			upstream = strings.TrimSpace(upstream)
-
-			if upstream == "" {
-				pull = "${{ inputs.force_pull }}"
-				gg.Log("missing upstream for: " + item.Name)
-			} else {
-				pull = true
-			}
-		}
-
 		job := gg.M{
 			"if":      "inputs.job_name == 'all' || contains(inputs.job_name,'" + releaseJobName(item.Name) + "')",
 			"runs-on": "ubuntu-latest",
@@ -255,7 +242,7 @@ func updateWorkflowRelease(repos []*acicn.Repo, opts WorkflowReleaseOptions) (er
 					"id":   "build",
 					"with": gg.M{
 						"context":    "out/" + item.ShortName(),
-						"pull":       pull,
+						"pull":       true,
 						"push":       "${{ inputs.push }}",
 						"tags":       "${{steps.meta.outputs.tags}}",
 						"labels":     "${{steps.meta.outputs.labels}}",
@@ -292,11 +279,6 @@ func updateWorkflowRelease(repos []*acicn.Repo, opts WorkflowReleaseOptions) (er
 				"inputs": gg.M{
 					"push": gg.M{
 						"description": "push to registry",
-						"required":    true,
-						"type":        "boolean",
-					},
-					"force_pull": gg.M{
-						"description": "force pull upstream images",
 						"required":    true,
 						"type":        "boolean",
 					},
