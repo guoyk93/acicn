@@ -24,6 +24,14 @@ var (
 		"name": "checkout",
 		"uses": "actions/checkout@v3",
 	}
+	stepSetupDockerhub = gg.M{
+		"name": "docker login - dockerhub",
+		"uses": "docker/login-action@v2",
+		"with": gg.M{
+			"username": "guoyk",
+			"password": "${{secrets.DOCKERHUB_TOKEN}}",
+		},
+	}
 	stepSetupBuildX = gg.M{
 		"name": "setup docker buildx",
 		"uses": "docker/setup-buildx-action@v2",
@@ -195,31 +203,10 @@ func updateWorkflowRelease(repos []*acicn.Repo, opts WorkflowReleaseOptions) (er
 				"id-token": "write",
 			},
 			"steps": []gg.M{
-				{
-					"name": "checkout",
-					"uses": "actions/checkout@v3",
-				},
-				{
-					"name": "setup docker buildx",
-					"uses": "docker/setup-buildx-action@v2",
-				},
-				{
-					"name": "docker login - ghcr",
-					"uses": "docker/login-action@v2",
-					"with": gg.M{
-						"registry": "ghcr.io",
-						"username": "${{github.actor}}",
-						"password": "${{secrets.GITHUB_TOKEN}}",
-					},
-				},
-				{
-					"name": "docker login - dockerhub",
-					"uses": "docker/login-action@v2",
-					"with": gg.M{
-						"username": "guoyk",
-						"password": "${{secrets.DOCKERHUB_TOKEN}}",
-					},
-				},
+				stepCheckout,
+				stepSetupBuildX,
+				stepLoginGithubCR,
+				stepSetupDockerhub,
 				{
 					"name": "meta for " + item.ShortName(),
 					"id":   "meta",
