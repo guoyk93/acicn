@@ -14,7 +14,7 @@ jobs:
               with:
                 go-version: "1.19"
             - name: generate out
-              run: go run -mod vendor ./cmd/acicn-build/main.go -mirror -generate 'activemq:5.15-jdk-8'
+              run: go run -mod vendor ./cmd/acicn-build/main.go -mirror -generate 'activemq:5.15-jdk-8' -rc
             - name: setup docker buildx
               uses: docker/setup-buildx-action@v2
             - name: docker login - ghcr
@@ -76,7 +76,7 @@ jobs:
               with:
                 go-version: "1.19"
             - name: generate out
-              run: go run -mod vendor ./cmd/acicn-build/main.go -mirror -generate 'activemq:5.15-jdk-11'
+              run: go run -mod vendor ./cmd/acicn-build/main.go -mirror -generate 'activemq:5.15-jdk-11' -rc
             - name: setup docker buildx
               uses: docker/setup-buildx-action@v2
             - name: docker login - ghcr
@@ -140,7 +140,7 @@ jobs:
               with:
                 go-version: "1.19"
             - name: generate out
-              run: go run -mod vendor ./cmd/acicn-build/main.go -mirror -generate 'alinode:12-sensordata-filebeat'
+              run: go run -mod vendor ./cmd/acicn-build/main.go -mirror -generate 'alinode:12-sensordata-filebeat' -rc
             - name: setup docker buildx
               uses: docker/setup-buildx-action@v2
             - name: docker login - ghcr
@@ -202,7 +202,7 @@ jobs:
               with:
                 go-version: "1.19"
             - name: generate out
-              run: go run -mod vendor ./cmd/acicn-build/main.go -mirror -generate 'alinode:16-sensordata-filebeat'
+              run: go run -mod vendor ./cmd/acicn-build/main.go -mirror -generate 'alinode:16-sensordata-filebeat' -rc
             - name: setup docker buildx
               uses: docker/setup-buildx-action@v2
             - name: docker login - ghcr
@@ -264,7 +264,7 @@ jobs:
               with:
                 go-version: "1.19"
             - name: generate out
-              run: go run -mod vendor ./cmd/acicn-build/main.go -mirror -generate 'alpine:3.16'
+              run: go run -mod vendor ./cmd/acicn-build/main.go -mirror -generate 'alpine:3.16' -rc
             - name: setup docker buildx
               uses: docker/setup-buildx-action@v2
             - name: docker login - ghcr
@@ -326,7 +326,7 @@ jobs:
               with:
                 go-version: "1.19"
             - name: generate out
-              run: go run -mod vendor ./cmd/acicn-build/main.go -mirror -generate 'alpine:3.16-no-minit'
+              run: go run -mod vendor ./cmd/acicn-build/main.go -mirror -generate 'alpine:3.16-no-minit' -rc
             - name: setup docker buildx
               uses: docker/setup-buildx-action@v2
             - name: docker login - ghcr
@@ -388,7 +388,7 @@ jobs:
               with:
                 go-version: "1.19"
             - name: generate out
-              run: go run -mod vendor ./cmd/acicn-build/main.go -mirror -generate 'apollo:1.3.0-jdk-11'
+              run: go run -mod vendor ./cmd/acicn-build/main.go -mirror -generate 'apollo:1.3.0-jdk-11' -rc
             - name: setup docker buildx
               uses: docker/setup-buildx-action@v2
             - name: docker login - ghcr
@@ -452,7 +452,7 @@ jobs:
               with:
                 go-version: "1.19"
             - name: generate out
-              run: go run -mod vendor ./cmd/acicn-build/main.go -mirror -generate 'beanstalk:1-alpine-3.16'
+              run: go run -mod vendor ./cmd/acicn-build/main.go -mirror -generate 'beanstalk:1-alpine-3.16' -rc
             - name: setup docker buildx
               uses: docker/setup-buildx-action@v2
             - name: docker login - ghcr
@@ -517,7 +517,7 @@ jobs:
               with:
                 go-version: "1.19"
             - name: generate out
-              run: go run -mod vendor ./cmd/acicn-build/main.go -mirror -generate 'debian:11'
+              run: go run -mod vendor ./cmd/acicn-build/main.go -mirror -generate 'debian:11' -rc
             - name: setup docker buildx
               uses: docker/setup-buildx-action@v2
             - name: docker login - ghcr
@@ -579,7 +579,7 @@ jobs:
               with:
                 go-version: "1.19"
             - name: generate out
-              run: go run -mod vendor ./cmd/acicn-build/main.go -mirror -generate 'debian:11-no-minit'
+              run: go run -mod vendor ./cmd/acicn-build/main.go -mirror -generate 'debian:11-no-minit' -rc
             - name: setup docker buildx
               uses: docker/setup-buildx-action@v2
             - name: docker login - ghcr
@@ -641,7 +641,7 @@ jobs:
               with:
                 go-version: "1.19"
             - name: generate out
-              run: go run -mod vendor ./cmd/acicn-build/main.go -mirror -generate 'elasticsearch:6.3.2-jdk-11'
+              run: go run -mod vendor ./cmd/acicn-build/main.go -mirror -generate 'elasticsearch:6.3.2-jdk-11' -rc
             - name: setup docker buildx
               uses: docker/setup-buildx-action@v2
             - name: docker login - ghcr
@@ -705,7 +705,7 @@ jobs:
               with:
                 go-version: "1.19"
             - name: generate out
-              run: go run -mod vendor ./cmd/acicn-build/main.go -mirror -generate 'elasticsearch:6.8.18-jdk-11'
+              run: go run -mod vendor ./cmd/acicn-build/main.go -mirror -generate 'elasticsearch:6.8.18-jdk-11' -rc
             - name: setup docker buildx
               uses: docker/setup-buildx-action@v2
             - name: docker login - ghcr
@@ -769,7 +769,7 @@ jobs:
               with:
                 go-version: "1.19"
             - name: generate out
-              run: go run -mod vendor ./cmd/acicn-build/main.go -mirror -generate 'elasticsearch:7.17.7-jdk-11'
+              run: go run -mod vendor ./cmd/acicn-build/main.go -mirror -generate 'elasticsearch:7.17.7-jdk-11' -rc
             - name: setup docker buildx
               uses: docker/setup-buildx-action@v2
             - name: docker login - ghcr
@@ -833,7 +833,7 @@ jobs:
               with:
                 go-version: "1.19"
             - name: generate out
-              run: go run -mod vendor ./cmd/acicn-build/main.go -mirror -generate 'filebeat:6.3.2-debian-11'
+              run: go run -mod vendor ./cmd/acicn-build/main.go -mirror -generate 'filebeat:6.3.2-debian-11' -rc
             - name: setup docker buildx
               uses: docker/setup-buildx-action@v2
             - name: docker login - ghcr
@@ -897,7 +897,7 @@ jobs:
               with:
                 go-version: "1.19"
             - name: generate out
-              run: go run -mod vendor ./cmd/acicn-build/main.go -mirror -generate 'jdk:8-cubic'
+              run: go run -mod vendor ./cmd/acicn-build/main.go -mirror -generate 'jdk:8-cubic' -rc
             - name: setup docker buildx
               uses: docker/setup-buildx-action@v2
             - name: docker login - ghcr
@@ -961,7 +961,7 @@ jobs:
               with:
                 go-version: "1.19"
             - name: generate out
-              run: go run -mod vendor ./cmd/acicn-build/main.go -mirror -generate 'jdk:8-debian-11'
+              run: go run -mod vendor ./cmd/acicn-build/main.go -mirror -generate 'jdk:8-debian-11' -rc
             - name: setup docker buildx
               uses: docker/setup-buildx-action@v2
             - name: docker login - ghcr
@@ -1026,7 +1026,7 @@ jobs:
               with:
                 go-version: "1.19"
             - name: generate out
-              run: go run -mod vendor ./cmd/acicn-build/main.go -mirror -generate 'jdk:11-debian-11'
+              run: go run -mod vendor ./cmd/acicn-build/main.go -mirror -generate 'jdk:11-debian-11' -rc
             - name: setup docker buildx
               uses: docker/setup-buildx-action@v2
             - name: docker login - ghcr
@@ -1091,7 +1091,7 @@ jobs:
               with:
                 go-version: "1.19"
             - name: generate out
-              run: go run -mod vendor ./cmd/acicn-build/main.go -mirror -generate 'jdk:17-debian-11'
+              run: go run -mod vendor ./cmd/acicn-build/main.go -mirror -generate 'jdk:17-debian-11' -rc
             - name: setup docker buildx
               uses: docker/setup-buildx-action@v2
             - name: docker login - ghcr
@@ -1156,7 +1156,7 @@ jobs:
               with:
                 go-version: "1.19"
             - name: generate out
-              run: go run -mod vendor ./cmd/acicn-build/main.go -mirror -generate 'jdk:builder-8-maven-3.5-debian-11'
+              run: go run -mod vendor ./cmd/acicn-build/main.go -mirror -generate 'jdk:builder-8-maven-3.5-debian-11' -rc
             - name: setup docker buildx
               uses: docker/setup-buildx-action@v2
             - name: docker login - ghcr
@@ -1220,7 +1220,7 @@ jobs:
               with:
                 go-version: "1.19"
             - name: generate out
-              run: go run -mod vendor ./cmd/acicn-build/main.go -mirror -generate 'jdk:builder-8-maven-3.6-debian-11'
+              run: go run -mod vendor ./cmd/acicn-build/main.go -mirror -generate 'jdk:builder-8-maven-3.6-debian-11' -rc
             - name: setup docker buildx
               uses: docker/setup-buildx-action@v2
             - name: docker login - ghcr
@@ -1285,7 +1285,7 @@ jobs:
               with:
                 go-version: "1.19"
             - name: generate out
-              run: go run -mod vendor ./cmd/acicn-build/main.go -mirror -generate 'jdk:builder-8-maven-3.8-debian-11'
+              run: go run -mod vendor ./cmd/acicn-build/main.go -mirror -generate 'jdk:builder-8-maven-3.8-debian-11' -rc
             - name: setup docker buildx
               uses: docker/setup-buildx-action@v2
             - name: docker login - ghcr
@@ -1349,7 +1349,7 @@ jobs:
               with:
                 go-version: "1.19"
             - name: generate out
-              run: go run -mod vendor ./cmd/acicn-build/main.go -mirror -generate 'jdk:builder-11-maven-3.5-debian-11'
+              run: go run -mod vendor ./cmd/acicn-build/main.go -mirror -generate 'jdk:builder-11-maven-3.5-debian-11' -rc
             - name: setup docker buildx
               uses: docker/setup-buildx-action@v2
             - name: docker login - ghcr
@@ -1413,7 +1413,7 @@ jobs:
               with:
                 go-version: "1.19"
             - name: generate out
-              run: go run -mod vendor ./cmd/acicn-build/main.go -mirror -generate 'jdk:builder-11-maven-3.6-debian-11'
+              run: go run -mod vendor ./cmd/acicn-build/main.go -mirror -generate 'jdk:builder-11-maven-3.6-debian-11' -rc
             - name: setup docker buildx
               uses: docker/setup-buildx-action@v2
             - name: docker login - ghcr
@@ -1477,7 +1477,7 @@ jobs:
               with:
                 go-version: "1.19"
             - name: generate out
-              run: go run -mod vendor ./cmd/acicn-build/main.go -mirror -generate 'jdk:builder-11-maven-3.8-debian-11'
+              run: go run -mod vendor ./cmd/acicn-build/main.go -mirror -generate 'jdk:builder-11-maven-3.8-debian-11' -rc
             - name: setup docker buildx
               uses: docker/setup-buildx-action@v2
             - name: docker login - ghcr
@@ -1542,7 +1542,7 @@ jobs:
               with:
                 go-version: "1.19"
             - name: generate out
-              run: go run -mod vendor ./cmd/acicn-build/main.go -mirror -generate 'jdk:builder-17-maven-3.6-debian-11'
+              run: go run -mod vendor ./cmd/acicn-build/main.go -mirror -generate 'jdk:builder-17-maven-3.6-debian-11' -rc
             - name: setup docker buildx
               uses: docker/setup-buildx-action@v2
             - name: docker login - ghcr
@@ -1606,7 +1606,7 @@ jobs:
               with:
                 go-version: "1.19"
             - name: generate out
-              run: go run -mod vendor ./cmd/acicn-build/main.go -mirror -generate 'jdk:builder-17-maven-3.8-debian-11'
+              run: go run -mod vendor ./cmd/acicn-build/main.go -mirror -generate 'jdk:builder-17-maven-3.8-debian-11' -rc
             - name: setup docker buildx
               uses: docker/setup-buildx-action@v2
             - name: docker login - ghcr
@@ -1671,7 +1671,7 @@ jobs:
               with:
                 go-version: "1.19"
             - name: generate out
-              run: go run -mod vendor ./cmd/acicn-build/main.go -mirror -generate 'kafka:2.1'
+              run: go run -mod vendor ./cmd/acicn-build/main.go -mirror -generate 'kafka:2.1' -rc
             - name: setup docker buildx
               uses: docker/setup-buildx-action@v2
             - name: docker login - ghcr
@@ -1733,7 +1733,7 @@ jobs:
               with:
                 go-version: "1.19"
             - name: generate out
-              run: go run -mod vendor ./cmd/acicn-build/main.go -mirror -generate 'kafka:2.4'
+              run: go run -mod vendor ./cmd/acicn-build/main.go -mirror -generate 'kafka:2.4' -rc
             - name: setup docker buildx
               uses: docker/setup-buildx-action@v2
             - name: docker login - ghcr
@@ -1795,7 +1795,7 @@ jobs:
               with:
                 go-version: "1.19"
             - name: generate out
-              run: go run -mod vendor ./cmd/acicn-build/main.go -mirror -generate 'kafka:2.8'
+              run: go run -mod vendor ./cmd/acicn-build/main.go -mirror -generate 'kafka:2.8' -rc
             - name: setup docker buildx
               uses: docker/setup-buildx-action@v2
             - name: docker login - ghcr
@@ -1859,7 +1859,7 @@ jobs:
               with:
                 go-version: "1.19"
             - name: generate out
-              run: go run -mod vendor ./cmd/acicn-build/main.go -mirror -generate 'kibana:7.17.7'
+              run: go run -mod vendor ./cmd/acicn-build/main.go -mirror -generate 'kibana:7.17.7' -rc
             - name: setup docker buildx
               uses: docker/setup-buildx-action@v2
             - name: docker login - ghcr
@@ -1921,7 +1921,7 @@ jobs:
               with:
                 go-version: "1.19"
             - name: generate out
-              run: go run -mod vendor ./cmd/acicn-build/main.go -mirror -generate 'mongo:3.6'
+              run: go run -mod vendor ./cmd/acicn-build/main.go -mirror -generate 'mongo:3.6' -rc
             - name: setup docker buildx
               uses: docker/setup-buildx-action@v2
             - name: docker login - ghcr
@@ -1983,7 +1983,7 @@ jobs:
               with:
                 go-version: "1.19"
             - name: generate out
-              run: go run -mod vendor ./cmd/acicn-build/main.go -mirror -generate 'mongo:4.0'
+              run: go run -mod vendor ./cmd/acicn-build/main.go -mirror -generate 'mongo:4.0' -rc
             - name: setup docker buildx
               uses: docker/setup-buildx-action@v2
             - name: docker login - ghcr
@@ -2045,7 +2045,7 @@ jobs:
               with:
                 go-version: "1.19"
             - name: generate out
-              run: go run -mod vendor ./cmd/acicn-build/main.go -mirror -generate 'mongo:4.2'
+              run: go run -mod vendor ./cmd/acicn-build/main.go -mirror -generate 'mongo:4.2' -rc
             - name: setup docker buildx
               uses: docker/setup-buildx-action@v2
             - name: docker login - ghcr
@@ -2107,7 +2107,7 @@ jobs:
               with:
                 go-version: "1.19"
             - name: generate out
-              run: go run -mod vendor ./cmd/acicn-build/main.go -mirror -generate 'mongo:4.4'
+              run: go run -mod vendor ./cmd/acicn-build/main.go -mirror -generate 'mongo:4.4' -rc
             - name: setup docker buildx
               uses: docker/setup-buildx-action@v2
             - name: docker login - ghcr
@@ -2169,7 +2169,7 @@ jobs:
               with:
                 go-version: "1.19"
             - name: generate out
-              run: go run -mod vendor ./cmd/acicn-build/main.go -mirror -generate 'mysql:5.6'
+              run: go run -mod vendor ./cmd/acicn-build/main.go -mirror -generate 'mysql:5.6' -rc
             - name: setup docker buildx
               uses: docker/setup-buildx-action@v2
             - name: docker login - ghcr
@@ -2231,7 +2231,7 @@ jobs:
               with:
                 go-version: "1.19"
             - name: generate out
-              run: go run -mod vendor ./cmd/acicn-build/main.go -mirror -generate 'mysql:5.7'
+              run: go run -mod vendor ./cmd/acicn-build/main.go -mirror -generate 'mysql:5.7' -rc
             - name: setup docker buildx
               uses: docker/setup-buildx-action@v2
             - name: docker login - ghcr
@@ -2293,7 +2293,7 @@ jobs:
               with:
                 go-version: "1.19"
             - name: generate out
-              run: go run -mod vendor ./cmd/acicn-build/main.go -mirror -generate 'mysql:8.0'
+              run: go run -mod vendor ./cmd/acicn-build/main.go -mirror -generate 'mysql:8.0' -rc
             - name: setup docker buildx
               uses: docker/setup-buildx-action@v2
             - name: docker login - ghcr
@@ -2355,7 +2355,7 @@ jobs:
               with:
                 go-version: "1.19"
             - name: generate out
-              run: go run -mod vendor ./cmd/acicn-build/main.go -mirror -generate 'nginx:alpine-3.16'
+              run: go run -mod vendor ./cmd/acicn-build/main.go -mirror -generate 'nginx:alpine-3.16' -rc
             - name: setup docker buildx
               uses: docker/setup-buildx-action@v2
             - name: docker login - ghcr
@@ -2419,7 +2419,7 @@ jobs:
               with:
                 go-version: "1.19"
             - name: generate out
-              run: go run -mod vendor ./cmd/acicn-build/main.go -mirror -generate 'node:8-debian-11'
+              run: go run -mod vendor ./cmd/acicn-build/main.go -mirror -generate 'node:8-debian-11' -rc
             - name: setup docker buildx
               uses: docker/setup-buildx-action@v2
             - name: docker login - ghcr
@@ -2483,7 +2483,7 @@ jobs:
               with:
                 go-version: "1.19"
             - name: generate out
-              run: go run -mod vendor ./cmd/acicn-build/main.go -mirror -generate 'node:10-debian-11'
+              run: go run -mod vendor ./cmd/acicn-build/main.go -mirror -generate 'node:10-debian-11' -rc
             - name: setup docker buildx
               uses: docker/setup-buildx-action@v2
             - name: docker login - ghcr
@@ -2547,7 +2547,7 @@ jobs:
               with:
                 go-version: "1.19"
             - name: generate out
-              run: go run -mod vendor ./cmd/acicn-build/main.go -mirror -generate 'node:12-debian-11'
+              run: go run -mod vendor ./cmd/acicn-build/main.go -mirror -generate 'node:12-debian-11' -rc
             - name: setup docker buildx
               uses: docker/setup-buildx-action@v2
             - name: docker login - ghcr
@@ -2611,7 +2611,7 @@ jobs:
               with:
                 go-version: "1.19"
             - name: generate out
-              run: go run -mod vendor ./cmd/acicn-build/main.go -mirror -generate 'node:14-debian-11'
+              run: go run -mod vendor ./cmd/acicn-build/main.go -mirror -generate 'node:14-debian-11' -rc
             - name: setup docker buildx
               uses: docker/setup-buildx-action@v2
             - name: docker login - ghcr
@@ -2675,7 +2675,7 @@ jobs:
               with:
                 go-version: "1.19"
             - name: generate out
-              run: go run -mod vendor ./cmd/acicn-build/main.go -mirror -generate 'node:16-debian-11'
+              run: go run -mod vendor ./cmd/acicn-build/main.go -mirror -generate 'node:16-debian-11' -rc
             - name: setup docker buildx
               uses: docker/setup-buildx-action@v2
             - name: docker login - ghcr
@@ -2739,7 +2739,7 @@ jobs:
               with:
                 go-version: "1.19"
             - name: generate out
-              run: go run -mod vendor ./cmd/acicn-build/main.go -mirror -generate 'node:18-debian-11'
+              run: go run -mod vendor ./cmd/acicn-build/main.go -mirror -generate 'node:18-debian-11' -rc
             - name: setup docker buildx
               uses: docker/setup-buildx-action@v2
             - name: docker login - ghcr
@@ -2803,7 +2803,7 @@ jobs:
               with:
                 go-version: "1.19"
             - name: generate out
-              run: go run -mod vendor ./cmd/acicn-build/main.go -mirror -generate 'node:builder-8-debian-11'
+              run: go run -mod vendor ./cmd/acicn-build/main.go -mirror -generate 'node:builder-8-debian-11' -rc
             - name: setup docker buildx
               uses: docker/setup-buildx-action@v2
             - name: docker login - ghcr
@@ -2867,7 +2867,7 @@ jobs:
               with:
                 go-version: "1.19"
             - name: generate out
-              run: go run -mod vendor ./cmd/acicn-build/main.go -mirror -generate 'node:builder-10-debian-11'
+              run: go run -mod vendor ./cmd/acicn-build/main.go -mirror -generate 'node:builder-10-debian-11' -rc
             - name: setup docker buildx
               uses: docker/setup-buildx-action@v2
             - name: docker login - ghcr
@@ -2931,7 +2931,7 @@ jobs:
               with:
                 go-version: "1.19"
             - name: generate out
-              run: go run -mod vendor ./cmd/acicn-build/main.go -mirror -generate 'node:builder-12-debian-11'
+              run: go run -mod vendor ./cmd/acicn-build/main.go -mirror -generate 'node:builder-12-debian-11' -rc
             - name: setup docker buildx
               uses: docker/setup-buildx-action@v2
             - name: docker login - ghcr
@@ -2995,7 +2995,7 @@ jobs:
               with:
                 go-version: "1.19"
             - name: generate out
-              run: go run -mod vendor ./cmd/acicn-build/main.go -mirror -generate 'node:builder-14-debian-11'
+              run: go run -mod vendor ./cmd/acicn-build/main.go -mirror -generate 'node:builder-14-debian-11' -rc
             - name: setup docker buildx
               uses: docker/setup-buildx-action@v2
             - name: docker login - ghcr
@@ -3059,7 +3059,7 @@ jobs:
               with:
                 go-version: "1.19"
             - name: generate out
-              run: go run -mod vendor ./cmd/acicn-build/main.go -mirror -generate 'node:builder-16-debian-11'
+              run: go run -mod vendor ./cmd/acicn-build/main.go -mirror -generate 'node:builder-16-debian-11' -rc
             - name: setup docker buildx
               uses: docker/setup-buildx-action@v2
             - name: docker login - ghcr
@@ -3123,7 +3123,7 @@ jobs:
               with:
                 go-version: "1.19"
             - name: generate out
-              run: go run -mod vendor ./cmd/acicn-build/main.go -mirror -generate 'node:builder-18-debian-11'
+              run: go run -mod vendor ./cmd/acicn-build/main.go -mirror -generate 'node:builder-18-debian-11' -rc
             - name: setup docker buildx
               uses: docker/setup-buildx-action@v2
             - name: docker login - ghcr
@@ -3187,7 +3187,7 @@ jobs:
               with:
                 go-version: "1.19"
             - name: generate out
-              run: go run -mod vendor ./cmd/acicn-build/main.go -mirror -generate 'php:7.4-debian-11'
+              run: go run -mod vendor ./cmd/acicn-build/main.go -mirror -generate 'php:7.4-debian-11' -rc
             - name: setup docker buildx
               uses: docker/setup-buildx-action@v2
             - name: docker login - ghcr
@@ -3253,7 +3253,7 @@ jobs:
               with:
                 go-version: "1.19"
             - name: generate out
-              run: go run -mod vendor ./cmd/acicn-build/main.go -mirror -generate 'postgres:9.6'
+              run: go run -mod vendor ./cmd/acicn-build/main.go -mirror -generate 'postgres:9.6' -rc
             - name: setup docker buildx
               uses: docker/setup-buildx-action@v2
             - name: docker login - ghcr
@@ -3315,7 +3315,7 @@ jobs:
               with:
                 go-version: "1.19"
             - name: generate out
-              run: go run -mod vendor ./cmd/acicn-build/main.go -mirror -generate 'postgres:10.15'
+              run: go run -mod vendor ./cmd/acicn-build/main.go -mirror -generate 'postgres:10.15' -rc
             - name: setup docker buildx
               uses: docker/setup-buildx-action@v2
             - name: docker login - ghcr
@@ -3377,7 +3377,7 @@ jobs:
               with:
                 go-version: "1.19"
             - name: generate out
-              run: go run -mod vendor ./cmd/acicn-build/main.go -mirror -generate 'postgres:11.10'
+              run: go run -mod vendor ./cmd/acicn-build/main.go -mirror -generate 'postgres:11.10' -rc
             - name: setup docker buildx
               uses: docker/setup-buildx-action@v2
             - name: docker login - ghcr
@@ -3439,7 +3439,7 @@ jobs:
               with:
                 go-version: "1.19"
             - name: generate out
-              run: go run -mod vendor ./cmd/acicn-build/main.go -mirror -generate 'postgres:12.5'
+              run: go run -mod vendor ./cmd/acicn-build/main.go -mirror -generate 'postgres:12.5' -rc
             - name: setup docker buildx
               uses: docker/setup-buildx-action@v2
             - name: docker login - ghcr
@@ -3501,7 +3501,7 @@ jobs:
               with:
                 go-version: "1.19"
             - name: generate out
-              run: go run -mod vendor ./cmd/acicn-build/main.go -mirror -generate 'prometheus:2.25'
+              run: go run -mod vendor ./cmd/acicn-build/main.go -mirror -generate 'prometheus:2.25' -rc
             - name: setup docker buildx
               uses: docker/setup-buildx-action@v2
             - name: docker login - ghcr
@@ -3563,7 +3563,7 @@ jobs:
               with:
                 go-version: "1.19"
             - name: generate out
-              run: go run -mod vendor ./cmd/acicn-build/main.go -mirror -generate 'python:3.6-debian-11'
+              run: go run -mod vendor ./cmd/acicn-build/main.go -mirror -generate 'python:3.6-debian-11' -rc
             - name: setup docker buildx
               uses: docker/setup-buildx-action@v2
             - name: docker login - ghcr
@@ -3627,7 +3627,7 @@ jobs:
               with:
                 go-version: "1.19"
             - name: generate out
-              run: go run -mod vendor ./cmd/acicn-build/main.go -mirror -generate 'python:3.7-debian-11'
+              run: go run -mod vendor ./cmd/acicn-build/main.go -mirror -generate 'python:3.7-debian-11' -rc
             - name: setup docker buildx
               uses: docker/setup-buildx-action@v2
             - name: docker login - ghcr
@@ -3691,7 +3691,7 @@ jobs:
               with:
                 go-version: "1.19"
             - name: generate out
-              run: go run -mod vendor ./cmd/acicn-build/main.go -mirror -generate 'python:3.8-debian-11'
+              run: go run -mod vendor ./cmd/acicn-build/main.go -mirror -generate 'python:3.8-debian-11' -rc
             - name: setup docker buildx
               uses: docker/setup-buildx-action@v2
             - name: docker login - ghcr
@@ -3755,7 +3755,7 @@ jobs:
               with:
                 go-version: "1.19"
             - name: generate out
-              run: go run -mod vendor ./cmd/acicn-build/main.go -mirror -generate 'python:3.9-debian-11'
+              run: go run -mod vendor ./cmd/acicn-build/main.go -mirror -generate 'python:3.9-debian-11' -rc
             - name: setup docker buildx
               uses: docker/setup-buildx-action@v2
             - name: docker login - ghcr
@@ -3819,7 +3819,7 @@ jobs:
               with:
                 go-version: "1.19"
             - name: generate out
-              run: go run -mod vendor ./cmd/acicn-build/main.go -mirror -generate 'python:3.10-debian-11'
+              run: go run -mod vendor ./cmd/acicn-build/main.go -mirror -generate 'python:3.10-debian-11' -rc
             - name: setup docker buildx
               uses: docker/setup-buildx-action@v2
             - name: docker login - ghcr
@@ -3883,7 +3883,7 @@ jobs:
               with:
                 go-version: "1.19"
             - name: generate out
-              run: go run -mod vendor ./cmd/acicn-build/main.go -mirror -generate 'python:3.11-debian-11'
+              run: go run -mod vendor ./cmd/acicn-build/main.go -mirror -generate 'python:3.11-debian-11' -rc
             - name: setup docker buildx
               uses: docker/setup-buildx-action@v2
             - name: docker login - ghcr
@@ -3947,7 +3947,7 @@ jobs:
               with:
                 go-version: "1.19"
             - name: generate out
-              run: go run -mod vendor ./cmd/acicn-build/main.go -mirror -generate 'redis:5-alpine-3.16'
+              run: go run -mod vendor ./cmd/acicn-build/main.go -mirror -generate 'redis:5-alpine-3.16' -rc
             - name: setup docker buildx
               uses: docker/setup-buildx-action@v2
             - name: docker login - ghcr
@@ -4011,7 +4011,7 @@ jobs:
               with:
                 go-version: "1.19"
             - name: generate out
-              run: go run -mod vendor ./cmd/acicn-build/main.go -mirror -generate 'redis:6.0-alpine-3.16'
+              run: go run -mod vendor ./cmd/acicn-build/main.go -mirror -generate 'redis:6.0-alpine-3.16' -rc
             - name: setup docker buildx
               uses: docker/setup-buildx-action@v2
             - name: docker login - ghcr
@@ -4075,7 +4075,7 @@ jobs:
               with:
                 go-version: "1.19"
             - name: generate out
-              run: go run -mod vendor ./cmd/acicn-build/main.go -mirror -generate 'redis:6.2-alpine-3.16'
+              run: go run -mod vendor ./cmd/acicn-build/main.go -mirror -generate 'redis:6.2-alpine-3.16' -rc
             - name: setup docker buildx
               uses: docker/setup-buildx-action@v2
             - name: docker login - ghcr
@@ -4141,7 +4141,7 @@ jobs:
               with:
                 go-version: "1.19"
             - name: generate out
-              run: go run -mod vendor ./cmd/acicn-build/main.go -mirror -generate 'redis:7-alpine-3.16'
+              run: go run -mod vendor ./cmd/acicn-build/main.go -mirror -generate 'redis:7-alpine-3.16' -rc
             - name: setup docker buildx
               uses: docker/setup-buildx-action@v2
             - name: docker login - ghcr
@@ -4205,7 +4205,7 @@ jobs:
               with:
                 go-version: "1.19"
             - name: generate out
-              run: go run -mod vendor ./cmd/acicn-build/main.go -mirror -generate 'rocketmq:4.6.1-broker-jdk-8'
+              run: go run -mod vendor ./cmd/acicn-build/main.go -mirror -generate 'rocketmq:4.6.1-broker-jdk-8' -rc
             - name: setup docker buildx
               uses: docker/setup-buildx-action@v2
             - name: docker login - ghcr
@@ -4269,7 +4269,7 @@ jobs:
               with:
                 go-version: "1.19"
             - name: generate out
-              run: go run -mod vendor ./cmd/acicn-build/main.go -mirror -generate 'rocketmq:4.6.1-namesrv-jdk-8'
+              run: go run -mod vendor ./cmd/acicn-build/main.go -mirror -generate 'rocketmq:4.6.1-namesrv-jdk-8' -rc
             - name: setup docker buildx
               uses: docker/setup-buildx-action@v2
             - name: docker login - ghcr
@@ -4333,7 +4333,7 @@ jobs:
               with:
                 go-version: "1.19"
             - name: generate out
-              run: go run -mod vendor ./cmd/acicn-build/main.go -mirror -generate 'rocketmq:4.8.0-broker-jdk-8'
+              run: go run -mod vendor ./cmd/acicn-build/main.go -mirror -generate 'rocketmq:4.8.0-broker-jdk-8' -rc
             - name: setup docker buildx
               uses: docker/setup-buildx-action@v2
             - name: docker login - ghcr
@@ -4397,7 +4397,7 @@ jobs:
               with:
                 go-version: "1.19"
             - name: generate out
-              run: go run -mod vendor ./cmd/acicn-build/main.go -mirror -generate 'rocketmq:4.8.0-namesrv-jdk-8'
+              run: go run -mod vendor ./cmd/acicn-build/main.go -mirror -generate 'rocketmq:4.8.0-namesrv-jdk-8' -rc
             - name: setup docker buildx
               uses: docker/setup-buildx-action@v2
             - name: docker login - ghcr
@@ -4461,7 +4461,7 @@ jobs:
               with:
                 go-version: "1.19"
             - name: generate out
-              run: go run -mod vendor ./cmd/acicn-build/main.go -mirror -generate 'rocketmq:4.9.1-broker-jdk-8'
+              run: go run -mod vendor ./cmd/acicn-build/main.go -mirror -generate 'rocketmq:4.9.1-broker-jdk-8' -rc
             - name: setup docker buildx
               uses: docker/setup-buildx-action@v2
             - name: docker login - ghcr
@@ -4525,7 +4525,7 @@ jobs:
               with:
                 go-version: "1.19"
             - name: generate out
-              run: go run -mod vendor ./cmd/acicn-build/main.go -mirror -generate 'rocketmq:4.9.1-namesrv-jdk-8'
+              run: go run -mod vendor ./cmd/acicn-build/main.go -mirror -generate 'rocketmq:4.9.1-namesrv-jdk-8' -rc
             - name: setup docker buildx
               uses: docker/setup-buildx-action@v2
             - name: docker login - ghcr
@@ -4589,7 +4589,7 @@ jobs:
               with:
                 go-version: "1.19"
             - name: generate out
-              run: go run -mod vendor ./cmd/acicn-build/main.go -mirror -generate 'rocketmq:console'
+              run: go run -mod vendor ./cmd/acicn-build/main.go -mirror -generate 'rocketmq:console' -rc
             - name: setup docker buildx
               uses: docker/setup-buildx-action@v2
             - name: docker login - ghcr
@@ -4651,7 +4651,7 @@ jobs:
               with:
                 go-version: "1.19"
             - name: generate out
-              run: go run -mod vendor ./cmd/acicn-build/main.go -mirror -generate 'spring-boot-admin:1.0'
+              run: go run -mod vendor ./cmd/acicn-build/main.go -mirror -generate 'spring-boot-admin:1.0' -rc
             - name: setup docker buildx
               uses: docker/setup-buildx-action@v2
             - name: docker login - ghcr
@@ -4715,7 +4715,7 @@ jobs:
               with:
                 go-version: "1.19"
             - name: generate out
-              run: go run -mod vendor ./cmd/acicn-build/main.go -mirror -generate 'tomcat:8-jdk-8-debian-11'
+              run: go run -mod vendor ./cmd/acicn-build/main.go -mirror -generate 'tomcat:8-jdk-8-debian-11' -rc
             - name: setup docker buildx
               uses: docker/setup-buildx-action@v2
             - name: docker login - ghcr
@@ -4779,7 +4779,7 @@ jobs:
               with:
                 go-version: "1.19"
             - name: generate out
-              run: go run -mod vendor ./cmd/acicn-build/main.go -mirror -generate 'tomcat:8-jdk-11-debian-11'
+              run: go run -mod vendor ./cmd/acicn-build/main.go -mirror -generate 'tomcat:8-jdk-11-debian-11' -rc
             - name: setup docker buildx
               uses: docker/setup-buildx-action@v2
             - name: docker login - ghcr
@@ -4845,7 +4845,7 @@ jobs:
               with:
                 go-version: "1.19"
             - name: generate out
-              run: go run -mod vendor ./cmd/acicn-build/main.go -mirror -generate 'tomcat:9-jdk-8-debian-11'
+              run: go run -mod vendor ./cmd/acicn-build/main.go -mirror -generate 'tomcat:9-jdk-8-debian-11' -rc
             - name: setup docker buildx
               uses: docker/setup-buildx-action@v2
             - name: docker login - ghcr
@@ -4909,7 +4909,7 @@ jobs:
               with:
                 go-version: "1.19"
             - name: generate out
-              run: go run -mod vendor ./cmd/acicn-build/main.go -mirror -generate 'tomcat:9-jdk-11-debian-11'
+              run: go run -mod vendor ./cmd/acicn-build/main.go -mirror -generate 'tomcat:9-jdk-11-debian-11' -rc
             - name: setup docker buildx
               uses: docker/setup-buildx-action@v2
             - name: docker login - ghcr
@@ -4974,7 +4974,7 @@ jobs:
               with:
                 go-version: "1.19"
             - name: generate out
-              run: go run -mod vendor ./cmd/acicn-build/main.go -mirror -generate 'zookeeper:3.6.2-jdk-11'
+              run: go run -mod vendor ./cmd/acicn-build/main.go -mirror -generate 'zookeeper:3.6.2-jdk-11' -rc
             - name: setup docker buildx
               uses: docker/setup-buildx-action@v2
             - name: docker login - ghcr

@@ -72,13 +72,18 @@ func (b Repo) LookupKnown(upstream string) (string, error) {
 	return "", errors.New("no known: " + upstream)
 }
 
-func (b Repo) GenerateMirror() (err error) {
+func (b Repo) GenerateMirror(rc bool) (err error) {
 	defer gg.Guard(&err)
+
+	var rcSuffix string
+	if rc {
+		rcSuffix = "-rc"
+	}
 
 	dir := filepath.Join("out", b.ShortName())
 	gg.Must0(os.RemoveAll(dir))
 	gg.Must0(os.MkdirAll(dir, 0755))
-	gg.Must0(os.WriteFile(filepath.Join(dir, "Dockerfile"), []byte("FROM "+b.Name), 0644))
+	gg.Must0(os.WriteFile(filepath.Join(dir, "Dockerfile"), []byte("FROM "+b.Name+rcSuffix), 0644))
 
 	return
 }

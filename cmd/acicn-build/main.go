@@ -38,6 +38,10 @@ func updateWorkflowMirror(repos []*acicn.Repo, opts WorkflowMirrorOptions) (err 
 	if opts.RC {
 		rcSuffix = "-rc"
 	}
+	var rcArg string
+	if opts.RC {
+		rcArg = " -rc"
+	}
 
 	jobs := gg.M{}
 
@@ -69,7 +73,7 @@ func updateWorkflowMirror(repos []*acicn.Repo, opts WorkflowMirrorOptions) (err 
 				},
 				{
 					"name": "generate out",
-					"run":  "go run -mod vendor ./cmd/acicn-build/main.go -mirror -generate '" + item.ShortName() + "'",
+					"run":  "go run -mod vendor ./cmd/acicn-build/main.go -mirror -generate '" + item.ShortName() + "'" + rcArg,
 				},
 				{
 					"name": "setup docker buildx",
@@ -346,6 +350,7 @@ func main() {
 		optGenerate string
 		optOverride string
 		optMirror   bool
+		optRC       bool
 	)
 
 	flag.BoolVar(&optUpdateWorkflow, "update-workflow", false, "update workflow")
@@ -353,6 +358,7 @@ func main() {
 	flag.StringVar(&optGenerate, "generate", "", "repo to generate")
 	flag.StringVar(&optOverride, "override", "", "override values")
 	flag.BoolVar(&optMirror, "mirror", false, "generate for mirror")
+	flag.BoolVar(&optRC, "rc", false, "generate for mirror rc")
 	flag.Parse()
 
 	// update overrides
@@ -438,7 +444,7 @@ func main() {
 			if optGenerate == "all" || optGenerate == repo.ShortName() {
 				gg.Log("generate: " + repo.ShortName())
 				if optMirror {
-					gg.Must0(repo.GenerateMirror())
+					gg.Must0(repo.GenerateMirror(optRC))
 				} else {
 					gg.Must0(repo.Generate())
 				}
