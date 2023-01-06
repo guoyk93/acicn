@@ -1,4 +1,4 @@
-FROM ghcr.io/guoyk93/acicn/debian:11
+FROM ghcr.io/guoyk93/acicn/debian:11-rc
 RUN apt-get update && \
 apt-get install -y  build-essential linux-headers-generic \
 zlib1g-dev libncurses5-dev libgdbm-dev libnss3-dev libssl-dev libreadline-dev \

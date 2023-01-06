@@ -1,4 +1,4 @@
-FROM ghcr.io/guoyk93/acicn/jdk:8-debian-11
+FROM ghcr.io/guoyk93/acicn/jdk:8-debian-11-rc
 RUN curl -sSLo rocketmq.zip "http://archive.apache.org/dist/rocketmq/4.6.1/rocketmq-all-4.6.1-bin-release.zip" && \
 unzip rocketmq.zip && \
 rm -f rocketmq.zip && \

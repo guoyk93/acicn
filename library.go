@@ -14,6 +14,10 @@ import (
 	"text/template"
 )
 
+const (
+	SuffixRC = "-rc"
+)
+
 type ManifestGlobal struct {
 	Registries []string `yaml:"registries"`
 	Doc        string   `yaml:"doc"`
@@ -65,9 +69,16 @@ func (b Repo) ShortNames() []string {
 	})
 }
 
-func (b Repo) LookupKnown(upstream string) (string, error) {
+func (b Repo) Lookup(upstream string) (string, error) {
 	if v, ok := b.Known[upstream]; ok {
 		return v, nil
+	}
+	return "", errors.New("no known: " + upstream)
+}
+
+func (b Repo) LookupUpstream(upstream string) (string, error) {
+	if v, ok := b.Known[upstream]; ok {
+		return v + SuffixRC, nil
 	}
 	return "", errors.New("no known: " + upstream)
 }
@@ -99,7 +110,7 @@ func (b Repo) Generate() (err error) {
 		var (
 			tmpl = gg.Must(
 				template.New("__main__").Option("missingkey=zero").Funcs(template.FuncMap{
-					"Known": b.LookupKnown,
+					"Known": b.LookupUpstream,
 				}).Parse(string(
 					gg.Must(os.ReadFile(filepath.Join(dir, b.Dockerfile)))),
 				),

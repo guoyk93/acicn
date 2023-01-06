@@ -15,10 +15,6 @@ import (
 	"strings"
 )
 
-const (
-	rcSuffix = "-rc"
-)
-
 var (
 	regexpNotSafe = regexp.MustCompile(`[^a-z0-9]`)
 )
@@ -88,7 +84,7 @@ func updateWorkflowMirror(repos []*acicn.Repo, opts WorkflowMirrorOptions) (err 
 	for _, item := range repos {
 
 		tags := gg.Map(item.Tags, func(tag string) string {
-			return fmt.Sprintf("type=raw,value=%s", tag+rcSuffix)
+			return fmt.Sprintf("type=raw,value=%s", tag+acicn.SuffixRC)
 		})
 
 		job := gg.M{
@@ -107,7 +103,7 @@ func updateWorkflowMirror(repos []*acicn.Repo, opts WorkflowMirrorOptions) (err 
 					"with": gg.M{
 						"path":       "docker/Dockerfile",
 						"write-mode": "overwrite",
-						"contents":   "FROM " + item.Name + rcSuffix,
+						"contents":   "FROM " + item.Name + acicn.SuffixRC,
 					},
 				},
 				stepSetupBuildX,
@@ -187,7 +183,7 @@ func updateWorkflowRelease(repos []*acicn.Repo, opts WorkflowReleaseOptions) (er
 	for _, item := range repos {
 
 		tags := gg.Map(item.Tags, func(tag string) string {
-			return fmt.Sprintf("type=raw,value=%s", tag+rcSuffix)
+			return fmt.Sprintf("type=raw,value=%s", tag+acicn.SuffixRC)
 		})
 
 		job := gg.M{
@@ -258,7 +254,7 @@ func updateWorkflowRelease(repos []*acicn.Repo, opts WorkflowReleaseOptions) (er
 		for k, v := range item.Vars {
 			if s, ok := v.(string); ok && s != "" {
 				if strings.HasPrefix(k, "upstream") {
-					needs = append(needs, releaseJobName(gg.Must(item.LookupKnown(s))))
+					needs = append(needs, releaseJobName(gg.Must(item.Lookup(s))))
 				}
 			}
 		}

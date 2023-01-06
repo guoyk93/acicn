@@ -1,4 +1,4 @@
-FROM ghcr.io/guoyk93/acicn/jdk:11-debian-11
+FROM ghcr.io/guoyk93/acicn/jdk:11-debian-11-rc
 RUN curl -sSL -o zookeeper.tar.gz "https://archive.apache.org/dist/zookeeper/zookeeper-3.6.2/apache-zookeeper-3.6.2-bin.tar.gz" && \
 mkdir -p /opt/zookeeper && \
 tar -C /opt/zookeeper --strip-components 1 -xf zookeeper.tar.gz && \

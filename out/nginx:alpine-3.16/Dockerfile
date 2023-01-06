@@ -1,4 +1,4 @@
-FROM ghcr.io/guoyk93/acicn/alpine:3.16
+FROM ghcr.io/guoyk93/acicn/alpine:3.16-rc
 RUN apk add --no-cache nginx && \
 rm -rf /etc/nginx
 ADD nginx   /etc/nginx

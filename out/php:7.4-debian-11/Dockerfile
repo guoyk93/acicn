@@ -1,6 +1,6 @@
 FROM ghcr.io/guoyk93/merge-env-to-ini:1.0.0 AS utils-merge-env-to-ini
-FROM ghcr.io/guoyk93/acicn/nginx:alpine-3.16 AS utils-nginx
-FROM ghcr.io/guoyk93/acicn/debian:11
+FROM ghcr.io/guoyk93/acicn/nginx:alpine-3.16-rc AS utils-nginx
+FROM ghcr.io/guoyk93/acicn/debian:11-rc
 # Only Debian
 ENV PHP_VERSION 7.4
 ENV PHPCFG_PATH_PHP_FPM_CONF        /etc/php-fpm.conf

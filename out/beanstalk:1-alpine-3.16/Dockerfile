@@ -1,4 +1,4 @@
-FROM ghcr.io/guoyk93/acicn/alpine:3.16
+FROM ghcr.io/guoyk93/acicn/alpine:3.16-rc
 RUN apk add --no-cache beanstalkd
 WORKDIR /data
 ADD minit.d /etc/minit.d

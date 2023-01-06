@@ -1,4 +1,4 @@
-FROM ghcr.io/guoyk93/acicn/debian:11-no-minit
+FROM ghcr.io/guoyk93/acicn/debian:11-no-minit-rc
 # Must Debian
 # JDK
 RUN curl -sSLo jdk.deb 'https://packages.adoptium.net/artifactory/deb/pool/main/t/temurin-11/temurin-11-jdk_11.0.17.0.0+8_amd64.deb' && \

@@ -1,4 +1,4 @@
-FROM ghcr.io/guoyk93/acicn/jdk:11-debian-11
+FROM ghcr.io/guoyk93/acicn/jdk:11-debian-11-rc
 RUN curl -sSLo elasticsearch.tar.gz "https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-7.17.7-linux-x86_64.tar.gz" && \
 mkdir -p /opt/elasticsearch && \
 tar -C /opt/elasticsearch --strip-components 1 -xf elasticsearch.tar.gz && \

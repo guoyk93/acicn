@@ -1,4 +1,4 @@
-FROM ghcr.io/guoyk93/acicn/debian:11
+FROM ghcr.io/guoyk93/acicn/debian:11-rc
 # Must Debian
 RUN curl -sSL -o node.tar.gz "https://nodejs.org/download/release/v12.22.9/node-v12.22.9-linux-x64.tar.gz" && \
 mkdir -p /opt/node && \

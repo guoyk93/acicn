@@ -1,4 +1,4 @@
-FROM ghcr.io/guoyk93/acicn/alpine:3.16
+FROM ghcr.io/guoyk93/acicn/alpine:3.16-rc
 RUN : && \
 apk add --virtual .build-dependencies --no-cache build-base linux-headers && \
 curl -sSLo redis.tar.gz "https://download.redis.io/releases/redis-6.0.16.tar.gz" && \

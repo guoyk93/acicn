@@ -1,4 +1,4 @@
-FROM ghcr.io/guoyk93/acicn/jdk:8-debian-11
+FROM ghcr.io/guoyk93/acicn/jdk:8-debian-11-rc
 ENV APOLLO_VERSION 1.3.0
 RUN mkdir -p /apollo/portal && cd /apollo/portal && \
 curl -sSL -o apollo-portal.zip "http://github.com/ctripcorp/apollo/releases/download/v1.3.0/apollo-portal-1.3.0-github.zip" && \

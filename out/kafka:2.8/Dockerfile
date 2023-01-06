@@ -1,4 +1,4 @@
-FROM ghcr.io/guoyk93/acicn/jdk:11-debian-11
+FROM ghcr.io/guoyk93/acicn/jdk:11-debian-11-rc
 RUN curl -sSL -o kafka.tar.gz "https://archive.apache.org/dist/kafka/2.8.1/kafka_2.13-2.8.1.tgz" && \
 mkdir -p /opt/kafka && \
 tar -C /opt/kafka --strip-components 1 -xf kafka.tar.gz && \

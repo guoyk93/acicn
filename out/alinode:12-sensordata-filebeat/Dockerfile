@@ -1,4 +1,4 @@
-FROM ghcr.io/guoyk93/acicn/debian:11
+FROM ghcr.io/guoyk93/acicn/debian:11-rc
 ENV ALINODE_VERSION 5.20.6
 ENV ENABLE_NODE_LOG YES
 ENV NODE_LOG_DIR    /var/log/agenthub

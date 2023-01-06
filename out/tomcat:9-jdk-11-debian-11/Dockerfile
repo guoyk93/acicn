@@ -1,4 +1,4 @@
-FROM ghcr.io/guoyk93/acicn/jdk:11-debian-11
+FROM ghcr.io/guoyk93/acicn/jdk:11-debian-11-rc
 # Must Debian
 RUN apt-get update && \
 apt-get install -y libtcnative-1 && \
