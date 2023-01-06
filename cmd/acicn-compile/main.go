@@ -1,6 +1,8 @@
 package main
 
 import (
+	"bytes"
+	"errors"
 	"flag"
 	"fmt"
 	"github.com/guoyk93/acicn"
@@ -73,6 +75,19 @@ var (
 		},
 	}
 )
+
+func mustTagRC(buf []byte) {
+	items := bytes.Split(buf, []byte{'\n'})
+	for _, item := range items {
+		s := string(bytes.TrimSpace(item))
+		if !strings.Contains(s, "type=raw") {
+			continue
+		}
+		if !strings.HasSuffix(s, "-rc") {
+			panic(errors.New("unexpected tag: " + s))
+		}
+	}
+}
 
 func releaseJobName(name string) string {
 	return "r_" + regexpNotSafe.ReplaceAllString(path.Base(strings.ToLower(name)), "_") + "_r"
@@ -169,6 +184,9 @@ func updateWorkflowMirror(repos []*acicn.Repo, opts WorkflowMirrorOptions) (err 
 	}
 
 	buf := gg.Must(yaml.Marshal(doc))
+
+	mustTagRC(buf)
+
 	gg.Must0(os.MkdirAll(filepath.Join(".github", "workflows"), 0755))
 	gg.Must0(os.WriteFile(filepath.Join(".github", "workflows", "mirror.yaml"), buf, 0640))
 	return
@@ -307,6 +325,9 @@ func updateWorkflowRelease(repos []*acicn.Repo, opts WorkflowReleaseOptions) (er
 	}
 
 	buf := gg.Must(yaml.Marshal(doc))
+
+	mustTagRC(buf)
+
 	gg.Must0(os.MkdirAll(filepath.Join(".github", "workflows"), 0755))
 	gg.Must0(os.WriteFile(filepath.Join(".github", "workflows", "release"+nameSuffix+".yaml"), buf, 0640))
 	return
