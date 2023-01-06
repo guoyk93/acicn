@@ -40,7 +40,7 @@ jobs:
                 context: out/activemq:5.15-jdk-8
                 labels: ${{steps.meta.outputs.labels}}
                 pull: true
-                push: ${{ inputs.push }}
+                push: true
                 tags: ${{steps.meta.outputs.tags}}
     r_activemq_5_15_jdk_11_r:
         needs:
@@ -85,7 +85,7 @@ jobs:
                 context: out/activemq:5.15-jdk-11
                 labels: ${{steps.meta.outputs.labels}}
                 pull: true
-                push: ${{ inputs.push }}
+                push: true
                 tags: ${{steps.meta.outputs.tags}}
     r_alinode_12_sensordata_filebeat_r:
         needs:
@@ -128,7 +128,7 @@ jobs:
                 context: out/alinode:12-sensordata-filebeat
                 labels: ${{steps.meta.outputs.labels}}
                 pull: true
-                push: ${{ inputs.push }}
+                push: true
                 tags: ${{steps.meta.outputs.tags}}
     r_alinode_16_sensordata_filebeat_r:
         needs:
@@ -171,7 +171,7 @@ jobs:
                 context: out/alinode:16-sensordata-filebeat
                 labels: ${{steps.meta.outputs.labels}}
                 pull: true
-                push: ${{ inputs.push }}
+                push: true
                 tags: ${{steps.meta.outputs.tags}}
     r_alpine_3_16_no_minit_r:
         permissions:
@@ -212,7 +212,7 @@ jobs:
                 context: out/alpine:3.16-no-minit
                 labels: ${{steps.meta.outputs.labels}}
                 pull: false
-                push: ${{ inputs.push }}
+                push: true
                 tags: ${{steps.meta.outputs.tags}}
     r_alpine_3_16_r:
         permissions:
@@ -253,7 +253,7 @@ jobs:
                 context: out/alpine:3.16
                 labels: ${{steps.meta.outputs.labels}}
                 pull: false
-                push: ${{ inputs.push }}
+                push: true
                 tags: ${{steps.meta.outputs.tags}}
     r_apollo_1_3_0_jdk_11_r:
         needs:
@@ -298,7 +298,7 @@ jobs:
                 context: out/apollo:1.3.0-jdk-11
                 labels: ${{steps.meta.outputs.labels}}
                 pull: true
-                push: ${{ inputs.push }}
+                push: true
                 tags: ${{steps.meta.outputs.tags}}
     r_beanstalk_1_alpine_3_16_r:
         needs:
@@ -344,7 +344,7 @@ jobs:
                 context: out/beanstalk:1-alpine-3.16
                 labels: ${{steps.meta.outputs.labels}}
                 pull: true
-                push: ${{ inputs.push }}
+                push: true
                 tags: ${{steps.meta.outputs.tags}}
     r_debian_11_no_minit_r:
         permissions:
@@ -385,7 +385,7 @@ jobs:
                 context: out/debian:11-no-minit
                 labels: ${{steps.meta.outputs.labels}}
                 pull: false
-                push: ${{ inputs.push }}
+                push: true
                 tags: ${{steps.meta.outputs.tags}}
     r_debian_11_r:
         permissions:
@@ -426,7 +426,7 @@ jobs:
                 context: out/debian:11
                 labels: ${{steps.meta.outputs.labels}}
                 pull: false
-                push: ${{ inputs.push }}
+                push: true
                 tags: ${{steps.meta.outputs.tags}}
     r_elasticsearch_6_3_2_jdk_11_r:
         needs:
@@ -471,7 +471,7 @@ jobs:
                 context: out/elasticsearch:6.3.2-jdk-11
                 labels: ${{steps.meta.outputs.labels}}
                 pull: true
-                push: ${{ inputs.push }}
+                push: true
                 tags: ${{steps.meta.outputs.tags}}
     r_elasticsearch_6_8_18_jdk_11_r:
         needs:
@@ -516,7 +516,7 @@ jobs:
                 context: out/elasticsearch:6.8.18-jdk-11
                 labels: ${{steps.meta.outputs.labels}}
                 pull: true
-                push: ${{ inputs.push }}
+                push: true
                 tags: ${{steps.meta.outputs.tags}}
     r_elasticsearch_7_17_7_jdk_11_r:
         needs:
@@ -561,7 +561,7 @@ jobs:
                 context: out/elasticsearch:7.17.7-jdk-11
                 labels: ${{steps.meta.outputs.labels}}
                 pull: true
-                push: ${{ inputs.push }}
+                push: true
                 tags: ${{steps.meta.outputs.tags}}
     r_filebeat_6_3_2_debian_11_r:
         needs:
@@ -606,7 +606,7 @@ jobs:
                 context: out/filebeat:6.3.2-debian-11
                 labels: ${{steps.meta.outputs.labels}}
                 pull: true
-                push: ${{ inputs.push }}
+                push: true
                 tags: ${{steps.meta.outputs.tags}}
     r_jdk_8_cubic_r:
         needs:
@@ -651,7 +651,7 @@ jobs:
                 context: out/jdk:8-cubic
                 labels: ${{steps.meta.outputs.labels}}
                 pull: true
-                push: ${{ inputs.push }}
+                push: true
                 tags: ${{steps.meta.outputs.tags}}
     r_jdk_8_debian_11_r:
         needs:
@@ -697,7 +697,7 @@ jobs:
                 context: out/jdk:8-debian-11
                 labels: ${{steps.meta.outputs.labels}}
                 pull: true
-                push: ${{ inputs.push }}
+                push: true
                 tags: ${{steps.meta.outputs.tags}}
     r_jdk_11_debian_11_r:
         needs:
@@ -743,7 +743,7 @@ jobs:
                 context: out/jdk:11-debian-11
                 labels: ${{steps.meta.outputs.labels}}
                 pull: true
-                push: ${{ inputs.push }}
+                push: true
                 tags: ${{steps.meta.outputs.tags}}
     r_jdk_17_debian_11_r:
         needs:
@@ -789,7 +789,7 @@ jobs:
                 context: out/jdk:17-debian-11
                 labels: ${{steps.meta.outputs.labels}}
                 pull: true
-                push: ${{ inputs.push }}
+                push: true
                 tags: ${{steps.meta.outputs.tags}}
     r_jdk_builder_8_maven_3_5_debian_11_r:
         needs:
@@ -834,7 +834,7 @@ jobs:
                 context: out/jdk:builder-8-maven-3.5-debian-11
                 labels: ${{steps.meta.outputs.labels}}
                 pull: true
-                push: ${{ inputs.push }}
+                push: true
                 tags: ${{steps.meta.outputs.tags}}
     r_jdk_builder_8_maven_3_6_debian_11_r:
         needs:
@@ -880,7 +880,7 @@ jobs:
                 context: out/jdk:builder-8-maven-3.6-debian-11
                 labels: ${{steps.meta.outputs.labels}}
                 pull: true
-                push: ${{ inputs.push }}
+                push: true
                 tags: ${{steps.meta.outputs.tags}}
     r_jdk_builder_8_maven_3_8_debian_11_r:
         needs:
@@ -925,7 +925,7 @@ jobs:
                 context: out/jdk:builder-8-maven-3.8-debian-11
                 labels: ${{steps.meta.outputs.labels}}
                 pull: true
-                push: ${{ inputs.push }}
+                push: true
                 tags: ${{steps.meta.outputs.tags}}
     r_jdk_builder_11_maven_3_5_debian_11_r:
         needs:
@@ -970,7 +970,7 @@ jobs:
                 context: out/jdk:builder-11-maven-3.5-debian-11
                 labels: ${{steps.meta.outputs.labels}}
                 pull: true
-                push: ${{ inputs.push }}
+                push: true
                 tags: ${{steps.meta.outputs.tags}}
     r_jdk_builder_11_maven_3_6_debian_11_r:
         needs:
@@ -1015,7 +1015,7 @@ jobs:
                 context: out/jdk:builder-11-maven-3.6-debian-11
                 labels: ${{steps.meta.outputs.labels}}
                 pull: true
-                push: ${{ inputs.push }}
+                push: true
                 tags: ${{steps.meta.outputs.tags}}
     r_jdk_builder_11_maven_3_8_debian_11_r:
         needs:
@@ -1061,7 +1061,7 @@ jobs:
                 context: out/jdk:builder-11-maven-3.8-debian-11
                 labels: ${{steps.meta.outputs.labels}}
                 pull: true
-                push: ${{ inputs.push }}
+                push: true
                 tags: ${{steps.meta.outputs.tags}}
     r_jdk_builder_17_maven_3_6_debian_11_r:
         needs:
@@ -1106,7 +1106,7 @@ jobs:
                 context: out/jdk:builder-17-maven-3.6-debian-11
                 labels: ${{steps.meta.outputs.labels}}
                 pull: true
-                push: ${{ inputs.push }}
+                push: true
                 tags: ${{steps.meta.outputs.tags}}
     r_jdk_builder_17_maven_3_8_debian_11_r:
         needs:
@@ -1152,7 +1152,7 @@ jobs:
                 context: out/jdk:builder-17-maven-3.8-debian-11
                 labels: ${{steps.meta.outputs.labels}}
                 pull: true
-                push: ${{ inputs.push }}
+                push: true
                 tags: ${{steps.meta.outputs.tags}}
     r_kafka_2_1_r:
         needs:
@@ -1195,7 +1195,7 @@ jobs:
                 context: out/kafka:2.1
                 labels: ${{steps.meta.outputs.labels}}
                 pull: true
-                push: ${{ inputs.push }}
+                push: true
                 tags: ${{steps.meta.outputs.tags}}
     r_kafka_2_4_r:
         needs:
@@ -1238,7 +1238,7 @@ jobs:
                 context: out/kafka:2.4
                 labels: ${{steps.meta.outputs.labels}}
                 pull: true
-                push: ${{ inputs.push }}
+                push: true
                 tags: ${{steps.meta.outputs.tags}}
     r_kafka_2_8_r:
         needs:
@@ -1283,7 +1283,7 @@ jobs:
                 context: out/kafka:2.8
                 labels: ${{steps.meta.outputs.labels}}
                 pull: true
-                push: ${{ inputs.push }}
+                push: true
                 tags: ${{steps.meta.outputs.tags}}
     r_kibana_7_17_7_r:
         permissions:
@@ -1324,7 +1324,7 @@ jobs:
                 context: out/kibana:7.17.7
                 labels: ${{steps.meta.outputs.labels}}
                 pull: false
-                push: ${{ inputs.push }}
+                push: true
                 tags: ${{steps.meta.outputs.tags}}
     r_mongo_3_6_r:
         permissions:
@@ -1365,7 +1365,7 @@ jobs:
                 context: out/mongo:3.6
                 labels: ${{steps.meta.outputs.labels}}
                 pull: false
-                push: ${{ inputs.push }}
+                push: true
                 tags: ${{steps.meta.outputs.tags}}
     r_mongo_4_0_r:
         permissions:
@@ -1406,7 +1406,7 @@ jobs:
                 context: out/mongo:4.0
                 labels: ${{steps.meta.outputs.labels}}
                 pull: false
-                push: ${{ inputs.push }}
+                push: true
                 tags: ${{steps.meta.outputs.tags}}
     r_mongo_4_2_r:
         permissions:
@@ -1447,7 +1447,7 @@ jobs:
                 context: out/mongo:4.2
                 labels: ${{steps.meta.outputs.labels}}
                 pull: false
-                push: ${{ inputs.push }}
+                push: true
                 tags: ${{steps.meta.outputs.tags}}
     r_mongo_4_4_r:
         permissions:
@@ -1488,7 +1488,7 @@ jobs:
                 context: out/mongo:4.4
                 labels: ${{steps.meta.outputs.labels}}
                 pull: false
-                push: ${{ inputs.push }}
+                push: true
                 tags: ${{steps.meta.outputs.tags}}
     r_mysql_5_6_r:
         permissions:
@@ -1529,7 +1529,7 @@ jobs:
                 context: out/mysql:5.6
                 labels: ${{steps.meta.outputs.labels}}
                 pull: false
-                push: ${{ inputs.push }}
+                push: true
                 tags: ${{steps.meta.outputs.tags}}
     r_mysql_5_7_r:
         permissions:
@@ -1570,7 +1570,7 @@ jobs:
                 context: out/mysql:5.7
                 labels: ${{steps.meta.outputs.labels}}
                 pull: false
-                push: ${{ inputs.push }}
+                push: true
                 tags: ${{steps.meta.outputs.tags}}
     r_mysql_8_0_r:
         permissions:
@@ -1611,7 +1611,7 @@ jobs:
                 context: out/mysql:8.0
                 labels: ${{steps.meta.outputs.labels}}
                 pull: false
-                push: ${{ inputs.push }}
+                push: true
                 tags: ${{steps.meta.outputs.tags}}
     r_nginx_alpine_3_16_r:
         needs:
@@ -1656,7 +1656,7 @@ jobs:
                 context: out/nginx:alpine-3.16
                 labels: ${{steps.meta.outputs.labels}}
                 pull: true
-                push: ${{ inputs.push }}
+                push: true
                 tags: ${{steps.meta.outputs.tags}}
     r_node_8_debian_11_r:
         needs:
@@ -1701,7 +1701,7 @@ jobs:
                 context: out/node:8-debian-11
                 labels: ${{steps.meta.outputs.labels}}
                 pull: true
-                push: ${{ inputs.push }}
+                push: true
                 tags: ${{steps.meta.outputs.tags}}
     r_node_10_debian_11_r:
         needs:
@@ -1746,7 +1746,7 @@ jobs:
                 context: out/node:10-debian-11
                 labels: ${{steps.meta.outputs.labels}}
                 pull: true
-                push: ${{ inputs.push }}
+                push: true
                 tags: ${{steps.meta.outputs.tags}}
     r_node_12_debian_11_r:
         needs:
@@ -1791,7 +1791,7 @@ jobs:
                 context: out/node:12-debian-11
                 labels: ${{steps.meta.outputs.labels}}
                 pull: true
-                push: ${{ inputs.push }}
+                push: true
                 tags: ${{steps.meta.outputs.tags}}
     r_node_14_debian_11_r:
         needs:
@@ -1836,7 +1836,7 @@ jobs:
                 context: out/node:14-debian-11
                 labels: ${{steps.meta.outputs.labels}}
                 pull: true
-                push: ${{ inputs.push }}
+                push: true
                 tags: ${{steps.meta.outputs.tags}}
     r_node_16_debian_11_r:
         needs:
@@ -1881,7 +1881,7 @@ jobs:
                 context: out/node:16-debian-11
                 labels: ${{steps.meta.outputs.labels}}
                 pull: true
-                push: ${{ inputs.push }}
+                push: true
                 tags: ${{steps.meta.outputs.tags}}
     r_node_18_debian_11_r:
         needs:
@@ -1926,7 +1926,7 @@ jobs:
                 context: out/node:18-debian-11
                 labels: ${{steps.meta.outputs.labels}}
                 pull: true
-                push: ${{ inputs.push }}
+                push: true
                 tags: ${{steps.meta.outputs.tags}}
     r_node_builder_8_debian_11_r:
         needs:
@@ -1971,7 +1971,7 @@ jobs:
                 context: out/node:builder-8-debian-11
                 labels: ${{steps.meta.outputs.labels}}
                 pull: true
-                push: ${{ inputs.push }}
+                push: true
                 tags: ${{steps.meta.outputs.tags}}
     r_node_builder_10_debian_11_r:
         needs:
@@ -2016,7 +2016,7 @@ jobs:
                 context: out/node:builder-10-debian-11
                 labels: ${{steps.meta.outputs.labels}}
                 pull: true
-                push: ${{ inputs.push }}
+                push: true
                 tags: ${{steps.meta.outputs.tags}}
     r_node_builder_12_debian_11_r:
         needs:
@@ -2061,7 +2061,7 @@ jobs:
                 context: out/node:builder-12-debian-11
                 labels: ${{steps.meta.outputs.labels}}
                 pull: true
-                push: ${{ inputs.push }}
+                push: true
                 tags: ${{steps.meta.outputs.tags}}
     r_node_builder_14_debian_11_r:
         needs:
@@ -2106,7 +2106,7 @@ jobs:
                 context: out/node:builder-14-debian-11
                 labels: ${{steps.meta.outputs.labels}}
                 pull: true
-                push: ${{ inputs.push }}
+                push: true
                 tags: ${{steps.meta.outputs.tags}}
     r_node_builder_16_debian_11_r:
         needs:
@@ -2151,7 +2151,7 @@ jobs:
                 context: out/node:builder-16-debian-11
                 labels: ${{steps.meta.outputs.labels}}
                 pull: true
-                push: ${{ inputs.push }}
+                push: true
                 tags: ${{steps.meta.outputs.tags}}
     r_node_builder_18_debian_11_r:
         needs:
@@ -2196,7 +2196,7 @@ jobs:
                 context: out/node:builder-18-debian-11
                 labels: ${{steps.meta.outputs.labels}}
                 pull: true
-                push: ${{ inputs.push }}
+                push: true
                 tags: ${{steps.meta.outputs.tags}}
     r_php_7_4_debian_11_r:
         needs:
@@ -2244,7 +2244,7 @@ jobs:
                 context: out/php:7.4-debian-11
                 labels: ${{steps.meta.outputs.labels}}
                 pull: true
-                push: ${{ inputs.push }}
+                push: true
                 tags: ${{steps.meta.outputs.tags}}
     r_postgres_9_6_r:
         permissions:
@@ -2285,7 +2285,7 @@ jobs:
                 context: out/postgres:9.6
                 labels: ${{steps.meta.outputs.labels}}
                 pull: false
-                push: ${{ inputs.push }}
+                push: true
                 tags: ${{steps.meta.outputs.tags}}
     r_postgres_10_15_r:
         permissions:
@@ -2326,7 +2326,7 @@ jobs:
                 context: out/postgres:10.15
                 labels: ${{steps.meta.outputs.labels}}
                 pull: false
-                push: ${{ inputs.push }}
+                push: true
                 tags: ${{steps.meta.outputs.tags}}
     r_postgres_11_10_r:
         permissions:
@@ -2367,7 +2367,7 @@ jobs:
                 context: out/postgres:11.10
                 labels: ${{steps.meta.outputs.labels}}
                 pull: false
-                push: ${{ inputs.push }}
+                push: true
                 tags: ${{steps.meta.outputs.tags}}
     r_postgres_12_5_r:
         permissions:
@@ -2408,7 +2408,7 @@ jobs:
                 context: out/postgres:12.5
                 labels: ${{steps.meta.outputs.labels}}
                 pull: false
-                push: ${{ inputs.push }}
+                push: true
                 tags: ${{steps.meta.outputs.tags}}
     r_prometheus_2_25_r:
         needs:
@@ -2451,7 +2451,7 @@ jobs:
                 context: out/prometheus:2.25
                 labels: ${{steps.meta.outputs.labels}}
                 pull: true
-                push: ${{ inputs.push }}
+                push: true
                 tags: ${{steps.meta.outputs.tags}}
     r_python_3_6_debian_11_r:
         needs:
@@ -2496,7 +2496,7 @@ jobs:
                 context: out/python:3.6-debian-11
                 labels: ${{steps.meta.outputs.labels}}
                 pull: true
-                push: ${{ inputs.push }}
+                push: true
                 tags: ${{steps.meta.outputs.tags}}
     r_python_3_7_debian_11_r:
         needs:
@@ -2541,7 +2541,7 @@ jobs:
                 context: out/python:3.7-debian-11
                 labels: ${{steps.meta.outputs.labels}}
                 pull: true
-                push: ${{ inputs.push }}
+                push: true
                 tags: ${{steps.meta.outputs.tags}}
     r_python_3_8_debian_11_r:
         needs:
@@ -2586,7 +2586,7 @@ jobs:
                 context: out/python:3.8-debian-11
                 labels: ${{steps.meta.outputs.labels}}
                 pull: true
-                push: ${{ inputs.push }}
+                push: true
                 tags: ${{steps.meta.outputs.tags}}
     r_python_3_9_debian_11_r:
         needs:
@@ -2631,7 +2631,7 @@ jobs:
                 context: out/python:3.9-debian-11
                 labels: ${{steps.meta.outputs.labels}}
                 pull: true
-                push: ${{ inputs.push }}
+                push: true
                 tags: ${{steps.meta.outputs.tags}}
     r_python_3_10_debian_11_r:
         needs:
@@ -2676,7 +2676,7 @@ jobs:
                 context: out/python:3.10-debian-11
                 labels: ${{steps.meta.outputs.labels}}
                 pull: true
-                push: ${{ inputs.push }}
+                push: true
                 tags: ${{steps.meta.outputs.tags}}
     r_python_3_11_debian_11_r:
         needs:
@@ -2721,7 +2721,7 @@ jobs:
                 context: out/python:3.11-debian-11
                 labels: ${{steps.meta.outputs.labels}}
                 pull: true
-                push: ${{ inputs.push }}
+                push: true
                 tags: ${{steps.meta.outputs.tags}}
     r_redis_5_alpine_3_16_r:
         needs:
@@ -2766,7 +2766,7 @@ jobs:
                 context: out/redis:5-alpine-3.16
                 labels: ${{steps.meta.outputs.labels}}
                 pull: true
-                push: ${{ inputs.push }}
+                push: true
                 tags: ${{steps.meta.outputs.tags}}
     r_redis_6_0_alpine_3_16_r:
         needs:
@@ -2811,7 +2811,7 @@ jobs:
                 context: out/redis:6.0-alpine-3.16
                 labels: ${{steps.meta.outputs.labels}}
                 pull: true
-                push: ${{ inputs.push }}
+                push: true
                 tags: ${{steps.meta.outputs.tags}}
     r_redis_6_2_alpine_3_16_r:
         needs:
@@ -2858,7 +2858,7 @@ jobs:
                 context: out/redis:6.2-alpine-3.16
                 labels: ${{steps.meta.outputs.labels}}
                 pull: true
-                push: ${{ inputs.push }}
+                push: true
                 tags: ${{steps.meta.outputs.tags}}
     r_redis_7_alpine_3_16_r:
         needs:
@@ -2903,7 +2903,7 @@ jobs:
                 context: out/redis:7-alpine-3.16
                 labels: ${{steps.meta.outputs.labels}}
                 pull: true
-                push: ${{ inputs.push }}
+                push: true
                 tags: ${{steps.meta.outputs.tags}}
     r_rocketmq_4_6_1_broker_jdk_8_r:
         needs:
@@ -2948,7 +2948,7 @@ jobs:
                 context: out/rocketmq:4.6.1-broker-jdk-8
                 labels: ${{steps.meta.outputs.labels}}
                 pull: true
-                push: ${{ inputs.push }}
+                push: true
                 tags: ${{steps.meta.outputs.tags}}
     r_rocketmq_4_6_1_namesrv_jdk_8_r:
         needs:
@@ -2993,7 +2993,7 @@ jobs:
                 context: out/rocketmq:4.6.1-namesrv-jdk-8
                 labels: ${{steps.meta.outputs.labels}}
                 pull: true
-                push: ${{ inputs.push }}
+                push: true
                 tags: ${{steps.meta.outputs.tags}}
     r_rocketmq_4_8_0_broker_jdk_8_r:
         needs:
@@ -3038,7 +3038,7 @@ jobs:
                 context: out/rocketmq:4.8.0-broker-jdk-8
                 labels: ${{steps.meta.outputs.labels}}
                 pull: true
-                push: ${{ inputs.push }}
+                push: true
                 tags: ${{steps.meta.outputs.tags}}
     r_rocketmq_4_8_0_namesrv_jdk_8_r:
         needs:
@@ -3083,7 +3083,7 @@ jobs:
                 context: out/rocketmq:4.8.0-namesrv-jdk-8
                 labels: ${{steps.meta.outputs.labels}}
                 pull: true
-                push: ${{ inputs.push }}
+                push: true
                 tags: ${{steps.meta.outputs.tags}}
     r_rocketmq_4_9_1_broker_jdk_8_r:
         needs:
@@ -3128,7 +3128,7 @@ jobs:
                 context: out/rocketmq:4.9.1-broker-jdk-8
                 labels: ${{steps.meta.outputs.labels}}
                 pull: true
-                push: ${{ inputs.push }}
+                push: true
                 tags: ${{steps.meta.outputs.tags}}
     r_rocketmq_4_9_1_namesrv_jdk_8_r:
         needs:
@@ -3173,7 +3173,7 @@ jobs:
                 context: out/rocketmq:4.9.1-namesrv-jdk-8
                 labels: ${{steps.meta.outputs.labels}}
                 pull: true
-                push: ${{ inputs.push }}
+                push: true
                 tags: ${{steps.meta.outputs.tags}}
     r_rocketmq_console_r:
         needs:
@@ -3216,7 +3216,7 @@ jobs:
                 context: out/rocketmq:console
                 labels: ${{steps.meta.outputs.labels}}
                 pull: true
-                push: ${{ inputs.push }}
+                push: true
                 tags: ${{steps.meta.outputs.tags}}
     r_spring_boot_admin_1_0_r:
         needs:
@@ -3261,7 +3261,7 @@ jobs:
                 context: out/spring-boot-admin:1.0
                 labels: ${{steps.meta.outputs.labels}}
                 pull: true
-                push: ${{ inputs.push }}
+                push: true
                 tags: ${{steps.meta.outputs.tags}}
     r_tomcat_8_jdk_8_debian_11_r:
         needs:
@@ -3306,7 +3306,7 @@ jobs:
                 context: out/tomcat:8-jdk-8-debian-11
                 labels: ${{steps.meta.outputs.labels}}
                 pull: true
-                push: ${{ inputs.push }}
+                push: true
                 tags: ${{steps.meta.outputs.tags}}
     r_tomcat_8_jdk_11_debian_11_r:
         needs:
@@ -3353,7 +3353,7 @@ jobs:
                 context: out/tomcat:8-jdk-11-debian-11
                 labels: ${{steps.meta.outputs.labels}}
                 pull: true
-                push: ${{ inputs.push }}
+                push: true
                 tags: ${{steps.meta.outputs.tags}}
     r_tomcat_9_jdk_8_debian_11_r:
         needs:
@@ -3398,7 +3398,7 @@ jobs:
                 context: out/tomcat:9-jdk-8-debian-11
                 labels: ${{steps.meta.outputs.labels}}
                 pull: true
-                push: ${{ inputs.push }}
+                push: true
                 tags: ${{steps.meta.outputs.tags}}
     r_tomcat_9_jdk_11_debian_11_r:
         needs:
@@ -3444,7 +3444,7 @@ jobs:
                 context: out/tomcat:9-jdk-11-debian-11
                 labels: ${{steps.meta.outputs.labels}}
                 pull: true
-                push: ${{ inputs.push }}
+                push: true
                 tags: ${{steps.meta.outputs.tags}}
     r_zookeeper_3_6_2_jdk_11_r:
         needs:
@@ -3491,13 +3491,8 @@ jobs:
                 context: out/zookeeper:3.6.2-jdk-11
                 labels: ${{steps.meta.outputs.labels}}
                 pull: true
-                push: ${{ inputs.push }}
+                push: true
                 tags: ${{steps.meta.outputs.tags}}
 name: release-mono
 "on":
-    workflow_dispatch:
-        inputs:
-            push:
-                description: push to registry
-                required: true
-                type: boolean
+    workflow_dispatch: {}

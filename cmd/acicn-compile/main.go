@@ -204,6 +204,15 @@ func updateWorkflowRelease(repos []*acicn.Repo, opts WorkflowReleaseOptions) (er
 			}
 		}
 
+		var push any
+		{
+			if opts.Solo {
+				push = "${{inputs.push}}"
+			} else {
+				push = true
+			}
+		}
+
 		tags := gg.Map(item.Tags, func(tag string) string {
 			return fmt.Sprintf("type=raw,value=%s", tag+acicn.SuffixRC)
 		})
@@ -239,7 +248,7 @@ func updateWorkflowRelease(repos []*acicn.Repo, opts WorkflowReleaseOptions) (er
 					"with": gg.M{
 						"context":    "out/" + item.ShortName(),
 						"pull":       pull,
-						"push":       "${{ inputs.push }}",
+						"push":       push,
 						"tags":       "${{steps.meta.outputs.tags}}",
 						"labels":     "${{steps.meta.outputs.labels}}",
 						"cache-from": "type=gha",
@@ -272,28 +281,27 @@ func updateWorkflowRelease(repos []*acicn.Repo, opts WorkflowReleaseOptions) (er
 		jobs[releaseJobName(item.Name)] = job
 	}
 
-	inputs := gg.M{
-		"push": gg.M{
-			"description": "push to registry",
-			"required":    true,
-			"type":        "boolean",
-		},
-	}
+	workflowDispatch := gg.M{}
 
 	if opts.Solo {
-		inputs["job_name"] = gg.M{
-			"description": "names of jobs to execute, 'all' for all",
-			"required":    true,
-			"type":        "string",
+		workflowDispatch["inputs"] = gg.M{
+			"push": gg.M{
+				"description": "push to registry",
+				"required":    true,
+				"type":        "boolean",
+			},
+			"job_name": gg.M{
+				"description": "names of jobs to execute, 'all' for all",
+				"required":    true,
+				"type":        "string",
+			},
 		}
 	}
 
 	doc := gg.M{
 		"name": "release" + nameSuffix,
 		"on": gg.M{
-			"workflow_dispatch": gg.M{
-				"inputs": inputs,
-			},
+			"workflow_dispatch": workflowDispatch,
 		},
 		"jobs": jobs,
 	}
