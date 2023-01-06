@@ -175,27 +175,40 @@ func updateWorkflowMirror(repos []*acicn.Repo, opts WorkflowMirrorOptions) (err 
 }
 
 type WorkflowReleaseOptions struct {
-	NoDep bool
+	Solo bool
 }
 
 func updateWorkflowRelease(repos []*acicn.Repo, opts WorkflowReleaseOptions) (err error) {
 	defer gg.Guard(&err)
 
-	var soloSuffix string
-	if opts.NoDep {
-		soloSuffix = "-nodep"
+	var nameSuffix string
+	if opts.Solo {
+		nameSuffix = "-solo"
+	} else {
+		nameSuffix = "-mono"
 	}
 
 	jobs := gg.M{}
 
 	for _, item := range repos {
 
+		var pull any
+		{
+			upstream, _ := item.Vars["upstream"].(string)
+			upstream = strings.TrimSpace(upstream)
+
+			if upstream == "" {
+				pull = false
+			} else {
+				pull = true
+			}
+		}
+
 		tags := gg.Map(item.Tags, func(tag string) string {
 			return fmt.Sprintf("type=raw,value=%s", tag+acicn.SuffixRC)
 		})
 
 		job := gg.M{
-			"if":      "inputs.job_name == 'all' || contains(inputs.job_name,'" + releaseJobName(item.Name) + "')",
 			"runs-on": "ubuntu-latest",
 			"permissions": gg.M{
 				"contents": "read",
@@ -225,7 +238,7 @@ func updateWorkflowRelease(repos []*acicn.Repo, opts WorkflowReleaseOptions) (er
 					"id":   "build",
 					"with": gg.M{
 						"context":    "out/" + item.ShortName(),
-						"pull":       true,
+						"pull":       pull,
 						"push":       "${{ inputs.push }}",
 						"tags":       "${{steps.meta.outputs.tags}}",
 						"labels":     "${{steps.meta.outputs.labels}}",
@@ -234,6 +247,10 @@ func updateWorkflowRelease(repos []*acicn.Repo, opts WorkflowReleaseOptions) (er
 					},
 				},
 			},
+		}
+
+		if opts.Solo {
+			job["if"] = "inputs.job_name == 'all' || contains(inputs.job_name,'" + releaseJobName(item.Name) + "')"
 		}
 
 		var needs []string
@@ -248,29 +265,34 @@ func updateWorkflowRelease(repos []*acicn.Repo, opts WorkflowReleaseOptions) (er
 
 		sort.Strings(needs)
 
-		if len(needs) > 0 && !opts.NoDep {
+		if len(needs) > 0 && !opts.Solo {
 			job["needs"] = needs
 		}
 
 		jobs[releaseJobName(item.Name)] = job
 	}
 
+	inputs := gg.M{
+		"push": gg.M{
+			"description": "push to registry",
+			"required":    true,
+			"type":        "boolean",
+		},
+	}
+
+	if opts.Solo {
+		inputs["job_name"] = gg.M{
+			"description": "names of jobs to execute, 'all' for all",
+			"required":    true,
+			"type":        "string",
+		}
+	}
+
 	doc := gg.M{
-		"name": "release" + soloSuffix,
+		"name": "release" + nameSuffix,
 		"on": gg.M{
 			"workflow_dispatch": gg.M{
-				"inputs": gg.M{
-					"push": gg.M{
-						"description": "push to registry",
-						"required":    true,
-						"type":        "boolean",
-					},
-					"job_name": gg.M{
-						"description": "names of jobs to execute, 'all' for all",
-						"required":    true,
-						"type":        "string",
-					},
-				},
+				"inputs": inputs,
 			},
 		},
 		"jobs": jobs,
@@ -278,7 +300,7 @@ func updateWorkflowRelease(repos []*acicn.Repo, opts WorkflowReleaseOptions) (er
 
 	buf := gg.Must(yaml.Marshal(doc))
 	gg.Must0(os.MkdirAll(filepath.Join(".github", "workflows"), 0755))
-	gg.Must0(os.WriteFile(filepath.Join(".github", "workflows", "release"+soloSuffix+".yaml"), buf, 0640))
+	gg.Must0(os.WriteFile(filepath.Join(".github", "workflows", "release"+nameSuffix+".yaml"), buf, 0640))
 	return
 }
 
@@ -317,8 +339,8 @@ func main() {
 	repos := gg.Must(acicn.Load(overrides))
 
 	// generate github workflow
-	gg.Must0(updateWorkflowRelease(repos, WorkflowReleaseOptions{NoDep: false}))
-	gg.Must0(updateWorkflowRelease(repos, WorkflowReleaseOptions{NoDep: true}))
+	gg.Must0(updateWorkflowRelease(repos, WorkflowReleaseOptions{Solo: false}))
+	gg.Must0(updateWorkflowRelease(repos, WorkflowReleaseOptions{Solo: true}))
 	gg.Must0(updateWorkflowMirror(repos, WorkflowMirrorOptions{}))
 
 	// collect image names
