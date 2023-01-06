@@ -1,0 +1,3937 @@
+jobs:
+    r_activemq_5_15_jdk_8_r:
+        if: inputs.job_name == 'all' || contains(inputs.job_name,'r_activemq_5_15_jdk_8_r')
+        permissions:
+            contents: read
+            id-token: write
+            packages: write
+        runs-on: ubuntu-latest
+        steps:
+            - name: checkout
+              uses: actions/checkout@v3
+            - name: setup go
+              uses: actions/setup-go@v3
+              with:
+                go-version: "1.19"
+            - name: generate out
+              run: go run -mod vendor ./cmd/acicn-build/main.go -generate 'activemq:5.15-jdk-8'
+            - name: setup docker buildx
+              uses: docker/setup-buildx-action@v2
+            - name: docker login - ghcr
+              uses: docker/login-action@v2
+              with:
+                password: ${{secrets.GITHUB_TOKEN}}
+                registry: ghcr.io
+                username: ${{github.actor}}
+            - name: docker login - dockerhub
+              uses: docker/login-action@v2
+              with:
+                password: ${{secrets.DOCKERHUB_TOKEN}}
+                username: guoyk
+            - id: meta
+              name: meta for activemq:5.15-jdk-8
+              uses: docker/metadata-action@v4
+              with:
+                images: |-
+                    ghcr.io/guoyk93/acicn/activemq
+                    acicn/activemq
+                tags: type=raw,value=5.15-jdk-8-rc
+            - id: build
+              name: build for activemq:5.15-jdk-8
+              uses: docker/build-push-action@v3
+              with:
+                cache-from: type=gha
+                cache-to: type=gha,mode=max
+                context: out/activemq:5.15-jdk-8
+                labels: ${{steps.meta.outputs.labels}}
+                pull: true
+                push: ${{ inputs.push }}
+                tags: ${{steps.meta.outputs.tags}}
+    r_activemq_5_15_jdk_11_r:
+        if: inputs.job_name == 'all' || contains(inputs.job_name,'r_activemq_5_15_jdk_11_r')
+        permissions:
+            contents: read
+            id-token: write
+            packages: write
+        runs-on: ubuntu-latest
+        steps:
+            - name: checkout
+              uses: actions/checkout@v3
+            - name: setup go
+              uses: actions/setup-go@v3
+              with:
+                go-version: "1.19"
+            - name: generate out
+              run: go run -mod vendor ./cmd/acicn-build/main.go -generate 'activemq:5.15-jdk-11'
+            - name: setup docker buildx
+              uses: docker/setup-buildx-action@v2
+            - name: docker login - ghcr
+              uses: docker/login-action@v2
+              with:
+                password: ${{secrets.GITHUB_TOKEN}}
+                registry: ghcr.io
+                username: ${{github.actor}}
+            - name: docker login - dockerhub
+              uses: docker/login-action@v2
+              with:
+                password: ${{secrets.DOCKERHUB_TOKEN}}
+                username: guoyk
+            - id: meta
+              name: meta for activemq:5.15-jdk-11
+              uses: docker/metadata-action@v4
+              with:
+                images: |-
+                    ghcr.io/guoyk93/acicn/activemq
+                    acicn/activemq
+                tags: |-
+                    type=raw,value=5.15-jdk-11-rc
+                    type=raw,value=5.15-rc
+            - id: build
+              name: build for activemq:5.15-jdk-11
+              uses: docker/build-push-action@v3
+              with:
+                cache-from: type=gha
+                cache-to: type=gha,mode=max
+                context: out/activemq:5.15-jdk-11
+                labels: ${{steps.meta.outputs.labels}}
+                pull: true
+                push: ${{ inputs.push }}
+                tags: ${{steps.meta.outputs.tags}}
+    r_alinode_12_sensordata_filebeat_r:
+        if: inputs.job_name == 'all' || contains(inputs.job_name,'r_alinode_12_sensordata_filebeat_r')
+        permissions:
+            contents: read
+            id-token: write
+            packages: write
+        runs-on: ubuntu-latest
+        steps:
+            - name: checkout
+              uses: actions/checkout@v3
+            - name: setup go
+              uses: actions/setup-go@v3
+              with:
+                go-version: "1.19"
+            - name: generate out
+              run: go run -mod vendor ./cmd/acicn-build/main.go -generate 'alinode:12-sensordata-filebeat'
+            - name: setup docker buildx
+              uses: docker/setup-buildx-action@v2
+            - name: docker login - ghcr
+              uses: docker/login-action@v2
+              with:
+                password: ${{secrets.GITHUB_TOKEN}}
+                registry: ghcr.io
+                username: ${{github.actor}}
+            - name: docker login - dockerhub
+              uses: docker/login-action@v2
+              with:
+                password: ${{secrets.DOCKERHUB_TOKEN}}
+                username: guoyk
+            - id: meta
+              name: meta for alinode:12-sensordata-filebeat
+              uses: docker/metadata-action@v4
+              with:
+                images: |-
+                    ghcr.io/guoyk93/acicn/alinode
+                    acicn/alinode
+                tags: type=raw,value=12-sensordata-filebeat-rc
+            - id: build
+              name: build for alinode:12-sensordata-filebeat
+              uses: docker/build-push-action@v3
+              with:
+                cache-from: type=gha
+                cache-to: type=gha,mode=max
+                context: out/alinode:12-sensordata-filebeat
+                labels: ${{steps.meta.outputs.labels}}
+                pull: true
+                push: ${{ inputs.push }}
+                tags: ${{steps.meta.outputs.tags}}
+    r_alinode_16_sensordata_filebeat_r:
+        if: inputs.job_name == 'all' || contains(inputs.job_name,'r_alinode_16_sensordata_filebeat_r')
+        permissions:
+            contents: read
+            id-token: write
+            packages: write
+        runs-on: ubuntu-latest
+        steps:
+            - name: checkout
+              uses: actions/checkout@v3
+            - name: setup go
+              uses: actions/setup-go@v3
+              with:
+                go-version: "1.19"
+            - name: generate out
+              run: go run -mod vendor ./cmd/acicn-build/main.go -generate 'alinode:16-sensordata-filebeat'
+            - name: setup docker buildx
+              uses: docker/setup-buildx-action@v2
+            - name: docker login - ghcr
+              uses: docker/login-action@v2
+              with:
+                password: ${{secrets.GITHUB_TOKEN}}
+                registry: ghcr.io
+                username: ${{github.actor}}
+            - name: docker login - dockerhub
+              uses: docker/login-action@v2
+              with:
+                password: ${{secrets.DOCKERHUB_TOKEN}}
+                username: guoyk
+            - id: meta
+              name: meta for alinode:16-sensordata-filebeat
+              uses: docker/metadata-action@v4
+              with:
+                images: |-
+                    ghcr.io/guoyk93/acicn/alinode
+                    acicn/alinode
+                tags: type=raw,value=16-sensordata-filebeat-rc
+            - id: build
+              name: build for alinode:16-sensordata-filebeat
+              uses: docker/build-push-action@v3
+              with:
+                cache-from: type=gha
+                cache-to: type=gha,mode=max
+                context: out/alinode:16-sensordata-filebeat
+                labels: ${{steps.meta.outputs.labels}}
+                pull: true
+                push: ${{ inputs.push }}
+                tags: ${{steps.meta.outputs.tags}}
+    r_alpine_3_16_no_minit_r:
+        if: inputs.job_name == 'all' || contains(inputs.job_name,'r_alpine_3_16_no_minit_r')
+        permissions:
+            contents: read
+            id-token: write
+            packages: write
+        runs-on: ubuntu-latest
+        steps:
+            - name: checkout
+              uses: actions/checkout@v3
+            - name: setup go
+              uses: actions/setup-go@v3
+              with:
+                go-version: "1.19"
+            - name: generate out
+              run: go run -mod vendor ./cmd/acicn-build/main.go -generate 'alpine:3.16-no-minit'
+            - name: setup docker buildx
+              uses: docker/setup-buildx-action@v2
+            - name: docker login - ghcr
+              uses: docker/login-action@v2
+              with:
+                password: ${{secrets.GITHUB_TOKEN}}
+                registry: ghcr.io
+                username: ${{github.actor}}
+            - name: docker login - dockerhub
+              uses: docker/login-action@v2
+              with:
+                password: ${{secrets.DOCKERHUB_TOKEN}}
+                username: guoyk
+            - id: meta
+              name: meta for alpine:3.16-no-minit
+              uses: docker/metadata-action@v4
+              with:
+                images: |-
+                    ghcr.io/guoyk93/acicn/alpine
+                    acicn/alpine
+                tags: type=raw,value=3.16-no-minit-rc
+            - id: build
+              name: build for alpine:3.16-no-minit
+              uses: docker/build-push-action@v3
+              with:
+                cache-from: type=gha
+                cache-to: type=gha,mode=max
+                context: out/alpine:3.16-no-minit
+                labels: ${{steps.meta.outputs.labels}}
+                pull: ${{ inputs.force_pull }}
+                push: ${{ inputs.push }}
+                tags: ${{steps.meta.outputs.tags}}
+    r_alpine_3_16_r:
+        if: inputs.job_name == 'all' || contains(inputs.job_name,'r_alpine_3_16_r')
+        permissions:
+            contents: read
+            id-token: write
+            packages: write
+        runs-on: ubuntu-latest
+        steps:
+            - name: checkout
+              uses: actions/checkout@v3
+            - name: setup go
+              uses: actions/setup-go@v3
+              with:
+                go-version: "1.19"
+            - name: generate out
+              run: go run -mod vendor ./cmd/acicn-build/main.go -generate 'alpine:3.16'
+            - name: setup docker buildx
+              uses: docker/setup-buildx-action@v2
+            - name: docker login - ghcr
+              uses: docker/login-action@v2
+              with:
+                password: ${{secrets.GITHUB_TOKEN}}
+                registry: ghcr.io
+                username: ${{github.actor}}
+            - name: docker login - dockerhub
+              uses: docker/login-action@v2
+              with:
+                password: ${{secrets.DOCKERHUB_TOKEN}}
+                username: guoyk
+            - id: meta
+              name: meta for alpine:3.16
+              uses: docker/metadata-action@v4
+              with:
+                images: |-
+                    ghcr.io/guoyk93/acicn/alpine
+                    acicn/alpine
+                tags: type=raw,value=3.16-rc
+            - id: build
+              name: build for alpine:3.16
+              uses: docker/build-push-action@v3
+              with:
+                cache-from: type=gha
+                cache-to: type=gha,mode=max
+                context: out/alpine:3.16
+                labels: ${{steps.meta.outputs.labels}}
+                pull: ${{ inputs.force_pull }}
+                push: ${{ inputs.push }}
+                tags: ${{steps.meta.outputs.tags}}
+    r_apollo_1_3_0_jdk_11_r:
+        if: inputs.job_name == 'all' || contains(inputs.job_name,'r_apollo_1_3_0_jdk_11_r')
+        permissions:
+            contents: read
+            id-token: write
+            packages: write
+        runs-on: ubuntu-latest
+        steps:
+            - name: checkout
+              uses: actions/checkout@v3
+            - name: setup go
+              uses: actions/setup-go@v3
+              with:
+                go-version: "1.19"
+            - name: generate out
+              run: go run -mod vendor ./cmd/acicn-build/main.go -generate 'apollo:1.3.0-jdk-11'
+            - name: setup docker buildx
+              uses: docker/setup-buildx-action@v2
+            - name: docker login - ghcr
+              uses: docker/login-action@v2
+              with:
+                password: ${{secrets.GITHUB_TOKEN}}
+                registry: ghcr.io
+                username: ${{github.actor}}
+            - name: docker login - dockerhub
+              uses: docker/login-action@v2
+              with:
+                password: ${{secrets.DOCKERHUB_TOKEN}}
+                username: guoyk
+            - id: meta
+              name: meta for apollo:1.3.0-jdk-11
+              uses: docker/metadata-action@v4
+              with:
+                images: |-
+                    ghcr.io/guoyk93/acicn/apollo
+                    acicn/apollo
+                tags: |-
+                    type=raw,value=1.3.0-jdk-11-rc
+                    type=raw,value=1.3.0-rc
+            - id: build
+              name: build for apollo:1.3.0-jdk-11
+              uses: docker/build-push-action@v3
+              with:
+                cache-from: type=gha
+                cache-to: type=gha,mode=max
+                context: out/apollo:1.3.0-jdk-11
+                labels: ${{steps.meta.outputs.labels}}
+                pull: true
+                push: ${{ inputs.push }}
+                tags: ${{steps.meta.outputs.tags}}
+    r_beanstalk_1_alpine_3_16_r:
+        if: inputs.job_name == 'all' || contains(inputs.job_name,'r_beanstalk_1_alpine_3_16_r')
+        permissions:
+            contents: read
+            id-token: write
+            packages: write
+        runs-on: ubuntu-latest
+        steps:
+            - name: checkout
+              uses: actions/checkout@v3
+            - name: setup go
+              uses: actions/setup-go@v3
+              with:
+                go-version: "1.19"
+            - name: generate out
+              run: go run -mod vendor ./cmd/acicn-build/main.go -generate 'beanstalk:1-alpine-3.16'
+            - name: setup docker buildx
+              uses: docker/setup-buildx-action@v2
+            - name: docker login - ghcr
+              uses: docker/login-action@v2
+              with:
+                password: ${{secrets.GITHUB_TOKEN}}
+                registry: ghcr.io
+                username: ${{github.actor}}
+            - name: docker login - dockerhub
+              uses: docker/login-action@v2
+              with:
+                password: ${{secrets.DOCKERHUB_TOKEN}}
+                username: guoyk
+            - id: meta
+              name: meta for beanstalk:1-alpine-3.16
+              uses: docker/metadata-action@v4
+              with:
+                images: |-
+                    ghcr.io/guoyk93/acicn/beanstalk
+                    acicn/beanstalk
+                tags: |-
+                    type=raw,value=1-alpine-3.16-rc
+                    type=raw,value=1-rc
+                    type=raw,value=latest-rc
+            - id: build
+              name: build for beanstalk:1-alpine-3.16
+              uses: docker/build-push-action@v3
+              with:
+                cache-from: type=gha
+                cache-to: type=gha,mode=max
+                context: out/beanstalk:1-alpine-3.16
+                labels: ${{steps.meta.outputs.labels}}
+                pull: true
+                push: ${{ inputs.push }}
+                tags: ${{steps.meta.outputs.tags}}
+    r_debian_11_no_minit_r:
+        if: inputs.job_name == 'all' || contains(inputs.job_name,'r_debian_11_no_minit_r')
+        permissions:
+            contents: read
+            id-token: write
+            packages: write
+        runs-on: ubuntu-latest
+        steps:
+            - name: checkout
+              uses: actions/checkout@v3
+            - name: setup go
+              uses: actions/setup-go@v3
+              with:
+                go-version: "1.19"
+            - name: generate out
+              run: go run -mod vendor ./cmd/acicn-build/main.go -generate 'debian:11-no-minit'
+            - name: setup docker buildx
+              uses: docker/setup-buildx-action@v2
+            - name: docker login - ghcr
+              uses: docker/login-action@v2
+              with:
+                password: ${{secrets.GITHUB_TOKEN}}
+                registry: ghcr.io
+                username: ${{github.actor}}
+            - name: docker login - dockerhub
+              uses: docker/login-action@v2
+              with:
+                password: ${{secrets.DOCKERHUB_TOKEN}}
+                username: guoyk
+            - id: meta
+              name: meta for debian:11-no-minit
+              uses: docker/metadata-action@v4
+              with:
+                images: |-
+                    ghcr.io/guoyk93/acicn/debian
+                    acicn/debian
+                tags: type=raw,value=11-no-minit-rc
+            - id: build
+              name: build for debian:11-no-minit
+              uses: docker/build-push-action@v3
+              with:
+                cache-from: type=gha
+                cache-to: type=gha,mode=max
+                context: out/debian:11-no-minit
+                labels: ${{steps.meta.outputs.labels}}
+                pull: ${{ inputs.force_pull }}
+                push: ${{ inputs.push }}
+                tags: ${{steps.meta.outputs.tags}}
+    r_debian_11_r:
+        if: inputs.job_name == 'all' || contains(inputs.job_name,'r_debian_11_r')
+        permissions:
+            contents: read
+            id-token: write
+            packages: write
+        runs-on: ubuntu-latest
+        steps:
+            - name: checkout
+              uses: actions/checkout@v3
+            - name: setup go
+              uses: actions/setup-go@v3
+              with:
+                go-version: "1.19"
+            - name: generate out
+              run: go run -mod vendor ./cmd/acicn-build/main.go -generate 'debian:11'
+            - name: setup docker buildx
+              uses: docker/setup-buildx-action@v2
+            - name: docker login - ghcr
+              uses: docker/login-action@v2
+              with:
+                password: ${{secrets.GITHUB_TOKEN}}
+                registry: ghcr.io
+                username: ${{github.actor}}
+            - name: docker login - dockerhub
+              uses: docker/login-action@v2
+              with:
+                password: ${{secrets.DOCKERHUB_TOKEN}}
+                username: guoyk
+            - id: meta
+              name: meta for debian:11
+              uses: docker/metadata-action@v4
+              with:
+                images: |-
+                    ghcr.io/guoyk93/acicn/debian
+                    acicn/debian
+                tags: type=raw,value=11-rc
+            - id: build
+              name: build for debian:11
+              uses: docker/build-push-action@v3
+              with:
+                cache-from: type=gha
+                cache-to: type=gha,mode=max
+                context: out/debian:11
+                labels: ${{steps.meta.outputs.labels}}
+                pull: ${{ inputs.force_pull }}
+                push: ${{ inputs.push }}
+                tags: ${{steps.meta.outputs.tags}}
+    r_elasticsearch_6_3_2_jdk_11_r:
+        if: inputs.job_name == 'all' || contains(inputs.job_name,'r_elasticsearch_6_3_2_jdk_11_r')
+        permissions:
+            contents: read
+            id-token: write
+            packages: write
+        runs-on: ubuntu-latest
+        steps:
+            - name: checkout
+              uses: actions/checkout@v3
+            - name: setup go
+              uses: actions/setup-go@v3
+              with:
+                go-version: "1.19"
+            - name: generate out
+              run: go run -mod vendor ./cmd/acicn-build/main.go -generate 'elasticsearch:6.3.2-jdk-11'
+            - name: setup docker buildx
+              uses: docker/setup-buildx-action@v2
+            - name: docker login - ghcr
+              uses: docker/login-action@v2
+              with:
+                password: ${{secrets.GITHUB_TOKEN}}
+                registry: ghcr.io
+                username: ${{github.actor}}
+            - name: docker login - dockerhub
+              uses: docker/login-action@v2
+              with:
+                password: ${{secrets.DOCKERHUB_TOKEN}}
+                username: guoyk
+            - id: meta
+              name: meta for elasticsearch:6.3.2-jdk-11
+              uses: docker/metadata-action@v4
+              with:
+                images: |-
+                    ghcr.io/guoyk93/acicn/elasticsearch
+                    acicn/elasticsearch
+                tags: |-
+                    type=raw,value=6.3.2-jdk-11-rc
+                    type=raw,value=6.3.2-rc
+            - id: build
+              name: build for elasticsearch:6.3.2-jdk-11
+              uses: docker/build-push-action@v3
+              with:
+                cache-from: type=gha
+                cache-to: type=gha,mode=max
+                context: out/elasticsearch:6.3.2-jdk-11
+                labels: ${{steps.meta.outputs.labels}}
+                pull: true
+                push: ${{ inputs.push }}
+                tags: ${{steps.meta.outputs.tags}}
+    r_elasticsearch_6_8_18_jdk_11_r:
+        if: inputs.job_name == 'all' || contains(inputs.job_name,'r_elasticsearch_6_8_18_jdk_11_r')
+        permissions:
+            contents: read
+            id-token: write
+            packages: write
+        runs-on: ubuntu-latest
+        steps:
+            - name: checkout
+              uses: actions/checkout@v3
+            - name: setup go
+              uses: actions/setup-go@v3
+              with:
+                go-version: "1.19"
+            - name: generate out
+              run: go run -mod vendor ./cmd/acicn-build/main.go -generate 'elasticsearch:6.8.18-jdk-11'
+            - name: setup docker buildx
+              uses: docker/setup-buildx-action@v2
+            - name: docker login - ghcr
+              uses: docker/login-action@v2
+              with:
+                password: ${{secrets.GITHUB_TOKEN}}
+                registry: ghcr.io
+                username: ${{github.actor}}
+            - name: docker login - dockerhub
+              uses: docker/login-action@v2
+              with:
+                password: ${{secrets.DOCKERHUB_TOKEN}}
+                username: guoyk
+            - id: meta
+              name: meta for elasticsearch:6.8.18-jdk-11
+              uses: docker/metadata-action@v4
+              with:
+                images: |-
+                    ghcr.io/guoyk93/acicn/elasticsearch
+                    acicn/elasticsearch
+                tags: |-
+                    type=raw,value=6.8.18-jdk-11-rc
+                    type=raw,value=6.8.18-rc
+            - id: build
+              name: build for elasticsearch:6.8.18-jdk-11
+              uses: docker/build-push-action@v3
+              with:
+                cache-from: type=gha
+                cache-to: type=gha,mode=max
+                context: out/elasticsearch:6.8.18-jdk-11
+                labels: ${{steps.meta.outputs.labels}}
+                pull: true
+                push: ${{ inputs.push }}
+                tags: ${{steps.meta.outputs.tags}}
+    r_elasticsearch_7_17_7_jdk_11_r:
+        if: inputs.job_name == 'all' || contains(inputs.job_name,'r_elasticsearch_7_17_7_jdk_11_r')
+        permissions:
+            contents: read
+            id-token: write
+            packages: write
+        runs-on: ubuntu-latest
+        steps:
+            - name: checkout
+              uses: actions/checkout@v3
+            - name: setup go
+              uses: actions/setup-go@v3
+              with:
+                go-version: "1.19"
+            - name: generate out
+              run: go run -mod vendor ./cmd/acicn-build/main.go -generate 'elasticsearch:7.17.7-jdk-11'
+            - name: setup docker buildx
+              uses: docker/setup-buildx-action@v2
+            - name: docker login - ghcr
+              uses: docker/login-action@v2
+              with:
+                password: ${{secrets.GITHUB_TOKEN}}
+                registry: ghcr.io
+                username: ${{github.actor}}
+            - name: docker login - dockerhub
+              uses: docker/login-action@v2
+              with:
+                password: ${{secrets.DOCKERHUB_TOKEN}}
+                username: guoyk
+            - id: meta
+              name: meta for elasticsearch:7.17.7-jdk-11
+              uses: docker/metadata-action@v4
+              with:
+                images: |-
+                    ghcr.io/guoyk93/acicn/elasticsearch
+                    acicn/elasticsearch
+                tags: |-
+                    type=raw,value=7.17.7-jdk-11-rc
+                    type=raw,value=7.17.7-rc
+            - id: build
+              name: build for elasticsearch:7.17.7-jdk-11
+              uses: docker/build-push-action@v3
+              with:
+                cache-from: type=gha
+                cache-to: type=gha,mode=max
+                context: out/elasticsearch:7.17.7-jdk-11
+                labels: ${{steps.meta.outputs.labels}}
+                pull: true
+                push: ${{ inputs.push }}
+                tags: ${{steps.meta.outputs.tags}}
+    r_filebeat_6_3_2_debian_11_r:
+        if: inputs.job_name == 'all' || contains(inputs.job_name,'r_filebeat_6_3_2_debian_11_r')
+        permissions:
+            contents: read
+            id-token: write
+            packages: write
+        runs-on: ubuntu-latest
+        steps:
+            - name: checkout
+              uses: actions/checkout@v3
+            - name: setup go
+              uses: actions/setup-go@v3
+              with:
+                go-version: "1.19"
+            - name: generate out
+              run: go run -mod vendor ./cmd/acicn-build/main.go -generate 'filebeat:6.3.2-debian-11'
+            - name: setup docker buildx
+              uses: docker/setup-buildx-action@v2
+            - name: docker login - ghcr
+              uses: docker/login-action@v2
+              with:
+                password: ${{secrets.GITHUB_TOKEN}}
+                registry: ghcr.io
+                username: ${{github.actor}}
+            - name: docker login - dockerhub
+              uses: docker/login-action@v2
+              with:
+                password: ${{secrets.DOCKERHUB_TOKEN}}
+                username: guoyk
+            - id: meta
+              name: meta for filebeat:6.3.2-debian-11
+              uses: docker/metadata-action@v4
+              with:
+                images: |-
+                    ghcr.io/guoyk93/acicn/filebeat
+                    acicn/filebeat
+                tags: |-
+                    type=raw,value=6.3.2-debian-11-rc
+                    type=raw,value=6.3.2-rc
+            - id: build
+              name: build for filebeat:6.3.2-debian-11
+              uses: docker/build-push-action@v3
+              with:
+                cache-from: type=gha
+                cache-to: type=gha,mode=max
+                context: out/filebeat:6.3.2-debian-11
+                labels: ${{steps.meta.outputs.labels}}
+                pull: true
+                push: ${{ inputs.push }}
+                tags: ${{steps.meta.outputs.tags}}
+    r_jdk_8_cubic_r:
+        if: inputs.job_name == 'all' || contains(inputs.job_name,'r_jdk_8_cubic_r')
+        permissions:
+            contents: read
+            id-token: write
+            packages: write
+        runs-on: ubuntu-latest
+        steps:
+            - name: checkout
+              uses: actions/checkout@v3
+            - name: setup go
+              uses: actions/setup-go@v3
+              with:
+                go-version: "1.19"
+            - name: generate out
+              run: go run -mod vendor ./cmd/acicn-build/main.go -generate 'jdk:8-cubic'
+            - name: setup docker buildx
+              uses: docker/setup-buildx-action@v2
+            - name: docker login - ghcr
+              uses: docker/login-action@v2
+              with:
+                password: ${{secrets.GITHUB_TOKEN}}
+                registry: ghcr.io
+                username: ${{github.actor}}
+            - name: docker login - dockerhub
+              uses: docker/login-action@v2
+              with:
+                password: ${{secrets.DOCKERHUB_TOKEN}}
+                username: guoyk
+            - id: meta
+              name: meta for jdk:8-cubic
+              uses: docker/metadata-action@v4
+              with:
+                images: |-
+                    ghcr.io/guoyk93/acicn/jdk
+                    acicn/jdk
+                tags: |-
+                    type=raw,value=8-cubic-rc
+                    type=raw,value=8-pagoda-cubic-rc
+            - id: build
+              name: build for jdk:8-cubic
+              uses: docker/build-push-action@v3
+              with:
+                cache-from: type=gha
+                cache-to: type=gha,mode=max
+                context: out/jdk:8-cubic
+                labels: ${{steps.meta.outputs.labels}}
+                pull: true
+                push: ${{ inputs.push }}
+                tags: ${{steps.meta.outputs.tags}}
+    r_jdk_8_debian_11_r:
+        if: inputs.job_name == 'all' || contains(inputs.job_name,'r_jdk_8_debian_11_r')
+        permissions:
+            contents: read
+            id-token: write
+            packages: write
+        runs-on: ubuntu-latest
+        steps:
+            - name: checkout
+              uses: actions/checkout@v3
+            - name: setup go
+              uses: actions/setup-go@v3
+              with:
+                go-version: "1.19"
+            - name: generate out
+              run: go run -mod vendor ./cmd/acicn-build/main.go -generate 'jdk:8-debian-11'
+            - name: setup docker buildx
+              uses: docker/setup-buildx-action@v2
+            - name: docker login - ghcr
+              uses: docker/login-action@v2
+              with:
+                password: ${{secrets.GITHUB_TOKEN}}
+                registry: ghcr.io
+                username: ${{github.actor}}
+            - name: docker login - dockerhub
+              uses: docker/login-action@v2
+              with:
+                password: ${{secrets.DOCKERHUB_TOKEN}}
+                username: guoyk
+            - id: meta
+              name: meta for jdk:8-debian-11
+              uses: docker/metadata-action@v4
+              with:
+                images: |-
+                    ghcr.io/guoyk93/acicn/jdk
+                    acicn/jdk
+                tags: |-
+                    type=raw,value=8-debian-11-rc
+                    type=raw,value=8-rc
+                    type=raw,value=8-pagoda-rc
+            - id: build
+              name: build for jdk:8-debian-11
+              uses: docker/build-push-action@v3
+              with:
+                cache-from: type=gha
+                cache-to: type=gha,mode=max
+                context: out/jdk:8-debian-11
+                labels: ${{steps.meta.outputs.labels}}
+                pull: true
+                push: ${{ inputs.push }}
+                tags: ${{steps.meta.outputs.tags}}
+    r_jdk_11_debian_11_r:
+        if: inputs.job_name == 'all' || contains(inputs.job_name,'r_jdk_11_debian_11_r')
+        permissions:
+            contents: read
+            id-token: write
+            packages: write
+        runs-on: ubuntu-latest
+        steps:
+            - name: checkout
+              uses: actions/checkout@v3
+            - name: setup go
+              uses: actions/setup-go@v3
+              with:
+                go-version: "1.19"
+            - name: generate out
+              run: go run -mod vendor ./cmd/acicn-build/main.go -generate 'jdk:11-debian-11'
+            - name: setup docker buildx
+              uses: docker/setup-buildx-action@v2
+            - name: docker login - ghcr
+              uses: docker/login-action@v2
+              with:
+                password: ${{secrets.GITHUB_TOKEN}}
+                registry: ghcr.io
+                username: ${{github.actor}}
+            - name: docker login - dockerhub
+              uses: docker/login-action@v2
+              with:
+                password: ${{secrets.DOCKERHUB_TOKEN}}
+                username: guoyk
+            - id: meta
+              name: meta for jdk:11-debian-11
+              uses: docker/metadata-action@v4
+              with:
+                images: |-
+                    ghcr.io/guoyk93/acicn/jdk
+                    acicn/jdk
+                tags: |-
+                    type=raw,value=11-debian-11-rc
+                    type=raw,value=11-rc
+                    type=raw,value=11-pagoda-rc
+            - id: build
+              name: build for jdk:11-debian-11
+              uses: docker/build-push-action@v3
+              with:
+                cache-from: type=gha
+                cache-to: type=gha,mode=max
+                context: out/jdk:11-debian-11
+                labels: ${{steps.meta.outputs.labels}}
+                pull: true
+                push: ${{ inputs.push }}
+                tags: ${{steps.meta.outputs.tags}}
+    r_jdk_17_debian_11_r:
+        if: inputs.job_name == 'all' || contains(inputs.job_name,'r_jdk_17_debian_11_r')
+        permissions:
+            contents: read
+            id-token: write
+            packages: write
+        runs-on: ubuntu-latest
+        steps:
+            - name: checkout
+              uses: actions/checkout@v3
+            - name: setup go
+              uses: actions/setup-go@v3
+              with:
+                go-version: "1.19"
+            - name: generate out
+              run: go run -mod vendor ./cmd/acicn-build/main.go -generate 'jdk:17-debian-11'
+            - name: setup docker buildx
+              uses: docker/setup-buildx-action@v2
+            - name: docker login - ghcr
+              uses: docker/login-action@v2
+              with:
+                password: ${{secrets.GITHUB_TOKEN}}
+                registry: ghcr.io
+                username: ${{github.actor}}
+            - name: docker login - dockerhub
+              uses: docker/login-action@v2
+              with:
+                password: ${{secrets.DOCKERHUB_TOKEN}}
+                username: guoyk
+            - id: meta
+              name: meta for jdk:17-debian-11
+              uses: docker/metadata-action@v4
+              with:
+                images: |-
+                    ghcr.io/guoyk93/acicn/jdk
+                    acicn/jdk
+                tags: |-
+                    type=raw,value=17-debian-11-rc
+                    type=raw,value=17-rc
+                    type=raw,value=17-pagoda-rc
+            - id: build
+              name: build for jdk:17-debian-11
+              uses: docker/build-push-action@v3
+              with:
+                cache-from: type=gha
+                cache-to: type=gha,mode=max
+                context: out/jdk:17-debian-11
+                labels: ${{steps.meta.outputs.labels}}
+                pull: true
+                push: ${{ inputs.push }}
+                tags: ${{steps.meta.outputs.tags}}
+    r_jdk_builder_8_maven_3_5_debian_11_r:
+        if: inputs.job_name == 'all' || contains(inputs.job_name,'r_jdk_builder_8_maven_3_5_debian_11_r')
+        permissions:
+            contents: read
+            id-token: write
+            packages: write
+        runs-on: ubuntu-latest
+        steps:
+            - name: checkout
+              uses: actions/checkout@v3
+            - name: setup go
+              uses: actions/setup-go@v3
+              with:
+                go-version: "1.19"
+            - name: generate out
+              run: go run -mod vendor ./cmd/acicn-build/main.go -generate 'jdk:builder-8-maven-3.5-debian-11'
+            - name: setup docker buildx
+              uses: docker/setup-buildx-action@v2
+            - name: docker login - ghcr
+              uses: docker/login-action@v2
+              with:
+                password: ${{secrets.GITHUB_TOKEN}}
+                registry: ghcr.io
+                username: ${{github.actor}}
+            - name: docker login - dockerhub
+              uses: docker/login-action@v2
+              with:
+                password: ${{secrets.DOCKERHUB_TOKEN}}
+                username: guoyk
+            - id: meta
+              name: meta for jdk:builder-8-maven-3.5-debian-11
+              uses: docker/metadata-action@v4
+              with:
+                images: |-
+                    ghcr.io/guoyk93/acicn/jdk
+                    acicn/jdk
+                tags: |-
+                    type=raw,value=builder-8-maven-3.5-debian-11-rc
+                    type=raw,value=builder-8-maven-3.5-rc
+            - id: build
+              name: build for jdk:builder-8-maven-3.5-debian-11
+              uses: docker/build-push-action@v3
+              with:
+                cache-from: type=gha
+                cache-to: type=gha,mode=max
+                context: out/jdk:builder-8-maven-3.5-debian-11
+                labels: ${{steps.meta.outputs.labels}}
+                pull: true
+                push: ${{ inputs.push }}
+                tags: ${{steps.meta.outputs.tags}}
+    r_jdk_builder_8_maven_3_6_debian_11_r:
+        if: inputs.job_name == 'all' || contains(inputs.job_name,'r_jdk_builder_8_maven_3_6_debian_11_r')
+        permissions:
+            contents: read
+            id-token: write
+            packages: write
+        runs-on: ubuntu-latest
+        steps:
+            - name: checkout
+              uses: actions/checkout@v3
+            - name: setup go
+              uses: actions/setup-go@v3
+              with:
+                go-version: "1.19"
+            - name: generate out
+              run: go run -mod vendor ./cmd/acicn-build/main.go -generate 'jdk:builder-8-maven-3.6-debian-11'
+            - name: setup docker buildx
+              uses: docker/setup-buildx-action@v2
+            - name: docker login - ghcr
+              uses: docker/login-action@v2
+              with:
+                password: ${{secrets.GITHUB_TOKEN}}
+                registry: ghcr.io
+                username: ${{github.actor}}
+            - name: docker login - dockerhub
+              uses: docker/login-action@v2
+              with:
+                password: ${{secrets.DOCKERHUB_TOKEN}}
+                username: guoyk
+            - id: meta
+              name: meta for jdk:builder-8-maven-3.6-debian-11
+              uses: docker/metadata-action@v4
+              with:
+                images: |-
+                    ghcr.io/guoyk93/acicn/jdk
+                    acicn/jdk
+                tags: |-
+                    type=raw,value=builder-8-maven-3.6-debian-11-rc
+                    type=raw,value=builder-8-maven-3.6-rc
+                    type=raw,value=builder-8-rc
+            - id: build
+              name: build for jdk:builder-8-maven-3.6-debian-11
+              uses: docker/build-push-action@v3
+              with:
+                cache-from: type=gha
+                cache-to: type=gha,mode=max
+                context: out/jdk:builder-8-maven-3.6-debian-11
+                labels: ${{steps.meta.outputs.labels}}
+                pull: true
+                push: ${{ inputs.push }}
+                tags: ${{steps.meta.outputs.tags}}
+    r_jdk_builder_8_maven_3_8_debian_11_r:
+        if: inputs.job_name == 'all' || contains(inputs.job_name,'r_jdk_builder_8_maven_3_8_debian_11_r')
+        permissions:
+            contents: read
+            id-token: write
+            packages: write
+        runs-on: ubuntu-latest
+        steps:
+            - name: checkout
+              uses: actions/checkout@v3
+            - name: setup go
+              uses: actions/setup-go@v3
+              with:
+                go-version: "1.19"
+            - name: generate out
+              run: go run -mod vendor ./cmd/acicn-build/main.go -generate 'jdk:builder-8-maven-3.8-debian-11'
+            - name: setup docker buildx
+              uses: docker/setup-buildx-action@v2
+            - name: docker login - ghcr
+              uses: docker/login-action@v2
+              with:
+                password: ${{secrets.GITHUB_TOKEN}}
+                registry: ghcr.io
+                username: ${{github.actor}}
+            - name: docker login - dockerhub
+              uses: docker/login-action@v2
+              with:
+                password: ${{secrets.DOCKERHUB_TOKEN}}
+                username: guoyk
+            - id: meta
+              name: meta for jdk:builder-8-maven-3.8-debian-11
+              uses: docker/metadata-action@v4
+              with:
+                images: |-
+                    ghcr.io/guoyk93/acicn/jdk
+                    acicn/jdk
+                tags: |-
+                    type=raw,value=builder-8-maven-3.8-debian-11-rc
+                    type=raw,value=builder-8-maven-3.8-rc
+            - id: build
+              name: build for jdk:builder-8-maven-3.8-debian-11
+              uses: docker/build-push-action@v3
+              with:
+                cache-from: type=gha
+                cache-to: type=gha,mode=max
+                context: out/jdk:builder-8-maven-3.8-debian-11
+                labels: ${{steps.meta.outputs.labels}}
+                pull: true
+                push: ${{ inputs.push }}
+                tags: ${{steps.meta.outputs.tags}}
+    r_jdk_builder_11_maven_3_5_debian_11_r:
+        if: inputs.job_name == 'all' || contains(inputs.job_name,'r_jdk_builder_11_maven_3_5_debian_11_r')
+        permissions:
+            contents: read
+            id-token: write
+            packages: write
+        runs-on: ubuntu-latest
+        steps:
+            - name: checkout
+              uses: actions/checkout@v3
+            - name: setup go
+              uses: actions/setup-go@v3
+              with:
+                go-version: "1.19"
+            - name: generate out
+              run: go run -mod vendor ./cmd/acicn-build/main.go -generate 'jdk:builder-11-maven-3.5-debian-11'
+            - name: setup docker buildx
+              uses: docker/setup-buildx-action@v2
+            - name: docker login - ghcr
+              uses: docker/login-action@v2
+              with:
+                password: ${{secrets.GITHUB_TOKEN}}
+                registry: ghcr.io
+                username: ${{github.actor}}
+            - name: docker login - dockerhub
+              uses: docker/login-action@v2
+              with:
+                password: ${{secrets.DOCKERHUB_TOKEN}}
+                username: guoyk
+            - id: meta
+              name: meta for jdk:builder-11-maven-3.5-debian-11
+              uses: docker/metadata-action@v4
+              with:
+                images: |-
+                    ghcr.io/guoyk93/acicn/jdk
+                    acicn/jdk
+                tags: |-
+                    type=raw,value=builder-11-maven-3.5-debian-11-rc
+                    type=raw,value=builder-11-maven-3.5-rc
+            - id: build
+              name: build for jdk:builder-11-maven-3.5-debian-11
+              uses: docker/build-push-action@v3
+              with:
+                cache-from: type=gha
+                cache-to: type=gha,mode=max
+                context: out/jdk:builder-11-maven-3.5-debian-11
+                labels: ${{steps.meta.outputs.labels}}
+                pull: true
+                push: ${{ inputs.push }}
+                tags: ${{steps.meta.outputs.tags}}
+    r_jdk_builder_11_maven_3_6_debian_11_r:
+        if: inputs.job_name == 'all' || contains(inputs.job_name,'r_jdk_builder_11_maven_3_6_debian_11_r')
+        permissions:
+            contents: read
+            id-token: write
+            packages: write
+        runs-on: ubuntu-latest
+        steps:
+            - name: checkout
+              uses: actions/checkout@v3
+            - name: setup go
+              uses: actions/setup-go@v3
+              with:
+                go-version: "1.19"
+            - name: generate out
+              run: go run -mod vendor ./cmd/acicn-build/main.go -generate 'jdk:builder-11-maven-3.6-debian-11'
+            - name: setup docker buildx
+              uses: docker/setup-buildx-action@v2
+            - name: docker login - ghcr
+              uses: docker/login-action@v2
+              with:
+                password: ${{secrets.GITHUB_TOKEN}}
+                registry: ghcr.io
+                username: ${{github.actor}}
+            - name: docker login - dockerhub
+              uses: docker/login-action@v2
+              with:
+                password: ${{secrets.DOCKERHUB_TOKEN}}
+                username: guoyk
+            - id: meta
+              name: meta for jdk:builder-11-maven-3.6-debian-11
+              uses: docker/metadata-action@v4
+              with:
+                images: |-
+                    ghcr.io/guoyk93/acicn/jdk
+                    acicn/jdk
+                tags: |-
+                    type=raw,value=builder-11-maven-3.6-debian-11-rc
+                    type=raw,value=builder-11-maven-3.6-rc
+            - id: build
+              name: build for jdk:builder-11-maven-3.6-debian-11
+              uses: docker/build-push-action@v3
+              with:
+                cache-from: type=gha
+                cache-to: type=gha,mode=max
+                context: out/jdk:builder-11-maven-3.6-debian-11
+                labels: ${{steps.meta.outputs.labels}}
+                pull: true
+                push: ${{ inputs.push }}
+                tags: ${{steps.meta.outputs.tags}}
+    r_jdk_builder_11_maven_3_8_debian_11_r:
+        if: inputs.job_name == 'all' || contains(inputs.job_name,'r_jdk_builder_11_maven_3_8_debian_11_r')
+        permissions:
+            contents: read
+            id-token: write
+            packages: write
+        runs-on: ubuntu-latest
+        steps:
+            - name: checkout
+              uses: actions/checkout@v3
+            - name: setup go
+              uses: actions/setup-go@v3
+              with:
+                go-version: "1.19"
+            - name: generate out
+              run: go run -mod vendor ./cmd/acicn-build/main.go -generate 'jdk:builder-11-maven-3.8-debian-11'
+            - name: setup docker buildx
+              uses: docker/setup-buildx-action@v2
+            - name: docker login - ghcr
+              uses: docker/login-action@v2
+              with:
+                password: ${{secrets.GITHUB_TOKEN}}
+                registry: ghcr.io
+                username: ${{github.actor}}
+            - name: docker login - dockerhub
+              uses: docker/login-action@v2
+              with:
+                password: ${{secrets.DOCKERHUB_TOKEN}}
+                username: guoyk
+            - id: meta
+              name: meta for jdk:builder-11-maven-3.8-debian-11
+              uses: docker/metadata-action@v4
+              with:
+                images: |-
+                    ghcr.io/guoyk93/acicn/jdk
+                    acicn/jdk
+                tags: |-
+                    type=raw,value=builder-11-maven-3.8-debian-11-rc
+                    type=raw,value=builder-11-maven-3.8-rc
+                    type=raw,value=builder-11-rc
+            - id: build
+              name: build for jdk:builder-11-maven-3.8-debian-11
+              uses: docker/build-push-action@v3
+              with:
+                cache-from: type=gha
+                cache-to: type=gha,mode=max
+                context: out/jdk:builder-11-maven-3.8-debian-11
+                labels: ${{steps.meta.outputs.labels}}
+                pull: true
+                push: ${{ inputs.push }}
+                tags: ${{steps.meta.outputs.tags}}
+    r_jdk_builder_17_maven_3_6_debian_11_r:
+        if: inputs.job_name == 'all' || contains(inputs.job_name,'r_jdk_builder_17_maven_3_6_debian_11_r')
+        permissions:
+            contents: read
+            id-token: write
+            packages: write
+        runs-on: ubuntu-latest
+        steps:
+            - name: checkout
+              uses: actions/checkout@v3
+            - name: setup go
+              uses: actions/setup-go@v3
+              with:
+                go-version: "1.19"
+            - name: generate out
+              run: go run -mod vendor ./cmd/acicn-build/main.go -generate 'jdk:builder-17-maven-3.6-debian-11'
+            - name: setup docker buildx
+              uses: docker/setup-buildx-action@v2
+            - name: docker login - ghcr
+              uses: docker/login-action@v2
+              with:
+                password: ${{secrets.GITHUB_TOKEN}}
+                registry: ghcr.io
+                username: ${{github.actor}}
+            - name: docker login - dockerhub
+              uses: docker/login-action@v2
+              with:
+                password: ${{secrets.DOCKERHUB_TOKEN}}
+                username: guoyk
+            - id: meta
+              name: meta for jdk:builder-17-maven-3.6-debian-11
+              uses: docker/metadata-action@v4
+              with:
+                images: |-
+                    ghcr.io/guoyk93/acicn/jdk
+                    acicn/jdk
+                tags: |-
+                    type=raw,value=builder-17-maven-3.6-debian-11-rc
+                    type=raw,value=builder-17-maven-3.6-rc
+            - id: build
+              name: build for jdk:builder-17-maven-3.6-debian-11
+              uses: docker/build-push-action@v3
+              with:
+                cache-from: type=gha
+                cache-to: type=gha,mode=max
+                context: out/jdk:builder-17-maven-3.6-debian-11
+                labels: ${{steps.meta.outputs.labels}}
+                pull: true
+                push: ${{ inputs.push }}
+                tags: ${{steps.meta.outputs.tags}}
+    r_jdk_builder_17_maven_3_8_debian_11_r:
+        if: inputs.job_name == 'all' || contains(inputs.job_name,'r_jdk_builder_17_maven_3_8_debian_11_r')
+        permissions:
+            contents: read
+            id-token: write
+            packages: write
+        runs-on: ubuntu-latest
+        steps:
+            - name: checkout
+              uses: actions/checkout@v3
+            - name: setup go
+              uses: actions/setup-go@v3
+              with:
+                go-version: "1.19"
+            - name: generate out
+              run: go run -mod vendor ./cmd/acicn-build/main.go -generate 'jdk:builder-17-maven-3.8-debian-11'
+            - name: setup docker buildx
+              uses: docker/setup-buildx-action@v2
+            - name: docker login - ghcr
+              uses: docker/login-action@v2
+              with:
+                password: ${{secrets.GITHUB_TOKEN}}
+                registry: ghcr.io
+                username: ${{github.actor}}
+            - name: docker login - dockerhub
+              uses: docker/login-action@v2
+              with:
+                password: ${{secrets.DOCKERHUB_TOKEN}}
+                username: guoyk
+            - id: meta
+              name: meta for jdk:builder-17-maven-3.8-debian-11
+              uses: docker/metadata-action@v4
+              with:
+                images: |-
+                    ghcr.io/guoyk93/acicn/jdk
+                    acicn/jdk
+                tags: |-
+                    type=raw,value=builder-17-maven-3.8-debian-11-rc
+                    type=raw,value=builder-17-maven-3.8-rc
+                    type=raw,value=builder-17-rc
+            - id: build
+              name: build for jdk:builder-17-maven-3.8-debian-11
+              uses: docker/build-push-action@v3
+              with:
+                cache-from: type=gha
+                cache-to: type=gha,mode=max
+                context: out/jdk:builder-17-maven-3.8-debian-11
+                labels: ${{steps.meta.outputs.labels}}
+                pull: true
+                push: ${{ inputs.push }}
+                tags: ${{steps.meta.outputs.tags}}
+    r_kafka_2_1_r:
+        if: inputs.job_name == 'all' || contains(inputs.job_name,'r_kafka_2_1_r')
+        permissions:
+            contents: read
+            id-token: write
+            packages: write
+        runs-on: ubuntu-latest
+        steps:
+            - name: checkout
+              uses: actions/checkout@v3
+            - name: setup go
+              uses: actions/setup-go@v3
+              with:
+                go-version: "1.19"
+            - name: generate out
+              run: go run -mod vendor ./cmd/acicn-build/main.go -generate 'kafka:2.1'
+            - name: setup docker buildx
+              uses: docker/setup-buildx-action@v2
+            - name: docker login - ghcr
+              uses: docker/login-action@v2
+              with:
+                password: ${{secrets.GITHUB_TOKEN}}
+                registry: ghcr.io
+                username: ${{github.actor}}
+            - name: docker login - dockerhub
+              uses: docker/login-action@v2
+              with:
+                password: ${{secrets.DOCKERHUB_TOKEN}}
+                username: guoyk
+            - id: meta
+              name: meta for kafka:2.1
+              uses: docker/metadata-action@v4
+              with:
+                images: |-
+                    ghcr.io/guoyk93/acicn/kafka
+                    acicn/kafka
+                tags: type=raw,value=2.1-rc
+            - id: build
+              name: build for kafka:2.1
+              uses: docker/build-push-action@v3
+              with:
+                cache-from: type=gha
+                cache-to: type=gha,mode=max
+                context: out/kafka:2.1
+                labels: ${{steps.meta.outputs.labels}}
+                pull: true
+                push: ${{ inputs.push }}
+                tags: ${{steps.meta.outputs.tags}}
+    r_kafka_2_4_r:
+        if: inputs.job_name == 'all' || contains(inputs.job_name,'r_kafka_2_4_r')
+        permissions:
+            contents: read
+            id-token: write
+            packages: write
+        runs-on: ubuntu-latest
+        steps:
+            - name: checkout
+              uses: actions/checkout@v3
+            - name: setup go
+              uses: actions/setup-go@v3
+              with:
+                go-version: "1.19"
+            - name: generate out
+              run: go run -mod vendor ./cmd/acicn-build/main.go -generate 'kafka:2.4'
+            - name: setup docker buildx
+              uses: docker/setup-buildx-action@v2
+            - name: docker login - ghcr
+              uses: docker/login-action@v2
+              with:
+                password: ${{secrets.GITHUB_TOKEN}}
+                registry: ghcr.io
+                username: ${{github.actor}}
+            - name: docker login - dockerhub
+              uses: docker/login-action@v2
+              with:
+                password: ${{secrets.DOCKERHUB_TOKEN}}
+                username: guoyk
+            - id: meta
+              name: meta for kafka:2.4
+              uses: docker/metadata-action@v4
+              with:
+                images: |-
+                    ghcr.io/guoyk93/acicn/kafka
+                    acicn/kafka
+                tags: type=raw,value=2.4-rc
+            - id: build
+              name: build for kafka:2.4
+              uses: docker/build-push-action@v3
+              with:
+                cache-from: type=gha
+                cache-to: type=gha,mode=max
+                context: out/kafka:2.4
+                labels: ${{steps.meta.outputs.labels}}
+                pull: true
+                push: ${{ inputs.push }}
+                tags: ${{steps.meta.outputs.tags}}
+    r_kafka_2_8_r:
+        if: inputs.job_name == 'all' || contains(inputs.job_name,'r_kafka_2_8_r')
+        permissions:
+            contents: read
+            id-token: write
+            packages: write
+        runs-on: ubuntu-latest
+        steps:
+            - name: checkout
+              uses: actions/checkout@v3
+            - name: setup go
+              uses: actions/setup-go@v3
+              with:
+                go-version: "1.19"
+            - name: generate out
+              run: go run -mod vendor ./cmd/acicn-build/main.go -generate 'kafka:2.8'
+            - name: setup docker buildx
+              uses: docker/setup-buildx-action@v2
+            - name: docker login - ghcr
+              uses: docker/login-action@v2
+              with:
+                password: ${{secrets.GITHUB_TOKEN}}
+                registry: ghcr.io
+                username: ${{github.actor}}
+            - name: docker login - dockerhub
+              uses: docker/login-action@v2
+              with:
+                password: ${{secrets.DOCKERHUB_TOKEN}}
+                username: guoyk
+            - id: meta
+              name: meta for kafka:2.8
+              uses: docker/metadata-action@v4
+              with:
+                images: |-
+                    ghcr.io/guoyk93/acicn/kafka
+                    acicn/kafka
+                tags: |-
+                    type=raw,value=2.8-rc
+                    type=raw,value=latest-rc
+            - id: build
+              name: build for kafka:2.8
+              uses: docker/build-push-action@v3
+              with:
+                cache-from: type=gha
+                cache-to: type=gha,mode=max
+                context: out/kafka:2.8
+                labels: ${{steps.meta.outputs.labels}}
+                pull: true
+                push: ${{ inputs.push }}
+                tags: ${{steps.meta.outputs.tags}}
+    r_kibana_7_17_7_r:
+        if: inputs.job_name == 'all' || contains(inputs.job_name,'r_kibana_7_17_7_r')
+        permissions:
+            contents: read
+            id-token: write
+            packages: write
+        runs-on: ubuntu-latest
+        steps:
+            - name: checkout
+              uses: actions/checkout@v3
+            - name: setup go
+              uses: actions/setup-go@v3
+              with:
+                go-version: "1.19"
+            - name: generate out
+              run: go run -mod vendor ./cmd/acicn-build/main.go -generate 'kibana:7.17.7'
+            - name: setup docker buildx
+              uses: docker/setup-buildx-action@v2
+            - name: docker login - ghcr
+              uses: docker/login-action@v2
+              with:
+                password: ${{secrets.GITHUB_TOKEN}}
+                registry: ghcr.io
+                username: ${{github.actor}}
+            - name: docker login - dockerhub
+              uses: docker/login-action@v2
+              with:
+                password: ${{secrets.DOCKERHUB_TOKEN}}
+                username: guoyk
+            - id: meta
+              name: meta for kibana:7.17.7
+              uses: docker/metadata-action@v4
+              with:
+                images: |-
+                    ghcr.io/guoyk93/acicn/kibana
+                    acicn/kibana
+                tags: type=raw,value=7.17.7-rc
+            - id: build
+              name: build for kibana:7.17.7
+              uses: docker/build-push-action@v3
+              with:
+                cache-from: type=gha
+                cache-to: type=gha,mode=max
+                context: out/kibana:7.17.7
+                labels: ${{steps.meta.outputs.labels}}
+                pull: ${{ inputs.force_pull }}
+                push: ${{ inputs.push }}
+                tags: ${{steps.meta.outputs.tags}}
+    r_mongo_3_6_r:
+        if: inputs.job_name == 'all' || contains(inputs.job_name,'r_mongo_3_6_r')
+        permissions:
+            contents: read
+            id-token: write
+            packages: write
+        runs-on: ubuntu-latest
+        steps:
+            - name: checkout
+              uses: actions/checkout@v3
+            - name: setup go
+              uses: actions/setup-go@v3
+              with:
+                go-version: "1.19"
+            - name: generate out
+              run: go run -mod vendor ./cmd/acicn-build/main.go -generate 'mongo:3.6'
+            - name: setup docker buildx
+              uses: docker/setup-buildx-action@v2
+            - name: docker login - ghcr
+              uses: docker/login-action@v2
+              with:
+                password: ${{secrets.GITHUB_TOKEN}}
+                registry: ghcr.io
+                username: ${{github.actor}}
+            - name: docker login - dockerhub
+              uses: docker/login-action@v2
+              with:
+                password: ${{secrets.DOCKERHUB_TOKEN}}
+                username: guoyk
+            - id: meta
+              name: meta for mongo:3.6
+              uses: docker/metadata-action@v4
+              with:
+                images: |-
+                    ghcr.io/guoyk93/acicn/mongo
+                    acicn/mongo
+                tags: type=raw,value=3.6-rc
+            - id: build
+              name: build for mongo:3.6
+              uses: docker/build-push-action@v3
+              with:
+                cache-from: type=gha
+                cache-to: type=gha,mode=max
+                context: out/mongo:3.6
+                labels: ${{steps.meta.outputs.labels}}
+                pull: ${{ inputs.force_pull }}
+                push: ${{ inputs.push }}
+                tags: ${{steps.meta.outputs.tags}}
+    r_mongo_4_0_r:
+        if: inputs.job_name == 'all' || contains(inputs.job_name,'r_mongo_4_0_r')
+        permissions:
+            contents: read
+            id-token: write
+            packages: write
+        runs-on: ubuntu-latest
+        steps:
+            - name: checkout
+              uses: actions/checkout@v3
+            - name: setup go
+              uses: actions/setup-go@v3
+              with:
+                go-version: "1.19"
+            - name: generate out
+              run: go run -mod vendor ./cmd/acicn-build/main.go -generate 'mongo:4.0'
+            - name: setup docker buildx
+              uses: docker/setup-buildx-action@v2
+            - name: docker login - ghcr
+              uses: docker/login-action@v2
+              with:
+                password: ${{secrets.GITHUB_TOKEN}}
+                registry: ghcr.io
+                username: ${{github.actor}}
+            - name: docker login - dockerhub
+              uses: docker/login-action@v2
+              with:
+                password: ${{secrets.DOCKERHUB_TOKEN}}
+                username: guoyk
+            - id: meta
+              name: meta for mongo:4.0
+              uses: docker/metadata-action@v4
+              with:
+                images: |-
+                    ghcr.io/guoyk93/acicn/mongo
+                    acicn/mongo
+                tags: type=raw,value=4.0-rc
+            - id: build
+              name: build for mongo:4.0
+              uses: docker/build-push-action@v3
+              with:
+                cache-from: type=gha
+                cache-to: type=gha,mode=max
+                context: out/mongo:4.0
+                labels: ${{steps.meta.outputs.labels}}
+                pull: ${{ inputs.force_pull }}
+                push: ${{ inputs.push }}
+                tags: ${{steps.meta.outputs.tags}}
+    r_mongo_4_2_r:
+        if: inputs.job_name == 'all' || contains(inputs.job_name,'r_mongo_4_2_r')
+        permissions:
+            contents: read
+            id-token: write
+            packages: write
+        runs-on: ubuntu-latest
+        steps:
+            - name: checkout
+              uses: actions/checkout@v3
+            - name: setup go
+              uses: actions/setup-go@v3
+              with:
+                go-version: "1.19"
+            - name: generate out
+              run: go run -mod vendor ./cmd/acicn-build/main.go -generate 'mongo:4.2'
+            - name: setup docker buildx
+              uses: docker/setup-buildx-action@v2
+            - name: docker login - ghcr
+              uses: docker/login-action@v2
+              with:
+                password: ${{secrets.GITHUB_TOKEN}}
+                registry: ghcr.io
+                username: ${{github.actor}}
+            - name: docker login - dockerhub
+              uses: docker/login-action@v2
+              with:
+                password: ${{secrets.DOCKERHUB_TOKEN}}
+                username: guoyk
+            - id: meta
+              name: meta for mongo:4.2
+              uses: docker/metadata-action@v4
+              with:
+                images: |-
+                    ghcr.io/guoyk93/acicn/mongo
+                    acicn/mongo
+                tags: type=raw,value=4.2-rc
+            - id: build
+              name: build for mongo:4.2
+              uses: docker/build-push-action@v3
+              with:
+                cache-from: type=gha
+                cache-to: type=gha,mode=max
+                context: out/mongo:4.2
+                labels: ${{steps.meta.outputs.labels}}
+                pull: ${{ inputs.force_pull }}
+                push: ${{ inputs.push }}
+                tags: ${{steps.meta.outputs.tags}}
+    r_mongo_4_4_r:
+        if: inputs.job_name == 'all' || contains(inputs.job_name,'r_mongo_4_4_r')
+        permissions:
+            contents: read
+            id-token: write
+            packages: write
+        runs-on: ubuntu-latest
+        steps:
+            - name: checkout
+              uses: actions/checkout@v3
+            - name: setup go
+              uses: actions/setup-go@v3
+              with:
+                go-version: "1.19"
+            - name: generate out
+              run: go run -mod vendor ./cmd/acicn-build/main.go -generate 'mongo:4.4'
+            - name: setup docker buildx
+              uses: docker/setup-buildx-action@v2
+            - name: docker login - ghcr
+              uses: docker/login-action@v2
+              with:
+                password: ${{secrets.GITHUB_TOKEN}}
+                registry: ghcr.io
+                username: ${{github.actor}}
+            - name: docker login - dockerhub
+              uses: docker/login-action@v2
+              with:
+                password: ${{secrets.DOCKERHUB_TOKEN}}
+                username: guoyk
+            - id: meta
+              name: meta for mongo:4.4
+              uses: docker/metadata-action@v4
+              with:
+                images: |-
+                    ghcr.io/guoyk93/acicn/mongo
+                    acicn/mongo
+                tags: type=raw,value=4.4-rc
+            - id: build
+              name: build for mongo:4.4
+              uses: docker/build-push-action@v3
+              with:
+                cache-from: type=gha
+                cache-to: type=gha,mode=max
+                context: out/mongo:4.4
+                labels: ${{steps.meta.outputs.labels}}
+                pull: ${{ inputs.force_pull }}
+                push: ${{ inputs.push }}
+                tags: ${{steps.meta.outputs.tags}}
+    r_mysql_5_6_r:
+        if: inputs.job_name == 'all' || contains(inputs.job_name,'r_mysql_5_6_r')
+        permissions:
+            contents: read
+            id-token: write
+            packages: write
+        runs-on: ubuntu-latest
+        steps:
+            - name: checkout
+              uses: actions/checkout@v3
+            - name: setup go
+              uses: actions/setup-go@v3
+              with:
+                go-version: "1.19"
+            - name: generate out
+              run: go run -mod vendor ./cmd/acicn-build/main.go -generate 'mysql:5.6'
+            - name: setup docker buildx
+              uses: docker/setup-buildx-action@v2
+            - name: docker login - ghcr
+              uses: docker/login-action@v2
+              with:
+                password: ${{secrets.GITHUB_TOKEN}}
+                registry: ghcr.io
+                username: ${{github.actor}}
+            - name: docker login - dockerhub
+              uses: docker/login-action@v2
+              with:
+                password: ${{secrets.DOCKERHUB_TOKEN}}
+                username: guoyk
+            - id: meta
+              name: meta for mysql:5.6
+              uses: docker/metadata-action@v4
+              with:
+                images: |-
+                    ghcr.io/guoyk93/acicn/mysql
+                    acicn/mysql
+                tags: type=raw,value=5.6-rc
+            - id: build
+              name: build for mysql:5.6
+              uses: docker/build-push-action@v3
+              with:
+                cache-from: type=gha
+                cache-to: type=gha,mode=max
+                context: out/mysql:5.6
+                labels: ${{steps.meta.outputs.labels}}
+                pull: ${{ inputs.force_pull }}
+                push: ${{ inputs.push }}
+                tags: ${{steps.meta.outputs.tags}}
+    r_mysql_5_7_r:
+        if: inputs.job_name == 'all' || contains(inputs.job_name,'r_mysql_5_7_r')
+        permissions:
+            contents: read
+            id-token: write
+            packages: write
+        runs-on: ubuntu-latest
+        steps:
+            - name: checkout
+              uses: actions/checkout@v3
+            - name: setup go
+              uses: actions/setup-go@v3
+              with:
+                go-version: "1.19"
+            - name: generate out
+              run: go run -mod vendor ./cmd/acicn-build/main.go -generate 'mysql:5.7'
+            - name: setup docker buildx
+              uses: docker/setup-buildx-action@v2
+            - name: docker login - ghcr
+              uses: docker/login-action@v2
+              with:
+                password: ${{secrets.GITHUB_TOKEN}}
+                registry: ghcr.io
+                username: ${{github.actor}}
+            - name: docker login - dockerhub
+              uses: docker/login-action@v2
+              with:
+                password: ${{secrets.DOCKERHUB_TOKEN}}
+                username: guoyk
+            - id: meta
+              name: meta for mysql:5.7
+              uses: docker/metadata-action@v4
+              with:
+                images: |-
+                    ghcr.io/guoyk93/acicn/mysql
+                    acicn/mysql
+                tags: type=raw,value=5.7-rc
+            - id: build
+              name: build for mysql:5.7
+              uses: docker/build-push-action@v3
+              with:
+                cache-from: type=gha
+                cache-to: type=gha,mode=max
+                context: out/mysql:5.7
+                labels: ${{steps.meta.outputs.labels}}
+                pull: ${{ inputs.force_pull }}
+                push: ${{ inputs.push }}
+                tags: ${{steps.meta.outputs.tags}}
+    r_mysql_8_0_r:
+        if: inputs.job_name == 'all' || contains(inputs.job_name,'r_mysql_8_0_r')
+        permissions:
+            contents: read
+            id-token: write
+            packages: write
+        runs-on: ubuntu-latest
+        steps:
+            - name: checkout
+              uses: actions/checkout@v3
+            - name: setup go
+              uses: actions/setup-go@v3
+              with:
+                go-version: "1.19"
+            - name: generate out
+              run: go run -mod vendor ./cmd/acicn-build/main.go -generate 'mysql:8.0'
+            - name: setup docker buildx
+              uses: docker/setup-buildx-action@v2
+            - name: docker login - ghcr
+              uses: docker/login-action@v2
+              with:
+                password: ${{secrets.GITHUB_TOKEN}}
+                registry: ghcr.io
+                username: ${{github.actor}}
+            - name: docker login - dockerhub
+              uses: docker/login-action@v2
+              with:
+                password: ${{secrets.DOCKERHUB_TOKEN}}
+                username: guoyk
+            - id: meta
+              name: meta for mysql:8.0
+              uses: docker/metadata-action@v4
+              with:
+                images: |-
+                    ghcr.io/guoyk93/acicn/mysql
+                    acicn/mysql
+                tags: type=raw,value=8.0-rc
+            - id: build
+              name: build for mysql:8.0
+              uses: docker/build-push-action@v3
+              with:
+                cache-from: type=gha
+                cache-to: type=gha,mode=max
+                context: out/mysql:8.0
+                labels: ${{steps.meta.outputs.labels}}
+                pull: ${{ inputs.force_pull }}
+                push: ${{ inputs.push }}
+                tags: ${{steps.meta.outputs.tags}}
+    r_nginx_alpine_3_16_r:
+        if: inputs.job_name == 'all' || contains(inputs.job_name,'r_nginx_alpine_3_16_r')
+        permissions:
+            contents: read
+            id-token: write
+            packages: write
+        runs-on: ubuntu-latest
+        steps:
+            - name: checkout
+              uses: actions/checkout@v3
+            - name: setup go
+              uses: actions/setup-go@v3
+              with:
+                go-version: "1.19"
+            - name: generate out
+              run: go run -mod vendor ./cmd/acicn-build/main.go -generate 'nginx:alpine-3.16'
+            - name: setup docker buildx
+              uses: docker/setup-buildx-action@v2
+            - name: docker login - ghcr
+              uses: docker/login-action@v2
+              with:
+                password: ${{secrets.GITHUB_TOKEN}}
+                registry: ghcr.io
+                username: ${{github.actor}}
+            - name: docker login - dockerhub
+              uses: docker/login-action@v2
+              with:
+                password: ${{secrets.DOCKERHUB_TOKEN}}
+                username: guoyk
+            - id: meta
+              name: meta for nginx:alpine-3.16
+              uses: docker/metadata-action@v4
+              with:
+                images: |-
+                    ghcr.io/guoyk93/acicn/nginx
+                    acicn/nginx
+                tags: |-
+                    type=raw,value=alpine-3.16-rc
+                    type=raw,value=latest-rc
+            - id: build
+              name: build for nginx:alpine-3.16
+              uses: docker/build-push-action@v3
+              with:
+                cache-from: type=gha
+                cache-to: type=gha,mode=max
+                context: out/nginx:alpine-3.16
+                labels: ${{steps.meta.outputs.labels}}
+                pull: true
+                push: ${{ inputs.push }}
+                tags: ${{steps.meta.outputs.tags}}
+    r_node_8_debian_11_r:
+        if: inputs.job_name == 'all' || contains(inputs.job_name,'r_node_8_debian_11_r')
+        permissions:
+            contents: read
+            id-token: write
+            packages: write
+        runs-on: ubuntu-latest
+        steps:
+            - name: checkout
+              uses: actions/checkout@v3
+            - name: setup go
+              uses: actions/setup-go@v3
+              with:
+                go-version: "1.19"
+            - name: generate out
+              run: go run -mod vendor ./cmd/acicn-build/main.go -generate 'node:8-debian-11'
+            - name: setup docker buildx
+              uses: docker/setup-buildx-action@v2
+            - name: docker login - ghcr
+              uses: docker/login-action@v2
+              with:
+                password: ${{secrets.GITHUB_TOKEN}}
+                registry: ghcr.io
+                username: ${{github.actor}}
+            - name: docker login - dockerhub
+              uses: docker/login-action@v2
+              with:
+                password: ${{secrets.DOCKERHUB_TOKEN}}
+                username: guoyk
+            - id: meta
+              name: meta for node:8-debian-11
+              uses: docker/metadata-action@v4
+              with:
+                images: |-
+                    ghcr.io/guoyk93/acicn/node
+                    acicn/node
+                tags: |-
+                    type=raw,value=8-debian-11-rc
+                    type=raw,value=8-rc
+            - id: build
+              name: build for node:8-debian-11
+              uses: docker/build-push-action@v3
+              with:
+                cache-from: type=gha
+                cache-to: type=gha,mode=max
+                context: out/node:8-debian-11
+                labels: ${{steps.meta.outputs.labels}}
+                pull: true
+                push: ${{ inputs.push }}
+                tags: ${{steps.meta.outputs.tags}}
+    r_node_10_debian_11_r:
+        if: inputs.job_name == 'all' || contains(inputs.job_name,'r_node_10_debian_11_r')
+        permissions:
+            contents: read
+            id-token: write
+            packages: write
+        runs-on: ubuntu-latest
+        steps:
+            - name: checkout
+              uses: actions/checkout@v3
+            - name: setup go
+              uses: actions/setup-go@v3
+              with:
+                go-version: "1.19"
+            - name: generate out
+              run: go run -mod vendor ./cmd/acicn-build/main.go -generate 'node:10-debian-11'
+            - name: setup docker buildx
+              uses: docker/setup-buildx-action@v2
+            - name: docker login - ghcr
+              uses: docker/login-action@v2
+              with:
+                password: ${{secrets.GITHUB_TOKEN}}
+                registry: ghcr.io
+                username: ${{github.actor}}
+            - name: docker login - dockerhub
+              uses: docker/login-action@v2
+              with:
+                password: ${{secrets.DOCKERHUB_TOKEN}}
+                username: guoyk
+            - id: meta
+              name: meta for node:10-debian-11
+              uses: docker/metadata-action@v4
+              with:
+                images: |-
+                    ghcr.io/guoyk93/acicn/node
+                    acicn/node
+                tags: |-
+                    type=raw,value=10-debian-11-rc
+                    type=raw,value=10-rc
+            - id: build
+              name: build for node:10-debian-11
+              uses: docker/build-push-action@v3
+              with:
+                cache-from: type=gha
+                cache-to: type=gha,mode=max
+                context: out/node:10-debian-11
+                labels: ${{steps.meta.outputs.labels}}
+                pull: true
+                push: ${{ inputs.push }}
+                tags: ${{steps.meta.outputs.tags}}
+    r_node_12_debian_11_r:
+        if: inputs.job_name == 'all' || contains(inputs.job_name,'r_node_12_debian_11_r')
+        permissions:
+            contents: read
+            id-token: write
+            packages: write
+        runs-on: ubuntu-latest
+        steps:
+            - name: checkout
+              uses: actions/checkout@v3
+            - name: setup go
+              uses: actions/setup-go@v3
+              with:
+                go-version: "1.19"
+            - name: generate out
+              run: go run -mod vendor ./cmd/acicn-build/main.go -generate 'node:12-debian-11'
+            - name: setup docker buildx
+              uses: docker/setup-buildx-action@v2
+            - name: docker login - ghcr
+              uses: docker/login-action@v2
+              with:
+                password: ${{secrets.GITHUB_TOKEN}}
+                registry: ghcr.io
+                username: ${{github.actor}}
+            - name: docker login - dockerhub
+              uses: docker/login-action@v2
+              with:
+                password: ${{secrets.DOCKERHUB_TOKEN}}
+                username: guoyk
+            - id: meta
+              name: meta for node:12-debian-11
+              uses: docker/metadata-action@v4
+              with:
+                images: |-
+                    ghcr.io/guoyk93/acicn/node
+                    acicn/node
+                tags: |-
+                    type=raw,value=12-debian-11-rc
+                    type=raw,value=12-rc
+            - id: build
+              name: build for node:12-debian-11
+              uses: docker/build-push-action@v3
+              with:
+                cache-from: type=gha
+                cache-to: type=gha,mode=max
+                context: out/node:12-debian-11
+                labels: ${{steps.meta.outputs.labels}}
+                pull: true
+                push: ${{ inputs.push }}
+                tags: ${{steps.meta.outputs.tags}}
+    r_node_14_debian_11_r:
+        if: inputs.job_name == 'all' || contains(inputs.job_name,'r_node_14_debian_11_r')
+        permissions:
+            contents: read
+            id-token: write
+            packages: write
+        runs-on: ubuntu-latest
+        steps:
+            - name: checkout
+              uses: actions/checkout@v3
+            - name: setup go
+              uses: actions/setup-go@v3
+              with:
+                go-version: "1.19"
+            - name: generate out
+              run: go run -mod vendor ./cmd/acicn-build/main.go -generate 'node:14-debian-11'
+            - name: setup docker buildx
+              uses: docker/setup-buildx-action@v2
+            - name: docker login - ghcr
+              uses: docker/login-action@v2
+              with:
+                password: ${{secrets.GITHUB_TOKEN}}
+                registry: ghcr.io
+                username: ${{github.actor}}
+            - name: docker login - dockerhub
+              uses: docker/login-action@v2
+              with:
+                password: ${{secrets.DOCKERHUB_TOKEN}}
+                username: guoyk
+            - id: meta
+              name: meta for node:14-debian-11
+              uses: docker/metadata-action@v4
+              with:
+                images: |-
+                    ghcr.io/guoyk93/acicn/node
+                    acicn/node
+                tags: |-
+                    type=raw,value=14-debian-11-rc
+                    type=raw,value=14-rc
+            - id: build
+              name: build for node:14-debian-11
+              uses: docker/build-push-action@v3
+              with:
+                cache-from: type=gha
+                cache-to: type=gha,mode=max
+                context: out/node:14-debian-11
+                labels: ${{steps.meta.outputs.labels}}
+                pull: true
+                push: ${{ inputs.push }}
+                tags: ${{steps.meta.outputs.tags}}
+    r_node_16_debian_11_r:
+        if: inputs.job_name == 'all' || contains(inputs.job_name,'r_node_16_debian_11_r')
+        permissions:
+            contents: read
+            id-token: write
+            packages: write
+        runs-on: ubuntu-latest
+        steps:
+            - name: checkout
+              uses: actions/checkout@v3
+            - name: setup go
+              uses: actions/setup-go@v3
+              with:
+                go-version: "1.19"
+            - name: generate out
+              run: go run -mod vendor ./cmd/acicn-build/main.go -generate 'node:16-debian-11'
+            - name: setup docker buildx
+              uses: docker/setup-buildx-action@v2
+            - name: docker login - ghcr
+              uses: docker/login-action@v2
+              with:
+                password: ${{secrets.GITHUB_TOKEN}}
+                registry: ghcr.io
+                username: ${{github.actor}}
+            - name: docker login - dockerhub
+              uses: docker/login-action@v2
+              with:
+                password: ${{secrets.DOCKERHUB_TOKEN}}
+                username: guoyk
+            - id: meta
+              name: meta for node:16-debian-11
+              uses: docker/metadata-action@v4
+              with:
+                images: |-
+                    ghcr.io/guoyk93/acicn/node
+                    acicn/node
+                tags: |-
+                    type=raw,value=16-debian-11-rc
+                    type=raw,value=16-rc
+            - id: build
+              name: build for node:16-debian-11
+              uses: docker/build-push-action@v3
+              with:
+                cache-from: type=gha
+                cache-to: type=gha,mode=max
+                context: out/node:16-debian-11
+                labels: ${{steps.meta.outputs.labels}}
+                pull: true
+                push: ${{ inputs.push }}
+                tags: ${{steps.meta.outputs.tags}}
+    r_node_18_debian_11_r:
+        if: inputs.job_name == 'all' || contains(inputs.job_name,'r_node_18_debian_11_r')
+        permissions:
+            contents: read
+            id-token: write
+            packages: write
+        runs-on: ubuntu-latest
+        steps:
+            - name: checkout
+              uses: actions/checkout@v3
+            - name: setup go
+              uses: actions/setup-go@v3
+              with:
+                go-version: "1.19"
+            - name: generate out
+              run: go run -mod vendor ./cmd/acicn-build/main.go -generate 'node:18-debian-11'
+            - name: setup docker buildx
+              uses: docker/setup-buildx-action@v2
+            - name: docker login - ghcr
+              uses: docker/login-action@v2
+              with:
+                password: ${{secrets.GITHUB_TOKEN}}
+                registry: ghcr.io
+                username: ${{github.actor}}
+            - name: docker login - dockerhub
+              uses: docker/login-action@v2
+              with:
+                password: ${{secrets.DOCKERHUB_TOKEN}}
+                username: guoyk
+            - id: meta
+              name: meta for node:18-debian-11
+              uses: docker/metadata-action@v4
+              with:
+                images: |-
+                    ghcr.io/guoyk93/acicn/node
+                    acicn/node
+                tags: |-
+                    type=raw,value=18-debian-11-rc
+                    type=raw,value=18-rc
+            - id: build
+              name: build for node:18-debian-11
+              uses: docker/build-push-action@v3
+              with:
+                cache-from: type=gha
+                cache-to: type=gha,mode=max
+                context: out/node:18-debian-11
+                labels: ${{steps.meta.outputs.labels}}
+                pull: true
+                push: ${{ inputs.push }}
+                tags: ${{steps.meta.outputs.tags}}
+    r_node_builder_8_debian_11_r:
+        if: inputs.job_name == 'all' || contains(inputs.job_name,'r_node_builder_8_debian_11_r')
+        permissions:
+            contents: read
+            id-token: write
+            packages: write
+        runs-on: ubuntu-latest
+        steps:
+            - name: checkout
+              uses: actions/checkout@v3
+            - name: setup go
+              uses: actions/setup-go@v3
+              with:
+                go-version: "1.19"
+            - name: generate out
+              run: go run -mod vendor ./cmd/acicn-build/main.go -generate 'node:builder-8-debian-11'
+            - name: setup docker buildx
+              uses: docker/setup-buildx-action@v2
+            - name: docker login - ghcr
+              uses: docker/login-action@v2
+              with:
+                password: ${{secrets.GITHUB_TOKEN}}
+                registry: ghcr.io
+                username: ${{github.actor}}
+            - name: docker login - dockerhub
+              uses: docker/login-action@v2
+              with:
+                password: ${{secrets.DOCKERHUB_TOKEN}}
+                username: guoyk
+            - id: meta
+              name: meta for node:builder-8-debian-11
+              uses: docker/metadata-action@v4
+              with:
+                images: |-
+                    ghcr.io/guoyk93/acicn/node
+                    acicn/node
+                tags: |-
+                    type=raw,value=builder-8-debian-11-rc
+                    type=raw,value=builder-8-rc
+            - id: build
+              name: build for node:builder-8-debian-11
+              uses: docker/build-push-action@v3
+              with:
+                cache-from: type=gha
+                cache-to: type=gha,mode=max
+                context: out/node:builder-8-debian-11
+                labels: ${{steps.meta.outputs.labels}}
+                pull: true
+                push: ${{ inputs.push }}
+                tags: ${{steps.meta.outputs.tags}}
+    r_node_builder_10_debian_11_r:
+        if: inputs.job_name == 'all' || contains(inputs.job_name,'r_node_builder_10_debian_11_r')
+        permissions:
+            contents: read
+            id-token: write
+            packages: write
+        runs-on: ubuntu-latest
+        steps:
+            - name: checkout
+              uses: actions/checkout@v3
+            - name: setup go
+              uses: actions/setup-go@v3
+              with:
+                go-version: "1.19"
+            - name: generate out
+              run: go run -mod vendor ./cmd/acicn-build/main.go -generate 'node:builder-10-debian-11'
+            - name: setup docker buildx
+              uses: docker/setup-buildx-action@v2
+            - name: docker login - ghcr
+              uses: docker/login-action@v2
+              with:
+                password: ${{secrets.GITHUB_TOKEN}}
+                registry: ghcr.io
+                username: ${{github.actor}}
+            - name: docker login - dockerhub
+              uses: docker/login-action@v2
+              with:
+                password: ${{secrets.DOCKERHUB_TOKEN}}
+                username: guoyk
+            - id: meta
+              name: meta for node:builder-10-debian-11
+              uses: docker/metadata-action@v4
+              with:
+                images: |-
+                    ghcr.io/guoyk93/acicn/node
+                    acicn/node
+                tags: |-
+                    type=raw,value=builder-10-debian-11-rc
+                    type=raw,value=builder-10-rc
+            - id: build
+              name: build for node:builder-10-debian-11
+              uses: docker/build-push-action@v3
+              with:
+                cache-from: type=gha
+                cache-to: type=gha,mode=max
+                context: out/node:builder-10-debian-11
+                labels: ${{steps.meta.outputs.labels}}
+                pull: true
+                push: ${{ inputs.push }}
+                tags: ${{steps.meta.outputs.tags}}
+    r_node_builder_12_debian_11_r:
+        if: inputs.job_name == 'all' || contains(inputs.job_name,'r_node_builder_12_debian_11_r')
+        permissions:
+            contents: read
+            id-token: write
+            packages: write
+        runs-on: ubuntu-latest
+        steps:
+            - name: checkout
+              uses: actions/checkout@v3
+            - name: setup go
+              uses: actions/setup-go@v3
+              with:
+                go-version: "1.19"
+            - name: generate out
+              run: go run -mod vendor ./cmd/acicn-build/main.go -generate 'node:builder-12-debian-11'
+            - name: setup docker buildx
+              uses: docker/setup-buildx-action@v2
+            - name: docker login - ghcr
+              uses: docker/login-action@v2
+              with:
+                password: ${{secrets.GITHUB_TOKEN}}
+                registry: ghcr.io
+                username: ${{github.actor}}
+            - name: docker login - dockerhub
+              uses: docker/login-action@v2
+              with:
+                password: ${{secrets.DOCKERHUB_TOKEN}}
+                username: guoyk
+            - id: meta
+              name: meta for node:builder-12-debian-11
+              uses: docker/metadata-action@v4
+              with:
+                images: |-
+                    ghcr.io/guoyk93/acicn/node
+                    acicn/node
+                tags: |-
+                    type=raw,value=builder-12-debian-11-rc
+                    type=raw,value=builder-12-rc
+            - id: build
+              name: build for node:builder-12-debian-11
+              uses: docker/build-push-action@v3
+              with:
+                cache-from: type=gha
+                cache-to: type=gha,mode=max
+                context: out/node:builder-12-debian-11
+                labels: ${{steps.meta.outputs.labels}}
+                pull: true
+                push: ${{ inputs.push }}
+                tags: ${{steps.meta.outputs.tags}}
+    r_node_builder_14_debian_11_r:
+        if: inputs.job_name == 'all' || contains(inputs.job_name,'r_node_builder_14_debian_11_r')
+        permissions:
+            contents: read
+            id-token: write
+            packages: write
+        runs-on: ubuntu-latest
+        steps:
+            - name: checkout
+              uses: actions/checkout@v3
+            - name: setup go
+              uses: actions/setup-go@v3
+              with:
+                go-version: "1.19"
+            - name: generate out
+              run: go run -mod vendor ./cmd/acicn-build/main.go -generate 'node:builder-14-debian-11'
+            - name: setup docker buildx
+              uses: docker/setup-buildx-action@v2
+            - name: docker login - ghcr
+              uses: docker/login-action@v2
+              with:
+                password: ${{secrets.GITHUB_TOKEN}}
+                registry: ghcr.io
+                username: ${{github.actor}}
+            - name: docker login - dockerhub
+              uses: docker/login-action@v2
+              with:
+                password: ${{secrets.DOCKERHUB_TOKEN}}
+                username: guoyk
+            - id: meta
+              name: meta for node:builder-14-debian-11
+              uses: docker/metadata-action@v4
+              with:
+                images: |-
+                    ghcr.io/guoyk93/acicn/node
+                    acicn/node
+                tags: |-
+                    type=raw,value=builder-14-debian-11-rc
+                    type=raw,value=builder-14-rc
+            - id: build
+              name: build for node:builder-14-debian-11
+              uses: docker/build-push-action@v3
+              with:
+                cache-from: type=gha
+                cache-to: type=gha,mode=max
+                context: out/node:builder-14-debian-11
+                labels: ${{steps.meta.outputs.labels}}
+                pull: true
+                push: ${{ inputs.push }}
+                tags: ${{steps.meta.outputs.tags}}
+    r_node_builder_16_debian_11_r:
+        if: inputs.job_name == 'all' || contains(inputs.job_name,'r_node_builder_16_debian_11_r')
+        permissions:
+            contents: read
+            id-token: write
+            packages: write
+        runs-on: ubuntu-latest
+        steps:
+            - name: checkout
+              uses: actions/checkout@v3
+            - name: setup go
+              uses: actions/setup-go@v3
+              with:
+                go-version: "1.19"
+            - name: generate out
+              run: go run -mod vendor ./cmd/acicn-build/main.go -generate 'node:builder-16-debian-11'
+            - name: setup docker buildx
+              uses: docker/setup-buildx-action@v2
+            - name: docker login - ghcr
+              uses: docker/login-action@v2
+              with:
+                password: ${{secrets.GITHUB_TOKEN}}
+                registry: ghcr.io
+                username: ${{github.actor}}
+            - name: docker login - dockerhub
+              uses: docker/login-action@v2
+              with:
+                password: ${{secrets.DOCKERHUB_TOKEN}}
+                username: guoyk
+            - id: meta
+              name: meta for node:builder-16-debian-11
+              uses: docker/metadata-action@v4
+              with:
+                images: |-
+                    ghcr.io/guoyk93/acicn/node
+                    acicn/node
+                tags: |-
+                    type=raw,value=builder-16-debian-11-rc
+                    type=raw,value=builder-16-rc
+            - id: build
+              name: build for node:builder-16-debian-11
+              uses: docker/build-push-action@v3
+              with:
+                cache-from: type=gha
+                cache-to: type=gha,mode=max
+                context: out/node:builder-16-debian-11
+                labels: ${{steps.meta.outputs.labels}}
+                pull: true
+                push: ${{ inputs.push }}
+                tags: ${{steps.meta.outputs.tags}}
+    r_node_builder_18_debian_11_r:
+        if: inputs.job_name == 'all' || contains(inputs.job_name,'r_node_builder_18_debian_11_r')
+        permissions:
+            contents: read
+            id-token: write
+            packages: write
+        runs-on: ubuntu-latest
+        steps:
+            - name: checkout
+              uses: actions/checkout@v3
+            - name: setup go
+              uses: actions/setup-go@v3
+              with:
+                go-version: "1.19"
+            - name: generate out
+              run: go run -mod vendor ./cmd/acicn-build/main.go -generate 'node:builder-18-debian-11'
+            - name: setup docker buildx
+              uses: docker/setup-buildx-action@v2
+            - name: docker login - ghcr
+              uses: docker/login-action@v2
+              with:
+                password: ${{secrets.GITHUB_TOKEN}}
+                registry: ghcr.io
+                username: ${{github.actor}}
+            - name: docker login - dockerhub
+              uses: docker/login-action@v2
+              with:
+                password: ${{secrets.DOCKERHUB_TOKEN}}
+                username: guoyk
+            - id: meta
+              name: meta for node:builder-18-debian-11
+              uses: docker/metadata-action@v4
+              with:
+                images: |-
+                    ghcr.io/guoyk93/acicn/node
+                    acicn/node
+                tags: |-
+                    type=raw,value=builder-18-debian-11-rc
+                    type=raw,value=builder-18-rc
+            - id: build
+              name: build for node:builder-18-debian-11
+              uses: docker/build-push-action@v3
+              with:
+                cache-from: type=gha
+                cache-to: type=gha,mode=max
+                context: out/node:builder-18-debian-11
+                labels: ${{steps.meta.outputs.labels}}
+                pull: true
+                push: ${{ inputs.push }}
+                tags: ${{steps.meta.outputs.tags}}
+    r_php_7_4_debian_11_r:
+        if: inputs.job_name == 'all' || contains(inputs.job_name,'r_php_7_4_debian_11_r')
+        permissions:
+            contents: read
+            id-token: write
+            packages: write
+        runs-on: ubuntu-latest
+        steps:
+            - name: checkout
+              uses: actions/checkout@v3
+            - name: setup go
+              uses: actions/setup-go@v3
+              with:
+                go-version: "1.19"
+            - name: generate out
+              run: go run -mod vendor ./cmd/acicn-build/main.go -generate 'php:7.4-debian-11'
+            - name: setup docker buildx
+              uses: docker/setup-buildx-action@v2
+            - name: docker login - ghcr
+              uses: docker/login-action@v2
+              with:
+                password: ${{secrets.GITHUB_TOKEN}}
+                registry: ghcr.io
+                username: ${{github.actor}}
+            - name: docker login - dockerhub
+              uses: docker/login-action@v2
+              with:
+                password: ${{secrets.DOCKERHUB_TOKEN}}
+                username: guoyk
+            - id: meta
+              name: meta for php:7.4-debian-11
+              uses: docker/metadata-action@v4
+              with:
+                images: |-
+                    ghcr.io/guoyk93/acicn/php
+                    acicn/php
+                tags: |-
+                    type=raw,value=7.4-debian-11-rc
+                    type=raw,value=7.4-rc
+                    type=raw,value=7.4-pagoda-rc
+                    type=raw,value=7.4-pagoda-debian-11-rc
+            - id: build
+              name: build for php:7.4-debian-11
+              uses: docker/build-push-action@v3
+              with:
+                cache-from: type=gha
+                cache-to: type=gha,mode=max
+                context: out/php:7.4-debian-11
+                labels: ${{steps.meta.outputs.labels}}
+                pull: true
+                push: ${{ inputs.push }}
+                tags: ${{steps.meta.outputs.tags}}
+    r_postgres_9_6_r:
+        if: inputs.job_name == 'all' || contains(inputs.job_name,'r_postgres_9_6_r')
+        permissions:
+            contents: read
+            id-token: write
+            packages: write
+        runs-on: ubuntu-latest
+        steps:
+            - name: checkout
+              uses: actions/checkout@v3
+            - name: setup go
+              uses: actions/setup-go@v3
+              with:
+                go-version: "1.19"
+            - name: generate out
+              run: go run -mod vendor ./cmd/acicn-build/main.go -generate 'postgres:9.6'
+            - name: setup docker buildx
+              uses: docker/setup-buildx-action@v2
+            - name: docker login - ghcr
+              uses: docker/login-action@v2
+              with:
+                password: ${{secrets.GITHUB_TOKEN}}
+                registry: ghcr.io
+                username: ${{github.actor}}
+            - name: docker login - dockerhub
+              uses: docker/login-action@v2
+              with:
+                password: ${{secrets.DOCKERHUB_TOKEN}}
+                username: guoyk
+            - id: meta
+              name: meta for postgres:9.6
+              uses: docker/metadata-action@v4
+              with:
+                images: |-
+                    ghcr.io/guoyk93/acicn/postgres
+                    acicn/postgres
+                tags: type=raw,value=9.6-rc
+            - id: build
+              name: build for postgres:9.6
+              uses: docker/build-push-action@v3
+              with:
+                cache-from: type=gha
+                cache-to: type=gha,mode=max
+                context: out/postgres:9.6
+                labels: ${{steps.meta.outputs.labels}}
+                pull: ${{ inputs.force_pull }}
+                push: ${{ inputs.push }}
+                tags: ${{steps.meta.outputs.tags}}
+    r_postgres_10_15_r:
+        if: inputs.job_name == 'all' || contains(inputs.job_name,'r_postgres_10_15_r')
+        permissions:
+            contents: read
+            id-token: write
+            packages: write
+        runs-on: ubuntu-latest
+        steps:
+            - name: checkout
+              uses: actions/checkout@v3
+            - name: setup go
+              uses: actions/setup-go@v3
+              with:
+                go-version: "1.19"
+            - name: generate out
+              run: go run -mod vendor ./cmd/acicn-build/main.go -generate 'postgres:10.15'
+            - name: setup docker buildx
+              uses: docker/setup-buildx-action@v2
+            - name: docker login - ghcr
+              uses: docker/login-action@v2
+              with:
+                password: ${{secrets.GITHUB_TOKEN}}
+                registry: ghcr.io
+                username: ${{github.actor}}
+            - name: docker login - dockerhub
+              uses: docker/login-action@v2
+              with:
+                password: ${{secrets.DOCKERHUB_TOKEN}}
+                username: guoyk
+            - id: meta
+              name: meta for postgres:10.15
+              uses: docker/metadata-action@v4
+              with:
+                images: |-
+                    ghcr.io/guoyk93/acicn/postgres
+                    acicn/postgres
+                tags: type=raw,value=10.15-rc
+            - id: build
+              name: build for postgres:10.15
+              uses: docker/build-push-action@v3
+              with:
+                cache-from: type=gha
+                cache-to: type=gha,mode=max
+                context: out/postgres:10.15
+                labels: ${{steps.meta.outputs.labels}}
+                pull: ${{ inputs.force_pull }}
+                push: ${{ inputs.push }}
+                tags: ${{steps.meta.outputs.tags}}
+    r_postgres_11_10_r:
+        if: inputs.job_name == 'all' || contains(inputs.job_name,'r_postgres_11_10_r')
+        permissions:
+            contents: read
+            id-token: write
+            packages: write
+        runs-on: ubuntu-latest
+        steps:
+            - name: checkout
+              uses: actions/checkout@v3
+            - name: setup go
+              uses: actions/setup-go@v3
+              with:
+                go-version: "1.19"
+            - name: generate out
+              run: go run -mod vendor ./cmd/acicn-build/main.go -generate 'postgres:11.10'
+            - name: setup docker buildx
+              uses: docker/setup-buildx-action@v2
+            - name: docker login - ghcr
+              uses: docker/login-action@v2
+              with:
+                password: ${{secrets.GITHUB_TOKEN}}
+                registry: ghcr.io
+                username: ${{github.actor}}
+            - name: docker login - dockerhub
+              uses: docker/login-action@v2
+              with:
+                password: ${{secrets.DOCKERHUB_TOKEN}}
+                username: guoyk
+            - id: meta
+              name: meta for postgres:11.10
+              uses: docker/metadata-action@v4
+              with:
+                images: |-
+                    ghcr.io/guoyk93/acicn/postgres
+                    acicn/postgres
+                tags: type=raw,value=11.10-rc
+            - id: build
+              name: build for postgres:11.10
+              uses: docker/build-push-action@v3
+              with:
+                cache-from: type=gha
+                cache-to: type=gha,mode=max
+                context: out/postgres:11.10
+                labels: ${{steps.meta.outputs.labels}}
+                pull: ${{ inputs.force_pull }}
+                push: ${{ inputs.push }}
+                tags: ${{steps.meta.outputs.tags}}
+    r_postgres_12_5_r:
+        if: inputs.job_name == 'all' || contains(inputs.job_name,'r_postgres_12_5_r')
+        permissions:
+            contents: read
+            id-token: write
+            packages: write
+        runs-on: ubuntu-latest
+        steps:
+            - name: checkout
+              uses: actions/checkout@v3
+            - name: setup go
+              uses: actions/setup-go@v3
+              with:
+                go-version: "1.19"
+            - name: generate out
+              run: go run -mod vendor ./cmd/acicn-build/main.go -generate 'postgres:12.5'
+            - name: setup docker buildx
+              uses: docker/setup-buildx-action@v2
+            - name: docker login - ghcr
+              uses: docker/login-action@v2
+              with:
+                password: ${{secrets.GITHUB_TOKEN}}
+                registry: ghcr.io
+                username: ${{github.actor}}
+            - name: docker login - dockerhub
+              uses: docker/login-action@v2
+              with:
+                password: ${{secrets.DOCKERHUB_TOKEN}}
+                username: guoyk
+            - id: meta
+              name: meta for postgres:12.5
+              uses: docker/metadata-action@v4
+              with:
+                images: |-
+                    ghcr.io/guoyk93/acicn/postgres
+                    acicn/postgres
+                tags: type=raw,value=12.5-rc
+            - id: build
+              name: build for postgres:12.5
+              uses: docker/build-push-action@v3
+              with:
+                cache-from: type=gha
+                cache-to: type=gha,mode=max
+                context: out/postgres:12.5
+                labels: ${{steps.meta.outputs.labels}}
+                pull: ${{ inputs.force_pull }}
+                push: ${{ inputs.push }}
+                tags: ${{steps.meta.outputs.tags}}
+    r_prometheus_2_25_r:
+        if: inputs.job_name == 'all' || contains(inputs.job_name,'r_prometheus_2_25_r')
+        permissions:
+            contents: read
+            id-token: write
+            packages: write
+        runs-on: ubuntu-latest
+        steps:
+            - name: checkout
+              uses: actions/checkout@v3
+            - name: setup go
+              uses: actions/setup-go@v3
+              with:
+                go-version: "1.19"
+            - name: generate out
+              run: go run -mod vendor ./cmd/acicn-build/main.go -generate 'prometheus:2.25'
+            - name: setup docker buildx
+              uses: docker/setup-buildx-action@v2
+            - name: docker login - ghcr
+              uses: docker/login-action@v2
+              with:
+                password: ${{secrets.GITHUB_TOKEN}}
+                registry: ghcr.io
+                username: ${{github.actor}}
+            - name: docker login - dockerhub
+              uses: docker/login-action@v2
+              with:
+                password: ${{secrets.DOCKERHUB_TOKEN}}
+                username: guoyk
+            - id: meta
+              name: meta for prometheus:2.25
+              uses: docker/metadata-action@v4
+              with:
+                images: |-
+                    ghcr.io/guoyk93/acicn/prometheus
+                    acicn/prometheus
+                tags: type=raw,value=2.25-rc
+            - id: build
+              name: build for prometheus:2.25
+              uses: docker/build-push-action@v3
+              with:
+                cache-from: type=gha
+                cache-to: type=gha,mode=max
+                context: out/prometheus:2.25
+                labels: ${{steps.meta.outputs.labels}}
+                pull: true
+                push: ${{ inputs.push }}
+                tags: ${{steps.meta.outputs.tags}}
+    r_python_3_6_debian_11_r:
+        if: inputs.job_name == 'all' || contains(inputs.job_name,'r_python_3_6_debian_11_r')
+        permissions:
+            contents: read
+            id-token: write
+            packages: write
+        runs-on: ubuntu-latest
+        steps:
+            - name: checkout
+              uses: actions/checkout@v3
+            - name: setup go
+              uses: actions/setup-go@v3
+              with:
+                go-version: "1.19"
+            - name: generate out
+              run: go run -mod vendor ./cmd/acicn-build/main.go -generate 'python:3.6-debian-11'
+            - name: setup docker buildx
+              uses: docker/setup-buildx-action@v2
+            - name: docker login - ghcr
+              uses: docker/login-action@v2
+              with:
+                password: ${{secrets.GITHUB_TOKEN}}
+                registry: ghcr.io
+                username: ${{github.actor}}
+            - name: docker login - dockerhub
+              uses: docker/login-action@v2
+              with:
+                password: ${{secrets.DOCKERHUB_TOKEN}}
+                username: guoyk
+            - id: meta
+              name: meta for python:3.6-debian-11
+              uses: docker/metadata-action@v4
+              with:
+                images: |-
+                    ghcr.io/guoyk93/acicn/python
+                    acicn/python
+                tags: |-
+                    type=raw,value=3.6-debian-11-rc
+                    type=raw,value=3.6-rc
+            - id: build
+              name: build for python:3.6-debian-11
+              uses: docker/build-push-action@v3
+              with:
+                cache-from: type=gha
+                cache-to: type=gha,mode=max
+                context: out/python:3.6-debian-11
+                labels: ${{steps.meta.outputs.labels}}
+                pull: true
+                push: ${{ inputs.push }}
+                tags: ${{steps.meta.outputs.tags}}
+    r_python_3_7_debian_11_r:
+        if: inputs.job_name == 'all' || contains(inputs.job_name,'r_python_3_7_debian_11_r')
+        permissions:
+            contents: read
+            id-token: write
+            packages: write
+        runs-on: ubuntu-latest
+        steps:
+            - name: checkout
+              uses: actions/checkout@v3
+            - name: setup go
+              uses: actions/setup-go@v3
+              with:
+                go-version: "1.19"
+            - name: generate out
+              run: go run -mod vendor ./cmd/acicn-build/main.go -generate 'python:3.7-debian-11'
+            - name: setup docker buildx
+              uses: docker/setup-buildx-action@v2
+            - name: docker login - ghcr
+              uses: docker/login-action@v2
+              with:
+                password: ${{secrets.GITHUB_TOKEN}}
+                registry: ghcr.io
+                username: ${{github.actor}}
+            - name: docker login - dockerhub
+              uses: docker/login-action@v2
+              with:
+                password: ${{secrets.DOCKERHUB_TOKEN}}
+                username: guoyk
+            - id: meta
+              name: meta for python:3.7-debian-11
+              uses: docker/metadata-action@v4
+              with:
+                images: |-
+                    ghcr.io/guoyk93/acicn/python
+                    acicn/python
+                tags: |-
+                    type=raw,value=3.7-debian-11-rc
+                    type=raw,value=3.7-rc
+            - id: build
+              name: build for python:3.7-debian-11
+              uses: docker/build-push-action@v3
+              with:
+                cache-from: type=gha
+                cache-to: type=gha,mode=max
+                context: out/python:3.7-debian-11
+                labels: ${{steps.meta.outputs.labels}}
+                pull: true
+                push: ${{ inputs.push }}
+                tags: ${{steps.meta.outputs.tags}}
+    r_python_3_8_debian_11_r:
+        if: inputs.job_name == 'all' || contains(inputs.job_name,'r_python_3_8_debian_11_r')
+        permissions:
+            contents: read
+            id-token: write
+            packages: write
+        runs-on: ubuntu-latest
+        steps:
+            - name: checkout
+              uses: actions/checkout@v3
+            - name: setup go
+              uses: actions/setup-go@v3
+              with:
+                go-version: "1.19"
+            - name: generate out
+              run: go run -mod vendor ./cmd/acicn-build/main.go -generate 'python:3.8-debian-11'
+            - name: setup docker buildx
+              uses: docker/setup-buildx-action@v2
+            - name: docker login - ghcr
+              uses: docker/login-action@v2
+              with:
+                password: ${{secrets.GITHUB_TOKEN}}
+                registry: ghcr.io
+                username: ${{github.actor}}
+            - name: docker login - dockerhub
+              uses: docker/login-action@v2
+              with:
+                password: ${{secrets.DOCKERHUB_TOKEN}}
+                username: guoyk
+            - id: meta
+              name: meta for python:3.8-debian-11
+              uses: docker/metadata-action@v4
+              with:
+                images: |-
+                    ghcr.io/guoyk93/acicn/python
+                    acicn/python
+                tags: |-
+                    type=raw,value=3.8-debian-11-rc
+                    type=raw,value=3.8-rc
+            - id: build
+              name: build for python:3.8-debian-11
+              uses: docker/build-push-action@v3
+              with:
+                cache-from: type=gha
+                cache-to: type=gha,mode=max
+                context: out/python:3.8-debian-11
+                labels: ${{steps.meta.outputs.labels}}
+                pull: true
+                push: ${{ inputs.push }}
+                tags: ${{steps.meta.outputs.tags}}
+    r_python_3_9_debian_11_r:
+        if: inputs.job_name == 'all' || contains(inputs.job_name,'r_python_3_9_debian_11_r')
+        permissions:
+            contents: read
+            id-token: write
+            packages: write
+        runs-on: ubuntu-latest
+        steps:
+            - name: checkout
+              uses: actions/checkout@v3
+            - name: setup go
+              uses: actions/setup-go@v3
+              with:
+                go-version: "1.19"
+            - name: generate out
+              run: go run -mod vendor ./cmd/acicn-build/main.go -generate 'python:3.9-debian-11'
+            - name: setup docker buildx
+              uses: docker/setup-buildx-action@v2
+            - name: docker login - ghcr
+              uses: docker/login-action@v2
+              with:
+                password: ${{secrets.GITHUB_TOKEN}}
+                registry: ghcr.io
+                username: ${{github.actor}}
+            - name: docker login - dockerhub
+              uses: docker/login-action@v2
+              with:
+                password: ${{secrets.DOCKERHUB_TOKEN}}
+                username: guoyk
+            - id: meta
+              name: meta for python:3.9-debian-11
+              uses: docker/metadata-action@v4
+              with:
+                images: |-
+                    ghcr.io/guoyk93/acicn/python
+                    acicn/python
+                tags: |-
+                    type=raw,value=3.9-debian-11-rc
+                    type=raw,value=3.9-rc
+            - id: build
+              name: build for python:3.9-debian-11
+              uses: docker/build-push-action@v3
+              with:
+                cache-from: type=gha
+                cache-to: type=gha,mode=max
+                context: out/python:3.9-debian-11
+                labels: ${{steps.meta.outputs.labels}}
+                pull: true
+                push: ${{ inputs.push }}
+                tags: ${{steps.meta.outputs.tags}}
+    r_python_3_10_debian_11_r:
+        if: inputs.job_name == 'all' || contains(inputs.job_name,'r_python_3_10_debian_11_r')
+        permissions:
+            contents: read
+            id-token: write
+            packages: write
+        runs-on: ubuntu-latest
+        steps:
+            - name: checkout
+              uses: actions/checkout@v3
+            - name: setup go
+              uses: actions/setup-go@v3
+              with:
+                go-version: "1.19"
+            - name: generate out
+              run: go run -mod vendor ./cmd/acicn-build/main.go -generate 'python:3.10-debian-11'
+            - name: setup docker buildx
+              uses: docker/setup-buildx-action@v2
+            - name: docker login - ghcr
+              uses: docker/login-action@v2
+              with:
+                password: ${{secrets.GITHUB_TOKEN}}
+                registry: ghcr.io
+                username: ${{github.actor}}
+            - name: docker login - dockerhub
+              uses: docker/login-action@v2
+              with:
+                password: ${{secrets.DOCKERHUB_TOKEN}}
+                username: guoyk
+            - id: meta
+              name: meta for python:3.10-debian-11
+              uses: docker/metadata-action@v4
+              with:
+                images: |-
+                    ghcr.io/guoyk93/acicn/python
+                    acicn/python
+                tags: |-
+                    type=raw,value=3.10-debian-11-rc
+                    type=raw,value=3.10-rc
+            - id: build
+              name: build for python:3.10-debian-11
+              uses: docker/build-push-action@v3
+              with:
+                cache-from: type=gha
+                cache-to: type=gha,mode=max
+                context: out/python:3.10-debian-11
+                labels: ${{steps.meta.outputs.labels}}
+                pull: true
+                push: ${{ inputs.push }}
+                tags: ${{steps.meta.outputs.tags}}
+    r_python_3_11_debian_11_r:
+        if: inputs.job_name == 'all' || contains(inputs.job_name,'r_python_3_11_debian_11_r')
+        permissions:
+            contents: read
+            id-token: write
+            packages: write
+        runs-on: ubuntu-latest
+        steps:
+            - name: checkout
+              uses: actions/checkout@v3
+            - name: setup go
+              uses: actions/setup-go@v3
+              with:
+                go-version: "1.19"
+            - name: generate out
+              run: go run -mod vendor ./cmd/acicn-build/main.go -generate 'python:3.11-debian-11'
+            - name: setup docker buildx
+              uses: docker/setup-buildx-action@v2
+            - name: docker login - ghcr
+              uses: docker/login-action@v2
+              with:
+                password: ${{secrets.GITHUB_TOKEN}}
+                registry: ghcr.io
+                username: ${{github.actor}}
+            - name: docker login - dockerhub
+              uses: docker/login-action@v2
+              with:
+                password: ${{secrets.DOCKERHUB_TOKEN}}
+                username: guoyk
+            - id: meta
+              name: meta for python:3.11-debian-11
+              uses: docker/metadata-action@v4
+              with:
+                images: |-
+                    ghcr.io/guoyk93/acicn/python
+                    acicn/python
+                tags: |-
+                    type=raw,value=3.11-debian-11-rc
+                    type=raw,value=3.11-rc
+            - id: build
+              name: build for python:3.11-debian-11
+              uses: docker/build-push-action@v3
+              with:
+                cache-from: type=gha
+                cache-to: type=gha,mode=max
+                context: out/python:3.11-debian-11
+                labels: ${{steps.meta.outputs.labels}}
+                pull: true
+                push: ${{ inputs.push }}
+                tags: ${{steps.meta.outputs.tags}}
+    r_redis_5_alpine_3_16_r:
+        if: inputs.job_name == 'all' || contains(inputs.job_name,'r_redis_5_alpine_3_16_r')
+        permissions:
+            contents: read
+            id-token: write
+            packages: write
+        runs-on: ubuntu-latest
+        steps:
+            - name: checkout
+              uses: actions/checkout@v3
+            - name: setup go
+              uses: actions/setup-go@v3
+              with:
+                go-version: "1.19"
+            - name: generate out
+              run: go run -mod vendor ./cmd/acicn-build/main.go -generate 'redis:5-alpine-3.16'
+            - name: setup docker buildx
+              uses: docker/setup-buildx-action@v2
+            - name: docker login - ghcr
+              uses: docker/login-action@v2
+              with:
+                password: ${{secrets.GITHUB_TOKEN}}
+                registry: ghcr.io
+                username: ${{github.actor}}
+            - name: docker login - dockerhub
+              uses: docker/login-action@v2
+              with:
+                password: ${{secrets.DOCKERHUB_TOKEN}}
+                username: guoyk
+            - id: meta
+              name: meta for redis:5-alpine-3.16
+              uses: docker/metadata-action@v4
+              with:
+                images: |-
+                    ghcr.io/guoyk93/acicn/redis
+                    acicn/redis
+                tags: |-
+                    type=raw,value=5-alpine-3.16-rc
+                    type=raw,value=5-rc
+            - id: build
+              name: build for redis:5-alpine-3.16
+              uses: docker/build-push-action@v3
+              with:
+                cache-from: type=gha
+                cache-to: type=gha,mode=max
+                context: out/redis:5-alpine-3.16
+                labels: ${{steps.meta.outputs.labels}}
+                pull: true
+                push: ${{ inputs.push }}
+                tags: ${{steps.meta.outputs.tags}}
+    r_redis_6_0_alpine_3_16_r:
+        if: inputs.job_name == 'all' || contains(inputs.job_name,'r_redis_6_0_alpine_3_16_r')
+        permissions:
+            contents: read
+            id-token: write
+            packages: write
+        runs-on: ubuntu-latest
+        steps:
+            - name: checkout
+              uses: actions/checkout@v3
+            - name: setup go
+              uses: actions/setup-go@v3
+              with:
+                go-version: "1.19"
+            - name: generate out
+              run: go run -mod vendor ./cmd/acicn-build/main.go -generate 'redis:6.0-alpine-3.16'
+            - name: setup docker buildx
+              uses: docker/setup-buildx-action@v2
+            - name: docker login - ghcr
+              uses: docker/login-action@v2
+              with:
+                password: ${{secrets.GITHUB_TOKEN}}
+                registry: ghcr.io
+                username: ${{github.actor}}
+            - name: docker login - dockerhub
+              uses: docker/login-action@v2
+              with:
+                password: ${{secrets.DOCKERHUB_TOKEN}}
+                username: guoyk
+            - id: meta
+              name: meta for redis:6.0-alpine-3.16
+              uses: docker/metadata-action@v4
+              with:
+                images: |-
+                    ghcr.io/guoyk93/acicn/redis
+                    acicn/redis
+                tags: |-
+                    type=raw,value=6.0-alpine-3.16-rc
+                    type=raw,value=6.0-rc
+            - id: build
+              name: build for redis:6.0-alpine-3.16
+              uses: docker/build-push-action@v3
+              with:
+                cache-from: type=gha
+                cache-to: type=gha,mode=max
+                context: out/redis:6.0-alpine-3.16
+                labels: ${{steps.meta.outputs.labels}}
+                pull: true
+                push: ${{ inputs.push }}
+                tags: ${{steps.meta.outputs.tags}}
+    r_redis_6_2_alpine_3_16_r:
+        if: inputs.job_name == 'all' || contains(inputs.job_name,'r_redis_6_2_alpine_3_16_r')
+        permissions:
+            contents: read
+            id-token: write
+            packages: write
+        runs-on: ubuntu-latest
+        steps:
+            - name: checkout
+              uses: actions/checkout@v3
+            - name: setup go
+              uses: actions/setup-go@v3
+              with:
+                go-version: "1.19"
+            - name: generate out
+              run: go run -mod vendor ./cmd/acicn-build/main.go -generate 'redis:6.2-alpine-3.16'
+            - name: setup docker buildx
+              uses: docker/setup-buildx-action@v2
+            - name: docker login - ghcr
+              uses: docker/login-action@v2
+              with:
+                password: ${{secrets.GITHUB_TOKEN}}
+                registry: ghcr.io
+                username: ${{github.actor}}
+            - name: docker login - dockerhub
+              uses: docker/login-action@v2
+              with:
+                password: ${{secrets.DOCKERHUB_TOKEN}}
+                username: guoyk
+            - id: meta
+              name: meta for redis:6.2-alpine-3.16
+              uses: docker/metadata-action@v4
+              with:
+                images: |-
+                    ghcr.io/guoyk93/acicn/redis
+                    acicn/redis
+                tags: |-
+                    type=raw,value=6.2-alpine-3.16-rc
+                    type=raw,value=6-alpine-3.16-rc
+                    type=raw,value=6-rc
+                    type=raw,value=6.2-rc
+            - id: build
+              name: build for redis:6.2-alpine-3.16
+              uses: docker/build-push-action@v3
+              with:
+                cache-from: type=gha
+                cache-to: type=gha,mode=max
+                context: out/redis:6.2-alpine-3.16
+                labels: ${{steps.meta.outputs.labels}}
+                pull: true
+                push: ${{ inputs.push }}
+                tags: ${{steps.meta.outputs.tags}}
+    r_redis_7_alpine_3_16_r:
+        if: inputs.job_name == 'all' || contains(inputs.job_name,'r_redis_7_alpine_3_16_r')
+        permissions:
+            contents: read
+            id-token: write
+            packages: write
+        runs-on: ubuntu-latest
+        steps:
+            - name: checkout
+              uses: actions/checkout@v3
+            - name: setup go
+              uses: actions/setup-go@v3
+              with:
+                go-version: "1.19"
+            - name: generate out
+              run: go run -mod vendor ./cmd/acicn-build/main.go -generate 'redis:7-alpine-3.16'
+            - name: setup docker buildx
+              uses: docker/setup-buildx-action@v2
+            - name: docker login - ghcr
+              uses: docker/login-action@v2
+              with:
+                password: ${{secrets.GITHUB_TOKEN}}
+                registry: ghcr.io
+                username: ${{github.actor}}
+            - name: docker login - dockerhub
+              uses: docker/login-action@v2
+              with:
+                password: ${{secrets.DOCKERHUB_TOKEN}}
+                username: guoyk
+            - id: meta
+              name: meta for redis:7-alpine-3.16
+              uses: docker/metadata-action@v4
+              with:
+                images: |-
+                    ghcr.io/guoyk93/acicn/redis
+                    acicn/redis
+                tags: |-
+                    type=raw,value=7-alpine-3.16-rc
+                    type=raw,value=7-rc
+            - id: build
+              name: build for redis:7-alpine-3.16
+              uses: docker/build-push-action@v3
+              with:
+                cache-from: type=gha
+                cache-to: type=gha,mode=max
+                context: out/redis:7-alpine-3.16
+                labels: ${{steps.meta.outputs.labels}}
+                pull: true
+                push: ${{ inputs.push }}
+                tags: ${{steps.meta.outputs.tags}}
+    r_rocketmq_4_6_1_broker_jdk_8_r:
+        if: inputs.job_name == 'all' || contains(inputs.job_name,'r_rocketmq_4_6_1_broker_jdk_8_r')
+        permissions:
+            contents: read
+            id-token: write
+            packages: write
+        runs-on: ubuntu-latest
+        steps:
+            - name: checkout
+              uses: actions/checkout@v3
+            - name: setup go
+              uses: actions/setup-go@v3
+              with:
+                go-version: "1.19"
+            - name: generate out
+              run: go run -mod vendor ./cmd/acicn-build/main.go -generate 'rocketmq:4.6.1-broker-jdk-8'
+            - name: setup docker buildx
+              uses: docker/setup-buildx-action@v2
+            - name: docker login - ghcr
+              uses: docker/login-action@v2
+              with:
+                password: ${{secrets.GITHUB_TOKEN}}
+                registry: ghcr.io
+                username: ${{github.actor}}
+            - name: docker login - dockerhub
+              uses: docker/login-action@v2
+              with:
+                password: ${{secrets.DOCKERHUB_TOKEN}}
+                username: guoyk
+            - id: meta
+              name: meta for rocketmq:4.6.1-broker-jdk-8
+              uses: docker/metadata-action@v4
+              with:
+                images: |-
+                    ghcr.io/guoyk93/acicn/rocketmq
+                    acicn/rocketmq
+                tags: |-
+                    type=raw,value=4.6.1-broker-jdk-8-rc
+                    type=raw,value=4.6.1-broker-rc
+            - id: build
+              name: build for rocketmq:4.6.1-broker-jdk-8
+              uses: docker/build-push-action@v3
+              with:
+                cache-from: type=gha
+                cache-to: type=gha,mode=max
+                context: out/rocketmq:4.6.1-broker-jdk-8
+                labels: ${{steps.meta.outputs.labels}}
+                pull: true
+                push: ${{ inputs.push }}
+                tags: ${{steps.meta.outputs.tags}}
+    r_rocketmq_4_6_1_namesrv_jdk_8_r:
+        if: inputs.job_name == 'all' || contains(inputs.job_name,'r_rocketmq_4_6_1_namesrv_jdk_8_r')
+        permissions:
+            contents: read
+            id-token: write
+            packages: write
+        runs-on: ubuntu-latest
+        steps:
+            - name: checkout
+              uses: actions/checkout@v3
+            - name: setup go
+              uses: actions/setup-go@v3
+              with:
+                go-version: "1.19"
+            - name: generate out
+              run: go run -mod vendor ./cmd/acicn-build/main.go -generate 'rocketmq:4.6.1-namesrv-jdk-8'
+            - name: setup docker buildx
+              uses: docker/setup-buildx-action@v2
+            - name: docker login - ghcr
+              uses: docker/login-action@v2
+              with:
+                password: ${{secrets.GITHUB_TOKEN}}
+                registry: ghcr.io
+                username: ${{github.actor}}
+            - name: docker login - dockerhub
+              uses: docker/login-action@v2
+              with:
+                password: ${{secrets.DOCKERHUB_TOKEN}}
+                username: guoyk
+            - id: meta
+              name: meta for rocketmq:4.6.1-namesrv-jdk-8
+              uses: docker/metadata-action@v4
+              with:
+                images: |-
+                    ghcr.io/guoyk93/acicn/rocketmq
+                    acicn/rocketmq
+                tags: |-
+                    type=raw,value=4.6.1-namesrv-jdk-8-rc
+                    type=raw,value=4.6.1-namesrv-rc
+            - id: build
+              name: build for rocketmq:4.6.1-namesrv-jdk-8
+              uses: docker/build-push-action@v3
+              with:
+                cache-from: type=gha
+                cache-to: type=gha,mode=max
+                context: out/rocketmq:4.6.1-namesrv-jdk-8
+                labels: ${{steps.meta.outputs.labels}}
+                pull: true
+                push: ${{ inputs.push }}
+                tags: ${{steps.meta.outputs.tags}}
+    r_rocketmq_4_8_0_broker_jdk_8_r:
+        if: inputs.job_name == 'all' || contains(inputs.job_name,'r_rocketmq_4_8_0_broker_jdk_8_r')
+        permissions:
+            contents: read
+            id-token: write
+            packages: write
+        runs-on: ubuntu-latest
+        steps:
+            - name: checkout
+              uses: actions/checkout@v3
+            - name: setup go
+              uses: actions/setup-go@v3
+              with:
+                go-version: "1.19"
+            - name: generate out
+              run: go run -mod vendor ./cmd/acicn-build/main.go -generate 'rocketmq:4.8.0-broker-jdk-8'
+            - name: setup docker buildx
+              uses: docker/setup-buildx-action@v2
+            - name: docker login - ghcr
+              uses: docker/login-action@v2
+              with:
+                password: ${{secrets.GITHUB_TOKEN}}
+                registry: ghcr.io
+                username: ${{github.actor}}
+            - name: docker login - dockerhub
+              uses: docker/login-action@v2
+              with:
+                password: ${{secrets.DOCKERHUB_TOKEN}}
+                username: guoyk
+            - id: meta
+              name: meta for rocketmq:4.8.0-broker-jdk-8
+              uses: docker/metadata-action@v4
+              with:
+                images: |-
+                    ghcr.io/guoyk93/acicn/rocketmq
+                    acicn/rocketmq
+                tags: |-
+                    type=raw,value=4.8.0-broker-jdk-8-rc
+                    type=raw,value=4.8.0-broker-rc
+            - id: build
+              name: build for rocketmq:4.8.0-broker-jdk-8
+              uses: docker/build-push-action@v3
+              with:
+                cache-from: type=gha
+                cache-to: type=gha,mode=max
+                context: out/rocketmq:4.8.0-broker-jdk-8
+                labels: ${{steps.meta.outputs.labels}}
+                pull: true
+                push: ${{ inputs.push }}
+                tags: ${{steps.meta.outputs.tags}}
+    r_rocketmq_4_8_0_namesrv_jdk_8_r:
+        if: inputs.job_name == 'all' || contains(inputs.job_name,'r_rocketmq_4_8_0_namesrv_jdk_8_r')
+        permissions:
+            contents: read
+            id-token: write
+            packages: write
+        runs-on: ubuntu-latest
+        steps:
+            - name: checkout
+              uses: actions/checkout@v3
+            - name: setup go
+              uses: actions/setup-go@v3
+              with:
+                go-version: "1.19"
+            - name: generate out
+              run: go run -mod vendor ./cmd/acicn-build/main.go -generate 'rocketmq:4.8.0-namesrv-jdk-8'
+            - name: setup docker buildx
+              uses: docker/setup-buildx-action@v2
+            - name: docker login - ghcr
+              uses: docker/login-action@v2
+              with:
+                password: ${{secrets.GITHUB_TOKEN}}
+                registry: ghcr.io
+                username: ${{github.actor}}
+            - name: docker login - dockerhub
+              uses: docker/login-action@v2
+              with:
+                password: ${{secrets.DOCKERHUB_TOKEN}}
+                username: guoyk
+            - id: meta
+              name: meta for rocketmq:4.8.0-namesrv-jdk-8
+              uses: docker/metadata-action@v4
+              with:
+                images: |-
+                    ghcr.io/guoyk93/acicn/rocketmq
+                    acicn/rocketmq
+                tags: |-
+                    type=raw,value=4.8.0-namesrv-jdk-8-rc
+                    type=raw,value=4.8.0-namesrv-rc
+            - id: build
+              name: build for rocketmq:4.8.0-namesrv-jdk-8
+              uses: docker/build-push-action@v3
+              with:
+                cache-from: type=gha
+                cache-to: type=gha,mode=max
+                context: out/rocketmq:4.8.0-namesrv-jdk-8
+                labels: ${{steps.meta.outputs.labels}}
+                pull: true
+                push: ${{ inputs.push }}
+                tags: ${{steps.meta.outputs.tags}}
+    r_rocketmq_4_9_1_broker_jdk_8_r:
+        if: inputs.job_name == 'all' || contains(inputs.job_name,'r_rocketmq_4_9_1_broker_jdk_8_r')
+        permissions:
+            contents: read
+            id-token: write
+            packages: write
+        runs-on: ubuntu-latest
+        steps:
+            - name: checkout
+              uses: actions/checkout@v3
+            - name: setup go
+              uses: actions/setup-go@v3
+              with:
+                go-version: "1.19"
+            - name: generate out
+              run: go run -mod vendor ./cmd/acicn-build/main.go -generate 'rocketmq:4.9.1-broker-jdk-8'
+            - name: setup docker buildx
+              uses: docker/setup-buildx-action@v2
+            - name: docker login - ghcr
+              uses: docker/login-action@v2
+              with:
+                password: ${{secrets.GITHUB_TOKEN}}
+                registry: ghcr.io
+                username: ${{github.actor}}
+            - name: docker login - dockerhub
+              uses: docker/login-action@v2
+              with:
+                password: ${{secrets.DOCKERHUB_TOKEN}}
+                username: guoyk
+            - id: meta
+              name: meta for rocketmq:4.9.1-broker-jdk-8
+              uses: docker/metadata-action@v4
+              with:
+                images: |-
+                    ghcr.io/guoyk93/acicn/rocketmq
+                    acicn/rocketmq
+                tags: |-
+                    type=raw,value=4.9.1-broker-jdk-8-rc
+                    type=raw,value=4.9.1-broker-rc
+            - id: build
+              name: build for rocketmq:4.9.1-broker-jdk-8
+              uses: docker/build-push-action@v3
+              with:
+                cache-from: type=gha
+                cache-to: type=gha,mode=max
+                context: out/rocketmq:4.9.1-broker-jdk-8
+                labels: ${{steps.meta.outputs.labels}}
+                pull: true
+                push: ${{ inputs.push }}
+                tags: ${{steps.meta.outputs.tags}}
+    r_rocketmq_4_9_1_namesrv_jdk_8_r:
+        if: inputs.job_name == 'all' || contains(inputs.job_name,'r_rocketmq_4_9_1_namesrv_jdk_8_r')
+        permissions:
+            contents: read
+            id-token: write
+            packages: write
+        runs-on: ubuntu-latest
+        steps:
+            - name: checkout
+              uses: actions/checkout@v3
+            - name: setup go
+              uses: actions/setup-go@v3
+              with:
+                go-version: "1.19"
+            - name: generate out
+              run: go run -mod vendor ./cmd/acicn-build/main.go -generate 'rocketmq:4.9.1-namesrv-jdk-8'
+            - name: setup docker buildx
+              uses: docker/setup-buildx-action@v2
+            - name: docker login - ghcr
+              uses: docker/login-action@v2
+              with:
+                password: ${{secrets.GITHUB_TOKEN}}
+                registry: ghcr.io
+                username: ${{github.actor}}
+            - name: docker login - dockerhub
+              uses: docker/login-action@v2
+              with:
+                password: ${{secrets.DOCKERHUB_TOKEN}}
+                username: guoyk
+            - id: meta
+              name: meta for rocketmq:4.9.1-namesrv-jdk-8
+              uses: docker/metadata-action@v4
+              with:
+                images: |-
+                    ghcr.io/guoyk93/acicn/rocketmq
+                    acicn/rocketmq
+                tags: |-
+                    type=raw,value=4.9.1-namesrv-jdk-8-rc
+                    type=raw,value=4.9.1-namesrv-rc
+            - id: build
+              name: build for rocketmq:4.9.1-namesrv-jdk-8
+              uses: docker/build-push-action@v3
+              with:
+                cache-from: type=gha
+                cache-to: type=gha,mode=max
+                context: out/rocketmq:4.9.1-namesrv-jdk-8
+                labels: ${{steps.meta.outputs.labels}}
+                pull: true
+                push: ${{ inputs.push }}
+                tags: ${{steps.meta.outputs.tags}}
+    r_rocketmq_console_r:
+        if: inputs.job_name == 'all' || contains(inputs.job_name,'r_rocketmq_console_r')
+        permissions:
+            contents: read
+            id-token: write
+            packages: write
+        runs-on: ubuntu-latest
+        steps:
+            - name: checkout
+              uses: actions/checkout@v3
+            - name: setup go
+              uses: actions/setup-go@v3
+              with:
+                go-version: "1.19"
+            - name: generate out
+              run: go run -mod vendor ./cmd/acicn-build/main.go -generate 'rocketmq:console'
+            - name: setup docker buildx
+              uses: docker/setup-buildx-action@v2
+            - name: docker login - ghcr
+              uses: docker/login-action@v2
+              with:
+                password: ${{secrets.GITHUB_TOKEN}}
+                registry: ghcr.io
+                username: ${{github.actor}}
+            - name: docker login - dockerhub
+              uses: docker/login-action@v2
+              with:
+                password: ${{secrets.DOCKERHUB_TOKEN}}
+                username: guoyk
+            - id: meta
+              name: meta for rocketmq:console
+              uses: docker/metadata-action@v4
+              with:
+                images: |-
+                    ghcr.io/guoyk93/acicn/rocketmq
+                    acicn/rocketmq
+                tags: type=raw,value=console-rc
+            - id: build
+              name: build for rocketmq:console
+              uses: docker/build-push-action@v3
+              with:
+                cache-from: type=gha
+                cache-to: type=gha,mode=max
+                context: out/rocketmq:console
+                labels: ${{steps.meta.outputs.labels}}
+                pull: true
+                push: ${{ inputs.push }}
+                tags: ${{steps.meta.outputs.tags}}
+    r_spring_boot_admin_1_0_r:
+        if: inputs.job_name == 'all' || contains(inputs.job_name,'r_spring_boot_admin_1_0_r')
+        permissions:
+            contents: read
+            id-token: write
+            packages: write
+        runs-on: ubuntu-latest
+        steps:
+            - name: checkout
+              uses: actions/checkout@v3
+            - name: setup go
+              uses: actions/setup-go@v3
+              with:
+                go-version: "1.19"
+            - name: generate out
+              run: go run -mod vendor ./cmd/acicn-build/main.go -generate 'spring-boot-admin:1.0'
+            - name: setup docker buildx
+              uses: docker/setup-buildx-action@v2
+            - name: docker login - ghcr
+              uses: docker/login-action@v2
+              with:
+                password: ${{secrets.GITHUB_TOKEN}}
+                registry: ghcr.io
+                username: ${{github.actor}}
+            - name: docker login - dockerhub
+              uses: docker/login-action@v2
+              with:
+                password: ${{secrets.DOCKERHUB_TOKEN}}
+                username: guoyk
+            - id: meta
+              name: meta for spring-boot-admin:1.0
+              uses: docker/metadata-action@v4
+              with:
+                images: |-
+                    ghcr.io/guoyk93/acicn/spring-boot-admin
+                    acicn/spring-boot-admin
+                tags: |-
+                    type=raw,value=1.0-rc
+                    type=raw,value=latest-rc
+            - id: build
+              name: build for spring-boot-admin:1.0
+              uses: docker/build-push-action@v3
+              with:
+                cache-from: type=gha
+                cache-to: type=gha,mode=max
+                context: out/spring-boot-admin:1.0
+                labels: ${{steps.meta.outputs.labels}}
+                pull: true
+                push: ${{ inputs.push }}
+                tags: ${{steps.meta.outputs.tags}}
+    r_tomcat_8_jdk_8_debian_11_r:
+        if: inputs.job_name == 'all' || contains(inputs.job_name,'r_tomcat_8_jdk_8_debian_11_r')
+        permissions:
+            contents: read
+            id-token: write
+            packages: write
+        runs-on: ubuntu-latest
+        steps:
+            - name: checkout
+              uses: actions/checkout@v3
+            - name: setup go
+              uses: actions/setup-go@v3
+              with:
+                go-version: "1.19"
+            - name: generate out
+              run: go run -mod vendor ./cmd/acicn-build/main.go -generate 'tomcat:8-jdk-8-debian-11'
+            - name: setup docker buildx
+              uses: docker/setup-buildx-action@v2
+            - name: docker login - ghcr
+              uses: docker/login-action@v2
+              with:
+                password: ${{secrets.GITHUB_TOKEN}}
+                registry: ghcr.io
+                username: ${{github.actor}}
+            - name: docker login - dockerhub
+              uses: docker/login-action@v2
+              with:
+                password: ${{secrets.DOCKERHUB_TOKEN}}
+                username: guoyk
+            - id: meta
+              name: meta for tomcat:8-jdk-8-debian-11
+              uses: docker/metadata-action@v4
+              with:
+                images: |-
+                    ghcr.io/guoyk93/acicn/tomcat
+                    acicn/tomcat
+                tags: |-
+                    type=raw,value=8-jdk-8-debian-11-rc
+                    type=raw,value=8-jdk-8-rc
+            - id: build
+              name: build for tomcat:8-jdk-8-debian-11
+              uses: docker/build-push-action@v3
+              with:
+                cache-from: type=gha
+                cache-to: type=gha,mode=max
+                context: out/tomcat:8-jdk-8-debian-11
+                labels: ${{steps.meta.outputs.labels}}
+                pull: true
+                push: ${{ inputs.push }}
+                tags: ${{steps.meta.outputs.tags}}
+    r_tomcat_8_jdk_11_debian_11_r:
+        if: inputs.job_name == 'all' || contains(inputs.job_name,'r_tomcat_8_jdk_11_debian_11_r')
+        permissions:
+            contents: read
+            id-token: write
+            packages: write
+        runs-on: ubuntu-latest
+        steps:
+            - name: checkout
+              uses: actions/checkout@v3
+            - name: setup go
+              uses: actions/setup-go@v3
+              with:
+                go-version: "1.19"
+            - name: generate out
+              run: go run -mod vendor ./cmd/acicn-build/main.go -generate 'tomcat:8-jdk-11-debian-11'
+            - name: setup docker buildx
+              uses: docker/setup-buildx-action@v2
+            - name: docker login - ghcr
+              uses: docker/login-action@v2
+              with:
+                password: ${{secrets.GITHUB_TOKEN}}
+                registry: ghcr.io
+                username: ${{github.actor}}
+            - name: docker login - dockerhub
+              uses: docker/login-action@v2
+              with:
+                password: ${{secrets.DOCKERHUB_TOKEN}}
+                username: guoyk
+            - id: meta
+              name: meta for tomcat:8-jdk-11-debian-11
+              uses: docker/metadata-action@v4
+              with:
+                images: |-
+                    ghcr.io/guoyk93/acicn/tomcat
+                    acicn/tomcat
+                tags: |-
+                    type=raw,value=8-jdk-11-debian-11-rc
+                    type=raw,value=8-jdk-11-rc
+                    type=raw,value=8-rc
+                    type=raw,value=8-pagoda-rc
+            - id: build
+              name: build for tomcat:8-jdk-11-debian-11
+              uses: docker/build-push-action@v3
+              with:
+                cache-from: type=gha
+                cache-to: type=gha,mode=max
+                context: out/tomcat:8-jdk-11-debian-11
+                labels: ${{steps.meta.outputs.labels}}
+                pull: true
+                push: ${{ inputs.push }}
+                tags: ${{steps.meta.outputs.tags}}
+    r_tomcat_9_jdk_8_debian_11_r:
+        if: inputs.job_name == 'all' || contains(inputs.job_name,'r_tomcat_9_jdk_8_debian_11_r')
+        permissions:
+            contents: read
+            id-token: write
+            packages: write
+        runs-on: ubuntu-latest
+        steps:
+            - name: checkout
+              uses: actions/checkout@v3
+            - name: setup go
+              uses: actions/setup-go@v3
+              with:
+                go-version: "1.19"
+            - name: generate out
+              run: go run -mod vendor ./cmd/acicn-build/main.go -generate 'tomcat:9-jdk-8-debian-11'
+            - name: setup docker buildx
+              uses: docker/setup-buildx-action@v2
+            - name: docker login - ghcr
+              uses: docker/login-action@v2
+              with:
+                password: ${{secrets.GITHUB_TOKEN}}
+                registry: ghcr.io
+                username: ${{github.actor}}
+            - name: docker login - dockerhub
+              uses: docker/login-action@v2
+              with:
+                password: ${{secrets.DOCKERHUB_TOKEN}}
+                username: guoyk
+            - id: meta
+              name: meta for tomcat:9-jdk-8-debian-11
+              uses: docker/metadata-action@v4
+              with:
+                images: |-
+                    ghcr.io/guoyk93/acicn/tomcat
+                    acicn/tomcat
+                tags: |-
+                    type=raw,value=9-jdk-8-debian-11-rc
+                    type=raw,value=9-jdk-8-rc
+            - id: build
+              name: build for tomcat:9-jdk-8-debian-11
+              uses: docker/build-push-action@v3
+              with:
+                cache-from: type=gha
+                cache-to: type=gha,mode=max
+                context: out/tomcat:9-jdk-8-debian-11
+                labels: ${{steps.meta.outputs.labels}}
+                pull: true
+                push: ${{ inputs.push }}
+                tags: ${{steps.meta.outputs.tags}}
+    r_tomcat_9_jdk_11_debian_11_r:
+        if: inputs.job_name == 'all' || contains(inputs.job_name,'r_tomcat_9_jdk_11_debian_11_r')
+        permissions:
+            contents: read
+            id-token: write
+            packages: write
+        runs-on: ubuntu-latest
+        steps:
+            - name: checkout
+              uses: actions/checkout@v3
+            - name: setup go
+              uses: actions/setup-go@v3
+              with:
+                go-version: "1.19"
+            - name: generate out
+              run: go run -mod vendor ./cmd/acicn-build/main.go -generate 'tomcat:9-jdk-11-debian-11'
+            - name: setup docker buildx
+              uses: docker/setup-buildx-action@v2
+            - name: docker login - ghcr
+              uses: docker/login-action@v2
+              with:
+                password: ${{secrets.GITHUB_TOKEN}}
+                registry: ghcr.io
+                username: ${{github.actor}}
+            - name: docker login - dockerhub
+              uses: docker/login-action@v2
+              with:
+                password: ${{secrets.DOCKERHUB_TOKEN}}
+                username: guoyk
+            - id: meta
+              name: meta for tomcat:9-jdk-11-debian-11
+              uses: docker/metadata-action@v4
+              with:
+                images: |-
+                    ghcr.io/guoyk93/acicn/tomcat
+                    acicn/tomcat
+                tags: |-
+                    type=raw,value=9-jdk-11-debian-11-rc
+                    type=raw,value=9-jdk-11-rc
+                    type=raw,value=9-rc
+            - id: build
+              name: build for tomcat:9-jdk-11-debian-11
+              uses: docker/build-push-action@v3
+              with:
+                cache-from: type=gha
+                cache-to: type=gha,mode=max
+                context: out/tomcat:9-jdk-11-debian-11
+                labels: ${{steps.meta.outputs.labels}}
+                pull: true
+                push: ${{ inputs.push }}
+                tags: ${{steps.meta.outputs.tags}}
+    r_zookeeper_3_6_2_jdk_11_r:
+        if: inputs.job_name == 'all' || contains(inputs.job_name,'r_zookeeper_3_6_2_jdk_11_r')
+        permissions:
+            contents: read
+            id-token: write
+            packages: write
+        runs-on: ubuntu-latest
+        steps:
+            - name: checkout
+              uses: actions/checkout@v3
+            - name: setup go
+              uses: actions/setup-go@v3
+              with:
+                go-version: "1.19"
+            - name: generate out
+              run: go run -mod vendor ./cmd/acicn-build/main.go -generate 'zookeeper:3.6.2-jdk-11'
+            - name: setup docker buildx
+              uses: docker/setup-buildx-action@v2
+            - name: docker login - ghcr
+              uses: docker/login-action@v2
+              with:
+                password: ${{secrets.GITHUB_TOKEN}}
+                registry: ghcr.io
+                username: ${{github.actor}}
+            - name: docker login - dockerhub
+              uses: docker/login-action@v2
+              with:
+                password: ${{secrets.DOCKERHUB_TOKEN}}
+                username: guoyk
+            - id: meta
+              name: meta for zookeeper:3.6.2-jdk-11
+              uses: docker/metadata-action@v4
+              with:
+                images: |-
+                    ghcr.io/guoyk93/acicn/zookeeper
+                    acicn/zookeeper
+                tags: |-
+                    type=raw,value=3.6.2-jdk-11-rc
+                    type=raw,value=latest-rc
+                    type=raw,value=3.6-rc
+                    type=raw,value=3.6.2-rc
+            - id: build
+              name: build for zookeeper:3.6.2-jdk-11
+              uses: docker/build-push-action@v3
+              with:
+                cache-from: type=gha
+                cache-to: type=gha,mode=max
+                context: out/zookeeper:3.6.2-jdk-11
+                labels: ${{steps.meta.outputs.labels}}
+                pull: true
+                push: ${{ inputs.push }}
+                tags: ${{steps.meta.outputs.tags}}
+name: release-nodep
+"on":
+    workflow_dispatch:
+        inputs:
+            force_pull:
+                description: force pull upstream images
+                required: true
+                type: boolean
+            job_name:
+                description: names of jobs to execute, 'all' for all
+                required: true
+                type: string
+            push:
+                description: push to registry
+                required: true
+                type: boolean

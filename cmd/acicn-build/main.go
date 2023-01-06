@@ -27,15 +27,24 @@ func mirrorJobName(name string) string {
 	return "m_" + regexpNotSafe.ReplaceAllString(path.Base(strings.ToLower(name)), "_") + "_m"
 }
 
-func updateWorkflowMirror(repos []*acicn.Repo) (err error) {
+type WorkflowMirrorOptions struct {
+	RC bool
+}
+
+func updateWorkflowMirror(repos []*acicn.Repo, opts WorkflowMirrorOptions) (err error) {
 	defer gg.Guard(&err)
+
+	var rcSuffix string
+	if opts.RC {
+		rcSuffix = "-rc"
+	}
 
 	jobs := gg.M{}
 
 	for _, item := range repos {
 
 		tags := gg.Map(item.Tags, func(tag string) string {
-			return fmt.Sprintf("type=raw,value=%s", tag)
+			return fmt.Sprintf("type=raw,value=%s", tag+rcSuffix)
 		})
 
 		job := gg.M{
@@ -153,16 +162,25 @@ func updateWorkflowMirror(repos []*acicn.Repo) (err error) {
 
 	buf := gg.Must(yaml.Marshal(doc))
 	gg.Must0(os.MkdirAll(filepath.Join(".github", "workflows"), 0755))
-	gg.Must0(os.WriteFile(filepath.Join(".github", "workflows", "mirror.yaml"), buf, 0640))
+	gg.Must0(os.WriteFile(filepath.Join(".github", "workflows", "mirror"+rcSuffix+".yaml"), buf, 0640))
 	return
 }
 
-func updateWorkflowRelease(repos []*acicn.Repo, noDep bool) (err error) {
+type WorkflowReleaseOptions struct {
+	NoDep bool
+	RC    bool
+}
+
+func updateWorkflowRelease(repos []*acicn.Repo, opts WorkflowReleaseOptions) (err error) {
 	defer gg.Guard(&err)
 
 	var soloSuffix string
-	if noDep {
+	if opts.NoDep {
 		soloSuffix = "-nodep"
+	}
+	var rcSuffix string
+	if opts.RC {
+		rcSuffix = "-rc"
 	}
 
 	jobs := gg.M{}
@@ -170,7 +188,7 @@ func updateWorkflowRelease(repos []*acicn.Repo, noDep bool) (err error) {
 	for _, item := range repos {
 
 		tags := gg.Map(item.Tags, func(tag string) string {
-			return fmt.Sprintf("type=raw,value=%s", tag)
+			return fmt.Sprintf("type=raw,value=%s", tag+rcSuffix)
 		})
 
 		var pull any
@@ -272,7 +290,7 @@ func updateWorkflowRelease(repos []*acicn.Repo, noDep bool) (err error) {
 
 		sort.Strings(needs)
 
-		if len(needs) > 0 && !noDep {
+		if len(needs) > 0 && !opts.NoDep {
 			job["needs"] = needs
 		}
 
@@ -307,7 +325,7 @@ func updateWorkflowRelease(repos []*acicn.Repo, noDep bool) (err error) {
 
 	buf := gg.Must(yaml.Marshal(doc))
 	gg.Must0(os.MkdirAll(filepath.Join(".github", "workflows"), 0755))
-	gg.Must0(os.WriteFile(filepath.Join(".github", "workflows", "release"+soloSuffix+".yaml"), buf, 0640))
+	gg.Must0(os.WriteFile(filepath.Join(".github", "workflows", "release"+soloSuffix+rcSuffix+".yaml"), buf, 0640))
 	return
 }
 
@@ -356,9 +374,24 @@ func main() {
 
 	// generate github workflow
 	if optUpdateWorkflow {
-		gg.Must0(updateWorkflowRelease(repos, false))
-		gg.Must0(updateWorkflowRelease(repos, true))
-		gg.Must0(updateWorkflowMirror(repos))
+		gg.Must0(updateWorkflowRelease(repos, WorkflowReleaseOptions{
+			NoDep: false,
+			RC:    false,
+		}))
+		gg.Must0(updateWorkflowRelease(repos, WorkflowReleaseOptions{
+			NoDep: false,
+			RC:    true,
+		}))
+		gg.Must0(updateWorkflowRelease(repos, WorkflowReleaseOptions{
+			NoDep: true,
+			RC:    false,
+		}))
+		gg.Must0(updateWorkflowRelease(repos, WorkflowReleaseOptions{
+			NoDep: true,
+			RC:    true,
+		}))
+		gg.Must0(updateWorkflowMirror(repos, WorkflowMirrorOptions{RC: true}))
+		gg.Must0(updateWorkflowMirror(repos, WorkflowMirrorOptions{RC: false}))
 	}
 
 	// collect image names
