@@ -64,6 +64,8 @@ RUN mkdir -p /opt/src/php && \
 ENV PATH "/opt/sbin:$PATH"
 ADD scripts /opt/bin
 
+RUN mkdir -p /var/log/php-fpm
+
 ADD {{.php_version}}/etc /etc
 
 #################################
