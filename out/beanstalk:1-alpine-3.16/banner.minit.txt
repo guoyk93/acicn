@@ -1,0 +1,1 @@
+本镜像基于 ACICN 镜像 beanstalk:1-alpine-3.16 制作，详细信息参阅 https://github.com/guoyk93/acicn

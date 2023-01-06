@@ -1,0 +1,1 @@
+本镜像基于 ACICN 镜像 filebeat:6.3.2-debian-11 制作，详细信息参阅 https://github.com/guoyk93/acicn
