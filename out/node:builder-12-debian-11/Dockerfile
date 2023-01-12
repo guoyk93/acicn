@@ -1,4 +1,4 @@
-FROM ghcr.io/guoyk93/acicn/debian:11-no-minit-rc
+FROM dev-build/acicn/debian:11-no-minit
 # Must Debian
 RUN apt-get update && \
 apt-get install -y build-essential git python3 python3-dev python3-venv python3-pip && \
@@ -17,4 +17,3 @@ npm config set registry https://registry.npmmirror.com && \
 cnpm config set unsafe-perm true && \
 yarn config set cache-folder $HOME/.npm/yarn && \
 yarn config set registry https://registry.npmmirror.com
-ADD banner.minit.txt /etc/banner.minit.txt

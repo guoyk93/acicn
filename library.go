@@ -14,16 +14,13 @@ import (
 	"text/template"
 )
 
-const (
-	SuffixRC = "-rc"
+var (
+	PrefixDev = path.Join("dev-build", "acicn")
 )
 
 type ManifestGlobal struct {
-	Registries []string `yaml:"registries"`
-	Doc        string   `yaml:"doc"`
-	Upstreams  []string `yaml:"upstreams"`
-	Dirs       []string `yaml:"dirs"`
-	Vars       gg.M     `yaml:"vars"`
+	Dirs []string `yaml:"dirs"`
+	Vars gg.M     `yaml:"vars"`
 }
 
 type ManifestRepo struct {
@@ -33,30 +30,20 @@ type ManifestRepo struct {
 }
 
 type ManifestTag struct {
-	Name       string       `yaml:"name"`
-	Also       []string     `yaml:"also"`
-	Dockerfile string       `yaml:"dockerfile"`
-	Vars       []string     `yaml:"vars"`
-	Test       ManifestTest `yaml:"test"`
-}
-
-type ManifestTest struct {
-	Delay  int    `yaml:"delay"`
-	Run    string `yaml:"run"`
-	Exec   string `yaml:"exec"`
-	Output string `yaml:"output"`
+	Name       string   `yaml:"name"`
+	Also       []string `yaml:"also"`
+	Dockerfile string   `yaml:"dockerfile"`
+	Vars       []string `yaml:"vars"`
 }
 
 type Repo struct {
 	Dir        string
-	Name       string
+	LongName   string
 	Repo       string
 	Tags       []string
-	Doc        string
 	Dockerfile string
 	Vars       gg.M
 	Known      map[string]string
-	Test       ManifestTest
 }
 
 func (b Repo) ShortName() string {
@@ -78,7 +65,7 @@ func (b Repo) Lookup(upstream string) (string, error) {
 
 func (b Repo) LookupUpstream(upstream string) (string, error) {
 	if v, ok := b.Known[upstream]; ok {
-		return v + SuffixRC, nil
+		return v, nil
 	}
 	return "", errors.New("no known: " + upstream)
 }
@@ -96,15 +83,6 @@ func (b Repo) Generate() (err error) {
 		PreserveOwner:     true,
 	}))
 
-	// create banner.minit.txt
-	gg.Must0(
-		os.WriteFile(
-			filepath.Join(dir, "banner.minit.txt"),
-			[]byte(fmt.Sprintf("本镜像基于 ACICN 镜像 %s 制作，详细信息参阅 %s", b.ShortName(), b.Doc)),
-			0644,
-		),
-	)
-
 	// render dockerfile to dockerfile.out
 	{
 		var (
@@ -120,7 +98,6 @@ func (b Repo) Generate() (err error) {
 
 		// generate dockerfile
 		gg.Must0(tmpl.Execute(out, b.Vars))
-		out.WriteString("\nADD banner.minit.txt /etc/banner.minit.txt")
 		// remove existed dockerfile
 		gg.Must0(os.Remove(filepath.Join(dir, b.Dockerfile)))
 		gg.Must0(os.Remove(filepath.Join(dir, "manifest.yml")))
@@ -189,17 +166,15 @@ func Load(overrides gg.M) (repos []*Repo, err error) {
 				Dir:        dir,
 				Repo:       mRepo.Name,
 				Tags:       append([]string{mTag.Name}, mTag.Also...),
-				Doc:        mGlobal.Doc,
 				Dockerfile: mTag.Dockerfile,
 				Vars:       vars,
 				Known:      known,
-				Test:       mTag.Test,
 			}
-			repo.Name = path.Join(mGlobal.Registries[0], repo.ShortName())
+			repo.LongName = path.Join(PrefixDev, repo.ShortName())
 
 			// record known
 			for _, item := range repo.ShortNames() {
-				known[item] = repo.Name
+				known[item] = repo.LongName
 			}
 
 			// append repos

@@ -1,6 +1,3 @@
-registries:
-  - ghcr.io/guoyk93/acicn
-doc: https://github.com/guoyk93/acicn
 dirs:
   - alpine
   - debian

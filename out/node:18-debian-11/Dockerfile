@@ -1,4 +1,4 @@
-FROM ghcr.io/guoyk93/acicn/debian:11-rc
+FROM dev-build/acicn/debian:11
 # Must Debian
 RUN curl -sSL -o node.tar.gz "https://nodejs.org/download/release/v18.12.1/node-v18.12.1-linux-x64.tar.gz" && \
 mkdir -p /opt/node && \
@@ -8,4 +8,3 @@ ENV PATH "/opt/node/bin:${PATH}"
 ENV NODE_VERSION 18
 RUN npm config set unsafe-perm true && \
 npm config set registry https://registry.npmmirror.com
-ADD banner.minit.txt /etc/banner.minit.txt

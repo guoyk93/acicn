@@ -1,4 +1,4 @@
-FROM ghcr.io/guoyk93/acicn/debian:11-rc
+FROM dev-build/acicn/debian:11
 # Must Debian
 # JDK
 RUN curl -sSLo jdk.deb 'https://packages.adoptium.net/artifactory/deb/pool/main/t/temurin-8/temurin-8-jdk_8.0.352.0.0+8-1_amd64.deb' && \
@@ -48,4 +48,3 @@ RUN curl -sSL -o cubic.tar.gz 'https://github.com/guoyk93/acicn-assets/releases/
 mkdir -p /opt/lib/cubic-agent && \
 tar -xf cubic.tar.gz -C /opt/lib/cubic-agent --strip-components 1 && \
 rm -f cubic.tar.gz
-ADD banner.minit.txt /etc/banner.minit.txt

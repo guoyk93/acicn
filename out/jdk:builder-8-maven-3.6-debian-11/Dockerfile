@@ -1,4 +1,4 @@
-FROM ghcr.io/guoyk93/acicn/debian:11-no-minit-rc
+FROM dev-build/acicn/debian:11-no-minit
 # Must Debian
 # JDK
 RUN curl -sSLo jdk.deb 'https://packages.adoptium.net/artifactory/deb/pool/main/t/temurin-8/temurin-8-jdk_8.0.352.0.0+8-1_amd64.deb' && \
@@ -49,4 +49,3 @@ cd optional-plugins && \
 cp -rf apm-mybatis-3.x-plugin-* apm-trace-ignore-plugin-* apm-guava-cache-plugin-* ../plugins/
 RUN curl -sSL -o '/opt/lib/skywalking-agent/optional-plugins/apm-seata-skywalking-plugin.jar' 'https://github.com/guoyk93/acicn-assets/releases/download/v20221122/apm-seata-skywalking-plugin-mod.jar'
 ADD opt/skywalking-agent/config /opt/lib/skywalking-agent/config
-ADD banner.minit.txt /etc/banner.minit.txt

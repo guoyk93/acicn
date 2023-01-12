@@ -13,4 +13,3 @@ RUN mkdir -p /opt/bin
 ENV PATH "/opt/bin:${PATH}"
 COPY --from=minit /minit /opt/bin/minit
 ENTRYPOINT ["/opt/bin/minit"]
-ADD banner.minit.txt /etc/banner.minit.txt

@@ -1,4 +1,4 @@
-FROM ghcr.io/guoyk93/acicn/jdk:11-debian-11-rc
+FROM dev-build/acicn/jdk:11-debian-11
 RUN curl -sSL -o activemq.tar.gz "https://archive.apache.org/dist/activemq/5.15.14/apache-activemq-5.15.14-bin.tar.gz" && \
 mkdir -p /opt/activemq && \
 tar -C /opt/activemq --strip-components 1 -xf activemq.tar.gz && \
@@ -12,4 +12,3 @@ WORKDIR /opt/activemq
 ADD minit.d /etc/minit.d
 ENV PATH "/opt/activemq/bin:$PATH"
 ENV ACTIVEMQ_VERSION 5.15
-ADD banner.minit.txt /etc/banner.minit.txt

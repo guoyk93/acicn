@@ -1,4 +1,4 @@
-FROM ghcr.io/guoyk93/acicn/jdk:11-debian-11-rc
+FROM dev-build/acicn/jdk:11-debian-11
 RUN curl -sSL -o zookeeper.tar.gz "https://archive.apache.org/dist/zookeeper/zookeeper-3.6.2/apache-zookeeper-3.6.2-bin.tar.gz" && \
 mkdir -p /opt/zookeeper && \
 tar -C /opt/zookeeper --strip-components 1 -xf zookeeper.tar.gz && \
@@ -18,4 +18,3 @@ ENV ZKCFG_autopurge__snapRetainCount 5
 ENV ZKCFG_autopurge__purgeInterval 1
 ENV ZKAUTOCFG_MYID 1
 # ENV ZKAUTOCFG_SERVERS zoo1:2888:3888,zoo2:2888:3888,zoo3:2888:3888
-ADD banner.minit.txt /etc/banner.minit.txt

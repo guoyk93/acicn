@@ -9,4 +9,3 @@ echo $TZ > /etc/timezone && \
 echo $TZ > /etc/TZ
 RUN mkdir -p /opt/bin
 ENV PATH "/opt/bin:${PATH}"
-ADD banner.minit.txt /etc/banner.minit.txt

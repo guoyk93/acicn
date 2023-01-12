@@ -1,4 +1,4 @@
-FROM ghcr.io/guoyk93/acicn/debian:11-rc
+FROM dev-build/acicn/debian:11
 RUN apt-get update && \
 apt-get install -y  build-essential linux-headers-generic \
 zlib1g-dev libncurses5-dev libgdbm-dev libnss3-dev libssl-dev libreadline-dev \
@@ -31,4 +31,3 @@ make install && \
 rm -rf /opt/src
 ADD scripts /opt/bin
 ADD pip.conf /root/.pip/pip.conf
-ADD banner.minit.txt /etc/banner.minit.txt

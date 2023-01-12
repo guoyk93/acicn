@@ -1,1 +1,0 @@
-本镜像基于 ACICN 镜像 apollo:1.3.0-jdk-11 制作，详细信息参阅 https://github.com/guoyk93/acicn

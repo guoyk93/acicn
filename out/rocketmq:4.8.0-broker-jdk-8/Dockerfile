@@ -1,4 +1,4 @@
-FROM ghcr.io/guoyk93/acicn/jdk:8-debian-11-rc
+FROM dev-build/acicn/jdk:8-debian-11
 RUN curl -sSLo rocketmq.zip "http://archive.apache.org/dist/rocketmq/4.8.0/rocketmq-all-4.8.0-bin-release.zip" && \
 unzip rocketmq.zip && \
 rm -f rocketmq.zip && \
@@ -15,4 +15,3 @@ ENV RMQBROKERCFG_deleteWhen         04
 ENV RMQBROKERCFG_fileReservedTime   48
 ENV RMQBROKERCFG_brokerRole         ASYNC_MASTER
 ENV RMQBROKERCFG_flushDiskType      ASYNC_FLUSH
-ADD banner.minit.txt /etc/banner.minit.txt

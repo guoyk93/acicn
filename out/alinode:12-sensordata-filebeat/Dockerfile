@@ -1,4 +1,4 @@
-FROM ghcr.io/guoyk93/acicn/debian:11-rc
+FROM dev-build/acicn/debian:11
 ENV ALINODE_VERSION 5.20.6
 ENV ENABLE_NODE_LOG YES
 ENV NODE_LOG_DIR    /var/log/agenthub
@@ -22,4 +22,3 @@ tar -xf filebeat.tar.gz -C /opt/sensordata-filebeat --strip-components=1 && \
 rm -rf filebeat.tar.gz
 ADD filebeat.yml  /opt/sensordata-filebeat/filebeat.yml
 ADD minit.d       /etc/minit.d
-ADD banner.minit.txt /etc/banner.minit.txt

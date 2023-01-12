@@ -10,4 +10,3 @@ rm -rf /var/lib/apt/lists/* && \
 ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 RUN mkdir -p /opt/bin
 ENV PATH "/opt/bin:${PATH}"
-ADD banner.minit.txt /etc/banner.minit.txt

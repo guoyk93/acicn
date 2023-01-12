@@ -1,4 +1,4 @@
-FROM ghcr.io/guoyk93/acicn/alpine:3.16-rc
+FROM dev-build/acicn/alpine:3.16
 RUN : && \
 apk add --virtual .build-dependencies --no-cache build-base linux-headers && \
 curl -sSLo redis.tar.gz "https://github.com/redis/redis/archive/7.0.5.tar.gz" && \
@@ -84,4 +84,3 @@ ENV REDISCFG_active_defrag_threshold_lower 10
 ENV REDISCFG_active_defrag_threshold_upper 100
 ENV REDISCFG_active_defrag_cycle_min 25
 ENV REDISCFG_active_defrag_cycle_max 75
-ADD banner.minit.txt /etc/banner.minit.txt

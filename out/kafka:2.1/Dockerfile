@@ -1,4 +1,4 @@
-FROM ghcr.io/guoyk93/acicn/jdk:11-debian-11-rc
+FROM dev-build/acicn/jdk:11-debian-11
 RUN curl -sSL -o kafka.tar.gz "https://archive.apache.org/dist/kafka/2.1.1/kafka_2.12-2.1.1.tgz" && \
 mkdir -p /opt/kafka && \
 tar -C /opt/kafka --strip-components 1 -xf kafka.tar.gz && \
@@ -30,4 +30,3 @@ ENV KAFKACFG_log__retention__check__interval__ms 300000
 ENV KAFKACFG_zookeeper__connect                 zookeeper:2181
 ENV KAFKACFG_zookeeper__connection__timeout__ms 18000
 ENV KAFKACFG_group__initial__rebalance__delay__ms 0
-ADD banner.minit.txt /etc/banner.minit.txt

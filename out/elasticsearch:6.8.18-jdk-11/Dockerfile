@@ -1,4 +1,4 @@
-FROM ghcr.io/guoyk93/acicn/jdk:11-debian-11-rc
+FROM dev-build/acicn/jdk:11-debian-11
 RUN curl -sSLo elasticsearch.tar.gz "https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-6.8.18.tar.gz" && \
 mkdir -p /opt/elasticsearch && \
 tar -C /opt/elasticsearch --strip-components 1 -xf elasticsearch.tar.gz && \
@@ -18,4 +18,3 @@ ENV ESCFG_path__logs /data/logs
 ENV ESCFG_network__host 0.0.0.0
 ENV ESCFG_http__port 9200
 ENV ESCFG_discovery__type single-node
-ADD banner.minit.txt /etc/banner.minit.txt

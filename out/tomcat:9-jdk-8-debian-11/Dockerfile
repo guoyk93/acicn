@@ -1,4 +1,4 @@
-FROM ghcr.io/guoyk93/acicn/jdk:8-debian-11-rc
+FROM dev-build/acicn/jdk:8-debian-11
 # Must Debian
 RUN apt-get update && \
 apt-get install -y libtcnative-1 && \
@@ -19,4 +19,3 @@ ENV TOMCATCFG_SERVER_CONNECTOR_port 8080
 ENV TOMCATCFG_SERVER_CONNECTOR_protocol "HTTP/1.1"
 ENV TOMCATCFG_SERVER_CONNECTOR_connectionTimeout 20000
 ENV TOMCATCFG_SERVER_CONNECTOR_redirectPort 8443
-ADD banner.minit.txt /etc/banner.minit.txt
