@@ -1,4 +1,4 @@
-FROM {{Known .upstream}}
+FROM {{Lookup .upstream}}
 
 {{if .debian_version}}
 {{else}}

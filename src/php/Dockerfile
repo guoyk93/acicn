@@ -1,8 +1,8 @@
 FROM {{.utils_image_merge_env_to_ini}} AS utils-merge-env-to-ini
 
-FROM {{Known .upstream_nginx}} AS utils-nginx
+FROM {{Lookup .upstream_nginx}} AS utils-nginx
 
-FROM {{Known .upstream}}
+FROM {{Lookup .upstream}}
 
 # Only Debian
 {{if .debian_version}}

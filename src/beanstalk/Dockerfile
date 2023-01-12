@@ -1,4 +1,4 @@
-FROM {{Known .upstream}}
+FROM {{Lookup .upstream}}
 
 {{if .alpine_version}}
 RUN apk add --no-cache beanstalkd

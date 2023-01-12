@@ -1,4 +1,4 @@
-FROM {{Known .upstream}}
+FROM {{Lookup .upstream}}
 
 ENV ALINODE_VERSION {{.alinode_version}}
 

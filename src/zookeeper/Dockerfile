@@ -1,4 +1,4 @@
-FROM {{Known .upstream}}
+FROM {{Lookup .upstream}}
 
 RUN curl -sSL -o zookeeper.tar.gz "{{.zookeeper_download_url}}" && \
     mkdir -p /opt/zookeeper && \

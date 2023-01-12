@@ -43,7 +43,7 @@ func main() {
 
 	// generate
 	for _, repo := range repos {
-		gg.Log("generate: " + repo.ShortName())
+		gg.Log("GENERATE: " + repo.ShortName)
 		gg.Must0(repo.Generate())
 	}
 

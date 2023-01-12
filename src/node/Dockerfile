@@ -1,4 +1,4 @@
-FROM {{Known .upstream}}
+FROM {{Lookup .upstream}}
 
 # Must Debian
 {{if .debian_version}}

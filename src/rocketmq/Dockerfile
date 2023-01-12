@@ -1,4 +1,4 @@
-FROM {{Known .upstream}}
+FROM {{Lookup .upstream}}
 
 {{if (ne .component "console")}}
 RUN curl -sSLo rocketmq.zip "{{.rocketmq_download_url}}" && \

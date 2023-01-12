@@ -1,4 +1,4 @@
-FROM {{Known .upstream}}
+FROM {{Lookup .upstream}}
 
 RUN curl -sSL -o filebeat.tar.gz "{{.filebeat_download_url}}" && \
     mkdir -p /usr/share/filebeat && \

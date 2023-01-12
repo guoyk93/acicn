@@ -1,4 +1,4 @@
-FROM {{Known .upstream}}
+FROM {{Lookup .upstream}}
 
 RUN : && \
     {{if .alpine_version}}apk add --virtual .build-dependencies --no-cache build-base linux-headers && \{{end}}

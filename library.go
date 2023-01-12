@@ -37,46 +37,53 @@ type ManifestTag struct {
 }
 
 type Repo struct {
-	Dir        string
-	LongName   string
-	Repo       string
-	Tags       []string
-	Dockerfile string
-	Vars       gg.M
-	Known      map[string]string
+	Dir               string   // src/jdk
+	Repo              string   // jdk
+	LongName          string   // dev-build/acicn/jdk:11-debian-11
+	ShortName         string   // jdk:11-debian-11
+	ShortNames        []string // jdk:11-debian-11,jdk:11
+	Tags              []string // 11-debian-11,11
+	Dockerfile        string   // Dockerfile
+	DockerfileContent []byte   // FROM xxxx \n ...
+
+	Vars gg.M
+
+	Dependencies []string // debian:11
+
+	known map[string]string
 }
 
-func (b Repo) ShortName() string {
-	return b.Repo + ":" + b.Tags[0]
+func (r *Repo) renderDockerfile() (err error) {
+	var (
+		tmpl = gg.Must(
+			template.New("__main__").Option("missingkey=zero").Funcs(template.FuncMap{
+				"Lookup": func(upstream string) (string, error) {
+					r.Dependencies = append(r.Dependencies, upstream)
+					if v, ok := r.known[upstream]; ok {
+						return v, nil
+					}
+					return "", errors.New("no known: " + upstream)
+				},
+			}).Parse(string(
+				gg.Must(os.ReadFile(filepath.Join(r.Dir, r.Dockerfile)))),
+			),
+		)
+		out = &bytes.Buffer{}
+	)
+
+	gg.Must0(tmpl.Execute(out, r.Vars))
+
+	r.DockerfileContent = cleanLines(out.Bytes())
+	return
 }
 
-func (b Repo) ShortNames() []string {
-	return gg.Map(b.Tags, func(item string) string {
-		return b.Repo + ":" + item
-	})
-}
-
-func (b Repo) Lookup(upstream string) (string, error) {
-	if v, ok := b.Known[upstream]; ok {
-		return v, nil
-	}
-	return "", errors.New("no known: " + upstream)
-}
-
-func (b Repo) LookupUpstream(upstream string) (string, error) {
-	if v, ok := b.Known[upstream]; ok {
-		return v, nil
-	}
-	return "", errors.New("no known: " + upstream)
-}
-
-func (b Repo) Generate() (err error) {
+func (r *Repo) Generate() (err error) {
 	defer gg.Guard(&err)
 
-	dir := filepath.Join("out", b.ShortName())
+	dir := filepath.Join("out", r.ShortName)
 	gg.Must0(os.RemoveAll(dir))
 
-	gg.Must0(cp.Copy(b.Dir, dir, cp.Options{
+	gg.Must0(cp.Copy(r.Dir, dir, cp.Options{
 		Sync:              true,
 		PermissionControl: cp.PerservePermission,
 		PreserveTimes:     true,
@@ -84,27 +91,11 @@ func (b Repo) Generate() (err error) {
 	}))
 
 	// render dockerfile to dockerfile.out
-	{
-		var (
-			tmpl = gg.Must(
-				template.New("__main__").Option("missingkey=zero").Funcs(template.FuncMap{
-					"Known": b.LookupUpstream,
-				}).Parse(string(
-					gg.Must(os.ReadFile(filepath.Join(dir, b.Dockerfile)))),
-				),
-			)
-			out = &bytes.Buffer{}
-		)
-
-		// generate dockerfile
-		gg.Must0(tmpl.Execute(out, b.Vars))
-		// remove existed dockerfile
-		gg.Must0(os.Remove(filepath.Join(dir, b.Dockerfile)))
-		gg.Must0(os.Remove(filepath.Join(dir, "manifest.yml")))
-		gg.Must0(os.Remove(filepath.Join(dir, "README.md")))
-		// write new dockerfile
-		gg.Must0(os.WriteFile(filepath.Join(dir, "Dockerfile"), cleanLines(out.Bytes()), 0640))
-	}
+	gg.Must0(os.Remove(filepath.Join(dir, r.Dockerfile)))
+	gg.Must0(os.Remove(filepath.Join(dir, "manifest.yml")))
+	gg.Must0(os.Remove(filepath.Join(dir, "README.md")))
+	// write new dockerfile
+	gg.Must0(os.WriteFile(filepath.Join(dir, "Dockerfile"), r.DockerfileContent, 0640))
 	return
 }
 
@@ -168,12 +159,17 @@ func Load(overrides gg.M) (repos []*Repo, err error) {
 				Tags:       append([]string{mTag.Name}, mTag.Also...),
 				Dockerfile: mTag.Dockerfile,
 				Vars:       vars,
-				Known:      known,
+				known:      known,
 			}
-			repo.LongName = path.Join(PrefixDev, repo.ShortName())
+			repo.ShortName = repo.Repo + ":" + repo.Tags[0]
+			for _, item := range repo.Tags {
+				repo.ShortNames = append(repo.ShortNames, repo.Repo+":"+item)
+			}
+			repo.LongName = path.Join(PrefixDev, repo.ShortName)
+			gg.Must0(repo.renderDockerfile())
 
 			// record known
-			for _, item := range repo.ShortNames() {
+			for _, item := range repo.ShortNames {
 				known[item] = repo.LongName
 			}
 

@@ -5,6 +5,7 @@ dirs:
   - mongo
   - postgres
   - kibana
+  - alinode
   - jdk
   - nginx
   - node
@@ -14,7 +15,6 @@ dirs:
   - prometheus
   - redis
   - tomcat
-  - php
   - apollo
   - activemq
   - rocketmq
@@ -22,7 +22,7 @@ dirs:
   - elasticsearch
   - zookeeper
   - spring-boot-admin
-  - alinode
+  - php
 vars:
   utils_image_minit: ghcr.io/guoyk93/minit:1.9.1
   utils_image_merge_env_to_ini: ghcr.io/guoyk93/merge-env-to-ini:1.0.0

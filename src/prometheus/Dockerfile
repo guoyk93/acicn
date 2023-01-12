@@ -1,4 +1,4 @@
-FROM {{Known .upstream}}
+FROM {{Lookup .upstream}}
 
 RUN curl -sSL -o prometheus.tar.gz {{.prometheus_download_url}} && \
     mkdir -p /opt/prometheus && \

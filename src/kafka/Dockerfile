@@ -1,4 +1,4 @@
-FROM {{Known .upstream}}
+FROM {{Lookup .upstream}}
 
 RUN curl -sSL -o kafka.tar.gz "{{.kafka_download_url}}" && \
     mkdir -p /opt/kafka && \

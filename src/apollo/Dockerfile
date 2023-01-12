@@ -1,4 +1,4 @@
-FROM {{Known .upstream}}
+FROM {{Lookup .upstream}}
 
 ENV APOLLO_VERSION {{.apollo_version}}
 

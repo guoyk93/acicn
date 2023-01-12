@@ -1,4 +1,4 @@
-FROM {{Known .upstream}}
+FROM {{Lookup .upstream}}
 
 RUN curl -sSLo elasticsearch.tar.gz "{{.elasticsearch_download_url}}" && \
     mkdir -p /opt/elasticsearch && \

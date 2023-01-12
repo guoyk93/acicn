@@ -1,4 +1,4 @@
-FROM {{Known .upstream}}
+FROM {{Lookup .upstream}}
 
 RUN curl -sSL -o activemq.tar.gz "{{.activemq_download_url}}" && \
     mkdir -p /opt/activemq && \
